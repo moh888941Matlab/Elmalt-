@@ -4,365 +4,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الملط رياضيات | Al-Malt Math Academy</title>
+    <title>أكاديمية الملط - أقوى أكاديمية رياضيات والذكاء الاصطناعي</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Cairo & Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-      <script>
+    <!-- Google Fonts - Cairo & Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Chart.js for math plotting simulation -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        navy: {
-                            800: '#0B192C',
-                            900: '#030811',
-                            700: '#1E3E62'
-                        },
                         gold: {
-                            400: '#F1C40F',
-                            500: '#D4AF37',
-                            600: '#AA820A'
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            glow: '#ffd700'
+                        },
+                        navy: {
+                            800: '#0f172a',
+                            900: '#0b1329',
+                            950: '#050a17'
                         }
                     },
                     fontFamily: {
                         cairo: ['Cairo', 'sans-serif'],
-                        poppins: ['Poppins', 'sans-serif']
+                        tajawal: ['Tajawal', 'sans-serif']
                     }
                 }
             }
         }
     </script>
-    
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            scroll-behavior: smooth;
+            background-color: #050a17;
+            color: #f8fafc;
+            overflow-x: hidden;
         }
+        
+        /* Glassmorphism Effect */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
         .gold-gradient-text {
-            background: linear-gradient(135deg, #F39C12, #F1C40F, #D4AF37);
+            background: linear-gradient(135deg, #ffffff 0%, #ffe57f 30%, #eab308 70%, #ca8a04 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .gold-bg-gradient {
-            background: linear-gradient(135deg, #D4AF37, #F1C40F);
+
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
         }
-        .hero-pattern {
-            background-color: #0B192C;
-            background-image: radial-gradient(#1E3E62 1px, transparent 1px), radial-gradient(#1E3E62 1px, #0B192C 1px);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
+
+        .gold-button {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            transition: all 0.3s ease;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+
+        .gold-button:hover {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050a17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid #ca8a04;
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col selection:bg-gold-500 selection:text-navy-900">
+<body class="antialiased selection:bg-yellow-500 selection:text-black">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-50 bg-navy-900/90 backdrop-blur-md border-b border-gold-500/20 shadow-xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo -->
-            <div class="flex items-center space-x-3 space-x-reverse">
-                <div class="w-12 h-12 rounded-xl gold-bg-gradient flex items-center justify-center text-navy-900 font-black text-2xl shadow-lg shadow-gold-500/20 transform hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-square-root-variable"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                        <span id="nav-logo-title">أكاديمية الملط رياضيات</span>
-                    </h1>
-                    <p class="text-xs text-gold-400 font-semibold" id="nav-logo-sub">الريادة العالمية في الرياضيات</p>
-                </div>
+    <!-- Top Contact Bar -->
+    <div class="bg-navy-950/90 border-b border-yellow-500/20 py-2 px-4 text-sm font-semibold">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-4 space-x-reverse text-yellow-400">
+                <span class="flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-yellow-500"></i>
+                    <span>أكاديمية الملط أقوى أكاديمية رياضيات في مصر والعالم العربي</span>
+                </span>
             </div>
+            <div class="flex items-center gap-4 dir-ltr">
+                <a href="https://wa.me/201010955349" target="_blank" class="flex items-center gap-1.5 text-green-400 hover:text-green-300 transition-colors bg-green-950/40 px-3 py-1 rounded-full border border-green-500/30">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>01010955349</span>
+                </a>
+                <a href="https://wa.me/201107832272" target="_blank" class="flex items-center gap-1.5 text-green-400 hover:text-green-300 transition-colors bg-green-950/40 px-3 py-1 rounded-full border border-green-500/30">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>01107832272</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-            <!-- Controls (Language Switcher & Quick Register) -->
-            <div class="flex items-center gap-4">
-                <!-- Language Selector -->
-                <div class="relative inline-block text-left">
-                    <div class="flex items-center gap-2 bg-navy-800 border border-gold-500/30 rounded-lg px-3 py-1.5 hover:border-gold-400 transition-colors">
-                        <i class="fa-solid fa-globe text-gold-400"></i>
-                        <select id="langSelector" onchange="changeLanguage(this.value)" class="bg-transparent text-sm font-bold text-white focus:outline-none cursor-pointer">
-                            <option value="ar" class="bg-navy-900 text-white">العربية (Arabic)</option>
-                            <option value="en" class="bg-navy-900 text-white">English</option>
-                            <option value="fr" class="bg-navy-900 text-white">Français</option>
-                            <option value="de" class="bg-navy-900 text-white">Deutsch</option>
-                            <option value="es" class="bg-navy-900 text-white">Español</option>
-                        </select>
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-yellow-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Title -->
+                <div class="flex items-center gap-3">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-600 via-yellow-400 to-yellow-200 p-0.5 shadow-lg shadow-yellow-500/20">
+                        <div class="w-full h-full bg-navy-900 rounded-full flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-square-root-variable text-2xl text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-wide gold-gradient-text">أكاديمية الملط للرياضيات</h1>
+                        <p class="text-xs text-slate-300 font-medium">الأستاذ محمد عبدالمنعم الملط - خبير الذكاء الاصطناعي & GeoGebra</p>
                     </div>
                 </div>
 
-                <!-- Fast Register Button -->
-                <a href="#register" class="hidden sm:inline-flex items-center gap-2 gold-bg-gradient text-navy-900 font-bold px-5 py-2 rounded-lg hover:shadow-lg hover:shadow-gold-500/30 hover:scale-105 transition-all text-sm">
-                    <i class="fa-solid fa-user-plus"></i>
-                    <span id="nav-btn-reg">التسجيل الان</span>
-                </a>
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+                    <a href="#hero" class="text-yellow-400 hover:text-yellow-300 transition-colors">الرئيسية</a>
+                    <a href="#about" class="text-slate-300 hover:text-yellow-400 transition-colors">عن الأكاديمية</a>
+                    <a href="#curriculum" class="text-slate-300 hover:text-yellow-400 transition-colors">المناهج واللغات</a>
+                    <a href="#ai-demo" class="text-slate-300 hover:text-yellow-400 transition-colors">مختبر الذكاء الاصطناعي</a>
+                    <a href="#register" class="px-4 py-2 rounded-xl gold-button text-slate-950 font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span>تسجيل بطاقة طالب</span>
+                    </a>
+                </nav>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative hero-pattern py-16 lg:py-28 overflow-hidden border-b border-gold-500/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            
-            <!-- Global Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-gold-500/40 text-gold-400 text-sm font-bold mb-8 animate-bounce shadow-md">
-                <i class="fa-solid fa-earth-americas text-base"></i>
-                <span id="hero-badge">أقوى وأكبر وأول أكاديمية رياضيات في العالم وفي الشرق الأوسط</span>
-            </div>
-
-            <!-- Main Title -->
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
-                <span id="hero-title-1">أكاديمية الملط</span> 
-                <span class="gold-gradient-text block mt-2" id="hero-title-2">رياضيات بلا حدود</span>
-            </h1>
-<img src="https://a.top4top.io/p_39457dvj60.jpg" alt="   " width="100%">
-
-            <!-- Description -->
-            <p class="max-w-3xl mx-auto text-slate-300 text-lg sm:text-xl font-medium leading-relaxed mb-10" id="hero-desc">
-                منظومة تعليمية متكاملة بكل لغات العالم تضمن التفوق والعبقرية الرياضية لجميع المراحل التعليمية: الإعدادية، الثانوية، البكالوريا، والجامعات.
-            </p>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#register" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 gold-bg-gradient text-navy-900 font-black text-lg px-8 py-4 rounded-xl shadow-xl shadow-gold-500/20 hover:scale-105 transition-all" id="hero-btn-enter">
-                    <i class="fa-solid fa-right-to-bracket text-xl"></i>
-                    <span>دخول الأكاديمية والتسجيل الآن</span>
-                </a>
-                <a href="#stages" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-700 text-white font-bold text-lg px-8 py-4 rounded-xl border border-gold-500/30 hover:border-gold-400 transition-all" id="hero-btn-stages">
-                    <i class="fa-solid fa-shapes"></i>
-                    <span>استعراض المراحل الدراسية</span>
-                </a>
-            </div>
-
-            <!-- Stats Bar -->
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                <div class="p-4 rounded-xl glass-card text-center border-t-2 border-gold-400">
-                    <span class="block text-3xl font-black text-gold-400">100%</span>
-                    <span class="text-xs text-slate-400 font-semibold" id="stat-1">تغطية وشاملة للمناهج</span>
-                </div>
-                <div class="p-4 rounded-xl glass-card text-center border-t-2 border-gold-400">
-                    <span class="block text-3xl font-black text-gold-400">5+</span>
-                    <span class="text-xs text-slate-400 font-semibold" id="stat-2">لغات عالمية مدعومة</span>
-                </div>
-                <div class="p-4 rounded-xl glass-card text-center border-t-2 border-gold-400">
-                    <span class="block text-3xl font-black text-gold-400">4</span>
-                    <span class="text-xs text-slate-400 font-semibold" id="stat-3">مراحل تعليمية رئيسية</span>
-                </div>
-                <div class="p-4 rounded-xl glass-card text-center border-t-2 border-gold-400">
-                    <span class="block text-3xl font-black text-gold-400">24/7</span>
-                    <span class="text-xs text-slate-400 font-semibold" id="stat-4">متابعة ونظام تسجيل</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Educational Stages Section -->
-    <section id="stages" class="py-20 bg-navy-900 border-b border-gold-500/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4" id="stages-main-title">المراحل التعليمية المتاحة</h2>
-    
-
-
-            <div class="w-24 h-1.5 gold-bg-gradient mx-auto rounded-full"></div>
-                <p class="text-slate-400 mt-4 text-base sm:text-lg max-w-2xl mx-auto" id="stages-sub-title">برامج تخصصية مصممة خصيصاً لكل مرحلة لتناسب تطلعات الطلاب وبناء العقليات الرياضية</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section id="hero" class="relative py-16 lg:py-24 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-navy-950 to-navy-950 z-0"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- Stage 1: Prep -->
-                <div class="glass-card rounded-2xl p-6 border border-gold-500/20 hover:border-gold-400 transition-all hover:-translate-y-2 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-xl bg-navy-800 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl mb-6 group-hover:bg-gold-500 group-hover:text-navy-900 transition-all">
-                            <i class="fa-solid fa-school"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" id="stg1-title">المرحلة الإعدادية</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6" id="stg1-desc">
-                            بناء الأساس الرياضي القوي، تنمية مهارات التفكير المنطقي وحل المشكلات، وبناء الشغف بالعلوم الرياضية.
-                        </p>
-                    </div>
-                    <a href="#register" onclick="selectStage('prep')" class="w-full text-center py-2.5 rounded-lg border border-gold-500/30 text-gold-400 font-bold hover:bg-gold-500 hover:text-navy-900 transition-all text-sm block" id="stg1-btn">
-                        سجل في هذه المرحلة
-                    </a>
-                </div>
-
-                <!-- Stage 2: Secondary -->
-                <div class="glass-card rounded-2xl p-6 border border-gold-500/20 hover:border-gold-400 transition-all hover:-translate-y-2 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-xl bg-navy-800 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl mb-6 group-hover:bg-gold-500 group-hover:text-navy-900 transition-all">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" id="stg2-title">المرحلة الثانوية</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6" id="stg2-desc">
-                            تغطية احترافية شاملة لفروع الجبر، الهندسة الفراغية، التفاضل والتكامل، وحساب المثلثات بأحدث الأساليب.
-                        </p>
-                    </div>
-                    <a href="#register" onclick="selectStage('secondary')" class="w-full text-center py-2.5 rounded-lg border border-gold-500/30 text-gold-400 font-bold hover:bg-gold-500 hover:text-navy-900 transition-all text-sm block" id="stg2-btn">
-                        سجل في هذه المرحلة
-                    </a>
-                </div>
-
-                <!-- Stage 3: Baccalaureate -->
-                <div class="glass-card rounded-2xl p-6 border border-gold-500/20 hover:border-gold-400 transition-all hover:-translate-y-2 group flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute -left-12 -top-12 w-24 h-24 bg-gold-500/10 rounded-full blur-xl"></div>
-                    <div>
-                        <div class="w-14 h-14 rounded-xl bg-navy-800 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl mb-6 group-hover:bg-gold-500 group-hover:text-navy-900 transition-all">
-                            <i class="fa-solid fa-award"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" id="stg3-title">مرحلة البكالوريا</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6" id="stg3-desc">
-                            إعداد دقيق وشامل للامتحانات الوطنية والدولية، مع التركيز على الأسئلة المتقدمة ونماذج التميز الإقليمي.
-                        </p>
-                    </div>
-                    <a href="#register" onclick="selectStage('baccalaureate')" class="w-full text-center py-2.5 rounded-lg border border-gold-500/30 text-gold-400 font-bold hover:bg-gold-500 hover:text-navy-900 transition-all text-sm block" id="stg3-btn">
-                        سجل في هذه المرحلة
-                    </a>
-                </div>
-
-                <!-- Stage 4: Universities -->
-                <div class="glass-card rounded-2xl p-6 border border-gold-500/20 hover:border-gold-400 transition-all hover:-translate-y-2 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-xl bg-navy-800 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl mb-6 group-hover:bg-gold-500 group-hover:text-navy-900 transition-all">
-                            <i class="fa-solid fa-university"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" id="stg4-title">المرحلة الجامعية</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6" id="stg4-desc">
-                            رياضيات عليا، تفاضل وتكامل متقدم، الجبر الخطي، المعادلات التفاضلية، والتحليل العددي لطلاب الهندسة والعلوم.
-                        </p>
-                    </div>
-                    <a href="#register" onclick="selectStage('university')" class="w-full text-center py-2.5 rounded-lg border border-gold-500/30 text-gold-400 font-bold hover:bg-gold-500 hover:text-navy-900 transition-all text-sm block" id="stg4-btn">
-                        سجل في هذه المرحلة
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Registration Section -->
-    <section id="register" class="py-20 bg-navy-800 relative">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glass-card rounded-3xl p-8 sm:p-12 border border-gold-500/30 shadow-2xl relative overflow-hidden">
-                
-                <!-- Section Header -->
-                <div class="text-center mb-10">
-                    <span class="inline-block p-3 rounded-2xl bg-navy-900 border border-gold-500/30 text-gold-400 mb-4">
-                        <i class="fa-solid fa-address-card text-2xl"></i>
-                    </span>
-                    <h2 class="text-3xl sm:text-4xl font-black text-white mb-2" id="reg-title">نظام التسجيل والدخول الفوري</h2>
-                    <p class="text-slate-300 text-sm sm:text-base" id="reg-subtitle">قم بتعبئة البيانات للانضمام الفوري لأكاديمية الملط رياضيات</p>
-                </div>
-
-                <!-- Registration Form -->
-                <form id="academyRegForm" onsubmit="submitForm(event)" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        <!-- Full Name -->
-                        <div>
-                            <label class="block text-sm font-bold text-slate-200 mb-2" id="lbl-fullname">الاسم الكامل للطالب/الطالبة:</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    <i class="fa-solid fa-user"></i>
-                                </span>
-                                <input type="text" id="fullName" required class="w-full pl-4 pr-11 py-3.5 bg-navy-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 transition-colors text-sm" placeholder="أدخل اسمك الثلاثي أو الرباعي">
-                            </div>
-                        </div>
-
-                        <!-- Phone / Whatsapp -->
-                        <div>
-                            <label class="block text-sm font-bold text-slate-200 mb-2" id="lbl-phone">رقم الهاتف / واتساب:</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                </span>
-                                <input type="tel" id="phone" required class="w-full pl-4 pr-11 py-3.5 bg-navy-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 transition-colors text-sm" placeholder="مثال: +20 100 000 0000">
-                            </div>
-                        </div>
-
+                <!-- Hero Left Info -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-sm font-semibold">
+                        <i class="fa-solid fa-atom animate-spin"></i>
+                        <span>أحدث تكنولوجيا التعليم بالذكاء الاصطناعي و GeoGebra</span>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        <!-- Academic Stage -->
-                        <div>
-                            <label class="block text-sm font-bold text-slate-200 mb-2" id="lbl-stage">المرحلة التعليمية:</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    <i class="fa-solid fa-layer-group"></i>
-                                </span>
-                                <select id="stageSelect" required class="w-full pl-4 pr-11 py-3.5 bg-navy-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-gold-400 transition-colors text-sm appearance-none cursor-pointer">
-                                    <option value="" id="opt-default">-- اختر المرحلة التعليمية --</option>
-                                    <option value="prep" id="opt-prep">المرحلة الإعدادية</option>
-                                    <option value="secondary" id="opt-sec">المرحلة الثانوية</option>
-                                    <option value="baccalaureate" id="opt-bac">مرحلة البكالوريا</option>
-                                    <option value="university" id="opt-univ">المرحلة الجامعية</option>
-                                </select>
-                            </div>
-                        </div>
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight">
+                        احترف الرياضيات مع <br/>
+                        <span class="gold-gradient-text">الاستاذ محمد عبدالمنعم الملط</span>
+                    </h1>
 
-                        <!-- Preferred Language -->
-                        <div>
-                            <label class="block text-sm font-bold text-slate-200 mb-2" id="lbl-lang">لغة الدراسة المفضلة:</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    <i class="fa-solid fa-language"></i>
-                                </span>
-                                <select id="studyLang" required class="w-full pl-4 pr-11 py-3.5 bg-navy-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-gold-400 transition-colors text-sm appearance-none cursor-pointer">
-                                    <option value="ar">اللغة العربية</option>
-                                    <option value="en">English (الإنجليزية)</option>
-                                    <option value="fr">Français (الفرنسية)</option>
-                                    <option value="de">Deutsch (الألمانية)</option>
-                                    <option value="es">Español (الإسبانية)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="w-full gold-bg-gradient text-navy-900 font-black text-lg py-4 rounded-xl shadow-lg shadow-gold-500/20 hover:scale-[1.01] transition-transform flex items-center justify-center gap-2 mt-4" id="btn-form-submit">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>تأكيد الانضمام والدخول الآن</span>
-                    </button>
-                </form>
-
-                <!-- Feedback Message -->
-                <div id="formAlert" class="hidden mt-6 p-4 rounded-xl bg-emerald-900/80 border border-emerald-500 text-emerald-200 text-center font-bold text-sm">
-                    <i class="fa-solid fa-circle-check text-lg mb-1 block"></i>
-                    <span id="alert-text">تم تسجيل بياناتك بنجاح في أكاديمية الملط رياضيات! سيتم التواصل معك فوراً.</span>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Founder Section -->
-    <section class="py-20 bg-navy-900 border-t border-gold-500/10">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glass-card rounded-3xl p-8 sm:p-12 border border-gold-500/30 flex flex-col md:flex-row items-center gap-8 shadow-2xl relative overflow-hidden">
-                
-                <!-- Badge / Avatar Placeholder -->
-                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full gold-bg-gradient p-1 flex-shrink-0 shadow-xl shadow-gold-500/10">
-                    <div class="w-full h-full bg-navy-900 rounded-full flex flex-col items-center justify-center text-gold-400">
-                        <i class="fa-solid fa-user-graduate text-5xl mb-1"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-white">ISSR</span>
-                    </div>
-                </div>
-
-                <!-- Founder Info -->
-                <div class="text-center md:text-right">
-                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest block mb-1" id="founder-sub">مؤسس الأكاديمية</span>
-                    <h3 class="text-2xl sm:text-3xl font-black text-white mb-3" id="founder-name">الأستاذ / محمد عبدالمنعم حسن الملط</h3>
-                    <p class="text-gold-400 font-bold text-base mb-4" id="founder-title">معلم خبير الرياضيات</p>
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed bg-navy-800/80 p-4 rounded-xl border border-slate-700/50" id="founder-bio">
-                        حاصل على تمهيدي ماجستير علوم الحاسب والمعلومات من معهد الدراسات والبحوث الإحصائية - جامعة القاهرة (ISSR). خبرة ممتدة في بناء العقليات الرياضياتية وتطوير أساليب التدريس عالمياً لجميع المراحل الدراسية.
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        معلم خبير الرياضيات وخبير الذكاء الاصطناعي وبرنامج GeoGebra العالمي. نقدم أقوى المناهج التعليمية لمختلف المراحل الدراسية والجامعية في مصر والعالم العربي بكافة لغات العالم (عربي - إنجليزي - فرنسي).
                     </p>
+
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#register" class="px-8 py-4 rounded-xl gold-button text-slate-950 font-bold text-lg flex items-center gap-3 shadow-lg shadow-yellow-500/20">
+                            <i class="fa-solid fa-id-card"></i>
+                            <span>انشئ بطاقة الطالب الخاصة بك</span>
+                        </a>
+                        <a href="#contact" class="px-8 py-4 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-white font-bold text-lg border border-slate-700 flex items-center gap-3 transition">
+                            <i class="fa-solid fa-headset text-yellow-400 text-xl"></i>
+                            <span>معلومات التواصل</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0">
+                        <div class="text-center">
+                            <div class="text-2xl font-black text-yellow-400">100%</div>
+                            <div class="text-xs text-slate-400 font-medium">تفاعلي وتطبيقي</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-black text-yellow-400">3 لغات</div>
+                            <div class="text-xs text-slate-400 font-medium">عربي - Math - Mathématiques</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-black text-yellow-400">جميع المراحل</div>
+                            <div class="text-xs text-slate-400 font-medium">مدرسية وجامعية</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Decorative Emblem Panel -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <!-- Neon Glow Overlay -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-blue-600 rounded-3xl blur-xl opacity-30 animate-pulse"></div>
+                        
+                        <div class="relative glass-panel rounded-3xl p-8 border border-yellow-500/40 text-center space-y-6">
+                            <div class="w-24 h-24 mx-auto rounded-3xl bg-yellow-500/10 border-2 border-yellow-500/50 flex items-center justify-center text-yellow-400 shadow-xl">
+                                <i class="fa-solid fa-brain-circuit text-5xl"></i>
+                            </div>
+
+                            <div>
+                                <h3 class="text-2xl font-extrabold text-yellow-400">أكاديمية الملط للرياضيات</h3>
+                                <p class="text-sm text-slate-300 font-semibold mt-2">الأستاذ محمد عبدالمنعم الملط</p>
+                                <p class="text-xs text-slate-400 mt-1">معلم خبير الرياضيات وخبير الذكاء الاصطناعي & GeoGebra</p>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-700/60 grid grid-cols-2 gap-3 text-right">
+                                <div class="bg-navy-950 p-3 rounded-xl border border-slate-800">
+                                    <div class="text-yellow-400 font-bold text-xs"><i class="fa-solid fa-graduation-cap ml-1"></i> المناهج</div>
+                                    <div class="text-slate-300 text-xs mt-1">مصر والوطن العربي</div>
+                                </div>
+                                <div class="bg-navy-950 p-3 rounded-xl border border-slate-800">
+                                    <div class="text-yellow-400 font-bold text-xs"><i class="fa-solid fa-microchip ml-1"></i> التكنولوجيا</div>
+                                    <div class="text-slate-300 text-xs mt-1">الذكاء الاصطناعي</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Curricula & Languages Section -->
+    <section id="curriculum" class="py-16 bg-navy-900/60 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">
+                    مناهج الرياضيات في <span class="gold-gradient-text">مصر والعالم العربي والمرحلة الجامعية</span>
+                </h2>
+                <p class="text-slate-300">
+                    نغطي كافة الصفوف والمناهج التعليمية والجامعية بأحدث استراتيجيات الشرح والتوضيح بالذكاء الاصطناعي وبجميع اللغات.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Primary Stage -->
+                <div class="glass-card rounded-2xl p-6 hover:border-yellow-500/50 transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-child text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">المرحلة الابتدائية</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                        تأسيس كامل وبناء المهارات الحسابية والرياضية الأساسية بأسلوب ممتع وتفاعلي.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> الصفوف 4 - 5 - 6</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> عربي و لغات Math</li>
+                    </ul>
+                </div>
+
+                <!-- Preparatory Stage -->
+                <div class="glass-card rounded-2xl p-6 hover:border-yellow-500/50 transition duration-300 group border-yellow-500/30 relative">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-shapes text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">المرحلة الإعدادية</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                        تغطية شاملة لعلوم الجبر والهندسة والإحصاء مع تطبيقات الجيوجبرا.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> الصفوف 1 - 2 - 3 إعدادي</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> عربي، تجريبي ولغات</li>
+                    </ul>
+                </div>
+
+                <!-- Secondary Stage -->
+                <div class="glass-card rounded-2xl p-6 hover:border-yellow-500/50 transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-calculator text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">المرحلة الثانوية</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                        التفاضل، والتكامل، والجبر والهندسة الفراغية، والميكانيكا بمستويات عليا.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> الصفوف 1 - 2 - 3 ثانوي</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> الثانوية العامة والخليجية</li>
+                    </ul>
+                </div>
+
+                <!-- University Stage -->
+                <div class="glass-card rounded-2xl p-6 hover:border-yellow-500/50 transition duration-300 group border-yellow-500/40 bg-yellow-500/5">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/20 border border-yellow-500/50 flex items-center justify-center text-yellow-400 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-2">المرحلة الجامعية</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                        شرح المقررات الرياضية لجميع الكليات (علوم، هندسة، تربية، حاسبات ومعلومات).
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> جميع الفرق الدراسية</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> الرياضيات البحتة والتطبيقية</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI & GeoGebra Demo Section -->
+    <section id="ai-demo" class="py-16 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-yellow-500/30">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold border border-blue-500/30">
+                            محاكاة بيانية تفاعلية
+                        </div>
+                        <h2 class="text-3xl font-black text-white">تكنولوجيا GeoGebra والذكاء الاصطناعي في الشرح</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            يقدم الأستاذ محمد عبدالمنعم الملط تجربة شرح فريدة تدمج الرسوم البيانية الديناميكية بدقة متناهية، مما يتيح للطلاب فهم المفاهيم الرياضية المعقدة بسهولة ويسر.
+                        </p>
+                        
+                        <div class="space-y-3 pt-2">
+                            <label class="block text-xs font-bold text-yellow-400">اختر نوع الدالة للتمثيل البياني الفوري:</label>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="plotFunction('sine')" class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-800 hover:bg-yellow-500 hover:text-black transition border border-slate-700">دالة جيبية Sin(x)</button>
+                                <button onclick="plotFunction('quadratic')" class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-800 hover:bg-yellow-500 hover:text-black transition border border-slate-700">دالة تربيعية x² - 4</button>
+                                <button onclick="plotFunction('cubic')" class="px-4 py-2 text-xs font-bold rounded-lg bg-slate-800 hover:bg-yellow-500 hover:text-black transition border border-slate-700">دالة تكعيبية x³</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-navy-950/80 p-4 rounded-2xl border border-slate-800">
+                        <div class="h-64 sm:h-80 w-full">
+                            <canvas id="mathCanvas"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Registration & ID Generator Section -->
+    <section id="register" class="py-16 bg-navy-900/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-3">
+                    تسجيل بيانات الطالب <span class="gold-gradient-text">وإصدار البطاقة الإلكترونية</span>
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    قم بتعبئة البيانات أدناه لتوليد بطاقة الطالب الخاصة بك مجاناً وتحميلها مباشرة.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                
+                <!-- Registration Form -->
+                <div class="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-yellow-500/30">
+                    <form id="studentForm" onsubmit="generateStudentCard(event)" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-bold text-yellow-400 mb-2">اسم الطالب / الطالبة كامل *</label>
+                            <input type="text" id="studentName" required placeholder="مثال: أحمد محمد علي" 
+                                   class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500 transition">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-yellow-400 mb-2">رقم الهاتف / الواتساب *</label>
+                            <input type="tel" id="studentPhone" required placeholder="مثال: 01012345678" 
+                                   class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500 transition text-right" dir="ltr">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-yellow-400 mb-2">المرحلة التعليمية *</label>
+                            <select id="educationStage" required onchange="updateGrades()"
+                                    class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition">
+                                <option value="">اختر المرحلة</option>
+                                <option value="المرحلة الابتدائية">المرحلة الابتدائية</option>
+                                <option value="المرحلة الإعدادية">المرحلة الإعدادية</option>
+                                <option value="المرحلة الثانوية">المرحلة الثانوية</option>
+                                <option value="المرحلة الجامعية">المرحلة الجامعية</option>
+                            </select>
+                        </div>
+
+                        <!-- Dynamic College Field (Appears only for University Stage) -->
+                        <div id="collegeContainer" class="hidden">
+                            <label class="block text-sm font-bold text-yellow-400 mb-2">اسم الكلية / الجامعة *</label>
+                            <input type="text" id="collegeName" placeholder="مثال: كلية العلوم / كلية الهندسة / كلية التربية" 
+                                   class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500 transition">
+                        </div>
+
+                        <div>
+                            <label id="gradeLabel" class="block text-sm font-bold text-yellow-400 mb-2">الصف الدراسي / الفرقة *</label>
+                            <select id="gradeLevel" required
+                                    class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition">
+                                <option value="">اختر المرحلة أولاً</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-yellow-400 mb-2">لغة الدراسة المفضلة *</label>
+                            <select id="studyLanguage" required
+                                    class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition">
+                                <option value="اللغة العربية">اللغة العربية</option>
+                                <option value="اللغة الإنجليزية (Math)">اللغة الإنجليزية (Math)</option>
+                                <option value="اللغة الفرنسية (Mathématiques)">اللغة الفرنسية (Mathématiques)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl gold-button text-slate-950 font-black text-lg flex items-center justify-center gap-2 shadow-lg">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>توليد بطاقة الطالب الإلكترونية</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Canvas Card Preview & Download Button -->
+                <div class="lg:col-span-6 flex flex-col items-center">
+                    <div class="w-full glass-panel p-6 rounded-3xl border border-yellow-500/30 text-center space-y-4">
+                        <h3 class="text-xl font-bold text-white flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-id-card text-yellow-400"></i>
+                            <span>معاينة بطاقة الطالب</span>
+                        </h3>
+
+                        <!-- Canvas Display -->
+                        <div class="overflow-hidden rounded-2xl border-2 border-yellow-500/40 shadow-2xl bg-slate-950 flex justify-center items-center">
+                            <canvas id="idCardCanvas" width="800" height="480" class="w-full h-auto max-w-full block"></canvas>
+                        </div>
+
+                        <!-- Single Download Action Button -->
+                        <div class="pt-2">
+                            <button onclick="downloadCardImage()" id="downloadBtn" disabled 
+                                    class="w-full py-4 px-6 bg-slate-800 opacity-50 cursor-not-allowed text-yellow-400 font-bold rounded-xl border border-yellow-500/40 flex items-center justify-center gap-2 transition">
+                                <i class="fa-solid fa-download text-lg"></i>
+                                <span>تحميل بطاقة الطالب (صورة PNG عالية الجودة)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Contact Cards Section -->
+    <section id="contact" class="py-16 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-3">
+                    أرقام التواصل المباشر <span class="gold-gradient-text">مع الأكاديمية</span>
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    يمكنكم التواصل المباشر مع الأستاذ محمد عبدالمنعم الملط للاستفسارات والحجز
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Contact Card 1 -->
+                <div class="glass-panel p-8 rounded-3xl border border-yellow-500/40 relative overflow-hidden text-center">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-yellow-500/20 border border-yellow-500/50 flex items-center justify-center text-yellow-400 text-3xl mb-4">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1">الرقم الرئيسي</h3>
+                    <p class="text-xs text-yellow-400 font-semibold mb-4">متاح للاستفسارات والحجز</p>
+
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 text-center">
+                        <span class="text-2xl font-black tracking-widest text-white dir-ltr inline-block">01010955349</span>
+                        <div class="text-xs text-slate-400 mt-1">الدولي: +201010955349</div>
+                    </div>
+                </div>
+
+                <!-- Contact Card 2 -->
+                <div class="glass-panel p-8 rounded-3xl border border-yellow-500/40 relative overflow-hidden text-center">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-yellow-500/20 border border-yellow-500/50 flex items-center justify-center text-yellow-400 text-3xl mb-4">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1">الرقم الإضافي</h3>
+                    <p class="text-xs text-yellow-400 font-semibold mb-4">خدمة الطلاب والرد السريع</p>
+
+                    <div class="bg-navy-950 p-4 rounded-xl border border-slate-800 text-center">
+                        <span class="text-2xl font-black tracking-widest text-white dir-ltr inline-block">01107832272</span>
+                        <div class="text-xs text-slate-400 mt-1">الدولي: +201107832272</div>
+                    </div>
                 </div>
 
             </div>
@@ -370,410 +501,320 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-navy-900 border-t border-slate-800 py-8 text-center text-xs text-slate-400">
-      
-<!-- بداية كود الاتصال بالواتساب - أكاديمية الملط -->
-<div style="
-    text-align: center; 
-    margin: 20px 0; 
-    padding: 15px; 
-    font-family: Arial, sans-serif;
-">
-    <p style="
-        font-size: 20px; 
-        font-weight: bold; 
-        color: #D4AF37; 
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-        margin: 0;
-        line-height: 1.6;
-    ">
-        للاتصال على واتساب رقم: <span dir="ltr">201010955349+</span> أو <span dir="ltr">201107832272+</span>
-    </p>
-</div>
-<!-- نهاية كود الاتصال بالواتساب -->
+    <footer class="bg-navy-950 border-t border-yellow-500/20 py-12 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <div class="flex items-center justify-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-slate-950 font-black">
+                    <i class="fa-solid fa-square-root-variable text-xl"></i>
+                </div>
+                <span class="text-xl font-bold text-white">أكاديمية الملط للرياضيات والذكاء الاصطناعي</span>
+            </div>
 
+            <p class="max-w-xl mx-auto text-slate-400 leading-relaxed">
+                مع تحياتي الاستاذ محمد عبدالمنعم الملط معلم خبير الرياضيات وخبير الذكاء الاصطناعي و GeoGebra. جميع الحقوق محفوظة © 2026.
+            </p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="max-w-7xl mx-auto px-4">
-            <p id="footer-text">&copy; 2026 أكاديمية الملط رياضيات. جميع الحقوق محفوظة لكل لغات العالم.</p>
+            <div class="flex items-center justify-center gap-6 text-slate-400 text-xs">
+                <span><i class="fa-solid fa-phone text-yellow-400 ml-1"></i> 01010955349</span>
+                <span><i class="fa-solid fa-phone text-yellow-400 ml-1"></i> 01107832272</span>
+            </div>
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     </footer>
 
-    <!-- Translations & Interactivity Script -->
+    <!-- Custom JavaScript Code -->
     <script>
-        const translations = {
-            ar: {
-                dir: "rtl",
-                navLogoTitle: "أكاديمية الملط رياضيات",
-                navLogoSub: "الريادة العالمية في الرياضيات",
-                navBtnReg: "التسجيل الان",
-                heroBadge: "أقوى وأكبر وأول أكاديمية رياضيات في العالم وفي الشرق الأوسط",
-                heroTitle1: "أكاديمية الملط",
-                heroTitle2: "رياضيات بلا حدود",
-                heroDesc: "منظومة تعليمية متكاملة بكل لغات العالم تضمن التفوق والعبقرية الرياضية لجميع المراحل التعليمية: الإعدادية، الثانوية، البكالوريا، والجامعات.",
-                heroBtnEnter: "دخول الأكاديمية والتسجيل الآن",
-                heroBtnStages: "استعراض المراحل الدراسية",
-                stat1: "تغطية وشاملة للمناهج",
-                stat2: "لغات عالمية مدعومة",
-                stat3: "مراحل تعليمية رئيسية",
-                stat4: "متابعة ونظام تسجيل",
-                stagesMainTitle: "المراحل التعليمية المتاحة",
+        let chartInstance = null;
 
-stagesMainTitle: "للاتصال على واتساب رقم 201010955349
-أو 201107832272",
-                stagesSubTitle: "برامج تخصصية مصممة خصيصاً لكل مرحلة لتناسب تطلعات الطلاب وبناء العقليات الرياضية",
-                stg1Title: "المرحلة الإعدادية",
-                stg1Desc: "بناء الأساس الرياضي القوي، تنمية مهارات التفكير المنطقي وحل المشكلات، وبناء الشغف بالعلوم الرياضية.",
-                stg1Btn: "سجل في هذه المرحلة",
-                stg2Title: "المرحلة الثانوية",
-                stg2Desc: "تغطية احترافية شاملة لفروع الجبر، الهندسة الفراغية، التفاضل والتكامل، وحساب المثلثات بأحدث الأساليب.",
-                stg2Btn: "سجل في هذه المرحلة",
-                stg3Title: "مرحلة البكالوريا",
-                stg3Desc: "إعداد دقيق وشامل للامتحانات الوطنية والدولية، مع التركيز على الأسئلة المتقدمة ونماذج التميز الإقليمي.",
-                stg3Btn: "سجل في هذه المرحلة",
-                stg4Title: "المرحلة الجامعية",
-                stg4Desc: "رياضيات عليا، تفاضل وتكامل متقدم، الجبر الخطي، المعادلات التفاضلية، والتحليل العددي لطلاب الهندسة والعلوم.",
-                stg4Btn: "سجل في هذه المرحلة",
-                regTitle: "نظام التسجيل والدخول الفوري",
-                regSubtitle: "قم بتعبئة البيانات للانضمام الفوري لأكاديمية الملط رياضيات",
-                lblFullname: "الاسم الكامل للطالب/الطالبة:",
-                lblPhone: "رقم الهاتف / واتساب:",
-                lblStage: "المرحلة التعليمية:",
-                lblLang: "لغة الدراسة المفضلة:",
-                optDefault: "-- اختر المرحلة التعليمية --",
-                optPrep: "المرحلة الإعدادية",
-                optSec: "المرحلة الثانوية",
-                optBac: "مرحلة البكالوريا",
-                optUniv: "المرحلة الجامعية",
-                btnFormSubmit: "تأكيد الانضمام والدخول الآن",
-                alertText: "تم تسجيل بياناتك بنجاح في أكاديمية الملط رياضيات! سيتم التواصل معك فوراً.",
-                founderSub: "مع تحيات مؤسس الأكاديمية",
-                founderName: "الأستاذ / محمد عبدالمنعم حسن الملط",
-                founderTitle: "معلم خبير الرياضيات",
-                founderBio: "حاصل على تمهيدي ماجستير علوم الحاسب والمعلومات من معهد الدراسات والبحوث الإحصائية - جامعة القاهرة (ISSR). خبرة ممتدة في بناء العقليات الرياضياتية وتطوير أساليب التدريس عالمياً لجميع المراحل الدراسية.",
-         
-
-
-
-
-
-
-
-
-
-
-
-
-       footerText: "© 2026 أكاديمية الملط رياضيات. جميع الحقوق محفوظة لكل لغات العالم."
-            },
-            en: {
-                dir: "ltr",
-                navLogoTitle: "Al-Malt Math Academy",
-                navLogoSub: "Global Leadership in Mathematics",
-                navBtnReg: "Register Now",
-                heroBadge: "The Strongest, Largest & First Mathematics Academy Worldwide & Middle East",
-                heroTitle1: "Al-Malt Academy",
-                heroTitle2: "Mathematics Without Borders",
-                heroDesc: "An integrated educational system in all world languages ensuring mathematical excellence for Prep, Secondary, Baccalaureate, and University levels.",
-                heroBtnEnter: "Enter Academy & Register Now",
-                heroBtnStages: "Explore Educational Stages",
-                stat1: "Curriculum Coverage",
-                stat2: "Supported World Languages",
-                stat3: "Main Academic Stages",
-                stat4: "24/7 Registration System",
-                stagesMainTitle: "Available Educational Stages",
-                stagesSubTitle: "Specialized programs designed to fit each level and build strong mathematical mindsets",
-                stg1Title: "Preparatory / Prep Level",
-                stg1Desc: "Building strong mathematical foundations, developing logical reasoning and problem-solving skills.",
-                stg1Btn: "Register for Prep",
-                stg2Title: "Secondary / High School",
-                stg2Desc: "Comprehensive coverage of Algebra, Solid Geometry, Calculus, and Trigonometry using modern methods.",
-                stg2Btn: "Register for High School",
-                stg3Title: "Baccalaureate Level",
-                stg3Desc: "Thorough preparation for national and international exams, focusing on advanced regional models.",
-                stg3Btn: "Register for Baccalaureate",
-                stg4Title: "University Level",
-                stg4Desc: "Higher Mathematics, Advanced Calculus, Linear Algebra, Differential Equations, and Numerical Analysis.",
-                stg4Btn: "Register for University",
-                regTitle: "Instant Registration & Entry System",
-                regSubtitle: "Fill in the details to join Al-Malt Mathematics Academy immediately",
-                lblFullname: "Student Full Name:",
-                lblPhone: "Phone / WhatsApp Number:",
-                lblStage: "Educational Stage:",
-                lblLang: "Preferred Language of Instruction:",
-                optDefault: "-- Select Educational Stage --",
-                optPrep: "Preparatory Stage",
-                optSec: "Secondary Stage",
-                optBac: "Baccalaureate Stage",
-                optUniv: "University Stage",
-                btnFormSubmit: "Confirm Registration & Join Now",
-                alertText: "Your registration has been successfully submitted! We will contact you shortly.",
-                founderSub: "Best Regards from Founder",
-                founderName: "Mr. Mohamed Abdel-Moneim Hassan Al-Malt",
-                founderTitle: "Expert Mathematics Educator",
-                founderBio: "Holds Master's Pre-requisite in Computer Science & Information from the Institute of Statistical Studies and Research (ISSR) - Cairo University. Extensive expertise in building mathematical mindsets worldwide.",
-                footerText: "© 2026 Al-Malt Mathematics Academy. All rights reserved in all world languages."
-            },
-            fr: {
-                dir: "ltr",
-                navLogoTitle: "Académie Al-Malt Maths",
-                navLogoSub: "Leadership mondial en mathématiques",
-                navBtnReg: "S'inscrire",
-                heroBadge: "La première et la plus grande académie de mathématiques au monde et au Moyen-Orient",
-                heroTitle1: "Académie Al-Malt",
-                heroTitle2: "Mathématiques sans frontières",
-                heroDesc: "Un système éducatif complet dans toutes les langues du monde garantissant l'excellence pour le collège, le lycée, le baccalauréat et l'université.",
-                heroBtnEnter: "Entrer dans l'Académie et s'inscrire",
-                heroBtnStages: "Explorer les niveaux",
-                stat1: "Couverture des programmes",
-                stat2: "Langues mondiales supportées",
-                stat3: "Grands niveaux académiques",
-                stat4: "Inscriptions 24/7",
-                stagesMainTitle: "Niveaux éducatifs disponibles",
-                stagesSubTitle: "Des programmes spécialisés conçus pour chaque niveau académique",
-                stg1Title: "Niveau Collège",
-                stg1Desc: "Construire des bases solides, développer le raisonnement logique et la résolution de problèmes.",
-                stg1Btn: "S'inscrire au Collège",
-                stg2Title: "Niveau Lycée",
-                stg2Desc: "Algèbre, géométrie dans l'espace, calcul différentiel et trigonométrie avec des méthodes modernes.",
-                stg2Btn: "S'inscrire au Lycée",
-                stg3Title: "Niveau Baccalauréat",
-                stg3Desc: "Préparation rigoureuse aux examens nationaux et internationaux avec des modèles avancés.",
-                stg3Btn: "S'inscrire au Bac",
-                stg4Title: "Niveau Universitaire",
-                stg4Desc: "Mathématiques supérieures, algèbre linéaire, équations différentielles et analyse numérique.",
-                stg4Btn: "S'inscrire à l'Université",
-                regTitle: "Système d'inscription immédiat",
-                regSubtitle: "Remplissez le formulaire pour rejoindre l'Académie Al-Malt",
-                lblFullname: "Nom complet de l'étudiant:",
-                lblPhone: "Numéro de téléphone / WhatsApp:",
-                lblStage: "Niveau d'études:",
-                lblLang: "Langue d'enseignement préférée:",
-                optDefault: "-- Sélectionnez le niveau --",
-                optPrep: "Niveau Collège",
-                optSec: "Niveau Lycée",
-                optBac: "Niveau Baccalauréat",
-                optUniv: "Niveau Universitaire",
-                btnFormSubmit: "Confirmer l'inscription",
-                alertText: "Votre inscription a été soumise avec succès! Nous vous contacterons sous peu.",
-                founderSub: "Fondateur de l'Académie",
-                founderName: "M. Mohamed Abdel-Moneim Hassan Al-Malt",
-                founderTitle: "Professeur Expert en Mathématiques",
-                founderBio: "Titulaire d'un Pré-Master en informatique de l'ISSR - Université du Caire. Grande expérience dans le développement de la pensée mathématique à l'échelle mondiale.",
-                footerText: "© 2026 Académie Al-Malt Mathématiques. Tous droits réservés."
-            },
-            de: {
-                dir: "ltr",
-                navLogoTitle: "Al-Malt Mathe-Akademie",
-                navLogoSub: "Weltweite Führung in Mathematik",
-                navBtnReg: "Jetzt Registrieren",
-                heroBadge: "Die stärkste, größte und erste Mathe-Akademie weltweit & im Nahen Osten",
-                heroTitle1: "Al-Malt Akademie",
-                heroTitle2: "Mathematik ohne Grenzen",
-                heroDesc: "Ein integriertes Bildungssystem in allen Sprachen der Welt für Mittelstufe, Oberstufe, Abitur und Universität.",
-                heroBtnEnter: "Akademie betreten & Anmelden",
-                heroBtnStages: "Bildungsstufen erkunden",
-                stat1: "Abdeckung des Lehrplans",
-                stat2: "Unterstützte Sprachen",
-                stat3: "Hauptbildungsstufen",
-                stat4: "24/7 Registrierung",
-                stagesMainTitle: "Verfügbare Bildungsstufen",
-                stagesSubTitle: "Spezialisierte Programme für jede akademische Stufe",
-                stg1Title: "Mittelstufe (Prep)",
-                stg1Desc: "Aufbau starker mathematischer Grundlagen und Entwicklung von logischem Denken.",
-                stg1Btn: "Für Mittelstufe anmelden",
-                stg2Title: "Oberstufe (Gymnasium)",
-                stg2Desc: "Algebra, Raumgeometrie, Analysis und Trigonometrie mit modernen Methoden.",
-                stg2Btn: "Für Oberstufe anmelden",
-                stg3Title: "Abitur-Stufe",
-                stg3Desc: "Gründliche Vorbereitung auf nationale und internationale Prüfungen.",
-                stg3Btn: "Für Abitur anmelden",
-                stg4Title: "Universitätsniveau",
-                stg4Desc: "Höhere Mathematik, Lineare Algebra, Differentialgleichungen und Numerische Analyse.",
-                stg4Btn: "Für Universität anmelden",
-                regTitle: "Sofortiges Anmeldesystem",
-                regSubtitle: "Füllen Sie das Formular aus, um der Akademie beizutreten",
-                lblFullname: "Vollständiger Name des Schülers:",
-                lblPhone: "Telefon- / WhatsApp-Nummer:",
-                lblStage: "Bildungsstufe:",
-                lblLang: "Bevorzugte Unterrichtssprache:",
-                optDefault: "-- Wählen Sie die Stufe --",
-                optPrep: "Mittelstufe",
-                optSec: "Oberstufe",
-                optBac: "Abitur-Stufe",
-                optUniv: "Universitätsniveau",
-                btnFormSubmit: "Anmeldung bestätigen",
-                alertText: "Ihre Registrierung wurde erfolgreich übermittelt!",
-                founderSub: "Gründer der Akademie",
-                founderName: "Herr Mohamed Abdel-Moneim Hassan Al-Malt",
-                founderTitle: "Experte für Mathematikunterricht",
-                founderBio: "Vormaster in Informatik vom ISSR - Universität Kairo. Langjährige Erfahrung im mathematischen Unterricht weltweit.",
-                footerText: "© 2026 Al-Malt Mathematik-Akademie. Alle Rechte vorbehalten."
-            },
-            es: {
-                dir: "ltr",
-                navLogoTitle: "Academia Al-Malt Mates",
-                navLogoSub: "Liderazgo mundial en matemáticas",
-                navBtnReg: "Registrarse Ahora",
-                heroBadge: "La primera y más grande academia de matemáticas del mundo y Oriente Medio",
-                heroTitle1: "Academia Al-Malt",
-                heroTitle2: "Matemáticas Sin Fronteras",
-                heroDesc: "Un sistema educativo integral en todos los idiomas del mundo para secundaria, bachillerato y universidad.",
-                heroBtnEnter: "Entrar a la Academia y Registrarse",
-                heroBtnStages: "Explorar Niveles Educativos",
-                stat1: "Cobertura de Plan de Estudios",
-                stat2: "Idiomas Mundiales Compatibles",
-                stat3: "Etapas Académicas Principales",
-                stat4: "Registro 24/7 Disponible",
-                stagesMainTitle: "Niveles Educativos Disponibles",
-                stagesSubTitle: "Programas especializados diseñados para desarrollar un pensamiento matemático sólido",
-                stg1Title: "Educación Secundaria",
-                stg1Desc: "Construcción de bases sólidas y desarrollo del razonamiento lógico.",
-                stg1Btn: "Registrarse para Secundaria",
-                stg2Title: "Bachillerato",
-                stg2Desc: "Álgebra, geometría espacial, cálculo y trigonometría con métodos avanzados.",
-                stg2Btn: "Registrarse para Bachillerato",
-                stg3Title: "Nivel Selectividad / Bac",
-                stg3Desc: "Preparación exhaustiva para exámenes nacionales e internacionales.",
-                stg3Btn: "Registrarse para Bac",
-                stg4Title: "Nivel Universitario",
-                stg4Desc: "Matemáticas superiores, álgebra lineal, ecuaciones diferenciales y análisis numérico.",
-                stg4Btn: "Registrarse para Universidad",
-                regTitle: "Sistema de Registro Inmediato",
-                regSubtitle: "Complete los datos para unirse a la Academia Al-Malt",
-                lblFullname: "Nombre completo del estudiante:",
-                lblPhone: "Número de Teléfono / WhatsApp:",
-                lblStage: "Nivel Educativo:",
-                lblLang: "Idioma de enseñanza preferido:",
-                optDefault: "-- Seleccione el Nivel --",
-                optPrep: "Educación Secundaria",
-                optSec: "Bachillerato",
-                optBac: "Nivel Baccalaureate",
-                optUniv: "Nivel Universitario",
-                btnFormSubmit: "Confirmar Registro",
-                alertText: "¡Su registro ha sido enviado con éxito! Nos pondremos en contacto pronto.",
-                founderSub: "Fundador de la Academia",
-                founderName: "Prof. Mohamed Abdel-Moneim Hassan Al-Malt",
-                founderTitle: "Educador Experto en Matemáticas",
-                founderBio: "Máster preliminar en Ciencias de la Computación (ISSR - Universidad de El Cairo). Gran experiencia en educación matemática internacional.",
-                footerText: "© 2026 Academia Al-Malt Matemáticas. Todos los derechos reservados."
-            }
+        // Initialize empty Canvas ID Card & Chart on Window Load
+        window.onload = function () {
+            initMathChart();
+            drawDefaultCard();
         };
 
-        function changeLanguage(langKey) {
-            const lang = translations[langKey] || translations.ar;
-            document.documentElement.dir = lang.dir;
-            document.documentElement.lang = langKey;
+        // Grade levels & College fields dropdown sync according to stage
+        function updateGrades() {
+            const stage = document.getElementById('educationStage').value;
+            const gradeSelect = document.getElementById('gradeLevel');
+            const collegeContainer = document.getElementById('collegeContainer');
+            const collegeNameInput = document.getElementById('collegeName');
+            const gradeLabel = document.getElementById('gradeLabel');
 
-            // Update text elements
-            document.getElementById('nav-logo-title').innerText = lang.navLogoTitle;
-            document.getElementById('nav-logo-sub').innerText = lang.navLogoSub;
-            document.getElementById('nav-btn-reg').innerText = lang.navBtnReg;
-            document.getElementById('hero-badge').innerText = lang.heroBadge;
-            document.getElementById('hero-title-1').innerText = lang.heroTitle1;
-            document.getElementById('hero-title-2').innerText = lang.heroTitle2;
-            document.getElementById('hero-desc').innerText = lang.heroDesc;
-            document.querySelector('#hero-btn-enter span').innerText = lang.heroBtnEnter;
-            document.querySelector('#hero-btn-stages span').innerText = lang.heroBtnStages;
+            gradeSelect.innerHTML = '<option value="">اختر الصف أو الفرقة</option>';
+
+            let options = [];
+            if (stage === 'المرحلة الابتدائية') {
+                collegeContainer.classList.add('hidden');
+                collegeNameInput.required = false;
+                gradeLabel.textContent = 'الصف الدراسي *';
+                options = ['الصف الرابع الابتدائي', 'الصف الخامس الابتدائي', 'الصف السادس الابتدائي'];
+            } else if (stage === 'المرحلة الإعدادية') {
+                collegeContainer.classList.add('hidden');
+                collegeNameInput.required = false;
+                gradeLabel.textContent = 'الصف الدراسي *';
+                options = ['الصف الأول الإعدادي', 'الصف الثاني الإعدادي', 'الصف الثالث الإعدادي'];
+            } else if (stage === 'المرحلة الثانوية') {
+                collegeContainer.classList.add('hidden');
+                collegeNameInput.required = false;
+                gradeLabel.textContent = 'الصف الدراسي *';
+                options = ['الصف الأول الثانوي', 'الصف الثاني الثانوي', 'الصف الثالث الثانوي'];
+            } else if (stage === 'المرحلة الجامعية') {
+                collegeContainer.classList.remove('hidden');
+                collegeNameInput.required = true;
+                gradeLabel.textContent = 'الفرقة الدراسية *';
+                options = ['الفرقة الأولى', 'الفرقة الثانية', 'الفرقة الثالثة', 'الفرقة الرابعة', 'دراسات عليا / ماجستير / دكتوراه'];
+            }
+
+            options.forEach(grade => {
+                const opt = document.createElement('option');
+                opt.value = grade;
+                opt.textContent = grade;
+                gradeSelect.appendChild(opt);
+            });
+        }
+
+        // Initialize Canvas ID Card Default View
+        function drawDefaultCard() {
+            const canvas = document.getElementById('idCardCanvas');
+            const ctx = canvas.getContext('2d');
             
-            document.getElementById('stat-1').innerText = lang.stat1;
-            document.getElementById('stat-2').innerText = lang.stat2;
-            document.getElementById('stat-3').innerText = lang.stat3;
-            document.getElementById('stat-4').innerText = lang.stat4;
+            // Background Dark Metallic Gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#0b1329');
+            gradient.addColorStop(0.5, '#0f172a');
+            gradient.addColorStop(1, '#050a17');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            document.getElementById('stages-main-title').innerText = lang.stagesMainTitle;
-            document.getElementById('stages-sub-title').innerText = lang.stagesSubTitle;
+            // Gold Outer Border
+            ctx.strokeStyle = '#ca8a04';
+            ctx.lineWidth = 6;
+            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
-            document.getElementById('stg1-title').innerText = lang.stg1Title;
-            document.getElementById('stg1-desc').innerText = lang.stg1Desc;
-            document.getElementById('stg1-btn').innerText = lang.stg1Btn;
+            // Inner Accent Lines
+            ctx.strokeStyle = 'rgba(234, 179, 8, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
-            document.getElementById('stg2-title').innerText = lang.stg2Title;
-            document.getElementById('stg2-desc').innerText = lang.stg2Desc;
-            document.getElementById('stg2-btn').innerText = lang.stg2Btn;
+            // Placeholder Text
+            ctx.fillStyle = '#facc15';
+            ctx.font = 'bold 26px Cairo, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('أكاديمية الملط للرياضيات والذكاء الاصطناعي', canvas.width / 2, 180);
 
-            document.getElementById('stg3-title').innerText = lang.stg3Title;
-            document.getElementById('stg3-desc').innerText = lang.stg3Desc;
-            document.getElementById('stg3-btn').innerText = lang.stg3Btn;
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '20px Cairo, sans-serif';
+            ctx.fillText('قم بتعبئة النموذج واضغط على زر توليد البطاقة', canvas.width / 2, 250);
 
-            document.getElementById('stg4-title').innerText = lang.stg4Title;
-            document.getElementById('stg4-desc').innerText = lang.stg4Desc;
-            document.getElementById('stg4-btn').innerText = lang.stg4Btn;
-
-            document.getElementById('reg-title').innerText = lang.regTitle;
-            document.getElementById('reg-subtitle').innerText = lang.regSubtitle;
-            document.getElementById('lbl-fullname').innerText = lang.lblFullname;
-            document.getElementById('lbl-phone').innerText = lang.lblPhone;
-            document.getElementById('lbl-stage').innerText = lang.lblStage;
-            document.getElementById('lbl-lang').innerText = lang.lblLang;
-
-            document.getElementById('opt-default').innerText = lang.optDefault;
-            document.getElementById('opt-prep').innerText = lang.optPrep;
-            document.getElementById('opt-sec').innerText = lang.optSec;
-            document.getElementById('opt-bac').innerText = lang.optBac;
-            document.getElementById('opt-univ').innerText = lang.optUniv;
-
-            document.querySelector('#btn-form-submit span').innerText = lang.btnFormSubmit;
-            document.getElementById('alert-text').innerText = lang.alertText;
-
-            document.getElementById('founder-sub').innerText = lang.founderSub;
-            document.getElementById('founder-name').innerText = lang.founderName;
-            document.getElementById('founder-title').innerText = lang.founderTitle;
-            document.getElementById('founder-bio').innerText = lang.founderBio;
-            document.getElementById('footer-text').innerText = lang.footerText;
+            // Teacher Signature
+            ctx.fillStyle = '#eab308';
+            ctx.font = 'bold 16px Cairo, sans-serif';
+            ctx.fillText('الأستاذ محمد عبدالمنعم الملط - خبير الرياضيات والذكاء الاصطناعي', canvas.width / 2, 420);
         }
 
-        function selectStage(stageValue) {
-            const selectEl = document.getElementById('stageSelect');
-            selectEl.value = stageValue;
-        }
-
-        function submitForm(event) {
+        // Generate Student ID Card on Form Submit
+        function generateStudentCard(event) {
             event.preventDefault();
-            const alertBox = document.getElementById('formAlert');
-            alertBox.classList.remove('hidden');
-            
-            // Auto hide message after 6 seconds
-            setTimeout(() => {
-                alertBox.classList.add('hidden');
-            }, 6000);
 
-            // Clear inputs
-            document.getElementById('fullName').value = '';
-            document.getElementById('phone').value = '';
-            document.getElementById('stageSelect').value = '';
+            const name = document.getElementById('studentName').value;
+            const phone = document.getElementById('studentPhone').value;
+            const stage = document.getElementById('educationStage').value;
+            const college = document.getElementById('collegeName').value;
+            const grade = document.getElementById('gradeLevel').value;
+            const lang = document.getElementById('studyLanguage').value;
+
+            const canvas = document.getElementById('idCardCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Reset Canvas & Redraw Background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#0b1329');
+            gradient.addColorStop(0.5, '#1e293b');
+            gradient.addColorStop(1, '#050a17');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Glowing Border
+            ctx.strokeStyle = '#facc15';
+            ctx.lineWidth = 8;
+            ctx.strokeRect(12, 12, canvas.width - 24, canvas.height - 24);
+
+            ctx.strokeStyle = 'rgba(234, 179, 8, 0.4)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(22, 22, canvas.width - 44, canvas.height - 44);
+
+            // Header Banner
+            ctx.fillStyle = 'rgba(234, 179, 8, 0.15)';
+            ctx.fillRect(24, 24, canvas.width - 48, 75);
+
+            // Header Title
+            ctx.fillStyle = '#facc15';
+            ctx.font = 'bold 28px Cairo, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('أكاديمية الملط - أقوى أكاديمية رياضيات', canvas.width / 2, 58);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '15px Cairo, sans-serif';
+            ctx.fillText('بطاقة طالب رسمية موثقة للعام الدراسي', canvas.width / 2, 85);
+
+            // Student Information Fields
+            ctx.textAlign = 'right';
+            ctx.font = 'bold 20px Cairo, sans-serif';
+
+            const startX = canvas.width - 60;
+            let currentY = 145;
+            const lineSpacing = 38;
+
+            // Name
+            ctx.fillStyle = '#facc15';
+            ctx.fillText('اسم الطالب:', startX, currentY);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(name, startX - 120, currentY);
+
+            // Phone
+            currentY += lineSpacing;
+            ctx.fillStyle = '#facc15';
+            ctx.fillText('رقم الهاتف:', startX, currentY);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(phone, startX - 120, currentY);
+
+            // Stage & College/Grade
+            currentY += lineSpacing;
+            ctx.fillStyle = '#facc15';
+            ctx.fillText('المرحلة والصف:', startX, currentY);
+            ctx.fillStyle = '#ffffff';
+            
+            if (stage === 'المرحلة الجامعية') {
+                ctx.fillText(`${stage} - ${college} (${grade})`, startX - 140, currentY);
+            } else {
+                ctx.fillText(`${stage} - ${grade}`, startX - 140, currentY);
+            }
+
+            // Language
+            currentY += lineSpacing;
+            ctx.fillStyle = '#facc15';
+            ctx.fillText('لغة الدراسة:', startX, currentY);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(lang, startX - 120, currentY);
+
+            // Divider Line
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(40, 345);
+            ctx.lineTo(canvas.width - 40, 345);
+            ctx.stroke();
+
+            // Footer Signature & WhatsApp Contact
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#facc15';
+            ctx.font = 'bold 17px Cairo, sans-serif';
+            ctx.fillText('مع تحياتي: الأستاذ محمد عبدالمنعم الملط (معلم خبير الرياضيات وخبير الذكاء الاصطناعي)', canvas.width / 2, 380);
+
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = '15px Cairo, sans-serif';
+            ctx.fillText('للتواصل: 01010955349  |  01107832272', canvas.width / 2, 415);
+
+            // Enable Download Button
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.disabled = false;
+            downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-slate-800');
+            downloadBtn.classList.add('gold-button', 'text-slate-950');
+        }
+
+        // Download ID Card Image
+        function downloadCardImage() {
+            const canvas = document.getElementById('idCardCanvas');
+            const link = document.createElement('a');
+            const studentName = document.getElementById('studentName').value || 'student';
+            link.download = `بطاقة_طالب_${studentName}_أكاديمية_الملط.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Math Graphing Simulation with Chart.js
+        function initMathChart() {
+            const ctx = document.getElementById('mathCanvas').getContext('2d');
+            
+            // Sample data points for Sine curve
+            const labels = [];
+            const data = [];
+            for (let x = -10; x <= 10; x += 0.5) {
+                labels.push(x.toFixed(1));
+                data.push(Math.sin(x));
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'تمثيل بياني تفاعلي (GeoGebra AI Simulation)',
+                        data: data,
+                        borderColor: '#facc15',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4,
+                        fill: true,
+                        backgroundColor: 'rgba(234, 179, 8, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#f8fafc',
+                                font: { family: 'Cairo' }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Plot function dynamically
+        function plotFunction(type) {
+            if (!chartInstance) return;
+
+            const labels = [];
+            const data = [];
+
+            if (type === 'sine') {
+                for (let x = -10; x <= 10; x += 0.5) {
+                    labels.push(x.toFixed(1));
+                    data.push(Math.sin(x));
+                }
+                chartInstance.data.datasets[0].label = 'الدالة الجيبية: f(x) = Sin(x)';
+            } else if (type === 'quadratic') {
+                for (let x = -5; x <= 5; x += 0.5) {
+                    labels.push(x.toFixed(1));
+                    data.push((x * x) - 4);
+                }
+                chartInstance.data.datasets[0].label = 'الدالة التربيعية: f(x) = x² - 4';
+            } else if (type === 'cubic') {
+                for (let x = -3; x <= 3; x += 0.3) {
+                    labels.push(x.toFixed(1));
+                    data.push(Math.pow(x, 3));
+                }
+                chartInstance.data.datasets[0].label = 'الدالة التكعيبية: f(x) = x³';
+            }
+
+            chartInstance.data.labels = labels;
+            chartInstance.data.datasets[0].data = data;
+            chartInstance.update();
         }
     </script>
 </body>
 </html>
-<!-- update -->
-
 ```
