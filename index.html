@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
@@ -212,11 +211,6 @@
 
                 <!-- Action Controls -->
                 <div class="flex flex-wrap items-center gap-3">
-                    <button onclick="openChangePinModal()" class="bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/40 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
-                        <i class="fa-solid fa-key text-amber-400"></i>
-                        <span>تغيير الرقم السري</span>
-                    </button>
-
                     <button onclick="openTeacherControlPanel()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-4 py-2.5 rounded-xl text-xs font-black flex items-center gap-2 transition-all shadow-md">
                         <i class="fa-solid fa-plus-circle"></i>
                         <span>إضافة توجيه جديد</span>
@@ -280,13 +274,13 @@
                     <i class="fa-solid fa-user-lock"></i>
                 </div>
                 <h3 class="text-xl font-bold text-white">تسجيل دخول المعلم</h3>
-                <p class="text-slate-400 text-xs mt-1">الرقم السري الافتراضي هو: <span class="text-amber-400 font-bold font-mono text-sm">1234</span></p>
+                <p class="text-slate-400 text-xs mt-1">الرجاء إدخال الرقم السري للوحة التحكم</p>
             </div>
 
             <form onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-slate-300 text-xs mb-2 font-semibold">أدخل الرقم السري للوحة:</label>
-                    <input type="password" id="pinInput" placeholder="••••" required class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white text-center text-2xl font-mono tracking-widest rounded-xl py-3 px-4 outline-none transition-all">
+                    <input type="password" id="pinInput" placeholder="••••••••" required class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white text-center text-xl font-mono tracking-wider rounded-xl py-3 px-4 outline-none transition-all">
                 </div>
 
                 <div id="loginError" class="text-red-400 text-xs text-center hidden">
@@ -295,46 +289,6 @@
 
                 <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg hover:from-amber-600 hover:to-amber-700 transition-all text-sm">
                     دخول اللوحة
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal 2: Change PIN Code -->
-    <div id="changePinModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-card max-w-md w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 shadow-2xl relative">
-            <button onclick="closeModal('changePinModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center text-2xl mb-2 border border-amber-500/30">
-                    <i class="fa-solid fa-key"></i>
-                </div>
-                <h3 class="text-xl font-bold text-white">تغيير الرقم السري للمعلم</h3>
-                <p class="text-slate-400 text-xs mt-1">تعديل الرقم السري لحماية لوحة التوجيهات</p>
-            </div>
-
-            <form onsubmit="handleChangePin(event)" class="space-y-4">
-                <div>
-                    <label class="block text-slate-300 text-xs mb-1 font-medium">الرقم السري الحالي:</label>
-                    <input type="password" id="currentPinInput" required placeholder="••••" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl p-2.5 text-center font-mono outline-none focus:border-amber-500">
-                </div>
-
-                <div>
-                    <label class="block text-slate-300 text-xs mb-1 font-medium">الرقم السري الجديد:</label>
-                    <input type="password" id="newPinInput" required minlength="4" placeholder="أدخل الرقم الجديد" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl p-2.5 text-center font-mono outline-none focus:border-amber-500">
-                </div>
-
-                <div>
-                    <label class="block text-slate-300 text-xs mb-1 font-medium">تأكيد الرقم السري الجديد:</label>
-                    <input type="password" id="confirmNewPinInput" required minlength="4" placeholder="أعد كتابة الرقم الجديد" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl p-2.5 text-center font-mono outline-none focus:border-amber-500">
-                </div>
-
-                <div id="changePinMessage" class="text-xs text-center hidden"></div>
-
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl transition-all text-sm mt-2">
-                    حفظ الرقم السري الجديد
                 </button>
             </form>
         </div>
@@ -360,11 +314,6 @@
                         </p>
                     </div>
                 </div>
-
-                <button onclick="openChangePinModal()" class="self-start sm:self-auto bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
-                    <i class="fa-solid fa-key text-amber-400"></i>
-                    <span>تغيير الرقم السري</span>
-                </button>
             </div>
 
             <!-- Form: Post Directive -->
@@ -427,7 +376,7 @@
 
     <!-- JAVASCRIPT CORE -->
     <script>
-        const DEFAULT_PIN = "1234";
+        const FIXED_DEFAULT_PIN = "Moh@#$123";
         
         // Multiple direct backup image URLs for the teacher to guarantee loading
         const PRIMARY_IMAGE_URL = "https://i.ibb.co/h1VQvhbV/FB-IMG-1791192257132.jpg";
@@ -464,9 +413,6 @@
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
             // Set Initial LocalStorage Defaults
-            if (!localStorage.getItem('teacher_pin')) {
-                localStorage.setItem('teacher_pin', DEFAULT_PIN);
-            }
             if (!localStorage.getItem('academy_directives')) {
                 localStorage.setItem('academy_directives', JSON.stringify(INITIAL_DIRECTIVES));
             }
@@ -475,10 +421,6 @@
             updateAuthUI();
             renderDirectives();
         };
-
-        function getStoredPin() {
-            return localStorage.getItem('teacher_pin') || DEFAULT_PIN;
-        }
 
         function getStoredDirectives() {
             return JSON.parse(localStorage.getItem('academy_directives') || '[]');
@@ -536,21 +478,12 @@
             document.getElementById(modalId).classList.add('hidden');
         }
 
-        function openChangePinModal() {
-            document.getElementById('changePinMessage').classList.add('hidden');
-            document.getElementById('currentPinInput').value = '';
-            document.getElementById('newPinInput').value = '';
-            document.getElementById('confirmNewPinInput').value = '';
-            document.getElementById('changePinModal').classList.remove('hidden');
-        }
-
         // Login Handler
         function handleLogin(e) {
             e.preventDefault();
             const enteredPin = document.getElementById('pinInput').value.trim();
-            const correctPin = getStoredPin();
 
-            if (enteredPin === correctPin) {
+            if (enteredPin === FIXED_DEFAULT_PIN) {
                 sessionStorage.setItem('is_teacher_authenticated', 'true');
                 document.getElementById('loginError').classList.add('hidden');
                 document.getElementById('pinInput').value = '';
@@ -689,35 +622,6 @@
             `).join('');
         }
 
-        // Change PIN Handler
-        function handleChangePin(e) {
-            e.preventDefault();
-            const curr = document.getElementById('currentPinInput').value.trim();
-            const newPin = document.getElementById('newPinInput').value.trim();
-            const confirmPin = document.getElementById('confirmNewPinInput').value.trim();
-            const msg = document.getElementById('changePinMessage');
-
-            if (curr !== getStoredPin()) {
-                msg.className = "text-xs text-center text-red-400 block font-semibold";
-                msg.textContent = "الرقم السري الحالي غير صحيح!";
-                return;
-            }
-
-            if (newPin !== confirmPin) {
-                msg.className = "text-xs text-center text-red-400 block font-semibold";
-                msg.textContent = "الرقم السري الجديد غير متطابق مع التأكيد!";
-                return;
-            }
-
-            localStorage.setItem('teacher_pin', newPin);
-            msg.className = "text-xs text-center text-emerald-400 block font-bold";
-            msg.textContent = "تم تغيير الرقم السري بنجاح!";
-
-            setTimeout(() => {
-                closeModal('changePinModal');
-            }, 1200);
-        }
-
         // Toast Notification Helper
         function showToast(message) {
             const toast = document.createElement('div');
@@ -733,4 +637,3 @@
     </script>
 </body>
 </html>
-```
