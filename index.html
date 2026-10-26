@@ -953,24 +953,24 @@
     
     
     <div style="text-align: center; margin: 20px; font-family: Arial, sans-serif;">
-    <p>عدد زوار الموقع: <span id="visitor-count" style="font-weight: bold; color: #007bff;">جاري التحميل...</span></p>
+    <p>عدد زيارات الصفحة: <span id="local-visitor-count" style="font-weight: bold; color: #007bff;">0</span></p>
 </div>
 
 <script>
-    // استخدام بديل حديث ومستقر
-    fetch('https://api.counterapi.dev/v1/almalat-academy/visitors/up')
-    .then(response => response.json())
-    .then(data => {
-        // التأكد من أن القيمة موجودة وليست undefined
-        if (data && typeof data.count !== 'undefined') {
-            document.getElementById('visitor-count').innerText = data.count;
-        } else {
-            document.getElementById('visitor-count').innerText = '1';
-        }
-    })
-    .catch(error => {
-        document.getElementById('visitor-count').innerText = '1';
-    });
+    // جلب القيمة القديمة من ذاكرة المتصفح
+    let visits = localStorage.getItem('my_site_visits');
+    
+    if (visits === null) {
+        visits = 1;
+    } else {
+        visits = Number(visits) + 1;
+    }
+    
+    // حفظ الرقم الجديد
+    localStorage.setItem('my_site_visits', visits);
+    
+    // عرض الرقم في الصفحة
+    document.getElementById('local-visitor-count').innerText = visits;
 </script>
 
 
