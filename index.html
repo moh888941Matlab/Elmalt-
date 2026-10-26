@@ -946,6 +946,37 @@
             }, 3000);
         }
     </script>
+    
+    
+    
+    
+    
+    
+    <div style="text-align: center; margin: 20px; font-family: Arial, sans-serif;">
+    <p>عدد زوار الموقع: <span id="visitor-count" style="font-weight: bold; color: #007bff;">جاري التحميل...</span></p>
+</div>
+
+<script>
+    // استخدام بديل حديث ومستقر
+    fetch('https://api.counterapi.dev/v1/almalat-academy/visitors/up')
+    .then(response => response.json())
+    .then(data => {
+        // التأكد من أن القيمة موجودة وليست undefined
+        if (data && typeof data.count !== 'undefined') {
+            document.getElementById('visitor-count').innerText = data.count;
+        } else {
+            document.getElementById('visitor-count').innerText = '1';
+        }
+    })
+    .catch(error => {
+        document.getElementById('visitor-count').innerText = '1';
+    });
+</script>
+
+
+    
+    
+    
 </body>
 </html>
 ```
