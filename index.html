@@ -7,68 +7,99 @@
     <title>أكاديمية الملط رياضيات - أقوى وأكبر وأول أكاديمية رياضيات في العالم</title>
     
    
-    <!-- Tailwind CSS CDN -->
-    
-    
-    <!-- بداية شريط السلام عليكم المتحرك -->
-<div style="background-color: #1a1a1a; padding: 10px 0; overflow: hidden; border-bottom: 2px solid #d4af37; border-top: 2px solid #d4af37; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-    <marquee behavior="scroll" direction="right" scrollamount="5" scrolldelay="60" onmouseover="this.stop();" onmouseout="this.start();">
-        <span style="color: #d4af37; font-size: 20px; font-weight: bold; font-family: 'Cairo', 'Tahoma', sans-serif; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
-            السلام عليكم ورحمة الله وبركاته
-        </span>
-    </marquee>
-</div>
-<!-- نهاية شريط السلام عليكم المتحرك -->
-    
-    
-    
-    
-    
-    
-    
-    
-    <!-- 1. Digital Clock Section (الساعة الرقمية والتاريخ الهجري والميلادي) -->
-        <!-- بداية كود الساعة الرقمية -->
-<div id="digital-clock">00:00:00</div>
+    <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ساعة رقمية متطورة</title>
+    <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط رياضيات</title>
+    <style>
+        /* تنسيق الشريط المتحرك */
+        .marquee-container {
+            background-color: #004080; /* لون خلفية الشريط (يمكنك تغييره) */
+            color: #ffffff;
+            padding: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-<style>
-  /* تنسيق الساعة ليكون صغيراً وأنيقاً */
-  #digital-clock {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.1rem;          /* حجم خط صغير ومناسب */
-    font-weight: bold;
-    color: #333333;             /* لون الخط */
-    background-color: #f4f4f9;  /* لون خلفية هادئ */
-    padding: 6px 12px;          /* مساحة داخلية صغيرة */
-    border-radius: 6px;         /* حواف دائرية خفيفة */
-    border: 1px solid #e0e0e0;  /* إطار خفيف */
-    display: inline-block;      /* تأخذ فقط مساحة النص */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* ظل خفيف جداً */
-    direction: ltr;             /* عرض الوقت من اليسار لليمين */
-    unicode-bidi: isolate;
-  }
-</style>
+        .marquee-container marquee {
+            width: 100%;
+        }
 
-<script>
-  function updateClock() {
-    const now = new Date();
-    
-    // جلب الساعات والدقائق والثواني مع إضافة صفر على اليسار إذا كانت أقل من 10
-    let hours = String(now.getHours()).padStart(2, '0');
-    let minutes = String(now.getMinutes()).padStart(2, '0');
-    let seconds = String(now.getSeconds()).padStart(2, '0');
-    
-    // تحديث نص الساعة
-    document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
-  }
+        /* تنسيق الساعة الرقمية */
+        .clock-container {
+            background-color: #ffeb3b; /* خلفية صفراء */
+            color: #333333;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 36px;
+            font-weight: bold;
+            border-bottom: 3px solid #fbc02d;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
 
-  // تحديث الساعة فوراً ثم كل ثانية (1000 مللي ثانية)
-  updateClock();
-  setInterval(updateClock, 1000);
-</script>
-<!-- نهاية كود الساعة الرقمية -->
+    <!-- الشريط المتحرك العريض -->
+    <div class="marquee-container">
+        <marquee behavior="scroll" direction="right" scrollamount="6">
+            أكاديمية الملط رياضيات ترحب بكم
+        </marquee>
+    </div>
+
+    <!-- الساعة الرقمية بخلفية صفراء (نظام 12 ساعة) -->
+    <div class="clock-container" id="digital-clock">
+        00:00:00 AM
+    </div>
+
+    <script>
+        // دالة لتحديث الساعة الرقمية
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // تحويل نظام 24 ساعة إلى نظام 12 ساعة
+            hours = hours % 12;
+            hours = hours ? hours : 12; // الساعة 0 تصبح 12
+
+            // إضافة صفر البداية للأرقام الأقل من 10
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // تنسيق النص المعروض
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            document.getElementById('digital-clock').innerText = timeString;
+        }
+
+        // تشغيل الدالة فوراً ثم تحديثها كل ثانية
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>
+
 
         
+    
+    
     
   
     
@@ -422,8 +453,11 @@
         </section>
 
     </main>
-
-    <!-- Floating Quick WhatsApp Buttons -->
+    
+    
+    
+    
+<!-- Floating Quick WhatsApp Buttons -->
     <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
         <a href="https://wa.me/201010955349" target="_blank" title="تواصل واتساب - 201010955349" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-transform border-2 border-white/20">
             <i class="fa-brands fa-whatsapp"></i>
