@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
@@ -6,117 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أكاديمية الملط رياضيات - أقوى وأكبر وأول أكاديمية رياضيات في العالم</title>
     
-   
-    <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ساعة رقمية متطورة</title>
-    <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الملط رياضيات</title>
-    <style>
-        /* تنسيق الشريط المتحرك */
-        .marquee-container {
-            background-color: #004080; /* لون خلفية الشريط (يمكنك تغييره) */
-            color: #ffffff;
-            padding: 15px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            font-size: 24px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .marquee-container marquee {
-            width: 100%;
-        }
-
-        /* تنسيق الساعة الرقمية */
-        .clock-container {
-            background-color: #ffeb3b; /* خلفية صفراء */
-            color: #333333;
-            text-align: center;
-            padding: 20px;
-            font-family: 'Tahoma', sans-serif;
-            font-size: 36px;
-            font-weight: bold;
-            border-bottom: 3px solid #fbc02d;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-        }
-    </style>
-</head>
-<body>
-
-    <!-- الشريط المتحرك العريض -->
-    <div class="marquee-container">
-        <marquee behavior="scroll" direction="right" scrollamount="6">
-            أكاديمية الملط رياضيات ترحب بكم
-        </marquee>
-    </div>
-
-    <!-- الساعة الرقمية بخلفية صفراء (نظام 12 ساعة) -->
-    <div class="clock-container" id="digital-clock">
-        00:00:00 AM
-    </div>
-
-    <script>
-        // دالة لتحديث الساعة الرقمية
-        function updateClock() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-            let ampm = hours >= 12 ? 'PM' : 'AM';
-
-            // تحويل نظام 24 ساعة إلى نظام 12 ساعة
-            hours = hours % 12;
-            hours = hours ? hours : 12; // الساعة 0 تصبح 12
-
-            // إضافة صفر البداية للأرقام الأقل من 10
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            // تنسيق النص المعروض
-            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-            
-            document.getElementById('digital-clock').innerText = timeString;
-        }
-
-        // تشغيل الدالة فوراً ثم تحديثها كل ثانية
-        updateClock();
-        setInterval(updateClock, 1000);
-    </script>
-
-</body>
-</html>
-
-
-        
-    
-    
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -147,13 +37,6 @@
     
     <style>
         body {
-        
-        
-        
-        
-
-
-
             font-family: 'Cairo', sans-serif;
             background-color: #050a14;
             color: #f8fafc;
@@ -186,21 +69,50 @@
         .animate-subtle-float {
             animation: subtle-float 5s infinite ease-in-out;
         }
+        /* تنسيق الشريط المتحرك */
+        .marquee-container {
+            background-color: #004080;
+            color: #ffffff;
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        /* تنسيق الساعة الرقمية العلوية */
+        .clock-container {
+            background-color: #ffeb3b;
+            color: #333333;
+            text-align: center;
+            padding: 15px;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            border-bottom: 3px solid #fbc02d;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body class="bg-math-grid min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+
+    <!-- Top Marquee -->
+    <div class="marquee-container">
+        <marquee behavior="scroll" direction="right" scrollamount="6">
+            أكاديمية الملط رياضيات ترحب بكم - أقوى وأكبر وأول أكاديمية رياضيات في العالم مع أستاذ محمد الملط
+        </marquee>
+    </div>
+
+    <!-- Top Digital Clock (12-Hour) -->
+    <div class="clock-container" id="digital-clock">
+        00:00:00 AM
+    </div>
 
     <!-- Header Navigation -->
     <header class="sticky top-0 z-40 glass-card border-b border-amber-500/30 px-4 py-3.5 shadow-2xl">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             
-      
-
-
-
-
-
-      <!-- Logo & Title -->
+            <!-- Logo & Title -->
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-600 flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-amber-500/20">
                     <i class="fa-solid fa-square-root-variable"></i>
@@ -214,7 +126,6 @@
             <!-- Navigation Links -->
             <nav class="hidden md:flex items-center gap-6 font-semibold text-sm">
                 <a href="#hero" class="hover:text-amber-400 transition-colors">الرئيسية</a>
-                <a href="#clock-section" class="hover:text-amber-400 transition-colors">الساعة الرقمية</a>
                 <a href="#calculator-section" class="hover:text-amber-400 transition-colors">الحاسبة العلمية</a>
                 <a href="#whiteboard-section" class="hover:text-amber-400 transition-colors">السبورة الذكية</a>
                 <a href="#directives-feed" class="hover:text-amber-400 transition-colors">توجيهات المعلم</a>
@@ -268,16 +179,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-    
-        
-        
-        
-        
-        
 
                 <!-- Text Intro -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-right">
@@ -334,8 +235,7 @@
                 <div>
                     <h2 class="text-2xl sm:text-3xl font-black text-amber-400 flex items-center gap-3">
                         <i class="fa-solid fa-bullhorn text-amber-500"></i>
-                  
-      <span>مجموعة توجيهات المعلم</span>
+                        <span>مجموعة توجيهات المعلم</span>
                     </h2>
                     <p class="text-slate-400 text-sm mt-1">التعليمات الهامة والواجبات المباشرة من الأستاذ محمد الملط</p>
                 </div>
@@ -352,12 +252,8 @@
                 <!-- Rendered dynamically via JavaScript -->
             </div>
         </section>
-        
-        
-        
-        
 
-        <!-- 2. Scientific Calculator Section (آلة حاسبة علمية معدلة ومضبوطة) -->
+        <!-- Scientific Calculator Section -->
         <section id="calculator-section" class="py-10 px-4 max-w-4xl mx-auto">
             <div class="glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 shadow-2xl relative">
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
@@ -368,12 +264,10 @@
                     <span class="text-xs text-slate-400">أكاديمية الملط</span>
                 </div>
 
-                <!-- Calculator Display -->
                 <div class="mb-4">
                     <input type="text" id="calcDisplay" readonly class="w-full bg-slate-950 text-emerald-400 font-mono text-2xl sm:text-3xl p-4 rounded-2xl border border-slate-800 text-left outline-none shadow-inner" value="0">
                 </div>
 
-                <!-- Calculator Keypad -->
                 <div class="grid grid-cols-4 sm:grid-cols-5 gap-2.5">
                     <button onclick="calcClear()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-3 rounded-xl border border-red-500/30 transition-all text-sm">AC</button>
                     <button onclick="calcBackSpace()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm"><i class="fa-solid fa-delete-left"></i></button>
@@ -408,25 +302,36 @@
             </div>
         </section>
 
-    
-
-
-
-
-
-    <!--ورة ذكية تفاعلية) -->
-        
-
-
-
-
-        
-        
-        
-        
-        
-        
-        
+        <!-- Smart Whiteboard Section -->
+        <section id="whiteboard-section" class="py-10 px-4 max-w-5xl mx-auto">
+            <div class="glass-card rounded-3xl p-6 border border-amber-500/40 shadow-2xl">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
+                    <h2 class="text-xl font-black text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-chalkboard text-amber-500"></i> السبورة الذكية التفاعلية
+                    </h2>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
+                            <label class="text-xs text-slate-300">اللون:</label>
+                            <input type="color" id="wbColor" value="#38bdf8" class="w-7 h-7 bg-transparent border-0 cursor-pointer">
+                        </div>
+                        <div class="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
+                            <label class="text-xs text-slate-300">السمك:</label>
+                            <select id="wbLineWidth" class="bg-slate-950 text-white text-xs rounded px-2 py-1 outline-none border border-slate-700">
+                                <option value="2">رفيع (2)</option>
+                                <option value="4" selected>متوسط (4)</option>
+                                <option value="8">عريض (8)</option>
+                                <option value="15">قلم تخطيط (15)</option>
+                            </select>
+                        </div>
+                        <button onclick="clearWhiteboard()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-red-500/30 transition-all">مسح</button>
+                        <button onclick="saveWhiteboardImage()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/30 transition-all">حفظ الرسم</button>
+                    </div>
+                </div>
+                <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                    <canvas id="smartWhiteboard" class="w-full cursor-crosshair"></canvas>
+                </div>
+            </div>
+        </section>
 
         <!-- GeoGebra Laboratory Section -->
         <section id="geogebra-section" class="py-12 px-4 max-w-7xl mx-auto">
@@ -454,10 +359,7 @@
 
     </main>
     
-    
-    
-    
-<!-- Floating Quick WhatsApp Buttons -->
+    <!-- Floating Quick WhatsApp Buttons -->
     <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
         <a href="https://wa.me/201010955349" target="_blank" title="تواصل واتساب - 201010955349" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-transform border-2 border-white/20">
             <i class="fa-brands fa-whatsapp"></i>
@@ -501,7 +403,7 @@
         </div>
     </div>
 
-    <!-- Modal 3: Add Directives Panel -->
+    <!-- Modal 2: Add Directives Panel -->
     <div id="adminPanelModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 overflow-y-auto">
         <div class="glass-card max-w-2xl w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 shadow-2xl relative my-8">
             <button onclick="closeModal('adminPanelModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
@@ -531,6 +433,7 @@
                 <div>
                     <label class="block text-slate-200 font-semibold text-sm mb-2">إرفاق صورة من جهازك (اختياري):</label>
                     <div class="flex flex-col sm:flex-row gap-4 items-center">
+                        <!-- تم التأكد من ربط الـ input بالـ label والوظيفة بشكل سليم -->
                         <input type="file" id="guidelineImage" accept="image/*" onchange="previewImage(event)" class="hidden">
                         <label for="guidelineImage" class="w-full sm:w-auto cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all">
                             <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i>
@@ -576,7 +479,6 @@
             </div>
         </div>
     </footer>
-
 
     <!-- JAVASCRIPT CORE -->
     <script>
@@ -629,22 +531,26 @@
 
         function updateClock() {
             const now = new Date();
-            
-            document.getElementById('liveTimeDisplay').textContent = now.toLocaleTimeString('en-US', { hour12: true });
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
 
-            const optionsGregorian = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('gregorianDateDisplay').textContent = now.toLocaleDateString('ar-EG', optionsGregorian);
+            hours = hours % 12;
+            hours = hours ? hours : 12;
 
-            try {
-                const optionsHijri = { calendar: 'islamic-umalqura', day: 'numeric', month: 'long', year: 'numeric' };
-                const hijriStr = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', optionsHijri).format(now);
-                document.getElementById('hijriDateDisplay').textContent = hijriStr;
-            } catch (e) {
-                document.getElementById('hijriDateDisplay').textContent = "التقويم الهجري غير مدعوم";
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            const clockEl = document.getElementById('digital-clock');
+            if (clockEl) {
+                clockEl.innerText = timeString;
             }
         }
 
-        // --- 2. Scientific Calculator Logic (Fixed & Robust) ---
+        // --- 2. Scientific Calculator Logic ---
         let calcExpression = "0";
 
         function updateCalcDisplay(val) {
@@ -686,7 +592,6 @@
         function calcCalculate() {
             try {
                 let expr = calcExpression;
-                
                 expr = expr.replace(/sqrt\(/g, 'Math.sqrt(');
                 expr = expr.replace(/sin\(/g, 'Math.sin(Math.PI/180 * ');
                 expr = expr.replace(/cos\(/g, 'Math.cos(Math.PI/180 * ');
@@ -715,9 +620,10 @@
 
         function initWhiteboard() {
             const canvas = document.getElementById('smartWhiteboard');
+            if (!canvas) return;
             ctx = canvas.getContext('2d');
 
-            canvas.width = canvas.parentElement.clientWidth;
+            canvas.width = canvas.parentElement.clientWidth || 800;
             canvas.height = 450;
 
             ctx.lineJoin = 'round';
@@ -814,7 +720,7 @@
         function loadTeacherPhoto() {
             const photoUrl = localStorage.getItem('teacher_photo_url') || PRIMARY_IMAGE_URL;
             const imgElement = document.getElementById('teacherHeroImage');
-            imgElement.src = photoUrl;
+            if(imgElement) imgElement.src = photoUrl;
         }
 
         function promptChangeTeacherPhoto() {
@@ -834,14 +740,18 @@
             const changeImgBtn = document.getElementById('changeImgOption');
 
             if (isTeacherLoggedIn()) {
-                dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
-                txt.textContent = "معلم مسجل";
-                txt.className = "text-emerald-400 font-bold";
+                if(dot) dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+                if(txt) {
+                    txt.textContent = "معلم مسجل";
+                    txt.className = "text-emerald-400 font-bold";
+                }
                 if(changeImgBtn) changeImgBtn.classList.remove('hidden');
             } else {
-                dot.className = "w-2.5 h-2.5 rounded-full bg-slate-500";
-                txt.textContent = "زائر";
-                txt.className = "text-slate-400";
+                if(dot) dot.className = "w-2.5 h-2.5 rounded-full bg-slate-500";
+                if(txt) {
+                    txt.textContent = "زائر";
+                    txt.className = "text-slate-400";
+                }
                 if(changeImgBtn) changeImgBtn.classList.add('hidden');
             }
         }
@@ -937,6 +847,7 @@
 
         function renderDirectives() {
             const container = document.getElementById('directivesContainer');
+            if(!container) return;
             const directives = getStoredDirectives();
             const loggedIn = isTeacherLoggedIn();
 
@@ -1005,18 +916,5 @@
             }, 3000);
         }
     </script>
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
 </body>
 </html>
-```
