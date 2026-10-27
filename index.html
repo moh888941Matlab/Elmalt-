@@ -20,29 +20,54 @@
 </div>
 <!-- نهاية شريط السلام عليكم المتحرك -->
     
+    
+    
+    
+    
+    
+    
+    
     <!-- 1. Digital Clock Section (الساعة الرقمية والتاريخ الهجري والميلادي) -->
-        <section id="clock-section" class="py-10 px-4 max-w-7xl mx-auto">
-            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 shadow-2xl relative text-center">
-                <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 text-xs font-bold mb-6">
-                    <i class="fa-solid fa-clock text-amber-400"></i>
-                   
-                </div>
+        <!-- بداية كود الساعة الرقمية -->
+<div id="digital-clock">00:00:00</div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    <!-- Hijri Date -->
-                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
-                        
-                    </div>
+<style>
+  /* تنسيق الساعة ليكون صغيراً وأنيقاً */
+  #digital-clock {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1rem;          /* حجم خط صغير ومناسب */
+    font-weight: bold;
+    color: #333333;             /* لون الخط */
+    background-color: #f4f4f9;  /* لون خلفية هادئ */
+    padding: 6px 12px;          /* مساحة داخلية صغيرة */
+    border-radius: 6px;         /* حواف دائرية خفيفة */
+    border: 1px solid #e0e0e0;  /* إطار خفيف */
+    display: inline-block;      /* تأخذ فقط مساحة النص */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* ظل خفيف جداً */
+    direction: ltr;             /* عرض الوقت من اليسار لليمين */
+    unicode-bidi: isolate;
+  }
+</style>
 
-                    <!-- Live Time -->
-                    <div class="bg-gradient-to-r from-amber-500/10 via-amber-600/10 to-amber-500/10 p-5 rounded-2xl border border-amber-500/30">
-                        <p class="text-amber-300 text-xs mb-1 font-semibold">الوقت الحالي</p>
-                        <div id="liveTimeDisplay" class="text-2xl sm:text-3xl font-black text-white font-mono tracking-wider">00:00:00</div>
-                    </div>
+<script>
+  function updateClock() {
+    const now = new Date();
+    
+    // جلب الساعات والدقائق والثواني مع إضافة صفر على اليسار إذا كانت أقل من 10
+    let hours = String(now.getHours()).padStart(2, '0');
+    let minutes = String(now.getMinutes()).padStart(2, '0');
+    let seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    // تحديث نص الساعة
+    document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
+  }
 
-                    
-            </div>
-        </section>
+  // تحديث الساعة فوراً ثم كل ثانية (1000 مللي ثانية)
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+<!-- نهاية كود الساعة الرقمية -->
+
         
     
   
@@ -952,26 +977,7 @@
     
     
     
-    <div style="text-align: center; margin: 20px; font-family: Arial, sans-serif;">
-    <p>عدد زيارات الصفحة: <span id="local-visitor-count" style="font-weight: bold; color: #007bff;">0</span></p>
-</div>
-
-<script>
-    // جلب القيمة القديمة من ذاكرة المتصفح
-    let visits = localStorage.getItem('my_site_visits');
     
-    if (visits === null) {
-        visits = 1;
-    } else {
-        visits = Number(visits) + 1;
-    }
-    
-    // حفظ الرقم الجديد
-    localStorage.setItem('my_site_visits', visits);
-    
-    // عرض الرقم في الصفحة
-    document.getElementById('local-visitor-count').innerText = visits;
-</script>
 
 
     
