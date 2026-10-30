@@ -1,238 +1,95 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>أكاديمية الملط رياضيات - أ. محمد الملط</title>
-  
-  <!-- استدعاء خط Cairo الاحترافي -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط للرياضيات</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    /* ==========================================================
-       تنسيقات اللوجو (مستقلة بالكامل لعدم التداخل مع باقي الموقع)
-       ========================================================== */
-    .malat-logo-wrapper {
-      --primary-color: #f59e0b;
-      --secondary-color: #38bdf8;
-      --glow-color: rgba(245, 158, 11, 0.35);
-      --bg-gradient: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-      --transition-speed: 2s;
-      
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      padding: 30px 20px;
-      background-color: #0b0f19;
-      font-family: 'Cairo', sans-serif;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+        }
 
-    .malat-logo-card {
-      position: relative;
-      width: 100%;
-      max-width: 480px;
-      padding: 50px 30px 40px;
-      background: var(--bg-gradient);
-      border-radius: 28px;
-      text-align: center;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--glow-color);
-      transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    }
+        /* شريط متحرك ذو توافقية عالية مع الهواتف */
+        .top-banner {
+            width: 100%;
+            background: #111625;
+            border-bottom: 3px solid #ffd700;
+            padding: 12px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 9999;
+        }
 
-    .malat-logo-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 28px;
-      padding: 2px;
-      background: linear-gradient(135deg, var(--primary-color), transparent, var(--secondary-color));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      transition: background var(--transition-speed) ease;
-      pointer-events: none;
-    }
+        .ticker-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+        }
 
-    .malat-math-bg {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
+        .ticker-text {
+            white-space: nowrap;
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            
+            /* لون ذهبي واضح وعريض يدعم كل الأجهزة */
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffd700; 
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.5);
+        }
 
-    .malat-symbol {
-      position: absolute;
-      color: var(--primary-color);
-      opacity: 0.18;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: bold;
-      user-select: none;
-      transition: color var(--transition-speed) ease;
-      animation: malatFloat 8s ease-in-out infinite alternate;
-    }
+        /* تنسيق الرموز الرياضية */
+        .math-symbol {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 2px 8px;
+            border: 1px solid #ffd700;
+            border-radius: 5px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 22px;
+            color: #ffffff;
+            background-color: rgba(255, 215, 0, 0.2);
+            vertical-align: middle;
+        }
 
-    .m-sym-1 { top: 12%; right: 10%; font-size: 32px; animation-delay: 0s; }
-    .m-sym-2 { top: 18%; left: 12%; font-size: 26px; animation-delay: 1.5s; }
-    .m-sym-3 { bottom: 15%; right: 12%; font-size: 30px; animation-delay: 3s; }
-    .m-sym-4 { bottom: 20%; left: 10%; font-size: 28px; animation-delay: 4.5s; }
-    .m-sym-5 { top: 48%; right: 6%; font-size: 20px; animation-delay: 2s; }
-    .m-sym-6 { top: 50%; left: 6%; font-size: 28px; animation-delay: 3.5s; }
+        /* أنيميشن الحركة السلسة */
+        @keyframes marquee {
+            0% {
+                transform: translateX(100vw);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
 
-    @keyframes malatFloat {
-      0% { transform: translateY(0px) rotate(0deg) scale(1); }
-      100% { transform: translateY(-15px) rotate(10deg) scale(1.08); }
-    }
-
-    .malat-logo-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .malat-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 75px;
-      height: 75px;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: #0f172a;
-      border-radius: 50%;
-      font-size: 36px;
-      font-weight: 900;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 25px var(--glow-color);
-      transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    }
-
-    .malat-academy-title {
-      color: #ffffff;
-      font-size: 28px;
-      font-weight: 900;
-      line-height: 1.3;
-      margin-bottom: 12px;
-    }
-
-    .malat-academy-title span {
-      color: var(--primary-color);
-      transition: color var(--transition-speed) ease;
-      text-shadow: 0 0 15px var(--glow-color);
-    }
-
-    .malat-teacher-name {
-      color: var(--secondary-color);
-      font-size: 20px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: color var(--transition-speed) ease;
-    }
-
-    .malat-teacher-name::before,
-    .malat-teacher-name::after {
-      content: '';
-      width: 35px;
-      height: 2px;
-      background: var(--secondary-color);
-      opacity: 0.6;
-      border-radius: 2px;
-      transition: background var(--transition-speed) ease;
-    }
-
-    .malat-timer-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 3px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      overflow: hidden;
-    }
-
-    .malat-timer-progress {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-      animation: malatProgress 5s linear infinite;
-    }
-
-    @keyframes malatProgress {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
-  </style>
+        .main-content {
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- ==================== بداية قسم اللوجو في أول الصفحة ==================== -->
-  <header class="malat-logo-wrapper">
-    <div class="malat-logo-card" id="malatCard">
-      
-      <!-- الرموز الرياضية المطلوبة في الخلفية -->
-      <div class="malat-math-bg">
-        <span class="malat-symbol m-sym-1">&pi;</span>
-        <span class="malat-symbol m-sym-2">&sect;</span>
-        <span class="malat-symbol m-sym-3">&Delta;</span>
-        <span class="malat-symbol m-sym-4">&euro;</span>
-        <span class="malat-symbol m-sym-5">dy/dx</span>
-        <span class="malat-symbol m-sym-6">&pi;</span>
-      </div>
+    <header class="top-banner">
+        <div class="ticker-wrapper">
+            <div class="ticker-text">
+                <span class="math-symbol">&pi;</span>
+                السلام عليكم ورحمة الله وبركاته &mdash; أكاديمية الملط رياضيات ترحب بكم &mdash; مع تحياتي الأستاذ محمد عبدالمنعم الملط
+                <span class="math-symbol">&radic;<i>x</i></span>
+            </div>
+        </div>
+    </header>
 
-      <!-- النصوص والرمز الرئيسي -->
-      <div class="malat-logo-content">
-        <div class="malat-badge">&Delta;</div>
-        <h1 class="malat-academy-title">أكاديمية <span>الملط</span> رياضيات</h1>
-        <div class="malat-teacher-name">أ. محمد الملط</div>
-      </div>
-
-      <!-- مؤشر الوقت السفلي -->
-      <div class="malat-timer-bar">
-        <div class="malat-timer-progress" id="malatProgress"></div>
-      </div>
-
-    </div>
-  </header>
-  <!-- ==================== نهاية قسم اللوجو ==================== -->
-
-  
-
-  <!-- سكربت تغيير الألوان التلقائي -->
-  <script>
-    const colorThemes = [
-      { primary: '#f59e0b', secondary: '#38bdf8', glow: 'rgba(245, 158, 11, 0.35)' },
-      { primary: '#10b981', secondary: '#34d399', glow: 'rgba(16, 185, 129, 0.35)' },
-      { primary: '#06b6d4', secondary: '#a855f7', glow: 'rgba(6, 182, 212, 0.35)'  },
-      { primary: '#f43f5e', secondary: '#fb7185', glow: 'rgba(244, 63, 94, 0.35)'   },
-      { primary: '#8b5cf6', secondary: '#ec4899', glow: 'rgba(139, 92, 246, 0.35)'  }
-    ];
-
-    let currentIndex = 0;
-    const card = document.getElementById('malatCard');
-
-    function changeTheme() {
-      currentIndex = (currentIndex + 1) % colorThemes.length;
-      const theme = colorThemes[currentIndex];
-
-      card.style.setProperty('--primary-color', theme.primary);
-      card.style.setProperty('--secondary-color', theme.secondary);
-      card.style.setProperty('--glow-color', theme.glow);
-
-      const progressBar = document.getElementById('malatProgress');
-      progressBar.style.animation = 'none';
-      progressBar.offsetHeight; 
-      progressBar.style.animation = 'malatProgress 5s linear infinite';
-    }
-
-    setInterval(changeTheme, 5000);
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -1175,5 +1032,9 @@
             }, 3000);
         }
     </script>
+</body>
+</html>
+
+
 </body>
 </html>
