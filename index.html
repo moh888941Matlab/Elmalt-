@@ -1,4 +1,212 @@
+```html
 <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الرياضيات - الأستاذ محمد عبدالمنعم حسن الملط</title>
+    <!-- خط القاهرة التجاري الجميل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* إعادة ضبط القيم الأساسية */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ----------------------------------
+           تنسيقات الشريط المتحرك العلوي
+        ---------------------------------- */
+        .top-ticker-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 12px 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        /* إطار ضوئي متحرك أسفل الشريط (Animated Gradient Border) */
+        .top-ticker-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0; 
+            left: 0; 
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #10b981, #3b82f6);
+            background-size: 300% 300%;
+            animation: borderGradient 6s linear infinite;
+        }
+
+        /* مسار الحركة المستمرة */
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeRTL 28s linear infinite;
+        }
+
+        /* تجميد الحركة عند التمرير بالمؤشر لقراءة أسهل */
+        .top-ticker-wrapper:hover .ticker-track {
+            animation-play-state: paused;
+        }
+
+        /* عنصر النص والشرائح */
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+            padding: 0 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+        }
+
+        /* تمييز الاسم بالألوان المضيئة (Neon Glow) */
+        .highlight-name {
+            background: linear-gradient(135deg, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        /* تمييز الألقاب الرسمية */
+        .highlight-title {
+            background: linear-gradient(135deg, #f472b6, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.07);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+
+        /* الفاصل الجمالي الضوئي */
+        .separator {
+            color: #ec4899;
+            font-size: 1.3rem;
+            margin: 0 15px;
+            filter: drop-shadow(0 0 8px #ec4899);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        /* ----------------------------------
+           الرسوم المتحركة (Keyframes)
+        ---------------------------------- */
+        /* حركة التمرير اللانهائية باتجاه RTL */
+        @keyframes marqueeRTL {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(50%);
+            }
+        }
+
+        /* حركة الشفق الضوئي للإطار */
+        @keyframes borderGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* نبض الفواصل الضوئية */
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* محتوى الموقع التجريبي لعرض التناسق */
+        .site-content {
+            padding: 60px 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .site-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #60a5fa;
+        }
+
+        .site-content p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🟢 الشريط المتحرك الفاخر في بداية الصفحة تماماً 🟢 -->
+    <div class="top-ticker-wrapper">
+        <div class="ticker-track">
+            
+            <!-- الشريحة 1 -->
+            <div class="ticker-item">
+                <span>مع تحياتي</span>
+                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
+                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
+                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
+            </div>
+            
+            <span class="separator">✦</span>
+
+            <!-- الشريحة 2 -->
+            <div class="ticker-item">
+                <span>مع تحياتي</span>
+                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
+                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
+                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
+            </div>
+
+            <span class="separator">✦</span>
+
+            <!-- الشريحة 3 (مكررة لضمان استمرارية وانسيابية الحركة بدون أي انقطاع) -->
+            <div class="ticker-item">
+                <span>مع تحياتي</span>
+                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
+                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
+                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
+            </div>
+
+            <span class="separator">✦</span>
+
+            <!-- الشريحة 4 -->
+            <div class="ticker-item">
+                <span>مع تحياتي</span>
+                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
+                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
+                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
+            </div>
+
+            <span class="separator">✦</span>
+
+        </div>
+    </div>
+
+    <!-- 🔵 بداية محتوى موقعك هنا 🔵 -->
+    <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -1038,3 +1246,8 @@
 
 </body>
 </html>
+
+
+</body>
+</html>
+```
