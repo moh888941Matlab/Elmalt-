@@ -1,211 +1,5 @@
 
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الرياضيات - الأستاذ محمد عبدالمنعم حسن الملط</title>
-    <!-- خط القاهرة التجاري الجميل -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* إعادة ضبط القيم الأساسية */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #0b0f19;
-            color: #ffffff;
-            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-        }
-
-        /* ----------------------------------
-           تنسيقات الشريط المتحرك العلوي
-        ---------------------------------- */
-        .top-ticker-wrapper {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 12px 0;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
-            z-index: 9999;
-        }
-
-        /* إطار ضوئي متحرك أسفل الشريط (Animated Gradient Border) */
-        .top-ticker-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: 0; 
-            left: 0; 
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #10b981, #3b82f6);
-            background-size: 300% 300%;
-            animation: borderGradient 6s linear infinite;
-        }
-
-        /* مسار الحركة المستمرة */
-        .ticker-track {
-            display: flex;
-            width: max-content;
-            animation: marqueeRTL 28s linear infinite;
-        }
-
-        /* تجميد الحركة عند التمرير بالمؤشر لقراءة أسهل */
-        .top-ticker-wrapper:hover .ticker-track {
-            animation-play-state: paused;
-        }
-
-        /* عنصر النص والشرائح */
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            white-space: nowrap;
-            padding: 0 20px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
-        }
-
-        /* تمييز الاسم بالألوان المضيئة (Neon Glow) */
-        .highlight-name {
-            background: linear-gradient(135deg, #60a5fa, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            letter-spacing: 0.5px;
-        }
-
-        /* تمييز الألقاب الرسمية */
-        .highlight-title {
-            background: linear-gradient(135deg, #f472b6, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1rem;
-            background-color: rgba(255, 255, 255, 0.07);
-            padding: 4px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
-        }
-
-        /* الفاصل الجمالي الضوئي */
-        .separator {
-            color: #ec4899;
-            font-size: 1.3rem;
-            margin: 0 15px;
-            filter: drop-shadow(0 0 8px #ec4899);
-            animation: pulseGlow 2s infinite alternate;
-        }
-
-        /* ----------------------------------
-           الرسوم المتحركة (Keyframes)
-        ---------------------------------- */
-        /* حركة التمرير اللانهائية باتجاه RTL */
-        @keyframes marqueeRTL {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(50%);
-            }
-        }
-
-        /* حركة الشفق الضوئي للإطار */
-        @keyframes borderGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* نبض الفواصل الضوئية */
-        @keyframes pulseGlow {
-            0% { opacity: 0.6; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* محتوى الموقع التجريبي لعرض التناسق */
-        .site-content {
-            padding: 60px 20px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .site-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #60a5fa;
-        }
-
-        .site-content p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 🟢 الشريط المتحرك الفاخر في بداية الصفحة تماماً 🟢 -->
-    <div class="top-ticker-wrapper">
-        <div class="ticker-track">
-            
-            <!-- الشريحة 1 -->
-            <div class="ticker-item">
-                <span>مع تحياتي</span>
-                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
-                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
-                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
-            </div>
-            
-            <span class="separator">✦</span>
-
-            <!-- الشريحة 2 -->
-            <div class="ticker-item">
-                <span>مع تحياتي</span>
-                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
-                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
-                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
-            </div>
-
-            <span class="separator">✦</span>
-
-            <!-- الشريحة 3 (مكررة لضمان استمرارية وانسيابية الحركة بدون أي انقطاع) -->
-            <div class="ticker-item">
-                <span>مع تحياتي</span>
-                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
-                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
-                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
-            </div>
-
-            <span class="separator">✦</span>
-
-            <!-- الشريحة 4 -->
-            <div class="ticker-item">
-                <span>مع تحياتي</span>
-                <span class="highlight-name">الاستاذ محمد عبدالمنعم حسن الملط</span>
-                <span class="highlight-title">📐 معلم خبير الرياضيات</span>
-                <span class="highlight-title">🤖 خبير الذكاء الاصطناعي</span>
-            </div>
-
-            <span class="separator">✦</span>
-
-        </div>
-    </div>
-
-    <!-- 🔵 بداية محتوى موقعك هنا 🔵 -->
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -1247,6 +1041,460 @@
 </html>
 
 
+
+
+<!-- الصق الكود هنا داخل ملف index.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب المساحة تحت المنحنى الطبيعي المعياري</title>
+    <style>
+        :root {
+            --primary-color: #2b5876;
+            --secondary-color: #4e4376;
+            --accent-color: #ff7e5f;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 580px;
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+
+        .condition-badge {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid #ffeeba;
+            display: block;
+            text-align: center;
+            direction: ltr;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .input-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fff;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        input[type="text"].active-input {
+            border-color: var(--accent-color) !important;
+            background-color: #fff5f2 !important;
+            box-shadow: 0 0 8px rgba(255, 126, 95, 0.4);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-calculate {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-calculate:hover {
+            background-color: #1e3c50;
+        }
+
+        .btn-clear {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-clear:hover {
+            background-color: #d0d0d0;
+        }
+
+        .result-box {
+            background-color: #eef5fc;
+            border-right: 5px solid var(--primary-color);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #1a365d;
+            display: none;
+            text-align: right;
+        }
+
+        .keypad {
+            background: #2d3748;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .key-btn {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .key-btn:hover {
+            background: #718096;
+        }
+
+        .key-btn:active {
+            background: #a0aec0;
+        }
+
+        .key-minus {
+            background: #c53030 !important;
+        }
+        .key-minus:hover {
+            background: #9b2c2c !important;
+        }
+
+        .key-action {
+            background: #2b6cb0 !important;
+        }
+        .key-action:hover {
+            background: #2c5282 !important;
+        }
+
+        canvas {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>حساب المساحة تحت المنحنى الطبيعي المعياري</h2>
+    
+    <div class="condition-badge">
+        ⚠️ الشرط: القيم a و b أكبر من أو تساوي -1 وأصغر من أو تساوي 1 <br>
+        <span dir="ltr" style="display:inline-block; font-weight:bold; margin-top:4px;">(-1 ≤ a, b ≤ 1)</span>
+    </div>
+
+    <div class="input-group">
+        <div class="input-box">
+            <label for="valA">القيمة المعيارية (a):</label>
+            <input type="text" id="valA" value="" readonly placeholder="اختر للإدخال" onclick="setActiveField('valA')">
+        </div>
+        <div class="input-box">
+            <label for="valB">القيمة المعيارية (b):</label>
+            <input type="text" id="valB" value="" readonly placeholder="اختر للإدخال" onclick="setActiveField('valB')">
+        </div>
+    </div>
+
+    <!-- لوحة المفاتيح المدمجة -->
+    <div class="keypad">
+        <button class="key-btn" onclick="appendValue('7')">7</button>
+        <button class="key-btn" onclick="appendValue('8')">8</button>
+        <button class="key-btn" onclick="appendValue('9')">9</button>
+        <button class="key-btn key-minus" onclick="appendValue('-')">- (سالب)</button>
+
+        <button class="key-btn" onclick="appendValue('4')">4</button>
+        <button class="key-btn" onclick="appendValue('5')">5</button>
+        <button class="key-btn" onclick="appendValue('6')">6</button>
+        <button class="key-btn key-action" onclick="backspace()">⌫ مسح</button>
+
+        <button class="key-btn" onclick="appendValue('1')">1</button>
+        <button class="key-btn" onclick="appendValue('2')">2</button>
+        <button class="key-btn" onclick="appendValue('3')">3</button>
+        <button class="key-btn key-action" onclick="clearActiveField()">C تفريغ</button>
+
+        <button class="key-btn" onclick="appendValue('0')">0</button>
+        <button class="key-btn" onclick="appendValue('.')">.</button>
+        <button class="key-btn" style="grid-column: span 2; background: #2f855a;" onclick="switchField()">تبديل الحقل نشط</button>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-calculate" onclick="calculateArea()">احسب المساحة والرسم</button>
+        <button class="btn-clear" onclick="resetForm()">إعادة ضبط</button>
+    </div>
+
+    <div id="result" class="result-box"></div>
+
+    <canvas id="chartCanvas" width="520" height="240"></canvas>
+</div>
+
+<script>
+    let activeFieldId = 'valA';
+
+    document.addEventListener("DOMContentLoaded", function() {
+        setActiveField('valA');
+        drawNormalCurve(null, null);
+    });
+
+    function setActiveField(fieldId) {
+        activeFieldId = fieldId;
+        let elA = document.getElementById('valA');
+        let elB = document.getElementById('valB');
+
+        elA.classList.remove('active-input');
+        elB.classList.remove('active-input');
+
+        document.getElementById(fieldId).classList.add('active-input');
+    }
+
+    function switchField() {
+        if (activeFieldId === 'valA') {
+            setActiveField('valB');
+        } else {
+            setActiveField('valA');
+        }
+    }
+
+    function appendValue(char) {
+        let field = document.getElementById(activeFieldId);
+        if(!field) return;
+        let val = field.value;
+
+        if (char === '-') {
+            if (val.startsWith('-')) {
+                field.value = val.substring(1);
+            } else {
+                field.value = '-' + val;
+            }
+            return;
+        }
+
+        if (char === '.' && val.includes('.')) return;
+        
+        field.value += char;
+    }
+
+    function backspace() {
+        let field = document.getElementById(activeFieldId);
+        if(field) field.value = field.value.slice(0, -1);
+    }
+
+    function clearActiveField() {
+        let field = document.getElementById(activeFieldId);
+        if(field) field.value = "";
+    }
+
+    function normalCDF(z) {
+        if (z < -6) return 0;
+        if (z > 6) return 1;
+        let b1 = 0.319381530, b2 = -0.356563782, b3 = 1.781477937, b4 = -1.821255978, b5 = 1.330274429;
+        let p = 0.2316419, c = 0.39894228;
+        let absZ = Math.abs(z);
+        let t = 1.0 / (1.0 + p * absZ);
+        let pdf = c * Math.exp(-0.5 * absZ * absZ);
+        let poly = t * (b1 + t * (b2 + t * (b3 + t * (b4 + t * b5))));
+        let cdf = 1.0 - pdf * poly;
+        return z >= 0 ? cdf : 1.0 - cdf;
+    }
+
+    function normalPDF(x) {
+        return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+    }
+
+    function calculateArea() {
+        let inputA = document.getElementById('valA').value;
+        let inputB = document.getElementById('valB').value;
+
+        if (inputA === "" || inputB === "") {
+            alert("يرجى إدخال قيمتي a و b");
+            return;
+        }
+
+        let a = parseFloat(inputA);
+        let b = parseFloat(inputB);
+
+        if (a < -1 || a > 1 || b < -1 || b > 1) {
+            alert("خطأ: القيم a و b يجب أن تكون أكبر من أو تساوي -1 وأصغر من أو تساوي 1 (-1 ≤ a, b ≤ 1)");
+            return;
+        }
+
+        let minVal = Math.min(a, b);
+        let maxVal = Math.max(a, b);
+
+        let areaA = normalCDF(minVal);
+        let areaB = normalCDF(maxVal);
+        let area = areaB - areaA;
+
+        let resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `المساحة المحصورة P(${minVal} ≤ Z ≤ ${maxVal}) = <b>${area.toFixed(4)}</b> <br><span style="font-size:0.85rem; font-weight:normal; color:#555;">(النسبة المئوية: ${(area * 100).toFixed(2)}%)</span>`;
+
+        drawNormalCurve(minVal, maxVal);
+    }
+
+    function resetForm() {
+        document.getElementById('valA').value = "";
+        document.getElementById('valB').value = "";
+        let resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'none';
+        resultDiv.innerHTML = "";
+        setActiveField('valA');
+        drawNormalCurve(null, null);
+    }
+
+    function drawNormalCurve(a, b) {
+        let canvas = document.getElementById('chartCanvas');
+        if(!canvas) return;
+        let ctx = canvas.getContext('2d');
+        let width = canvas.width;
+        let height = canvas.height;
+
+        ctx.clearRect(0, 0, width, height);
+
+        let xMin = -2.5, xMax = 2.5;
+        let yMin = 0, yMax = 0.45;
+        let padding = 35;
+
+        function toScreenX(x) {
+            return padding + (x - xMin) / (xMax - xMin) * (width - 2 * padding);
+        }
+
+        function toScreenY(y) {
+            return height - padding - (y - yMin) / (yMax - yMin) * (height - 2 * padding);
+        }
+
+        if (a !== null && b !== null) {
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(255, 126, 95, 0.4)";
+            let startX = Math.max(a, xMin);
+            let endX = Math.min(b, xMax);
+
+            ctx.moveTo(toScreenX(startX), toScreenY(0));
+            for (let x = startX; x <= endX; x += 0.02) {
+                ctx.lineTo(toScreenX(x), toScreenY(normalPDF(x)));
+            }
+            ctx.lineTo(toScreenX(endX), toScreenY(0));
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.strokeStyle = "#2b5876";
+        ctx.lineWidth = 3;
+        for (let x = xMin; x <= xMax; x += 0.02) {
+            let px = toScreenX(x);
+            let py = toScreenY(normalPDF(x));
+            if (x === xMin) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.moveTo(toScreenX(xMin), toScreenY(0));
+        ctx.lineTo(toScreenX(xMax), toScreenY(0));
+        ctx.stroke();
+
+        ctx.fillStyle = "#333";
+        ctx.font = "11px Tahoma";
+        ctx.textAlign = "center";
+        for (let z = -2; z <= 2; z++) {
+            let px = toScreenX(z);
+            let py = toScreenY(0);
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(px, py + 4);
+            ctx.stroke();
+            ctx.fillText(z, px, py + 18);
+        }
+
+        if (a !== null) drawVerticalLine(ctx, toScreenX(a), toScreenY(0), toScreenY(normalPDF(a)), "a = " + a);
+        if (b !== null) drawVerticalLine(ctx, toScreenX(b), toScreenY(0), toScreenY(normalPDF(b)), "b = " + b);
+    }
+
+    function drawVerticalLine(ctx, x, yBottom, yTop, label) {
+        ctx.beginPath();
+        ctx.strokeStyle = "#d9534f";
+        ctx.setLineDash([3, 3]);
+        ctx.lineWidth = 1.5;
+        ctx.moveTo(x, yBottom);
+        ctx.lineTo(x, yTop);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = "#d9534f";
+        ctx.font = "bold 11px Tahoma";
+        ctx.fillText(label, x, yTop - 6);
+    }
+</script>
+
 </body>
 </html>
-```
