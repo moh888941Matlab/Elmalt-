@@ -1,3 +1,48 @@
+<!-- ================= بداية كود الساعة والتاريخ ================= -->
+<div class="flex items-center justify-between bg-slate-950/90 px-5 py-2.5 rounded-xl border border-yellow-500/50 text-yellow-400 font-mono shadow-inner mb-6">
+    <div class="flex items-center gap-2">
+        <i class="far fa-clock text-yellow-500 text-base animate-pulse"></i>
+        <span id="digital-clock" class="font-bold text-base tracking-wider">00:00:00 AM</span>
+    </div>
+    <div class="flex items-center gap-2 text-gray-300 font-sans text-xs sm:text-sm">
+        <i class="far fa-calendar-alt text-yellow-500"></i>
+        <span id="digital-date" class="font-semibold">Loading...</span>
+    </div>
+</div>
+
+<script>
+    (function startClock() {
+        function updateClockAndDate() {
+            const now = new Date();
+            
+            // تحديث الوقت باللغات والترقيم اللاتيني (AM/PM وأرقام إنجليزية)
+            const clockEl = document.getElementById('digital-clock');
+            if (clockEl) {
+                clockEl.textContent = now.toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit', 
+                    hour12: true 
+                });
+            }
+
+            // تحديث التاريخ باللاتينية (اسم اليوم، الشهر، اليوم، السنة)
+            const dateEl = document.getElementById('digital-date');
+            if (dateEl) {
+                dateEl.textContent = now.toLocaleDateString('en-US', { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+            }
+        }
+
+        updateClockAndDate();
+        setInterval(updateClockAndDate, 1000);
+    })();
+</script>
+<!-- ================= نهاية كود الساعة والتاريخ ================= -->
 <a href="https://moh888.weebly.com/" target="_blank" rel="noopener" class="math-card">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
     <div>
@@ -416,18 +461,7 @@
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        /* تنسيق الساعة الرقمية العلوية */
-        .clock-container {
-            background-color: #ffeb3b;
-            color: #333333;
-            text-align: center;
-            padding: 15px;
-            font-family: 'Tahoma', sans-serif;
-            font-size: 28px;
-            font-weight: bold;
-            border-bottom: 3px solid #fbc02d;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-        }
+        
     </style>
 </head>
 <body class="bg-math-grid min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
