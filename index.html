@@ -1,14 +1,174 @@
 <!-- ================= بداية كود الساعة والتاريخ ================= -->
-<div class="flex items-center justify-between bg-slate-950/90 px-5 py-2.5 rounded-xl border border-yellow-500/50 text-yellow-400 font-mono shadow-inner mb-6">
-    <div class="flex items-center gap-2">
-        <i class="far fa-clock text-yellow-500 text-base animate-pulse"></i>
-        <span id="digital-clock" class="font-bold text-base tracking-wider">00:00:00 AM</span>
-    </div>
-    <div class="flex items-center gap-2 text-gray-300 font-sans text-xs sm:text-sm">
-        <i class="far fa-calendar-alt text-yellow-500"></i>
-        <span id="digital-date" class="font-semibold">Loading...</span>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحتي الرئيسية</title>
+    
+    <!-- خطوط Google Fonts الحديثة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* حاوية الساعة والتاريخ أعلى الصفحة */
+        .header-clock-container {
+            width: 100%;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* كارت الساعة والتاريخ */
+        .widget-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.75);
+            padding: 16px 28px;
+            border-radius: 18px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.12);
+        }
+
+        /* التنسيق الخاص بالوقت */
+        .clock-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            direction: ltr; /* لضمان ترتيب الوقت من اليسار لليمين */
+        }
+
+        .time-box {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #38bdf8;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+        }
+
+        .colon {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #f43f5e;
+            animation: pulse 1s infinite;
+        }
+
+        .period-box {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            background: rgba(244, 63, 94, 0.15);
+            color: #f43f5e;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* التنسيق الخاص بالتاريخ الميلادي اللاتيني */
+        .date-display {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            direction: ltr;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* تجاوب للشاشات الصغيرة */
+        @media (max-width: 480px) {
+            .time-box { font-size: 1.6rem; }
+            .colon { font-size: 1.4rem; }
+            .period-box { font-size: 0.75rem; }
+            .date-display { font-size: 0.8rem; }
+            .widget-box { padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- بداية شريط الساعة والتاريخ أعلى الصفحة -->
+    <header class="header-clock-container">
+        <div class="widget-box" aria-label="Clock and Date Widget">
+            <!-- الوقت (12 ساعة لاتيني) -->
+            <div class="clock-display">
+                <span class="time-box" id="hours">00</span>
+                <span class="colon">:</span>
+                <span class="time-box" id="minutes">00</span>
+                <span class="colon">:</span>
+                <span class="time-box" id="seconds">00</span>
+                <span class="period-box" id="period">AM</span>
+            </div>
+            
+            <!-- التاريخ الميلادي (لاتيني) -->
+            <div class="date-display" id="date-latin">Thursday, Nov 5, 2026</div>
+        </div>
+    </header>
+    <!-- نهاية الشريط -->
+
+    <!-- باقي محتوى موقعك يضاف هنا -->
+
+    <script>
+        function updateClockAndDate() {
+            const now = new Date();
+            
+            // 1. تحديث الوقت (نظام 12 ساعة)
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const period = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // الساعة 0 تصبح 12
+            const hoursFormatted = String(hours).padStart(2, '0');
+
+            document.getElementById('hours').textContent = hoursFormatted;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('period').textContent = period;
+
+            // 2. تحديث التاريخ الميلادي باللغات اللاتينية (الإنجليزية)
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            
+            document.getElementById('date-latin').textContent = dateString;
+        }
+
+        // تشغيل فوري وتحديث كل ثانية
+        updateClockAndDate();
+        setInterval(updateClockAndDate, 1000);
+    </script>
+</body>
+</html>
+
 
 <script>
     (function startClock() {
@@ -1753,16 +1913,6 @@
         تابعنا على فيسبوك
     </a>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
