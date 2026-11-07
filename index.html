@@ -203,6 +203,84 @@
     })();
 </script>
 <!-- ================= نهاية كود الساعة والتاريخ ================= -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط</title>
+    
+    <!-- ضع تنسيقات CSS الخاصة بالعداد هنا أو في ملف الـ CSS الخاص بك -->
+    <style>
+        .counter-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 320px;
+            margin: 20px auto; /* لضبط المسافات حوله في أعلى الصفحة */
+            border: 1px solid #eef2f5;
+        }
+
+        .counter-title {
+            font-size: 22px;
+            font-weight: 800; /* خط عريض جداً */
+            color: #d4af37; /* لون ذهبي */
+            margin-bottom: 15px;
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .counter-number {
+            font-size: 54px;
+            font-weight: 800;
+            color: #2b6cb0;
+            line-height: 1;
+            margin: 10px 0;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 👇 ضع كود العداد هنا مباشرة بعد <body> ليكون في أول الصفحة -->
+    <div class="counter-card">
+        <div class="counter-title">إجمالي زيارات أكاديمية الملط:</div>
+        <span class="counter-number" id="count">...</span>
+    </div>
+    <!-- 👆 نهاية كود العداد -->
+
+    <!-- باقي محتويات موقعك (أقسام، صور، نصوص أخرى) تاتي هنا -->
+    <header>
+        <h1>مرحباً بكم في أكاديمية الملط</h1>
+    </header>
+
+    <!-- كود الجافاسكربت الخاص بتشغيل العداد ويُفضل وضعه قبل نهاية وسادة </body> -->
+    <script>
+        let globalCount = localStorage.getItem('elmolt_total_views');
+
+        if (!globalCount) {
+            globalCount = 1250; 
+        } else {
+            globalCount = parseInt(globalCount);
+        }
+
+        globalCount += 1;
+        localStorage.setItem('elmolt_total_views', globalCount);
+        document.getElementById('count').innerText = globalCount.toLocaleString('ar-EG');
+    </script>
+
+</body>
+</html>
+
+
+
+
+
 <a href="https://moh888.weebly.com/" target="_blank" rel="noopener" class="math-card">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
     <div>
