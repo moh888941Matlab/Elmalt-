@@ -230,6 +230,66 @@
 
 
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط للرياضيات</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Tahoma, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .visitor-box {
+            background: #1e1e1e;
+            border: 2px solid #ffd700;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+        .visitor-title {
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .visitor-count {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="visitor-box">
+        <div class="visitor-title">إجمالي زوار أكاديمية الملط</div>
+        <div class="visitor-count" id="count">1,250</div>
+    </div>
+
+    <script>
+        // قراءة الرقم الحالي من ذاكرة المتصفح أو بدءاً من 1250
+        let visits = localStorage.getItem('elmolt_total_visits');
+        
+        if (!visits) {
+            visits = 1250;
+        } else {
+            visits = parseInt(visits) + 1; // زيادة زيارة مع كل فتح أو ريفريش
+        }
+        
+        // حفظ الرقم الجديد في الذاكرة
+        localStorage.setItem('elmolt_total_visits', visits);
+        
+        // عرض الرقم الجديد على الشاشة بتنسيق منسق
+        document.getElementById('count').innerText = visits.toLocaleString('ar-EG');
+    </script>
+
+</body>
+</html>
 
 
 <!-- بداية كود موقع الرياضيات التفاعلية - في أعلى الصفحة -->
@@ -276,84 +336,6 @@
 
 
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الملط</title>
-    <style>
-        body {
-            background-color: #f4f7f6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* تنسيق صندوق عداد الزيارات ليظهر في أول الصفحة */
-        .counter-card {
-            background: #ffffff;
-            padding: 30px 20px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            max-width: 320px;
-            margin: 30px auto; /* توسيط الصندوق ومسافة من الأعلى */
-            border: 1px solid #eef2f5;
-        }
-
-        .counter-title {
-            font-size: 22px;
-            font-weight: 800; /* خط ذهبي عريض */
-            color: #d4af37; 
-            margin-bottom: 15px;
-            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .counter-number {
-            font-size: 54px;
-            font-weight: 800;
-            color: #2b6cb0;
-            line-height: 1;
-            margin: 10px 0;
-            display: block;
-            direction: ltr; /* لضمان عرض الأرقام بشكل صحيح ومنتظم */
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 👇 بطاقة عداد الزيارات (توضع في أول الصفحة مباشرة) -->
-    <div class="counter-card">
-        <div class="counter-title">إجمالي زيارات أكاديمية الملط:</div>
-        <span class="counter-number" id="count">1,250</span>
-    </div>
-    <!-- 👆 نهاية عداد الزيارات -->
-
-    <!-- باقي محتويات موقعك وأقسامك تأتي هنا تحت العداد -->
-    <div style="text-align: center; padding: 20px;">
-        <h1>مرحباً بكم في الموقع الرسمي</h1>
-    </div>
-
-    <!-- كود الجافاسكربت الخاص بزيادة وحفظ العداد تلقائياً -->
-    <script>
-        let currentViews = localStorage.getItem('elmalt_quickedit_views');
-
-        if (!currentViews) {
-            currentViews = 1250; // القيمة الابتدائية أول مرة
-        } else {
-            currentViews = parseInt(currentViews, 10) + 1; // زيادة الزيارة مع كل إعادة تحميل أو فتح
-        }
-
-        // حفظ التحديث الجديد
-        localStorage.setItem('elmalt_quickedit_views', currentViews);
-
-        // عرض الرقم بالتنسيق الصحيح
-        document.getElementById('count').innerText = currentViews.toLocaleString('en-US');
-    </script>
-
-</body>
-</html>
 
 
 
