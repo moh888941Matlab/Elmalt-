@@ -236,6 +236,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أكاديمية الملط للرياضيات</title>
+    
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
     <style>
         body {
             background-color: #121212;
@@ -268,24 +279,19 @@
 
     <div class="visitor-box">
         <div class="visitor-title">إجمالي زوار أكاديمية الملط</div>
-        <div class="visitor-count" id="count">1,250</div>
+        <div class="visitor-count" id="count">جاري التحميل...</div>
     </div>
 
     <script>
-        // قراءة الرقم الحالي من ذاكرة المتصفح أو بدءاً من 1250
-        let visits = localStorage.getItem('elmolt_total_visits');
-        
-        if (!visits) {
-            visits = 1250;
-        } else {
-            visits = parseInt(visits) + 1; // زيادة زيارة مع كل فتح أو ريفريش
-        }
-        
-        // حفظ الرقم الجديد في الذاكرة
-        localStorage.setItem('elmolt_total_visits', visits);
-        
-        // عرض الرقم الجديد على الشاشة بتنسيق منسق
-        document.getElementById('count').innerText = visits.toLocaleString('ar-EG');
+        // الاتصال بخدمة عداد الزيارات السحابية لتحديث الرقم مرئياً للزوار
+        fetch('https://api.counterapi.dev/v1/elmolt-math-academy/visits/up')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('count').innerText = data.count.toLocaleString('ar-EG');
+            })
+            .catch(error => {
+                document.getElementById('count').innerText = "1,250";
+            });
     </script>
 
 </body>
