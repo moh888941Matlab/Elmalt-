@@ -1,4 +1,668 @@
+<!-- ================= بداية كود الساعة والتاريخ ================= -->
 <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحتي الرئيسية</title>
+    
+    <!-- خطوط Google Fonts الحديثة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* حاوية الساعة والتاريخ أعلى الصفحة */
+        .header-clock-container {
+            width: 100%;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* كارت الساعة والتاريخ */
+        .widget-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.75);
+            padding: 16px 28px;
+            border-radius: 18px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.12);
+        }
+
+        /* التنسيق الخاص بالوقت */
+        .clock-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            direction: ltr; /* لضمان ترتيب الوقت من اليسار لليمين */
+        }
+
+        .time-box {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #38bdf8;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+        }
+
+        .colon {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #f43f5e;
+            animation: pulse 1s infinite;
+        }
+
+        .period-box {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            background: rgba(244, 63, 94, 0.15);
+            color: #f43f5e;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* التنسيق الخاص بالتاريخ الميلادي اللاتيني */
+        .date-display {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            direction: ltr;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* تجاوب للشاشات الصغيرة */
+        @media (max-width: 480px) {
+            .time-box { font-size: 1.6rem; }
+            .colon { font-size: 1.4rem; }
+            .period-box { font-size: 0.75rem; }
+            .date-display { font-size: 0.8rem; }
+            .widget-box { padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- بداية شريط الساعة والتاريخ أعلى الصفحة -->
+    <header class="header-clock-container">
+        <div class="widget-box" aria-label="Clock and Date Widget">
+            <!-- الوقت (12 ساعة لاتيني) -->
+            <div class="clock-display">
+                <span class="time-box" id="hours">00</span>
+                <span class="colon">:</span>
+                <span class="time-box" id="minutes">00</span>
+                <span class="colon">:</span>
+                <span class="time-box" id="seconds">00</span>
+                <span class="period-box" id="period">AM</span>
+            </div>
+            
+            <!-- التاريخ الميلادي (لاتيني) -->
+            <div class="date-display" id="date-latin">Thursday, Nov 5, 2026</div>
+        </div>
+    </header>
+    <!-- نهاية الشريط -->
+
+    <!-- باقي محتوى موقعك يضاف هنا -->
+
+    <script>
+        function updateClockAndDate() {
+            const now = new Date();
+            
+            // 1. تحديث الوقت (نظام 12 ساعة)
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const period = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // الساعة 0 تصبح 12
+            const hoursFormatted = String(hours).padStart(2, '0');
+
+            document.getElementById('hours').textContent = hoursFormatted;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('period').textContent = period;
+
+            // 2. تحديث التاريخ الميلادي باللغات اللاتينية (الإنجليزية)
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            
+            document.getElementById('date-latin').textContent = dateString;
+        }
+
+        // تشغيل فوري وتحديث كل ثانية
+        updateClockAndDate();
+        setInterval(updateClockAndDate, 1000);
+    </script>
+</body>
+</html>
+
+
+<script>
+    (function startClock() {
+        function updateClockAndDate() {
+            const now = new Date();
+            
+            // تحديث الوقت باللغات والترقيم اللاتيني (AM/PM وأرقام إنجليزية)
+            const clockEl = document.getElementById('digital-clock');
+            if (clockEl) {
+                clockEl.textContent = now.toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit', 
+                    hour12: true 
+                });
+            }
+
+            // تحديث التاريخ باللاتينية (اسم اليوم، الشهر، اليوم، السنة)
+            const dateEl = document.getElementById('digital-date');
+            if (dateEl) {
+                dateEl.textContent = now.toLocaleDateString('en-US', { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+            }
+        }
+
+        updateClockAndDate();
+        setInterval(updateClockAndDate, 1000);
+    })();
+</script>
+<!-- ================= نهاية كود الساعة والتاريخ ================= -->
+<a href="https://moh888.weebly.com/" target="_blank" rel="noopener" class="math-card">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
+    <div>
+        <span style="font-size:11px; color:#38bdf8;">منصة تعليمية</span>
+        <h3 style="margin:2px 0; font-size:16px;">الرياضيات التفاعلية - أ. محمد الملط</h3>
+    </div>
+</a>
+
+<style>
+.math-card {
+    display: flex; align-items: center; gap: 14px; background: #1e1e2f; color: #fff;
+    padding: 14px 18px; border-radius: 12px; text-decoration: none; max-width: 400px;
+    direction: rtl; font-family: 'Cairo', sans-serif; border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.math-card:hover { transform: translateY(-3px); border-color: #4f46e5; box-shadow: 0 8px 20px rgba(79,70,229,0.2); }
+.math-card svg { color: #818cf8; flex-shrink: 0; }
+</style>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط للرياضيات</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Tahoma, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .visitor-box {
+            background: #1e1e1e;
+            border: 2px solid #ffd700;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+        .visitor-title {
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .visitor-count {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="visitor-box">
+        <div class="visitor-title">إجمالي زوار أكاديمية الملط</div>
+        <div class="visitor-count" id="count">1,250</div>
+    </div>
+
+    <script>
+        // قراءة الرقم الحالي من ذاكرة المتصفح أو بدءاً من 1250
+        let visits = localStorage.getItem('elmolt_total_visits');
+        
+        if (!visits) {
+            visits = 1250;
+        } else {
+            visits = parseInt(visits) + 1; // زيادة زيارة مع كل فتح أو ريفريش
+        }
+        
+        // حفظ الرقم الجديد في الذاكرة
+        localStorage.setItem('elmolt_total_visits', visits);
+        
+        // عرض الرقم الجديد على الشاشة بتنسيق منسق
+        document.getElementById('count').innerText = visits.toLocaleString('ar-EG');
+    </script>
+
+</body>
+</html>
+
+
+<!-- بداية كود موقع الرياضيات التفاعلية - في أعلى الصفحة -->
+<div class="top-banner-elmalt">
+  <a href="https://ex8.weebly.com" target="_blank" rel="noopener">
+    <strong>موقع الرياضيات التفاعلية الاستاذ محمد الملط حفيد أنيشتين</strong>
+  </a>
+</div>
+
+<style>
+  .top-banner-elmalt {
+    width: 100%;
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    text-align: center;
+    padding: 10px 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+    direction: rtl;
+    box-sizing: border-box;
+  }
+
+  .top-banner-elmalt a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 16px;
+    font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+    display: inline-block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .top-banner-elmalt a strong {
+    font-weight: bold;
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .top-banner-elmalt a:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+</style>
+<!-- نهاية كود موقع الرياضيات التفاعلية -->
+
+
+
+
+
+
+
+
+<!-- الشريط الأول: خط أحمر -->
+<div class="marquee-container red-marquee">
+    <div class="marquee-text">
+        الرياضيات لغة استخدمها الله لكتابة الكون
+    </div>
+</div>
+
+<!-- الشريط الثاني: خط ذهبي -->
+<div class="marquee-container gold-marquee">
+    <div class="marquee-text">
+        التفكير الرياضي ليس مجرد أرقام، بل هو تنظيم للعقل وحل للمشكلات.
+    </div>
+</div>
+
+<style>
+/* التنسيقات العامة للشريط */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #111; /* خلفية داكنة لإبراز الألوان */
+    padding: 12px 0;
+    margin-bottom: 10px;
+    direction: rtl;
+    box-sizing: border-box;
+}
+
+.marquee-text {
+    display: inline-block;
+    padding-right: 100%; /* يبدأ الحركة من أقصى اليمين */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    animation: marquee-animation 15s linear infinite;
+}
+
+/* تنسيق الخط الأحمر */
+.red-marquee .marquee-text {
+    color: #ff3333;
+    text-shadow: 0 0 5px rgba(255, 51, 51, 0.4);
+}
+
+/* تنسيق الخط الذهبي */
+.gold-marquee .marquee-text {
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+}
+
+/* حركة الشريط السلسة */
+@keyframes marquee-animation {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(100%, 0, 0);
+    }
+}
+
+/* إيقاف الحركة عند تحريك الماوس فوق الشريط */
+.marquee-container:hover .marquee-text {
+    animation-play-state: paused;
+}
+</style>
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط للرياضيات</title>
+    <!-- استخدام Tailwind CSS للتنسيق السريع والعصري -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* تخصيص حركة الشريط المتحرك بالسرعة العادية الطبيعية (25 ثانية) */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+        }
+        /* إيقاف الحركة عند تمرير الماوس لاختيار القراءة المريحة */
+        .marquee-container:hover .animate-marquee {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 m-0 p-0">
+
+    <!-- بداية الشريط المتحرك العصري في أول الصفحة -->
+ 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حفيد أنيشتين أ. محمد الملط</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            background-color: #050811;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* الشريط المتحرك فقط */
+        .top-marquee-banner {
+            width: 100%;
+            background: linear-gradient(90deg, #0f172a, #1e1b4b, #312e81, #1e1b4b, #0f172a);
+            color: #38bdf8;
+            padding: 16px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+            border-bottom: 2px solid rgba(56, 189, 248, 0.4);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marqueeScroll 20s linear infinite;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+        }
+
+        @keyframes marqueeScroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الشريط المتحرك فقط في أول الصفحة -->
+    <div class="top-marquee-banner">
+        <div class="marquee-content">
+            ⚛️ ⚡ 🔬 حفيد أنيشتين أ. محمد الملط 🔬 ⚡ ⚛️ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ⚛️ ⚡ 🔬 حفيد أنيشتين أ. محمد الملط 🔬 ⚡ ⚛️
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+   <header class="w-full bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 text-white shadow-xl border-b border-cyan-500/40 overflow-hidden">
+        <div class="marquee-container relative flex items-center h-14 py-2">
+            
+            <!-- أيقونة التنبيه والتكنولوجيا -->
+            <div class="absolute right-0 z-20 bg-gradient-to-l from-slate-950 via-slate-950/90 to-transparent px-4 flex items-center h-full">
+                <span class="flex h-3.5 w-3.5 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-cyan-500"></span>
+                </span>
+            </div>
+
+            <!-- المحتوى المتحرك مقسم بالألوان وبسرعة عادية -->
+            <div class="animate-marquee text-sm md:text-base font-bold tracking-wide flex items-center space-x-12 space-x-reverse">
+                
+                <!-- النص العربي مقسم لمقاطع ملونة -->
+                <div class="flex items-center space-x-2 space-x-reverse mx-6">
+                    <span class="text-amber-400">✨ مع تحياتي:</span>
+                    <span class="text-cyan-300">الأستاذ / محمد عبدالمنعم الملط</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-emerald-300">معلم خبير الرياضيات</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-purple-300">خبير الذكاء الاصطناعي</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-rose-300">حفيد أينشتاين ✨</span>
+                </div>
+
+                <!-- فاصل تكنولوجي أنيق -->
+                <span class="text-cyan-500 font-mono">⚡ [ AI & MATH ] ⚡</span>
+
+                <!-- النص الإنجليزي مقسم ومحاذات دقيقة -->
+                <div class="flex items-center space-x-2 space-x-reverse mx-6" dir="ltr">
+                    <span class="text-amber-400">✨ Greetings:</span>
+                    <span class="text-cyan-300">Mr. Mohamed Abdel Moneim El-Malt</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-emerald-300">Senior Mathematics Educator</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-purple-300">AI Expert</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-rose-300">Einstein's Grandson ✨</span>
+                </div>
+
+                <!-- فاصل تكنولوجي آخر للتكرار السلس -->
+                <span class="text-cyan-500 font-mono">⚡ [ ACADEMY ] ⚡</span>
+
+                <!-- تكرار النص العربي لضمان استمرارية الدوران دون فراغ -->
+                <div class="flex items-center space-x-2 space-x-reverse mx-6">
+                    <span class="text-amber-400">✨ مع تحياتي:</span>
+                    <span class="text-cyan-300">الأستاذ / محمد عبدالمنعم الملط</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-emerald-300">معلم خبير الرياضيات</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-purple-300">خبير الذكاء الاصطناعي</span>
+                    <span class="text-blue-400">-</span>
+                    <span class="text-rose-300">حفيد أينشتاين ✨</span>
+                </div>
+
+            </div>
+
+            <!-- تدرج لوني على اليسار للخروج السلس -->
+            <div class="absolute left-0 z-20 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent px-4 flex items-center h-full pointer-events-none"></div>
+        </div>
+    </header>
+    <!-- نهاية الشريط المتحرك -->
+
+    
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط للرياضيات</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+        }
+
+
+
+
+
+
+
+
+
+
+        /* شريط متحرك ذو توافقية عالية مع الهواتف */
+        .top-banner {
+            width: 100%;
+            background: #111625;
+            border-bottom: 3px solid #ffd700;
+            padding: 12px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 9999;
+        }
+
+        .ticker-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .ticker-text {
+            white-space: nowrap;
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            
+            /* لون ذهبي واضح وعريض يدعم كل الأجهزة */
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffd700; 
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* تنسيق الرموز الرياضية */
+        .math-symbol {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 2px 8px;
+            border: 1px solid #ffd700;
+            border-radius: 5px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 22px;
+            color: #ffffff;
+            background-color: rgba(255, 215, 0, 0.2);
+            vertical-align: middle;
+        }
+
+        /* أنيميشن الحركة السلسة */
+        @keyframes marquee {
+            0% {
+                transform: translateX(100vw);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .main-content {
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-banner">
+        <div class="ticker-wrapper">
+            <div class="ticker-text">
+                <span class="math-symbol">&pi;</span>
+                السلام عليكم ورحمة الله وبركاته &mdash; أكاديمية الملط رياضيات ترحب بكم &mdash; مع تحياتي الأستاذ محمد عبدالمنعم الملط
+                <span class="math-symbol">&radic;<i>x</i></span>
+            </div>
+        </div>
+    </header>
+
+    <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +675,29 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Orbitron:wght@500;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#D4AF37',
+                            goldHover: '#B38F24',
+                            darkBg: '#050a14',
+                            cardBg: '#0f172a',
+                            accentSky: '#38bdf8'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     
     <style>
         body {
@@ -48,70 +733,64 @@
         .animate-subtle-float {
             animation: subtle-float 5s infinite ease-in-out;
         }
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-            display: inline-block;
+        /* تنسيق الشريط المتحرك */
+        
+        
+       
+
+
+
+
+
+
+
+        
+        
+        
+        
+        .marquee-container {
+            background-color: #004080;
+            color: #ffffff;
+            padding: 12px 0;
+            overflow: hidden;
             white-space: nowrap;
-            animation: marquee 25s linear infinite;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .marquee-container:hover .animate-marquee {
-            animation-play-state: paused;
-        }
-        .active-input {
-            border-color: #f97316 !important;
-            background-color: #2a1b15 !important;
-            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.25) !important;
-        }
-        .key-btn {
-            transition: all 0.12s ease;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .key-btn:active {
-            transform: scale(0.94);
-        }
+        
     </style>
 </head>
 <body class="bg-math-grid min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
 
-    <!-- الشريط المتحرك العلوي -->
-    <div class="w-full bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 text-white shadow-xl border-b border-cyan-500/40 overflow-hidden py-3">
-        <div class="marquee-container relative flex items-center h-10">
-            <div class="animate-marquee text-sm md:text-base font-bold tracking-wide flex items-center space-x-12 space-x-reverse">
-                <div class="flex items-center space-x-2 space-x-reverse mx-6">
-                    <span class="text-amber-400">✨ أهلاً بكم في:</span>
-                    <span class="text-cyan-300">أكاديمية الملط رياضيات</span>
-                    <span class="text-blue-400">-</span>
-                    <span class="text-emerald-300">أقوى وأكبر وأول أكاديمية رياضيات في العالم</span>
-                    <span class="text-blue-400">-</span>
-                    <span class="text-rose-300">أستاذ / محمد عبدالمنعم الملط ✨</span>
-                </div>
-                <span class="text-cyan-500 font-mono">⚡ [ AI & MATH ] ⚡</span>
-            </div>
-        </div>
+    <!-- Top Marquee -->
+    
+    
+    <marquee>
+
+اكاديمية الملط رياضيات أقوى اكاديمية رياضيات فى العالم 
+
+</marquee>
+
+
+
+    
+    <div class="marquee-container">
+        <marquee behavior="scroll" direction="right" scrollamount="6">
+            أكاديمية الملط رياضيات ترحب بكم - أقوى وأكبر وأول أكاديمية رياضيات في العالم مع أستاذ محمد الملط
+        </marquee>
     </div>
 
-    <!-- حاوية الساعة والتاريخ أعلى الصفحة -->
-    <header class="w-full py-4 px-2 flex justify-center items-center bg-black/20 backdrop-blur-md border-b border-white/5">
-        <div class="inline-flex flex-col items-center gap-2 bg-slate-900/80 px-7 py-4 rounded-2xl border border-cyan-500/30 shadow-lg">
-            <div class="flex items-center gap-2.5" dir="ltr">
-                <span class="font-mono text-2xl sm:text-3xl font-bold text-cyan-400" id="hours">00</span>
-                <span class="font-mono text-2xl font-bold text-rose-500">:</span>
-                <span class="font-mono text-2xl sm:text-3xl font-bold text-cyan-400" id="minutes">00</span>
-                <span class="font-mono text-2xl font-bold text-rose-500">:</span>
-                <span class="font-mono text-2xl sm:text-3xl font-bold text-cyan-400" id="seconds">00</span>
-                <span class="text-xs font-bold px-2 py-1 bg-rose-500/20 text-rose-400 rounded border border-rose-500/30" id="period">AM</span>
-            </div>
-            <div class="text-xs sm:text-sm font-medium text-slate-400 uppercase tracking-wider" id="date-latin">Thursday, Nov 5, 2026</div>
-        </div>
-    </header>
+    <!-- Top Digital Clock (12-Hour) -->
+    <div class="clock-container" id="digital-clock">
+        00:00:00 AM
+    </div>
 
-    <!-- الهيدر الرئيسي -->
+    <!-- Header Navigation -->
     <header class="sticky top-0 z-40 glass-card border-b border-amber-500/30 px-4 py-3.5 shadow-2xl">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <!-- Logo & Title -->
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-600 flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-amber-500/20">
                     <i class="fa-solid fa-square-root-variable"></i>
@@ -122,21 +801,23 @@
                 </div>
             </div>
 
+            <!-- Navigation Links -->
             <nav class="hidden md:flex items-center gap-6 font-semibold text-sm">
                 <a href="#hero" class="hover:text-amber-400 transition-colors">الرئيسية</a>
-                <a href="#calculator-section" class="hover:text-amber-400 transition-colors">الحاسبة</a>
-                <a href="#normal-dist" class="hover:text-amber-400 transition-colors">التوزيع المعياري</a>
-                <a href="#whiteboard-section" class="hover:text-amber-400 transition-colors">السبورة</a>
-                <a href="#directives-feed" class="hover:text-amber-400 transition-colors">التوجيهات</a>
-                <a href="#register-section" class="hover:text-amber-400 transition-colors">التسجيل</a>
+                <a href="#calculator-section" class="hover:text-amber-400 transition-colors">الحاسبة العلمية</a>
+                <a href="#whiteboard-section" class="hover:text-amber-400 transition-colors">السبورة الذكية</a>
+                <a href="#directives-feed" class="hover:text-amber-400 transition-colors">توجيهات المعلم</a>
+                <a href="#geogebra-section" class="hover:text-amber-400 transition-colors">معمل GeoGebra</a>
             </nav>
 
+            <!-- Control Actions -->
             <div class="flex items-center gap-3">
                 <div id="authStatusBadge" class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-900 text-slate-400 border border-slate-700">
                     <span class="w-2.5 h-2.5 rounded-full bg-slate-500" id="statusDot"></span>
                     <span id="statusText">زائر</span>
                 </div>
-                <button onclick="openTeacherControlPanel()" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-4 py-2 rounded-xl font-bold text-sm transition-all shadow-md">
+
+                <button onclick="openTeacherControlPanel()" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-4 py-2 rounded-xl font-bold text-sm transition-all shadow-md hover:scale-105 active:scale-95">
                     <i class="fa-solid fa-user-gear"></i>
                     <span>لوحة المعلم</span>
                 </button>
@@ -144,20 +825,20 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow space-y-12 pb-12">
+    <!-- Main Body Container -->
+    <main class="flex-grow">
 
         <!-- Hero Section -->
         <section id="hero" class="relative py-10 lg:py-16 px-4">
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                 
-                <!-- الصورة الشخصية -->
+                <!-- Teacher Personal Image Banner -->
                 <div class="lg:col-span-5 flex flex-col items-center justify-center order-first lg:order-last">
                     <div class="relative w-full max-w-md glass-card rounded-3xl p-3 sm:p-4 border-2 border-amber-500/50 glow-gold animate-subtle-float">
                         <div class="relative rounded-2xl overflow-hidden border-2 border-amber-400/80 shadow-2xl bg-slate-950 flex justify-center items-center min-h-[350px]">
                             <img id="teacherHeroImage" 
                                  src="https://i.ibb.co/h1VQvhbV/FB-IMG-1791192257132.jpg" 
-                                 alt="أستاذ محمد الملط" 
+                                 alt="أستاذ محمد الملط - خبير GeoGebra & AI" 
                                  onerror="handleImageError(this)"
                                  class="w-full h-auto max-h-[480px] object-cover rounded-xl transition-transform duration-500 hover:scale-105">
                             
@@ -168,6 +849,7 @@
                                 <p class="text-slate-200 text-xs font-semibold mt-0.5">خبير الرياضيات وتطبيقات GeoGebra والذكاء الاصطناعي AI</p>
                             </div>
                         </div>
+
                         <div id="changeImgOption" class="mt-3 hidden text-center">
                             <button onclick="promptChangeTeacherPhoto()" class="text-xs text-amber-300 hover:text-amber-200 underline inline-flex items-center gap-1">
                                 <i class="fa-solid fa-image"></i> تغيير/تعديل رابط الصورة الشخصية
@@ -176,7 +858,7 @@
                     </div>
                 </div>
 
-                <!-- نبذة تعريفية -->
+                <!-- Text Intro -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-right">
                     <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-full text-amber-400 text-xs sm:text-sm font-bold">
                         <i class="fa-solid fa-crown text-amber-400"></i>
@@ -198,36 +880,35 @@
                         </p>
                     </div>
 
-                    <!-- روابط المنصات التعليمية الخارجية -->
-                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
-                        <a href="https://moh888.weebly.com/" target="_blank" rel="noopener" class="flex items-center gap-3 bg-[#1e1e2f] hover:bg-[#282845] text-white px-4 py-3 rounded-xl border border-white/10 transition-all shadow">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                        نقدم للطلاب تجربة تعليمية استثنائية تحوّل المفاهيم الرياضية المعقدة إلى مجسمات وشرح تفاعلي لبلوغ أعظم درجات التفوق والقمة.
+                    </p>
+
+                    <!-- WhatsApp Contact Buttons -->
+                    <div id="contact" class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://wa.me/201010955349" target="_blank" class="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg hover:shadow-emerald-600/30 transition-all hover:-translate-y-1">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
                             <div class="text-right">
-                                <span class="block text-[11px] text-[#38bdf8]">منصة تعليمية</span>
-                                <span class="text-sm font-bold">الرياضيات التفاعلية - أ. محمد الملط</span>
+                                <div class="text-[11px] text-emerald-100">واتساب المباشر (1)</div>
+                                <div dir="ltr" class="text-lg font-mono font-bold">201010955349</div>
                             </div>
                         </a>
-                        <a href="https://ex8.weebly.com" target="_blank" rel="noopener" class="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white px-4 py-3 rounded-xl shadow transition-all">
+
+                        <a href="https://wa.me/201107832272" target="_blank" class="flex items-center justify-center gap-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg hover:shadow-emerald-700/30 transition-all hover:-translate-y-1">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
                             <div class="text-right">
-                                <span class="block text-[11px] text-blue-200">بوابة إضافية</span>
-                                <span class="text-sm font-bold">حفيد أينشتاين أ. محمد الملط</span>
+                                <div class="text-[11px] text-emerald-100">واتساب المباشر (2)</div>
+                                <div dir="ltr" class="text-lg font-mono font-bold">201107832272</div>
                             </div>
                         </a>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- عداد الزوار -->
-        <section class="py-4 px-4 flex justify-center">
-            <div class="bg-[#1e1e1e] border-2 border-amber-400 px-8 py-4 rounded-2xl text-center shadow-xl">
-                <div class="text-sm text-amber-400 font-bold mb-1">إجمالي زوار أكاديمية الملط</div>
-                <div class="text-3xl font-black text-white font-mono" id="count">1,250</div>
-            </div>
-        </section>
-
-        <!-- توجيهات المعلم -->
-        <section id="directives-feed" class="py-6 px-4 max-w-7xl mx-auto">
+        <!-- Directives Section (Teacher Guidance) -->
+        <section id="directives-feed" class="py-12 px-4 max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b border-slate-800 pb-4">
                 <div>
                     <h2 class="text-2xl sm:text-3xl font-black text-amber-400 flex items-center gap-3">
@@ -236,91 +917,23 @@
                     </h2>
                     <p class="text-slate-400 text-sm mt-1">التعليمات الهامة والواجبات المباشرة من الأستاذ محمد الملط</p>
                 </div>
-                <button onclick="openTeacherControlPanel()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-4 py-2.5 rounded-xl text-xs font-black flex items-center gap-2 shadow-md">
-                    <i class="fa-solid fa-plus-circle"></i>
-                    <span>إضافة توجيه جديد</span>
-                </button>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="openTeacherControlPanel()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-4 py-2.5 rounded-xl text-xs font-black flex items-center gap-2 transition-all shadow-md">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>إضافة توجيه جديد</span>
+                    </button>
+                </div>
             </div>
-            <div id="directivesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
 
-        <!-- حاسبة المساحة تحت المنحنى الطبيعي المعياري -->
-        <section id="normal-dist" class="py-8 px-4 max-w-xl mx-auto">
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl p-4 sm:p-7 space-y-5">
-                <div class="text-center space-y-1.5">
-                    <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-400 text-xs font-semibold mb-1">
-                        <span>📊 حاسبة الإحصاء المعياري</span>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-amber-300">
-                        حساب المساحة تحت المنحنى الطبيعي المعياري
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-400">حساب المساحة المحصورة P(a ≤ Z ≤ b) ورسمها بيائياً</p>
-                </div>
-                
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 text-amber-300 text-xs sm:text-sm text-center font-medium leading-relaxed">
-                    <span class="inline-block text-amber-400 font-bold ml-1">⚠️ الشرط المطلوب:</span>
-                    القيم <span class="font-bold text-amber-200 underline">a</span> و <span class="font-bold text-amber-200 underline">b</span> ضمن الفترة 
-                    <span dir="ltr" class="inline-block font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded text-amber-200">(-1.00 ≤ a, b ≤ 1.00)</span>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 sm:gap-4">
-                    <div class="space-y-1.5">
-                        <label for="valA" class="block text-xs sm:text-sm font-bold text-slate-300">القيمة المعيارية (a):</label>
-                        <input type="text" id="valA" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valA')"
-                               class="w-full text-center text-lg sm:text-xl font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer active-input">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label for="valB" class="block text-xs sm:text-sm font-bold text-slate-300">القيمة المعيارية (b):</label>
-                        <input type="text" id="valB" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valB')"
-                               class="w-full text-center text-lg sm:text-xl font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer">
-                    </div>
-                </div>
-
-                <!-- لوحة مفاتيح التوزيع المعياري -->
-                <div class="bg-slate-950/80 p-3 sm:p-4 rounded-2xl border border-slate-800">
-                    <div class="grid grid-cols-4 gap-2 font-mono">
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('7')">7</button>
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('8')">8</button>
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('9')">9</button>
-                        <button class="key-btn bg-rose-600 hover:bg-rose-500 text-white font-bold py-2.5 text-xs rounded-xl font-sans" onclick="appendValue('-')">- (سالب)</button>
-
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('4')">4</button>
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('5')">5</button>
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('6')">6</button>
-                        <button class="key-btn bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 text-xs rounded-xl font-sans" onclick="backspace()">⌫ مسح</button>
-
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('1')">1</button>
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('2')">2</button>
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('3')">3</button>
-                        <button class="key-btn bg-amber-600 hover:bg-amber-500 text-white font-bold py-2.5 text-xs rounded-xl font-sans" onclick="clearActiveField()">C تفريغ</button>
-
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('0')">0</button>
-                        <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl border border-slate-700" onclick="appendValue('.')">.</button>
-                        <button class="key-btn col-span-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 text-xs rounded-xl font-sans" onclick="switchField()">🔄 تبديل الحقل</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <button onclick="calculateArea()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg text-sm sm:text-base">
-                        احسب المساحة والرسم
-                    </button>
-                    <button onclick="resetForm()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 px-4 rounded-xl border border-slate-700 text-sm sm:text-base">
-                        إعادة ضبط
-                    </button>
-                </div>
-
-                <div id="errorBox" class="hidden bg-red-500/15 border border-red-500/40 rounded-xl p-3 text-red-300 text-xs sm:text-sm text-center font-semibold animate-pulse"></div>
-                <div id="result" class="hidden bg-slate-950 border-r-4 border-indigo-500 p-4 rounded-2xl text-right space-y-1.5 shadow-md"></div>
-
-                <div class="bg-slate-950 p-2 sm:p-3 rounded-2xl border border-slate-800 flex justify-center items-center">
-                    <canvas id="chartCanvas" width="520" height="240" class="w-full h-auto max-w-full rounded-xl"></canvas>
-                </div>
+            <div id="directivesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Rendered dynamically via JavaScript -->
             </div>
         </section>
 
-        <!-- الآلة الحاسبة العلمية -->
-        <section id="calculator-section" class="py-8 px-4 max-w-4xl mx-auto">
-            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 shadow-2xl">
+        <!-- Scientific Calculator Section -->
+        <section id="calculator-section" class="py-10 px-4 max-w-4xl mx-auto">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 shadow-2xl relative">
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
                     <h2 class="text-xl sm:text-2xl font-black text-amber-400 flex items-center gap-3">
                         <i class="fa-solid fa-calculator text-amber-500"></i>
@@ -328,45 +941,47 @@
                     </h2>
                     <span class="text-xs text-slate-400">أكاديمية الملط</span>
                 </div>
+
                 <div class="mb-4">
-                    <input type="text" id="calcDisplay" readonly class="w-full bg-slate-950 text-emerald-400 font-mono text-2xl sm:text-3xl p-4 rounded-2xl border border-slate-800 text-left outline-none" value="0">
+                    <input type="text" id="calcDisplay" readonly class="w-full bg-slate-950 text-emerald-400 font-mono text-2xl sm:text-3xl p-4 rounded-2xl border border-slate-800 text-left outline-none shadow-inner" value="0">
                 </div>
+
                 <div class="grid grid-cols-4 sm:grid-cols-5 gap-2.5">
-                    <button onclick="calcClear()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-3 rounded-xl border border-red-500/30 text-sm">AC</button>
-                    <button onclick="calcBackSpace()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 text-sm"><i class="fa-solid fa-delete-left"></i></button>
-                    <button onclick="calcAppend('(')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl text-sm">(</button>
-                    <button onclick="calcAppend(')')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl text-sm">)</button>
-                    <button onclick="calcAppend('/')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 text-sm">÷</button>
+                    <button onclick="calcClear()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-3 rounded-xl border border-red-500/30 transition-all text-sm">AC</button>
+                    <button onclick="calcBackSpace()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm"><i class="fa-solid fa-delete-left"></i></button>
+                    <button onclick="calcAppend('(')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl transition-all text-sm">(</button>
+                    <button onclick="calcAppend(')')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl transition-all text-sm">)</button>
+                    <button onclick="calcAppend('/')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">÷</button>
 
-                    <button onclick="calcFunction('sqrt')" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 font-bold py-3 rounded-xl border border-sky-500/30 text-sm">√</button>
-                    <button onclick="calcAppend('7')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">7</button>
-                    <button onclick="calcAppend('8')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">8</button>
-                    <button onclick="calcAppend('9')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">9</button>
-                    <button onclick="calcAppend('*')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 text-sm">×</button>
+                    <button onclick="calcFunction('sqrt')" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 font-bold py-3 rounded-xl border border-sky-500/30 transition-all text-sm">√</button>
+                    <button onclick="calcAppend('7')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">7</button>
+                    <button onclick="calcAppend('8')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">8</button>
+                    <button onclick="calcAppend('9')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">9</button>
+                    <button onclick="calcAppend('*')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">×</button>
 
-                    <button onclick="calcFunction('sin')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl text-sm">sin</button>
-                    <button onclick="calcAppend('4')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">4</button>
-                    <button onclick="calcAppend('5')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">5</button>
-                    <button onclick="calcAppend('6')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">6</button>
-                    <button onclick="calcAppend('-')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 text-sm">-</button>
+                    <button onclick="calcFunction('sin')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">sin</button>
+                    <button onclick="calcAppend('4')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">4</button>
+                    <button onclick="calcAppend('5')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">5</button>
+                    <button onclick="calcAppend('6')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">6</button>
+                    <button onclick="calcAppend('-')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">-</button>
 
-                    <button onclick="calcFunction('cos')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl text-sm">cos</button>
-                    <button onclick="calcAppend('1')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">1</button>
-                    <button onclick="calcAppend('2')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">2</button>
-                    <button onclick="calcAppend('3')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">3</button>
-                    <button onclick="calcAppend('+')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 text-sm">+</button>
+                    <button onclick="calcFunction('cos')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">cos</button>
+                    <button onclick="calcAppend('1')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">1</button>
+                    <button onclick="calcAppend('2')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">2</button>
+                    <button onclick="calcAppend('3')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">3</button>
+                    <button onclick="calcAppend('+')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">+</button>
 
-                    <button onclick="calcFunction('tan')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl text-sm">tan</button>
-                    <button onclick="calcFunction('log')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl text-sm">log</button>
-                    <button onclick="calcAppend('0')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">0</button>
-                    <button onclick="calcAppend('.')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-lg">.</button>
-                    <button onclick="calcCalculate()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3 rounded-xl text-lg shadow-lg">=</button>
+                    <button onclick="calcFunction('tan')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">tan</button>
+                    <button onclick="calcFunction('log')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">log</button>
+                    <button onclick="calcAppend('0')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">0</button>
+                    <button onclick="calcAppend('.')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">.</button>
+                    <button onclick="calcCalculate()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3 rounded-xl transition-all text-lg shadow-lg">=</button>
                 </div>
             </div>
         </section>
 
-        <!-- السبورة الذكية -->
-        <section id="whiteboard-section" class="py-8 px-4 max-w-5xl mx-auto">
+        <!-- Smart Whiteboard Section -->
+        <section id="whiteboard-section" class="py-10 px-4 max-w-5xl mx-auto">
             <div class="glass-card rounded-3xl p-6 border border-amber-500/40 shadow-2xl">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
                     <h2 class="text-xl font-black text-amber-400 flex items-center gap-2">
@@ -383,10 +998,11 @@
                                 <option value="2">رفيع (2)</option>
                                 <option value="4" selected>متوسط (4)</option>
                                 <option value="8">عريض (8)</option>
+                                <option value="15">قلم تخطيط (15)</option>
                             </select>
                         </div>
-                        <button onclick="clearWhiteboard()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-red-500/30">مسح</button>
-                        <button onclick="saveWhiteboardImage()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/30">حفظ الرسم</button>
+                        <button onclick="clearWhiteboard()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-red-500/30 transition-all">مسح</button>
+                        <button onclick="saveWhiteboardImage()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/30 transition-all">حفظ الرسم</button>
                     </div>
                 </div>
                 <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
@@ -395,116 +1011,130 @@
             </div>
         </section>
 
-        <!-- نموذج تسجيل الطلاب -->
-        <section id="register-section" class="py-8 px-4 flex justify-center items-center w-full">
-            <div class="bg-slate-900/80 backdrop-blur-md border border-white/10 p-6 sm:p-8 rounded-3xl shadow-2xl w-full max-w-lg">
-                <h2 class="text-xl sm:text-2xl font-bold text-cyan-400 text-center mb-2">تسجيل الطلاب - أكاديمية الملط للرياضيات</h2>
-                <p class="text-center text-slate-400 text-xs sm:text-sm mb-6">سجل بياناتك الآن للانضمام إلى حصص الأستاذ محمد عبدالمنعم الملط</p>
-
-                <form id="student-registration-form" action="https://formspree.io/f/mvkknoop" method="POST" class="space-y-4">
-                    <input type="hidden" name="email" value="moh888941@gmail.com">
-                    
-                    <div>
-                        <label class="block mb-1.5 font-semibold text-slate-300 text-xs">اسم الطالب:</label>
-                        <input type="text" name="student_name" id="student-name" placeholder="أدخل اسم الطالب الثلاثي" required class="w-full p-3 bg-slate-950/80 border border-slate-700 rounded-xl text-white text-sm outline-none">
+        <!-- GeoGebra Laboratory Section -->
+        <section id="geogebra-section" class="py-12 px-4 max-w-7xl mx-auto">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-sky-500/30 relative overflow-hidden">
+                <div class="max-w-3xl space-y-4">
+                    <span class="bg-sky-500/20 text-sky-300 text-xs font-bold px-3 py-1 rounded-full border border-sky-500/30">
+                        <i class="fa-solid fa-laptop-code"></i> البيئة الرقمية التفاعلية
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">معمل GeoGebra والذكاء الاصطناعي</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        نعتمد في أكاديمية الملط على ربط المفاهيم بالشرح البصري والتطبيقات الرقمية المباشرة. افتح حاسبة GeoGebra المتقدمة لتجربة الرسم البياني ثلاثي الأبعاد.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <a href="https://www.geogebra.org/calculator" target="_blank" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>فتح حاسبة GeoGebra التفاعلية</span>
+                        </a>
+                        <a href="#contact" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2.5 rounded-xl text-sm border border-slate-700 inline-flex items-center gap-2">
+                            <span>استفسر عن دورات الذكاء الاصطناعي</span>
+                        </a>
                     </div>
-                    <div>
-                        <label class="block mb-1.5 font-semibold text-slate-300 text-xs">رقم الموبايل / الواتساب:</label>
-                        <input type="tel" name="student_phone" placeholder="أدخل رقم الهاتف" required class="w-full p-3 bg-slate-950/80 border border-slate-700 rounded-xl text-white text-sm outline-none">
-                    </div>
-                    <div>
-                        <label class="block mb-1.5 font-semibold text-slate-300 text-xs">المرحلة التعليمية:</label>
-                        <select name="education_stage" required class="w-full p-3 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm outline-none">
-                            <option value="" disabled selected>اختر المرحلة التعليمية</option>
-                            <option value="إعدادي">إعدادي</option>
-                            <option value="ثانوي">ثانوي</option>
-                            <option value="بكالوريا">بكالوريا</option>
-                            <option value="جامعات">جامعات</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block mb-1.5 font-semibold text-slate-300 text-xs">الصف الدراسي:</label>
-                        <input type="text" name="academic_grade" placeholder="مثال: الأول الثانوي" required class="w-full p-3 bg-slate-950/80 border border-slate-700 rounded-xl text-white text-sm outline-none">
-                    </div>
-                    <div>
-                        <label class="block mb-1.5 font-semibold text-slate-300 text-xs">المنهج أو فرع الرياضة:</label>
-                        <select name="math_branch" required class="w-full p-3 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm outline-none">
-                            <option value="" disabled selected>اختر الفرع أو المنهج</option>
-                            <option value="جبر">جبر</option>
-                            <option value="هندسة">هندسة</option>
-                            <option value="استاتيكا">استاتيكا</option>
-                            <option value="ديناميكا">ديناميكا</option>
-                            <option value="تفاضل وتكامل">تفاضل وتكامل</option>
-                            <option value="منهج كامل / متعدد">منهج كامل / فروع متعددة</option>
-                        </select>
-                    </div>
-                    <button type="submit" id="form-submit-btn" class="w-full p-3.5 bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white font-bold rounded-xl shadow-lg transition-all text-sm">إرسال طلب التسجيل</button>
-                </form>
-                <div id="form-status-message" class="text-center text-xs mt-4"></div>
-            </div>
-        </section>
-
-        <!-- تواصل الفيسبوك -->
-        <section class="py-4 px-4 flex justify-center">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center max-w-md w-full shadow-lg">
-                <h3 class="text-lg font-bold text-white mb-2">تواصل معنا على فيسبوك!</h3>
-                <p class="text-slate-400 text-xs mb-4">تابع صفحتنا للحصول على آخر التحديثات والدروس التعليمية.</p>
-                <a href="https://www.facebook.com/trump.egymisr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-[#1877f2] hover:bg-[#166fe5] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow">
-                    <i class="fab fa-facebook-f"></i> تابعنا على فيسبوك
-                </a>
+                </div>
             </div>
         </section>
 
     </main>
-
-    <!-- أزرار الواتساب العائمة -->
+    
+    <!-- Floating Quick WhatsApp Buttons -->
     <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
-        <a href="https://wa.me/201010955349" target="_blank" title="واتساب 201010955349" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-transform">
+        <a href="https://wa.me/201010955349" target="_blank" title="تواصل واتساب - 201010955349" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-transform border-2 border-white/20">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
-        <a href="https://wa.me/201107832272" target="_blank" title="واتساب 201107832272" class="w-14 h-14 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-transform">
+        <a href="https://wa.me/201107832272" target="_blank" title="تواصل واتساب - 201107832272" class="w-14 h-14 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-transform border-2 border-white/20">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
 
-    <!-- نافذة تسجيل دخول المعلم -->
+    <!-- MODALS SECTION -->
+
+    <!-- Modal 1: Teacher Login -->
     <div id="loginModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-card max-w-md w-full p-6 rounded-3xl border border-amber-500/40 shadow-2xl relative">
-            <button onclick="closeModal('loginModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <div class="glass-card max-w-md w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 shadow-2xl relative">
+            <button onclick="closeModal('loginModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
             <div class="text-center mb-6">
                 <div class="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center text-3xl mb-3 border border-amber-500/40">
                     <i class="fa-solid fa-user-lock"></i>
                 </div>
                 <h3 class="text-xl font-bold text-white">تسجيل دخول المعلم</h3>
+                <p class="text-slate-400 text-xs mt-1">الرجاء إدخال الرقم السري للوحة التحكم</p>
             </div>
+
             <form onsubmit="handleLogin(event)" class="space-y-4">
-                <input type="password" id="pinInput" placeholder="أدخل الرقم السري" required class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white text-center text-xl font-mono rounded-xl py-3 px-4 outline-none">
-                <div id="loginError" class="text-red-400 text-xs text-center hidden">الرقم السري غير صحيح!</div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl text-sm">دخول اللوحة</button>
+                <div>
+                    <label class="block text-slate-300 text-xs mb-2 font-semibold">أدخل الرقم السري للوحة:</label>
+                    <input type="password" id="pinInput" placeholder="••••••••" required class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white text-center text-xl font-mono tracking-wider rounded-xl py-3 px-4 outline-none transition-all">
+                </div>
+
+                <div id="loginError" class="text-red-400 text-xs text-center hidden">
+                    <i class="fa-solid fa-circle-exclamation"></i> الرقم السري غير صحيح!
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg hover:from-amber-600 hover:to-amber-700 transition-all text-sm">
+                    دخول اللوحة
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- لوحة تحكم المعلم (إضافة توجيه) -->
+    <!-- Modal 2: Add Directives Panel -->
     <div id="adminPanelModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-4 overflow-y-auto">
         <div class="glass-card max-w-2xl w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 shadow-2xl relative my-8">
-            <button onclick="closeModal('adminPanelModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-xl font-bold text-white mb-4">إضافة توجيهات المعلم</h3>
+            <button onclick="closeModal('adminPanelModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">إضافة توجيهات المعلم</h3>
+                        <p class="text-xs text-emerald-400 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-check"></i> تم تسجيل الدخول كمعلم
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <form onsubmit="saveGuideline(event)" class="space-y-5">
-                <textarea id="guidelineText" rows="4" required placeholder="اكتب التوجيه أو الواجبات هنا..." class="w-full bg-slate-900 border border-slate-700 text-white rounded-2xl p-4 text-sm outline-none"></textarea>
                 <div>
-                    <input type="file" id="guidelineImage" accept="image/*" onchange="previewImage(event)" class="hidden">
-                    <label for="guidelineImage" class="cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 px-5 py-3 rounded-xl text-sm font-bold inline-flex items-center gap-2">
-                        <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> اختر صورة من جهازك
-                    </label>
-                    <button type="button" id="removeImgBtn" onclick="clearImagePreview()" class="hidden text-xs text-red-400 mr-3">إلغاء الصورة</button>
+                    <label class="block text-slate-200 font-semibold text-sm mb-2">نص التوجيه / الإعلان التعليمي:</label>
+                    <textarea id="guidelineText" rows="4" required placeholder="اكتب التوجيه أو الواجبات أو التعليمات للطلاب هنا..." class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white rounded-2xl p-4 text-sm outline-none transition-all resize-y"></textarea>
                 </div>
-                <div id="imagePreviewContainer" class="mt-2 hidden max-h-48 overflow-hidden rounded-xl border border-amber-500/30 flex justify-center bg-slate-900 p-2">
-                    <img id="imagePreview" src="" alt="معاينة" class="max-h-40 object-contain">
+
+                <div>
+                    <label class="block text-slate-200 font-semibold text-sm mb-2">إرفاق صورة من جهازك (اختياري):</label>
+                    <div class="flex flex-col sm:flex-row gap-4 items-center">
+                        <!-- تم التأكد من ربط الـ input بالـ label والوظيفة بشكل سليم -->
+                        <input type="file" id="guidelineImage" accept="image/*" onchange="previewImage(event)" class="hidden">
+                        <label for="guidelineImage" class="w-full sm:w-auto cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i>
+                            <span>اختر صورة من جهازك</span>
+                        </label>
+                        <button type="button" id="removeImgBtn" onclick="clearImagePreview()" class="hidden text-xs text-red-400 hover:text-red-300">
+                            <i class="fa-solid fa-trash"></i> إلغاء الصورة
+                        </button>
+                    </div>
+
+                    <div id="imagePreviewContainer" class="mt-4 hidden relative rounded-2xl overflow-hidden border border-amber-500/30 max-h-60 bg-slate-900 flex justify-center items-center p-2">
+                        <img id="imagePreview" src="" alt="معاينة الصورة" class="max-h-56 object-contain rounded-xl">
+                    </div>
                 </div>
-                <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="closeModal('adminPanelModal')" class="bg-slate-800 text-slate-300 font-bold px-6 py-2.5 rounded-xl text-sm">إلغاء</button>
-                    <button type="submit" class="bg-amber-500 text-slate-950 font-bold px-8 py-2.5 rounded-xl text-sm">حفظ ونشر</button>
+
+                <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('adminPanelModal')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-6 py-2.5 rounded-xl text-sm">
+                        إلغاء
+                    </button>
+                    <button type="submit" class="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold px-8 py-2.5 rounded-xl text-sm shadow-lg hover:from-amber-600 hover:to-amber-700 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>حفظ التوجيهات على الصفحة</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -512,38 +1142,56 @@
 
     <!-- Footer -->
     <footer class="glass-card border-t border-slate-800 py-8 px-4 mt-12 text-center text-slate-400 text-sm">
-        <div class="max-w-7xl mx-auto space-y-3">
+        <div class="max-w-7xl mx-auto space-y-4">
             <p class="font-bold text-amber-400 text-base">أكاديمية الملط رياضيات - أقوى وأكبر وأول أكاديمية رياضيات في العالم</p>
             <p class="text-xs text-slate-400">أستاذ محمد الملط - خبير GeoGebra & AI</p>
             <p class="text-xs text-slate-500">جميع الحقوق محفوظة © <span id="currentYear"></span></p>
+            
+            <div class="flex justify-center gap-6 pt-2 text-xl text-slate-400">
+                <a href="https://wa.me/201010955349" target="_blank" title="واتساب 1: 201010955349" class="hover:text-emerald-400 transition-colors flex items-center gap-1 text-xs">
+                    <i class="fa-brands fa-whatsapp text-lg text-emerald-400"></i> <span dir="ltr">201010955349</span>
+                </a>
+                <a href="https://wa.me/201107832272" target="_blank" title="واتساب 2: 201107832272" class="hover:text-emerald-400 transition-colors flex items-center gap-1 text-xs">
+                    <i class="fa-brands fa-whatsapp text-lg text-emerald-400"></i> <span dir="ltr">201107832272</span>
+                </a>
+            </div>
         </div>
     </footer>
 
-    <!-- جافاسكريبت الموحد -->
+    <!-- JAVASCRIPT CORE -->
     <script>
         const FIXED_DEFAULT_PIN = "Moh@#$123";
         const PRIMARY_IMAGE_URL = "https://i.ibb.co/h1VQvhbV/FB-IMG-1791192257132.jpg";
-        let currentUploadedImageData = "";
-        let activeFieldId = 'valA';
-        let isDrawing = false;
-        let ctx = null;
+        const SECONDARY_IMAGE_URL = "https://i.ibb.co/L1sHhC9/FB-IMG-1791192257132.jpg";
+        const SVG_FALLBACK = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='100%' height='100%' fill='%230f172a'/><circle cx='300' cy='230' r='110' fill='%23D4AF37' opacity='0.2'/><circle cx='300' cy='210' r='80' fill='%23D4AF37'/><path d='M150 500 C150 360, 450 360, 450 500 Z' fill='%23D4AF37'/><text x='50%' y='540' font-family='sans-serif' font-weight='bold' font-size='26' fill='%23ffffff' text-anchor='middle'>أستاذ محمد الملط</text><text x='50%' y='575' font-family='sans-serif' font-size='18' fill='%2338bdf8' text-anchor='middle'>خبير GeoGebra &amp; AI</text></svg>";
 
+        let currentUploadedImageData = "";
+
+        function handleImageError(img) {
+            if (!img.dataset.failedOnce) {
+                img.dataset.failedOnce = "true";
+                img.src = SECONDARY_IMAGE_URL;
+            } else {
+                img.onerror = null;
+                img.src = SVG_FALLBACK;
+            }
+        }
+
+        const INITIAL_DIRECTIVES = [
+            {
+                id: 1,
+                text: "أهلاً ومرحباً بكم في منصة أكاديمية الملط رياضيات!\nأقوى وأكبر وأول أكاديمية رياضيات في العالم.\nتابعوا هذه اللوحة بانتظام للحصول على أهم الإرشادات والواجبات المنزلية المباشرة من الأستاذ محمد الملط.",
+                image: "",
+                date: new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
+            }
+        ];
+
+        // On Page Load Initialization
         window.onload = function() {
             document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
-            // عداد الزوار
-            let visits = localStorage.getItem('elmolt_total_visits');
-            visits = !visits ? 1250 : parseInt(visits) + 1;
-            localStorage.setItem('elmolt_total_visits', visits);
-            document.getElementById('count').innerText = visits.toLocaleString('ar-EG');
 
             if (!localStorage.getItem('academy_directives')) {
-                localStorage.setItem('academy_directives', JSON.stringify([{
-                    id: 1,
-                    text: "أهلاً ومرحباً بكم في منصة أكاديمية الملط رياضيات!\nأقوى وأكبر وأول أكاديمية رياضيات في العالم.",
-                    image: "",
-                    date: new Date().toLocaleDateString('ar-EG')
-                }]));
+                localStorage.setItem('academy_directives', JSON.stringify(INITIAL_DIRECTIVES));
             }
 
             loadTeacherPhoto();
@@ -551,71 +1199,625 @@
             renderDirectives();
             initClock();
             initWhiteboard();
-            setActiveField('valA');
-            drawNormalCurve(null, null);
         };
 
-        // الساعة والتاريخ
+        // --- 1. Digital Clock Logic ---
         function initClock() {
-            updateClockAndDate();
-            setInterval(updateClockAndDate, 1000);
-        }
-        function updateClockAndDate() {
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const period = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12;
-            
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
-            document.getElementById('period').textContent = period;
-            document.getElementById('date-latin').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+            updateClock();
+            setInterval(updateClock, 1000);
         }
 
-        // حاسبة التوزيع المعياري
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            const clockEl = document.getElementById('digital-clock');
+            if (clockEl) {
+                clockEl.innerText = timeString;
+            }
+        }
+
+        // --- 2. Scientific Calculator Logic ---
+        let calcExpression = "0";
+
+        function updateCalcDisplay(val) {
+            document.getElementById('calcDisplay').value = val;
+        }
+
+        function calcAppend(val) {
+            if (calcExpression === "0" || calcExpression === "خطأ رياضي") {
+                calcExpression = val;
+            } else {
+                calcExpression += val;
+            }
+            updateCalcDisplay(calcExpression);
+        }
+
+        function calcClear() {
+            calcExpression = "0";
+            updateCalcDisplay(calcExpression);
+        }
+
+        function calcBackSpace() {
+            if (calcExpression.length > 1) {
+                calcExpression = calcExpression.slice(0, -1);
+            } else {
+                calcExpression = "0";
+            }
+            updateCalcDisplay(calcExpression);
+        }
+
+        function calcFunction(funcName) {
+            if (calcExpression === "0" || calcExpression === "خطأ رياضي") {
+                calcExpression = funcName + "(";
+            } else {
+                calcExpression += funcName + "(";
+            }
+            updateCalcDisplay(calcExpression);
+        }
+
+        function calcCalculate() {
+            try {
+                let expr = calcExpression;
+                expr = expr.replace(/sqrt\(/g, 'Math.sqrt(');
+                expr = expr.replace(/sin\(/g, 'Math.sin(Math.PI/180 * ');
+                expr = expr.replace(/cos\(/g, 'Math.cos(Math.PI/180 * ');
+                expr = expr.replace(/tan\(/g, 'Math.tan(Math.PI/180 * ');
+                expr = expr.replace(/log\(/g, 'Math.log10(');
+
+                let result = eval(expr);
+
+                if (isNaN(result) || !isFinite(result)) {
+                    updateCalcDisplay('خطأ رياضي');
+                    calcExpression = '0';
+                } else {
+                    result = Math.round(result * 100000000) / 100000000;
+                    updateCalcDisplay(result);
+                    calcExpression = result.toString();
+                }
+            } catch (err) {
+                updateCalcDisplay('خطأ رياضي');
+                calcExpression = '0';
+            }
+        }
+
+        // --- 3. Smart Whiteboard Logic ---
+        let isDrawing = false;
+        let ctx = null;
+
+        function initWhiteboard() {
+            const canvas = document.getElementById('smartWhiteboard');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+
+            canvas.width = canvas.parentElement.clientWidth || 800;
+            canvas.height = 450;
+
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+
+            canvas.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+                e.preventDefault();
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+                e.preventDefault();
+            });
+
+            canvas.addEventListener('touchend', (e) => {
+                const mouseEvent = new MouseEvent('mouseup', {});
+                canvas.dispatchEvent(mouseEvent);
+                e.preventDefault();
+            });
+        }
+
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const canvas = document.getElementById('smartWhiteboard');
+            const pos = getMousePos(canvas, e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const canvas = document.getElementById('smartWhiteboard');
+            const pos = getMousePos(canvas, e);
+            
+            ctx.strokeStyle = document.getElementById('wbColor').value;
+            ctx.lineWidth = document.getElementById('wbLineWidth').value;
+            
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function clearWhiteboard() {
+            const canvas = document.getElementById('smartWhiteboard');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveWhiteboardImage() {
+            const canvas = document.getElementById('smartWhiteboard');
+            const link = document.createElement('a');
+            link.download = 'whiteboard-malt-academy.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            showToast("تم حفظ رسم السبورة كصورة بنجاح!");
+        }
+
+        // --- Teacher & Directives Functions ---
+        function getStoredDirectives() {
+            return JSON.parse(localStorage.getItem('academy_directives') || '[]');
+        }
+
+        function isTeacherLoggedIn() {
+            return sessionStorage.getItem('is_teacher_authenticated') === 'true';
+        }
+
+        function loadTeacherPhoto() {
+            const photoUrl = localStorage.getItem('teacher_photo_url') || PRIMARY_IMAGE_URL;
+            const imgElement = document.getElementById('teacherHeroImage');
+            if(imgElement) imgElement.src = photoUrl;
+        }
+
+        function promptChangeTeacherPhoto() {
+            if (!isTeacherLoggedIn()) return;
+            const currentUrl = localStorage.getItem('teacher_photo_url') || PRIMARY_IMAGE_URL;
+            const newUrl = prompt("أدخل رابط الصورة الشخصية الجديدة:", currentUrl);
+            if (newUrl !== null && newUrl.trim() !== "") {
+                localStorage.setItem('teacher_photo_url', newUrl.trim());
+                loadTeacherPhoto();
+                showToast("تم تحديث رابط الصورة بنجاح!");
+            }
+        }
+
+        function updateAuthUI() {
+            const dot = document.getElementById('statusDot');
+            const txt = document.getElementById('statusText');
+            const changeImgBtn = document.getElementById('changeImgOption');
+
+            if (isTeacherLoggedIn()) {
+                if(dot) dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+                if(txt) {
+                    txt.textContent = "معلم مسجل";
+                    txt.className = "text-emerald-400 font-bold";
+                }
+                if(changeImgBtn) changeImgBtn.classList.remove('hidden');
+            } else {
+                if(dot) dot.className = "w-2.5 h-2.5 rounded-full bg-slate-500";
+                if(txt) {
+                    txt.textContent = "زائر";
+                    txt.className = "text-slate-400";
+                }
+                if(changeImgBtn) changeImgBtn.classList.add('hidden');
+            }
+        }
+
+        function openTeacherControlPanel() {
+            if (isTeacherLoggedIn()) {
+                document.getElementById('adminPanelModal').classList.remove('hidden');
+            } else {
+                document.getElementById('loginModal').classList.remove('hidden');
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const enteredPin = document.getElementById('pinInput').value.trim();
+
+            if (enteredPin === FIXED_DEFAULT_PIN) {
+                sessionStorage.setItem('is_teacher_authenticated', 'true');
+                document.getElementById('loginError').classList.add('hidden');
+                document.getElementById('pinInput').value = '';
+                closeModal('loginModal');
+                updateAuthUI();
+                renderDirectives();
+                openTeacherControlPanel();
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUploadedImageData = e.target.result;
+                    document.getElementById('imagePreview').src = currentUploadedImageData;
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                    document.getElementById('removeImgBtn').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function clearImagePreview() {
+            currentUploadedImageData = "";
+            document.getElementById('guidelineImage').value = "";
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            document.getElementById('removeImgBtn').classList.add('hidden');
+        }
+
+        function saveGuideline(e) {
+            e.preventDefault();
+            const text = document.getElementById('guidelineText').value.trim();
+
+            if (!text) return;
+
+            const directives = getStoredDirectives();
+            const newPost = {
+                id: Date.now(),
+                text: text,
+                image: currentUploadedImageData,
+                date: new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+            };
+
+            directives.unshift(newPost);
+            localStorage.setItem('academy_directives', JSON.stringify(directives));
+
+            document.getElementById('guidelineText').value = '';
+            clearImagePreview();
+            closeModal('adminPanelModal');
+
+            renderDirectives();
+            showToast("تم حفظ التوجيهات بنجاح على الصفحة!");
+        }
+
+        function deleteDirective(id) {
+            if (!isTeacherLoggedIn()) {
+                alert("يرجى تسجيل الدخول كمعلم أولاً للحذف.");
+                return;
+            }
+            if (confirm("هل أنت متأكد من رغبتك في حذف هذا التوجيه؟")) {
+                let directives = getStoredDirectives();
+                directives = directives.filter(item => item.id !== id);
+                localStorage.setItem('academy_directives', JSON.stringify(directives));
+                renderDirectives();
+                showToast("تم حذف التوجيه بنجاح.");
+            }
+        }
+
+        function renderDirectives() {
+            const container = document.getElementById('directivesContainer');
+            if(!container) return;
+            const directives = getStoredDirectives();
+            const loggedIn = isTeacherLoggedIn();
+
+            if (directives.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 glass-card rounded-2xl">
+                        <i class="fa-solid fa-clipboard-list text-4xl text-slate-600 mb-3"></i>
+                        <p class="text-slate-400 text-sm">لا توجد توجيهات منشورة حالياً.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = directives.map(post => `
+                <div class="glass-card rounded-2xl p-5 border border-slate-800 hover:border-amber-500/40 transition-all flex flex-col justify-between relative group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-800">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold border border-amber-500/30">
+                                    <i class="fa-solid fa-chalkboard-user"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-amber-300">أستاذ محمد الملط</h4>
+                                    <span class="text-[10px] text-slate-400">${post.date}</span>
+                                </div>
+                            </div>
+                            ${loggedIn ? `
+                                <button onclick="deleteDirective(${post.id})" class="text-slate-500 hover:text-red-400 text-xs p-1 transition-colors" title="حذف التوجيه">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+
+                        <p class="text-slate-200 text-sm leading-relaxed whitespace-pre-line mb-3 font-normal">
+                            ${post.text}
+                        </p>
+
+                        ${post.image ? `
+                            <div class="mt-3 rounded-xl overflow-hidden border border-slate-700/80 bg-slate-900">
+                                <img src="${post.image}" alt="صورة التوجيه" class="w-full max-h-72 object-cover hover:scale-105 transition-transform duration-300">
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                        <span class="inline-flex items-center gap-1 text-amber-400/90 font-medium">
+                            <i class="fa-solid fa-circle-check"></i> توجيه رسمي
+                        </span>
+                        <a href="https://wa.me/201010955349" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1">
+                            تواصل <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 left-5 bg-amber-500 text-slate-950 px-5 py-3 rounded-2xl font-bold text-sm shadow-2xl z-50 transition-all duration-300 flex items-center gap-2';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!-- الصق الكود هنا داخل ملف index.html -->
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب المساحة تحت المنحنى الطبيعي المعياري</title>
+    <!-- Tailwind CSS للتنسيق العصري الاستجابي -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- خط Tajawal الأنيق لدعم اللغة العربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* تمييز الحقل النشط بطريقة بصرية ممتازة */
+        .active-input {
+            border-color: #f97316 !important;
+            background-color: #2a1b15 !important;
+            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.25) !important;
+        }
+
+        /* تحسينات الضغط لمفاتيح اللوحة */
+        .key-btn {
+            transition: all 0.12s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .key-btn:active {
+            transform: scale(0.94);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 min-h-screen text-slate-100 flex items-center justify-center p-3 sm:p-6 select-none">
+
+    <div class="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl p-4 sm:p-7 space-y-5">
+        
+        <!-- الهيدر والعنوان -->
+        <div class="text-center space-y-1.5">
+            <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-400 text-xs font-semibold mb-1">
+                <span>📊 حاسبة الإحصاء المعياري</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-amber-300">
+                حساب المساحة تحت المنحنى الطبيعي المعياري
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-400">حساب المساحة المحصورة P(a ≤ Z ≤ b) ورسمها بيائياً</p>
+        </div>
+        
+        <!-- شريط الشرط المطلوب -->
+        <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 text-amber-300 text-xs sm:text-sm text-center font-medium leading-relaxed shadow-sm">
+            <span class="inline-block text-amber-400 font-bold ml-1">⚠️ الشرط المطلوب:</span>
+            القيم <span class="font-bold text-amber-200 underline">a</span> و <span class="font-bold text-amber-200 underline">b</span> يجب أن تكون محصورة بين 
+            <span dir="ltr" class="inline-block font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded text-amber-200 ml-1">-1</span> و 
+            <span dir="ltr" class="inline-block font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded text-amber-200 mr-1">1</span>
+            <div class="mt-1 font-mono font-bold text-xs tracking-wider text-amber-400/90" dir="ltr">(-1.00 ≤ a, b ≤ 1.00)</div>
+        </div>
+
+        <!-- حقول الإدخال -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+            <div class="space-y-1.5">
+                <label for="valA" class="block text-xs sm:text-sm font-bold text-slate-300">القيمة المعيارية (a):</label>
+                <input type="text" id="valA" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valA')"
+                       class="w-full text-center text-lg sm:text-xl font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition-all duration-200 active-input">
+            </div>
+            <div class="space-y-1.5">
+                <label for="valB" class="block text-xs sm:text-sm font-bold text-slate-300">القيمة المعيارية (b):</label>
+                <input type="text" id="valB" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valB')"
+                       class="w-full text-center text-lg sm:text-xl font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition-all duration-200">
+            </div>
+        </div>
+
+        <!-- لوحة المفاتيح المدمجة -->
+        <div class="bg-slate-950/80 p-3 sm:p-4 rounded-2xl border border-slate-800 shadow-inner">
+            <div class="grid grid-cols-4 gap-2 font-mono">
+                <!-- الصف الأول -->
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('7')">7</button>
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('8')">8</button>
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('9')">9</button>
+                <button class="key-btn bg-rose-600 hover:bg-rose-500 text-white font-bold py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl shadow font-sans" onclick="appendValue('-')">- (سالب)</button>
+
+                <!-- الصف الثاني -->
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('4')">4</button>
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('5')">5</button>
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('6')">6</button>
+                <button class="key-btn bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl shadow font-sans flex items-center justify-center gap-1" onclick="backspace()">
+                    <span>⌫</span>
+                    <span>مسح</span>
+                </button>
+
+                <!-- الصف الثالث -->
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('1')">1</button>
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('2')">2</button>
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('3')">3</button>
+                <button class="key-btn bg-amber-600 hover:bg-amber-500 text-white font-bold py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl shadow font-sans" onclick="clearActiveField()">C تفريغ</button>
+
+                <!-- الصف الرابع -->
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('0')">0</button>
+                <button class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 sm:py-3 text-lg rounded-xl shadow border border-slate-700/50" onclick="appendValue('.')">.</button>
+                <button class="key-btn col-span-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl shadow font-sans" onclick="switchField()">🔄 تبديل الحقل النشط</button>
+            </div>
+        </div>
+
+        <!-- أزرار العمليات الرئيسية -->
+        <div class="grid grid-cols-2 gap-3">
+            <button onclick="calculateArea()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-indigo-950/50 transition-all duration-200 text-sm sm:text-base">
+                احسب المساحة والرسم
+            </button>
+            <button onclick="resetForm()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 px-4 rounded-xl border border-slate-700 transition-all duration-200 text-sm sm:text-base">
+                إعادة ضبط
+            </button>
+        </div>
+
+        <!-- رسالة الخطأ لتفادي alert -->
+        <div id="errorBox" class="hidden bg-red-500/15 border border-red-500/40 rounded-xl p-3 text-red-300 text-xs sm:text-sm text-center font-semibold animate-pulse"></div>
+
+        <!-- صندوق عروض النتائج -->
+        <div id="result" class="hidden bg-slate-950 border-r-4 border-indigo-500 p-4 rounded-2xl text-right space-y-1.5 shadow-md"></div>
+
+        <!-- منطقة الرسم البياني Canvas -->
+        <div class="bg-slate-950 p-2 sm:p-3 rounded-2xl border border-slate-800 flex justify-center items-center">
+            <canvas id="chartCanvas" width="520" height="240" class="w-full h-auto max-w-full rounded-xl"></canvas>
+        </div>
+
+    </div>
+
+    <!-- كود الجافاسكريبت المدمج -->
+    <script>
+        let activeFieldId = 'valA';
+
+        // البدء عند تحميل الصفحة
+        document.addEventListener("DOMContentLoaded", function() {
+            setActiveField('valA');
+            drawNormalCurve(null, null);
+        });
+
+        // تحديد الحقل النشط للاستقبال من اللوحة
         function setActiveField(fieldId) {
             activeFieldId = fieldId;
-            document.getElementById('valA').classList.remove('active-input');
-            document.getElementById('valB').classList.remove('active-input');
+            let elA = document.getElementById('valA');
+            let elB = document.getElementById('valB');
+
+            elA.classList.remove('active-input');
+            elB.classList.remove('active-input');
+
             document.getElementById(fieldId).classList.add('active-input');
         }
+
+        // التبديل السريع بين الحقلين
         function switchField() {
-            setActiveField(activeFieldId === 'valA' ? 'valB' : 'valA');
+            if (activeFieldId === 'valA') {
+                setActiveField('valB');
+            } else {
+                setActiveField('valA');
+            }
         }
+
+        // إضافة قيمة من لوحة المفاتيح
         function appendValue(char) {
             hideError();
             let field = document.getElementById(activeFieldId);
             if (!field) return;
+            let val = field.value;
+
             if (char === '-') {
-                field.value = field.value.startsWith('-') ? field.value.substring(1) : '-' + field.value;
+                if (val.startsWith('-')) {
+                    field.value = val.substring(1);
+                } else {
+                    field.value = '-' + val;
+                }
                 return;
             }
-            if (char === '.' && field.value.includes('.')) return;
+
+            if (char === '.' && val.includes('.')) return;
+            
             field.value += char;
         }
+
+        // حذف حرف واحد
         function backspace() {
             hideError();
             let field = document.getElementById(activeFieldId);
             if (field) field.value = field.value.slice(0, -1);
         }
+
+        // تفريغ الحقل النشط
         function clearActiveField() {
             hideError();
             let field = document.getElementById(activeFieldId);
             if (field) field.value = "";
         }
+
+        // إظهار تنبيه داخلي
         function showError(msg) {
             let errBox = document.getElementById('errorBox');
             errBox.innerText = msg;
             errBox.classList.remove('hidden');
         }
+
+        // إخفاء التنبيه
         function hideError() {
             let errBox = document.getElementById('errorBox');
             errBox.innerText = "";
             errBox.classList.add('hidden');
         }
+
+        // حساب CDF للتوزيع الطبيعي المعياري
         function normalCDF(z) {
             if (z < -6) return 0;
             if (z > 6) return 1;
@@ -628,266 +1830,362 @@
             let cdf = 1.0 - pdf * poly;
             return z >= 0 ? cdf : 1.0 - cdf;
         }
+
+        // حساب PDF للتوزيع الطبيعي المعياري
         function normalPDF(x) {
             return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
         }
+
+        // احتساب المساحة ورسمها
         function calculateArea() {
             hideError();
-            let aVal = document.getElementById('valA').value;
-            let bVal = document.getElementById('valB').value;
-            if (aVal === "" || bVal === "") {
+            let inputA = document.getElementById('valA').value;
+            let inputB = document.getElementById('valB').value;
+
+            if (inputA === "" || inputB === "") {
                 showError("يرجى إدخال قيمتي a و b بواسطة لوحة المفاتيح.");
                 return;
             }
-            let a = parseFloat(aVal);
-            let b = parseFloat(bVal);
-            if (a < -1 || a > 1 || b < -1 || b > 1) {
-                showError("خطأ: القيم a و b يجب أن تكون محصورة ضمن الفترة [-1, 1]");
+
+            let a = parseFloat(inputA);
+            let b = parseFloat(inputB);
+
+            if (isNaN(a) || isNaN(b)) {
+                showError("تأكد من إدخال صيغة أرقام صحيحة.");
                 return;
             }
+
+            // التثبت الصارم من الشرط (-1 <= a, b <= 1)
+            if (a < -1 || a > 1 || b < -1 || b > 1) {
+                showError("خطأ: القيم a و b يجب أن تكون محصورة ضمن الفترة [-1, 1] أي (-1 ≤ a, b ≤ 1)");
+                return;
+            }
+
             let minVal = Math.min(a, b);
             let maxVal = Math.max(a, b);
-            let area = normalCDF(maxVal) - normalCDF(minVal);
+
+            let areaA = normalCDF(minVal);
+            let areaB = normalCDF(maxVal);
+            let area = areaB - areaA;
 
             let resultDiv = document.getElementById('result');
             resultDiv.classList.remove('hidden');
             resultDiv.innerHTML = `
                 <div class="text-xs sm:text-sm font-bold text-indigo-300">
-                    المساحة المحصورة: <span dir="ltr" class="font-mono text-white">P(${minVal} ≤ Z ≤ ${maxVal})</span> = <span class="text-lg text-amber-400 font-mono font-extrabold">${area.toFixed(4)}</span>
+                    المساحة المحصورة: <span dir="ltr" class="font-mono text-white">P(${minVal} ≤ Z ≤ ${maxVal})</span> = <span class="text-lg sm:text-xl text-amber-400 font-mono font-extrabold">${area.toFixed(4)}</span>
                 </div>
-                <div class="text-xs text-slate-400">النسبة المئوية: <span class="font-mono text-emerald-400 font-bold">${(area * 100).toFixed(2)}%</span></div>
+                <div class="text-xs text-slate-400">
+                    النسبة المئوية للمساحة: <span class="font-mono text-emerald-400 font-bold">${(area * 100).toFixed(2)}%</span>
+                </div>
             `;
+
             drawNormalCurve(minVal, maxVal);
         }
+
+        // إرجاع النموذج لوضعه الأولي
         function resetForm() {
             hideError();
             document.getElementById('valA').value = "";
             document.getElementById('valB').value = "";
-            document.getElementById('result').classList.add('hidden');
+            let resultDiv = document.getElementById('result');
+            resultDiv.classList.add('hidden');
+            resultDiv.innerHTML = "";
             setActiveField('valA');
             drawNormalCurve(null, null);
         }
+
+        // رسم المنحنى والتظليل
         function drawNormalCurve(a, b) {
             let canvas = document.getElementById('chartCanvas');
             if (!canvas) return;
-            let ctx2 = canvas.getContext('2d');
-            let width = canvas.width, height = canvas.height;
-            ctx2.clearRect(0, 0, width, height);
-            let xMin = -3.0, xMax = 3.0, yMin = 0, yMax = 0.45, padding = 38;
-            function toX(x) { return padding + (x - xMin) / (xMax - xMin) * (width - 2 * padding); }
-            function toY(y) { return height - padding - (y - yMin) / (yMax - yMin) * (height - 2 * padding); }
+            let ctx = canvas.getContext('2d');
+            let width = canvas.width;
+            let height = canvas.height;
 
+            ctx.clearRect(0, 0, width, height);
+
+            let xMin = -3.0, xMax = 3.0;
+            let yMin = 0, yMax = 0.45;
+            let padding = 38;
+
+            function toScreenX(x) {
+                return padding + (x - xMin) / (xMax - xMin) * (width - 2 * padding);
+            }
+
+            function toScreenY(y) {
+                return height - padding - (y - yMin) / (yMax - yMin) * (height - 2 * padding);
+            }
+
+            // 1. رسم المساحة المظللة
             if (a !== null && b !== null) {
-                ctx2.beginPath();
-                ctx2.fillStyle = "rgba(249, 115, 22, 0.45)";
-                let startX = Math.max(a, xMin), endX = Math.min(b, xMax);
-                ctx2.moveTo(toX(startX), toY(0));
-                for (let x = startX; x <= endX; x += 0.01) ctx2.lineTo(toX(x), toY(normalPDF(x)));
-                ctx2.lineTo(toX(endX), toY(0));
-                ctx2.closePath();
-                ctx2.fill();
-            }
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(249, 115, 22, 0.45)"; // برتقالي دافئ جذاب
+                let startX = Math.max(a, xMin);
+                let endX = Math.min(b, xMax);
 
-            ctx2.beginPath();
-            ctx2.strokeStyle = "#60a5fa";
-            ctx2.lineWidth = 3;
-            for (let x = xMin; x <= xMax; x += 0.01) {
-                let px = toX(x), py = toY(normalPDF(x));
-                if (x === xMin) ctx2.moveTo(px, py); else ctx2.lineTo(px, py);
-            }
-            ctx2.stroke();
-
-            ctx2.beginPath();
-            ctx2.strokeStyle = "#475569";
-            ctx2.lineWidth = 1.5;
-            ctx2.moveTo(toX(xMin), toY(0));
-            ctx2.lineTo(toX(xMax), toY(0));
-            ctx2.stroke();
-        }
-
-        // الحاسبة العلمية
-        let calcExpression = "0";
-        function updateCalcDisplay(val) { document.getElementById('calcDisplay').value = val; }
-        function calcAppend(val) {
-            calcExpression = (calcExpression === "0" || calcExpression === "خطأ رياضي") ? val : calcExpression + val;
-            updateCalcDisplay(calcExpression);
-        }
-        function calcClear() { calcExpression = "0"; updateCalcDisplay(calcExpression); }
-        function calcBackSpace() {
-            calcExpression = calcExpression.length > 1 ? calcExpression.slice(0, -1) : "0";
-            updateCalcDisplay(calcExpression);
-        }
-        function calcFunction(fn) {
-            calcExpression = (calcExpression === "0" || calcExpression === "خطأ رياضي") ? fn + "(" : calcExpression + fn + "(";
-            updateCalcDisplay(calcExpression);
-        }
-        function calcCalculate() {
-            try {
-                let expr = calcExpression.replace(/sqrt\(/g, 'Math.sqrt(').replace(/sin\(/g, 'Math.sin(Math.PI/180*').replace(/cos\(/g, 'Math.cos(Math.PI/180*').replace(/tan\(/g, 'Math.tan(Math.PI/180*').replace(/log\(/g, 'Math.log10(');
-                let res = eval(expr);
-                if (isNaN(res) || !isFinite(res)) throw new Error();
-                res = Math.round(res * 1e8) / 1e8;
-                updateCalcDisplay(res);
-                calcExpression = res.toString();
-            } catch {
-                updateCalcDisplay('خطأ رياضي');
-                calcExpression = '0';
-            }
-        }
-
-        // السبورة الذكية
-        function initWhiteboard() {
-            const canvas = document.getElementById('smartWhiteboard');
-            if (!canvas) return;
-            ctx = canvas.getContext('2d');
-            canvas.width = canvas.parentElement.clientWidth || 800;
-            canvas.height = 400;
-            ctx.lineJoin = 'round';
-            ctx.lineCap = 'round';
-
-            canvas.addEventListener('mousedown', (e) => { isDrawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
-            canvas.addEventListener('mousemove', (e) => {
-                if (!isDrawing) return;
-                ctx.strokeStyle = document.getElementById('wbColor').value;
-                ctx.lineWidth = document.getElementById('wbLineWidth').value;
-                ctx.lineTo(e.offsetX, e.offsetY);
-                ctx.stroke();
-            });
-            canvas.addEventListener('mouseup', () => isDrawing = false);
-            canvas.addEventListener('mouseleave', () => isDrawing = false);
-        }
-        function clearWhiteboard() { ctx.clearRect(0, 0, document.getElementById('smartWhiteboard').width, document.getElementById('smartWhiteboard').height); }
-        function saveWhiteboardImage() {
-            const link = document.createElement('a');
-            link.download = 'whiteboard.png';
-            link.href = document.getElementById('smartWhiteboard').toDataURL();
-            link.click();
-        }
-
-        // مصادقة المعلم والتوجيهات
-        function isTeacherLoggedIn() { return sessionStorage.getItem('is_teacher_authenticated') === 'true'; }
-        function loadTeacherPhoto() {
-            const url = localStorage.getItem('teacher_photo_url') || PRIMARY_IMAGE_URL;
-            const img = document.getElementById('teacherHeroImage');
-            if (img) img.src = url;
-        }
-        function promptChangeTeacherPhoto() {
-            if (!isTeacherLoggedIn()) return;
-            const url = prompt("أدخل رابط الصورة الشخصية الجديدة:", localStorage.getItem('teacher_photo_url') || PRIMARY_IMAGE_URL);
-            if (url) { localStorage.setItem('teacher_photo_url', url.trim()); loadTeacherPhoto(); }
-        }
-        function updateAuthUI() {
-            const dot = document.getElementById('statusDot'), txt = document.getElementById('statusText'), changeBtn = document.getElementById('changeImgOption');
-            if (isTeacherLoggedIn()) {
-                if (dot) dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
-                if (txt) { txt.textContent = "معلم مسجل"; txt.className = "text-emerald-400 font-bold"; }
-                if (changeBtn) changeBtn.classList.remove('hidden');
-            }
-        }
-        function openTeacherControlPanel() {
-            if (isTeacherLoggedIn()) document.getElementById('adminPanelModal').classList.remove('hidden');
-            else document.getElementById('loginModal').classList.remove('hidden');
-        }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-        function handleLogin(e) {
-            e.preventDefault();
-            if (document.getElementById('pinInput').value.trim() === FIXED_DEFAULT_PIN) {
-                sessionStorage.setItem('is_teacher_authenticated', 'true');
-                document.getElementById('loginError').classList.add('hidden');
-                closeModal('loginModal');
-                updateAuthUI();
-                renderDirectives();
-                openTeacherControlPanel();
-            } else {
-                document.getElementById('loginError').classList.remove('hidden');
-            }
-        }
-        function previewImage(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    currentUploadedImageData = event.target.result;
-                    document.getElementById('imagePreview').src = currentUploadedImageData;
-                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
-                    document.getElementById('removeImgBtn').classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-        function clearImagePreview() {
-            currentUploadedImageData = "";
-            document.getElementById('guidelineImage').value = "";
-            document.getElementById('imagePreviewContainer').classList.add('hidden');
-            document.getElementById('removeImgBtn').classList.add('hidden');
-        }
-        function saveGuideline(e) {
-            e.preventDefault();
-            const text = document.getElementById('guidelineText').value.trim();
-            if (!text) return;
-            let directives = JSON.parse(localStorage.getItem('academy_directives') || '[]');
-            directives.unshift({ id: Date.now(), text, image: currentUploadedImageData, date: new Date().toLocaleDateString('ar-EG') });
-            localStorage.setItem('academy_directives', JSON.stringify(directives));
-            document.getElementById('guidelineText').value = '';
-            clearImagePreview();
-            closeModal('adminPanelModal');
-            renderDirectives();
-        }
-        function deleteDirective(id) {
-            if (!isTeacherLoggedIn() || !confirm("هل أنت متأكد من الحذف؟")) return;
-            let directives = JSON.parse(localStorage.getItem('academy_directives') || '[]').filter(i => i.id !== id);
-            localStorage.setItem('academy_directives', JSON.stringify(directives));
-            renderDirectives();
-        }
-        function renderDirectives() {
-            const container = document.getElementById('directivesContainer');
-            if (!container) return;
-            const directives = JSON.parse(localStorage.getItem('academy_directives') || '[]');
-            const loggedIn = isTeacherLoggedIn();
-            container.innerHTML = directives.map(p => `
-                <div class="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-800">
-                            <h4 class="text-xs font-bold text-amber-300">أستاذ محمد الملط <span class="text-[10px] text-slate-400 mr-2">${p.date}</span></h4>
-                            ${loggedIn ? `<button onclick="deleteDirective(${p.id})" class="text-red-400 text-xs"><i class="fa-solid fa-trash-can"></i></button>` : ''}
-                        </div>
-                        <p class="text-slate-200 text-sm whitespace-pre-line mb-3">${p.text}</p>
-                        ${p.image ? `<div class="rounded-xl overflow-hidden bg-slate-900 mt-2"><img src="${p.image}" class="w-full max-h-48 object-cover"></div>` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // نموذج تسجيل الطلاب (Formspree)
-        const studentForm = document.getElementById("student-registration-form");
-        studentForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            const statusMsg = document.getElementById("form-status-message");
-            const submitBtn = document.getElementById("form-submit-btn");
-            submitBtn.disabled = true;
-            submitBtn.textContent = "جاري إرسال البيانات...";
-
-            fetch(studentForm.action, {
-                method: studentForm.method,
-                body: new FormData(studentForm),
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    statusMsg.innerHTML = "✨ تم إرسال طلب تسجيلك بنجاح وسنتواصل معك قريباً.";
-                    statusMsg.style.color = "#38bdf8";
-                    studentForm.reset();
-                } else {
-                    statusMsg.innerHTML = "عذراً، حدث خطأ أثناء إرسال البيانات.";
-                    statusMsg.style.color = "#f87171";
+                ctx.moveTo(toScreenX(startX), toScreenY(0));
+                for (let x = startX; x <= endX; x += 0.01) {
+                    ctx.lineTo(toScreenX(x), toScreenY(normalPDF(x)));
                 }
-            }).catch(() => {
-                statusMsg.innerHTML = "تأكد من اتصالك بالإنترنت.";
-                statusMsg.style.color = "#f87171";
-            }).finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = "إرسال طلب التسجيل";
-            });
-        });
+                ctx.lineTo(toScreenX(endX), toScreenY(0));
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // 2. رسم المنحنى الطبيعي
+            ctx.beginPath();
+            ctx.strokeStyle = "#60a5fa"; // أزرق سماوي
+            ctx.lineWidth = 3;
+            for (let x = xMin; x <= xMax; x += 0.01) {
+                let px = toScreenX(x);
+                let py = toScreenY(normalPDF(x));
+                if (x === xMin) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+
+            // 3. المحور الأفقي Z
+            ctx.beginPath();
+            ctx.strokeStyle = "#475569";
+            ctx.lineWidth = 1.5;
+            ctx.moveTo(toScreenX(xMin), toScreenY(0));
+            ctx.lineTo(toScreenX(xMax), toScreenY(0));
+            ctx.stroke();
+
+            // 4. العلامات والترقيم على المحور الأفقي
+            ctx.fillStyle = "#94a3b8";
+            ctx.font = "12px Tajawal, sans-serif";
+            ctx.textAlign = "center";
+            for (let z = -3; z <= 3; z++) {
+                let px = toScreenX(z);
+                let py = toScreenY(0);
+                ctx.beginPath();
+                ctx.moveTo(px, py);
+                ctx.lineTo(px, py + 5);
+                ctx.stroke();
+                ctx.fillText(z, px, py + 18);
+            }
+
+            // 5. رسم الخطوط العمودية عند a و b
+            if (a !== null) drawVerticalLine(ctx, toScreenX(a), toScreenY(0), toScreenY(normalPDF(a)), "a = " + a);
+            if (b !== null) drawVerticalLine(ctx, toScreenX(b), toScreenY(0), toScreenY(normalPDF(b)), "b = " + b);
+        }
+
+        // رسم خط رأسي محدد مع الاسم
+        function drawVerticalLine(ctx, x, yBottom, yTop, label) {
+            ctx.beginPath();
+            ctx.strokeStyle = "#f43f5e"; // وردي/أحمر للتحديد
+            ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 2;
+            ctx.moveTo(x, yBottom);
+            ctx.lineTo(x, yTop);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = "#f43f5e";
+            ctx.font = "bold 12px Tajawal, sans-serif";
+            ctx.fillText(label, x, yTop - 7);
+        }
     </script>
+    
+    
+    
+</body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- رابط أيقونات Font Awesome لعرض شعار فيسبوك -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    .fb-banner {
+        background-color: #f0f2f5;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 20px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+    }
+
+    .fb-banner h3 {
+        color: #1c1e21;
+        margin-bottom: 8px;
+        font-size: 18px;
+    }
+
+    .fb-banner p {
+        color: #606770;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .fb-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: #1877f2;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 15px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .fb-button:hover {
+        background-color: #166fe5;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="fb-banner">
+    <h3>تواصل معنا على فيسبوك!</h3>
+    <p>تابع صفحتنا للحصول على آخر التحديثات والدروس التعليمية.</p>
+    <a href="https://www.facebook.com/trump.egymisr" target="_blank" rel="noopener noreferrer" class="fb-button">
+        <i class="fab fa-facebook-f"></i>
+        تابعنا على فيسبوك
+    </a>
+</div>
+
+
+
+<!-- قسم تسجيل الطلاب في أكاديمية الملط رياضيات -->
+<section style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8fafc; padding: 40px 20px; display: flex; justify-content: center; align-items: center; width: 100%; box-sizing: border-box;">
+    <div style="background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); width: 100%; max-width: 520px; box-sizing: border-box;">
+        
+        <h2 style="margin-bottom: 8px; font-size: 22px; color: #38bdf8; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            تسجيل الطلاب - أكاديمية الملط للرياضيات
+        </h2>
+        <p style="text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 25px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            سجل بياناتك الآن للانضمام إلى حصص الأستاذ محمد عبدالمنعم الملط
+        </p>
+
+        <form id="student-registration-form" action="https://formspree.io/f/mvkknoop" method="POST">
+            
+            <!-- البريد الإلكتروني المستلم -->
+            <input type="hidden" name="email" value="moh888941@gmail.com">
+
+            <!-- اسم الطالب -->
+            <div style="margin-bottom: 18px; text-align: right;">
+                <label for="student-name" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 14px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">اسم الطالب:</label>
+                <input type="text" id="student-name" name="student_name" placeholder="أدخل اسم الطالب الثلاثي" required style="width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 15px; outline: none; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            </div>
+
+            <!-- رقم الموبايل -->
+            <div style="margin-bottom: 18px; text-align: right;">
+                <label for="student-phone" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 14px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">رقم الموبايل:</label>
+                <input type="tel" id="student-phone" name="student_phone" placeholder="أدخل رقم الهاتف أو الواتساب" required style="width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 15px; outline: none; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            </div>
+
+            <!-- المرحلة التعليمية -->
+            <div style="margin-bottom: 18px; text-align: right;">
+                <label for="education-stage" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 14px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">المرحلة التعليمية:</label>
+                <select id="education-stage" name="education_stage" required style="width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.8); border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 15px; outline: none; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <option value="" disabled selected>اختر المرحلة التعليمية</option>
+                    <option value="إعدادي">إعدادي</option>
+                    <option value="ثانوي">ثانوي</option>
+                    <option value="بكالوريا">بكالوريا</option>
+                    <option value="جامعات">جامعات</option>
+                </select>
+            </div>
+
+            <!-- الصف الدراسي -->
+            <div style="margin-bottom: 18px; text-align: right;">
+                <label for="academic-grade" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 14px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">الصف الدراسي:</label>
+                <input type="text" id="academic-grade" name="academic_grade" placeholder="مثال: الأول الثانوي / السنة الأولى جامعي" required style="width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 15px; outline: none; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            </div>
+
+            <!-- اسم المنهج / فرع الرياضة -->
+            <div style="margin-bottom: 22px; text-align: right;">
+                <label for="math-branch" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 14px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">المنهج أو فرع الرياضة المطلوب:</label>
+                <select id="math-branch" name="math_branch" required style="width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.8); border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 15px; outline: none; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <option value="" disabled selected>اختر الفرع أو المنهج</option>
+                    <option value="جبر">جبر</option>
+                    <option value="هندسة">هندسة</option>
+                    <option value="استاتيكا">استاتيكا</option>
+                    <option value="ديناميكا">ديناميكا</option>
+                    <option value="تفاضل وتكامل">تفاضل وتكامل</option>
+                    <option value="منهج كامل / متعدد">منهج كامل / فروع متعددة</option>
+                </select>
+            </div>
+
+            <!-- زر الإرسال -->
+            <button type="submit" id="form-submit-btn" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">إرسال طلب التسجيل</button>
+        </form>
+        
+        <!-- حالة الإرسال -->
+        <div id="form-status-message" style="text-align: center; font-size: 14px; margin-top: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"></div>
+    </div>
+</section>
+
+<!-- كود الجافاسكريبت للتحكم بالإرسال دون إعادة تحميل الصفحة -->
+<script>
+    var studentForm = document.getElementById("student-registration-form");
+    
+    async function handleStudentSubmit(event) {
+        event.preventDefault();
+        var statusMsg = document.getElementById("form-status-message");
+        var submitBtn = document.getElementById("form-submit-btn");
+        var studentNameVal = document.getElementById("student-name").value;
+        var formDataObj = new FormData(event.target);
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = "جاري إرسال بيانات التسجيل...";
+        
+        fetch(event.target.action, {
+            method: studentForm.method,
+            body: formDataObj,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                statusMsg.innerHTML = `✨ أهلاً بك يا ${studentNameVal}! تم إرسال طلب تسجيك بنجاح وسنتواصل معك قريباً.`;
+                statusMsg.style.color = "#38bdf8";
+                studentForm.reset();
+            } else {
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        statusMsg.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        statusMsg.innerHTML = "عذراً، حدث خطأ ما أثناء إرسال البيانات.";
+                    }
+                })
+                statusMsg.style.color = "#f87171";
+            }
+        }).catch(error => {
+            statusMsg.innerHTML = "عذراً، تحقق من اتصالك بالإنترنت وحاول مجدداً.";
+            statusMsg.style.color = "#f87171";
+        }).finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "إرسال طلب التسجيل";
+        });
+    }
+    
+    studentForm.addEventListener("submit", handleStudentSubmit);
+</script>
+
+
+
+
+
+
+
 </body>
 </html>
