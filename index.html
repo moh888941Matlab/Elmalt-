@@ -7,7 +7,82 @@
 
 
 
-    
+    <!-- بداية قائمة اختيار اللغات المخصصة لأكاديمية الملط -->
+<div class="malt-lang-container">
+  <select id="maltLangSelect" onchange="changeLanguage(this.value)">
+    <option value="ar" selected>🇪🇬 العربية - Arabic - Arabe</option>
+    <option value="en">🇬🇧 English - English - Anglais</option>
+    <option value="fr">🇫🇷 Français - French - Français</option>
+  </select>
+</div>
+
+<!-- كود ترجمة جوجل الخلفي + الوظيفة البرمجية -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'ar',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function changeLanguage(langCode) {
+    var selectField = document.querySelector(".goog-te-combo");
+    if (selectField) {
+      selectField.value = langCode;
+      selectField.dispatchEvent(new Event('change'));
+    }
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- تنسيق CSS جلاسمورفيك بـ خط ذهبي فخم -->
+<style>
+  .malt-lang-container {
+    display: inline-block;
+    margin: 10px;
+  }
+  
+  #maltLangSelect {
+    background: rgba(20, 20, 20, 0.85) !important;
+    color: #ffca28 !important; /* لون ذهبي فخم */
+    border: 1px solid rgba(255, 202, 40, 0.4) !important;
+    padding: 8px 14px !important;
+    border-radius: 8px !important;
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  #maltLangSelect:hover, #maltLangSelect:focus {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+
+  #maltLangSelect option {
+    background-color: #1a1a1a !important;
+    color: #ffca28 !important;
+    padding: 10px;
+  }
+
+  /* إخفاء شريط جوجل العلوي وتثبيت الصفحة */
+  body {
+    top: 0 !important;
+  }
+  .goog-te-banner-frame {
+    display: none !important;
+  }
+  .skiptranslate {
+    display: none !important;
+  }
+</style>
+<!-- نهاية قائمة اختيار اللغات -->
+
 
 
 
