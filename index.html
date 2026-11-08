@@ -227,69 +227,38 @@
 
 
 
-
-
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الملط للرياضيات</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: Tahoma, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        .visitor-box {
-            background: #1e1e1e;
-            border: 2px solid #ffd700;
-            padding: 20px;
-            border-radius: 15px;
-            display: inline-block;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
-        }
-        .visitor-title {
-            font-size: 18px;
-            color: #ffd700;
-            margin-bottom: 10px;
-        }
-        .visitor-count {
-            font-size: 32px;
-            font-weight: bold;
-            color: #ffffff;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="visitor-box">
-        <div class="visitor-title">إجمالي زوار أكاديمية الملط</div>
-        <div class="visitor-count" id="count">1,250</div>
-    </div>
-
-    <script>
-        // قراءة الرقم الحالي من ذاكرة المتصفح أو بدءاً من 1250
-        let visits = localStorage.getItem('elmolt_total_visits');
-        
-        if (!visits) {
-            visits = 1250;
-        } else {
-            visits = parseInt(visits) + 1; // زيادة زيارة مع كل فتح أو ريفريش
-        }
-        
-        // حفظ الرقم الجديد في الذاكرة
-        localStorage.setItem('elmolt_total_visits', visits);
-        
-        // عرض الرقم الجديد على الشاشة بتنسيق منسق
-        document.getElementById('count').innerText = visits.toLocaleString('ar-EG');
+<div style="text-align: center; background: rgba(0, 0, 0, 0.75); padding: 8px; border-bottom: 1px solid #ffca28; font-family: 'Cairo', sans-serif;">
+  <span style="color: #ffca28; font-size: 13px; margin-left: 8px;">إجمالي زوار الموقع:</span>
+  <span id="visitor-count" style="color: #fff; font-weight: bold; font-size: 14px;">1</span>
+  
+  <!-- كود StatCounter الحقيقي سيعمل فور رفعه على الموقع -->
+  <div style="display:none;">
+    <script type="text/javascript">
+    var sc_project=13365563; 
+    
+    
+  
+  
+  <div style="text-align: center; background: rgba(0, 0, 0, 0.75); padding: 8px; border-bottom: 1px solid #ffca28; font-family: 'Cairo', sans-serif;">
+  <span style="color: #ffca28; font-size: 13px; margin-left: 8px;">إجمالي زوار الموقع:</span>
+  <span id="visitor-count" style="color: #fff; font-weight: bold; font-size: 14px;">1</span>
+  
+  <!-- كود StatCounter الحقيقي سيعمل فور رفعه على الموقع -->
+  <div style="display:none;">
+    <script type="text/javascript">
+    var sc_project=13365563; 
+    var sc_invisible=0; 
+    var sc_security="7ab2a646"; 
     </script>
+    <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+  </div>
+</div>
 
-</body>
-</html>
+  
+  
+  
+  
+      
 
 
 <!-- بداية كود موقع الرياضيات التفاعلية - في أعلى الصفحة -->
