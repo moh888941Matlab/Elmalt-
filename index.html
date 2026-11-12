@@ -2,12 +2,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-
-
-
-
-
-    <!-- بداية قائمة اختيار اللغات المخصصة لأكاديمية الملط -->
+  <!-- بداية قائمة اختيار اللغات المخصصة لأكاديمية الملط -->
 <div class="malt-lang-container">
   <select id="maltLangSelect" onchange="changeLanguage(this.value)">
     <option value="ar" selected>🇪🇬 العربية - Arabic - Arabe</option>
@@ -112,6 +107,7 @@
     </style>
 </head>
 <body>
+
 
     <!-- 👇 ضع كود العداد هنا مباشرة بعد <body> ليكون في أول الصفحة -->
     <div class="counter-card">
@@ -1075,54 +1071,22 @@
             </div>
         </section>
 
-        <!-- Scientific Calculator Section -->
-        <section id="calculator-section" class="py-10 px-4 max-w-4xl mx-auto">
-            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 shadow-2xl relative">
-                <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
-                    <h2 class="text-xl sm:text-2xl font-black text-amber-400 flex items-center gap-3">
-                        <i class="fa-solid fa-calculator text-amber-500"></i>
-                        <span>الآلة الحاسبة العلمية المتقدمة</span>
-                    </h2>
-                    <span class="text-xs text-slate-400">أكاديمية الملط</span>
-                </div>
+      
 
-                <div class="mb-4">
-                    <input type="text" id="calcDisplay" readonly class="w-full bg-slate-950 text-emerald-400 font-mono text-2xl sm:text-3xl p-4 rounded-2xl border border-slate-800 text-left outline-none shadow-inner" value="0">
-                </div>
 
-                <div class="grid grid-cols-4 sm:grid-cols-5 gap-2.5">
-                    <button onclick="calcClear()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-3 rounded-xl border border-red-500/30 transition-all text-sm">AC</button>
-                    <button onclick="calcBackSpace()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm"><i class="fa-solid fa-delete-left"></i></button>
-                    <button onclick="calcAppend('(')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl transition-all text-sm">(</button>
-                    <button onclick="calcAppend(')')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl transition-all text-sm">)</button>
-                    <button onclick="calcAppend('/')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">÷</button>
 
-                    <button onclick="calcFunction('sqrt')" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 font-bold py-3 rounded-xl border border-sky-500/30 transition-all text-sm">√</button>
-                    <button onclick="calcAppend('7')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">7</button>
-                    <button onclick="calcAppend('8')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">8</button>
-                    <button onclick="calcAppend('9')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">9</button>
-                    <button onclick="calcAppend('*')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">×</button>
 
-                    <button onclick="calcFunction('sin')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">sin</button>
-                    <button onclick="calcAppend('4')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">4</button>
-                    <button onclick="calcAppend('5')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">5</button>
-                    <button onclick="calcAppend('6')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">6</button>
-                    <button onclick="calcAppend('-')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">-</button>
+  
 
-                    <button onclick="calcFunction('cos')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">cos</button>
-                    <button onclick="calcAppend('1')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">1</button>
-                    <button onclick="calcAppend('2')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">2</button>
-                    <button onclick="calcAppend('3')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">3</button>
-                    <button onclick="calcAppend('+')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition-all text-sm">+</button>
 
-                    <button onclick="calcFunction('tan')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">tan</button>
-                    <button onclick="calcFunction('log')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold py-3 rounded-xl transition-all text-sm">log</button>
-                    <button onclick="calcAppend('0')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">0</button>
-                    <button onclick="calcAppend('.')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all text-lg">.</button>
-                    <button onclick="calcCalculate()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3 rounded-xl transition-all text-lg shadow-lg">=</button>
-                </div>
-            </div>
-        </section>
+
+
+
+
+
+
+
+
 
         <!-- Smart Whiteboard Section -->
         <section id="whiteboard-section" class="py-10 px-4 max-w-5xl mx-auto">
@@ -1796,7 +1760,20 @@
         <!-- الهيدر والعنوان -->
         <div class="text-center space-y-1.5">
             <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-400 text-xs font-semibold mb-1">
-                <span>📊 حاسبة الإحصاء المعياري</span>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+      <span>📊 حاسبة الإحصاء المعياري</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-amber-300">
                 حساب المساحة تحت المنحنى الطبيعي المعياري
@@ -2333,3 +2310,876 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط - الحاسبة العلمية</title>
+    <!-- استدعاء خط تجوال (Tajawal) وخط الأرقام الاحترافي من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- استدعاء Tailwind CSS للتصميم المتجاوب والحديث -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        arabic: ['Tajawal', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        academy: {
+                            bg: '#090d16',
+                            card: '#111827',
+                            screen: '#070b12',
+                            btn: '#1e293b',
+                            btnHover: '#283548',
+                            sci: '#162032',
+                            sciHover: '#1f2d47',
+                            accent: '#38bdf8',
+                            accentDark: '#0284c7',
+                            gold: '#f59e0b',
+                            danger: '#ef4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* تخصيصات دقيقة للمظهر والانسيابية */
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: radial-gradient(circle at top right, #131c31 0%, #090d16 55%, #05080f 100%);
+            min-height: 100vh;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .calc-screen-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+        .calc-screen-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .calc-screen-scroll::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+
+        /* تأثير الضغط على الأزرار */
+        .calc-btn {
+            transition: transform 0.08s ease, background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        }
+        .calc-btn:active {
+            transform: scale(0.94);
+        }
+
+        /* ضبط اتجاه المعادلات الرياضية من اليسار لليمين داخل واجهة عربية */
+        .math-ltr {
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+    </style>
+</head>
+<body class="text-slate-100 flex items-center justify-center p-2 sm:p-4 md:p-6">
+
+    <!-- الحاوية الرئيسية للحاسبة -->
+    <main class="w-full max-w-[460px] bg-academy-card/95 backdrop-blur-xl border border-slate-800/80 rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85)] overflow-hidden p-4 sm:p-5">
+        
+        <!-- الترويسة: شعار واسم أكاديمية الملط -->
+        <header class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/80">
+            <div class="flex items-center gap-3">
+                <!-- أيقونة هندسية احترافية للأكاديمية -->
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-500/20 to-indigo-600/20 border border-sky-400/30 flex items-center justify-center shadow-inner">
+                    <svg class="w-6 h-6 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2"></polygon>
+                        <line x1="12" y1="22" x2="12" y2="12"></line>
+                        <polyline points="21 7 12 12 3 7"></polyline>
+                        <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-extrabold tracking-wide text-white leading-tight">
+                        أكاديمية الملط - الحاسبة العلمية
+                    </h1>
+                    <p class="text-[11px] text-slate-400 font-medium">دقة رياضية متكاملة للعلوم والهندسة</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- شاشة العرض المزدوجة -->
+        <section aria-label="شاشة عرض الحاسبة" class="bg-academy-screen border border-slate-800/90 rounded-2xl p-3.5 sm:p-4 mb-4 shadow-inner relative overflow-hidden">
+            <!-- شريط الحالة العلوي داخل الشاشة -->
+            <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+                <div class="flex items-center gap-2">
+                    <span id="angle-badge" class="px-2 py-0.5 rounded-md bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold tracking-wider">DEG</span>
+                    <span id="shift-badge" class="hidden px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold tracking-wider">2nd</span>
+                </div>
+                <span id="ans-indicator" class="text-slate-500 math-ltr truncate max-w-[180px]">Ans = 0</span>
+            </div>
+
+            <!-- السطر العلوي: التعبير الرياضي (Expression) -->
+            <div id="expression-display" class="math-ltr calc-screen-scroll w-full overflow-x-auto whitespace-nowrap text-right font-mono text-sm sm:text-base text-slate-400 min-h-[24px] leading-6 pb-1">
+                
+            </div>
+
+            <!-- السطر السفلي: النتيجة النهائية (Result) -->
+            <div id="result-display" class="math-ltr calc-screen-scroll w-full overflow-x-auto whitespace-nowrap text-right font-mono text-2xl sm:text-3xl font-bold text-white min-h-[40px] leading-10 tracking-tight mt-0.5">
+                0
+            </div>
+        </section>
+
+        <!-- شبكة أزرار الحاسبة العلمية (6 أعمدة × 8 صفوف = 48 زر منظم بدقة بدون أي أزرار خارجية) -->
+        <section aria-label="لوحة مفاتيح الحاسبة" class="grid grid-cols-6 gap-1.5 sm:gap-2 math-ltr font-mono">
+            
+            <!-- الصف 1: أزرار الأوضاع والتحكم العلوي -->
+            <button type="button" id="btn-shift" data-action="shift" class="calc-btn h-10 sm:h-11 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/30 text-xs sm:text-sm font-bold">2nd</button>
+            <button type="button" id="btn-deg-rad" data-action="toggle-angle" class="calc-btn h-10 sm:h-11 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-xs sm:text-sm font-bold">DEG</button>
+            <button type="button" data-insert="(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-sm font-semibold">(</button>
+            <button type="button" data-insert=")" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-sm font-semibold">)</button>
+            <button type="button" data-action="del" class="calc-btn h-10 sm:h-11 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-400 border border-rose-500/30 text-xs sm:text-sm font-bold">DEL</button>
+            <button type="button" data-action="ac" class="calc-btn h-10 sm:h-11 rounded-xl bg-rose-600/25 hover:bg-rose-600/35 text-rose-300 border border-rose-500/40 text-xs sm:text-sm font-bold">AC</button>
+
+            <!-- الصف 2: الدوال المثلثية والعكسية -->
+            <button type="button" data-insert="sin(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">sin</button>
+            <button type="button" data-insert="cos(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">cos</button>
+            <button type="button" data-insert="tan(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">tan</button>
+            <button type="button" data-insert="asin(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-indigo-300 border border-slate-800/90 text-[11px] sm:text-xs font-medium">sin⁻¹</button>
+            <button type="button" data-insert="acos(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-indigo-300 border border-slate-800/90 text-[11px] sm:text-xs font-medium">cos⁻¹</button>
+            <button type="button" data-insert="atan(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-indigo-300 border border-slate-800/90 text-[11px] sm:text-xs font-medium">tan⁻¹</button>
+
+            <!-- الصف 3: الدوال الزائدية والعكسية -->
+            <button type="button" data-insert="sinh(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-teal-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">sinh</button>
+            <button type="button" data-insert="cosh(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-teal-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">cosh</button>
+            <button type="button" data-insert="tanh(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-teal-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">tanh</button>
+            <button type="button" data-insert="asinh(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-emerald-300 border border-slate-800/90 text-[11px] sm:text-xs font-medium">sinh⁻¹</button>
+            <button type="button" data-insert="acosh(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-emerald-300 border border-slate-800/90 text-[11px] sm:text-xs font-medium">cosh⁻¹</button>
+            <button type="button" data-insert="atanh(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-emerald-300 border border-slate-800/90 text-[11px] sm:text-xs font-medium">tanh⁻¹</button>
+
+            <!-- الصف 4: اللوغاريتمات والأسس والجذور -->
+            <button type="button" data-insert="log(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">log</button>
+            <button type="button" data-insert="ln(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">ln</button>
+            <button type="button" data-insert="10^(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">10ˣ</button>
+            <button type="button" data-insert="e^(" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">eˣ</button>
+            <button type="button" data-insert="^" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">xʸ</button>
+            <button type="button" data-insert="yroot" class="calc-btn h-10 sm:h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">ʸ√x</button>
+
+            <!-- الصف 5: القوى والجذور والمضروب والمقلوب + الأرقام 7 8 9 ÷ -->
+            <button type="button" data-insert="^2" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">x²</button>
+            <button type="button" data-insert="√(" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-sm font-medium">√</button>
+            <button type="button" data-insert="7" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">7</button>
+            <button type="button" data-insert="8" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">8</button>
+            <button type="button" data-insert="9" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">9</button>
+            <button type="button" data-insert="÷" class="calc-btn h-11 sm:h-12 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">÷</button>
+
+            <!-- الصف 6: التكعيب والجذر التكعيبي + الأرقام 4 5 6 × -->
+            <button type="button" data-insert="^3" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">x³</button>
+            <button type="button" data-insert="∛(" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-sm font-medium">∛</button>
+            <button type="button" data-insert="4" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">4</button>
+            <button type="button" data-insert="5" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">5</button>
+            <button type="button" data-insert="6" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">6</button>
+            <button type="button" data-insert="×" class="calc-btn h-11 sm:h-12 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">×</button>
+
+            <!-- الصف 7: المضروب والمقلوب والقيمة المطلقة + الأرقام 1 2 3 - -->
+            <button type="button" data-insert="!" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">n!</button>
+            <button type="button" data-action="reciprocal" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">1/x</button>
+            <button type="button" data-insert="1" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">1</button>
+            <button type="button" data-insert="2" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">2</button>
+            <button type="button" data-insert="3" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">3</button>
+            <button type="button" data-insert="-" class="calc-btn h-11 sm:h-12 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">−</button>
+
+            <!-- الصف 8: الثوابت (π, e) والقيمة المطلقة وباقي القسمة + 0 . +/- = -->
+            <button type="button" data-insert="abs(" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-xs sm:text-[13px] font-medium">|x|</button>
+            <button type="button" data-insert=" mod " class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-[11px] sm:text-xs font-medium">mod</button>
+            <button type="button" data-insert="0" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">0</button>
+            <button type="button" data-insert="." class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base sm:text-lg font-bold">.</button>
+            <button type="button" data-action="negate" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-slate-200 border border-slate-700/60 text-xs sm:text-sm font-bold">+/-</button>
+            <button type="button" data-insert="+" class="calc-btn h-11 sm:h-12 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">+</button>
+
+            <!-- الصف 9: الثوابت الأساسية والنسبة المئوية و Ans و يساوي (=) -->
+            <button type="button" data-insert="π" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-amber-300 border border-slate-800/90 text-sm font-bold">π</button>
+            <button type="button" data-insert="e" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-amber-300 border border-slate-800/90 text-sm font-bold">e</button>
+            <button type="button" data-insert="%" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800/90 text-sm font-semibold">%</button>
+            <button type="button" data-insert="Ans" class="calc-btn h-11 sm:h-12 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-300 border border-slate-800/90 text-xs sm:text-sm font-bold">Ans</button>
+            <button type="button" data-action="equals" class="calc-btn col-span-2 h-11 sm:h-12 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg shadow-sky-500/25 border border-sky-400/40 text-xl font-extrabold">=</button>
+
+        </section>
+    </main>
+
+    <!-- المحرك الرياضي البرمجي المتكامل للحاسبة العلمية -->
+    <script>
+        (function () {
+            'use strict';
+
+            // عناصر واجهة المستخدم
+            const expressionDisplay = document.getElementById('expression-display');
+            const resultDisplay = document.getElementById('result-display');
+            const angleBadge = document.getElementById('angle-badge');
+            const shiftBadge = document.getElementById('shift-badge');
+            const ansIndicator = document.getElementById('ans-indicator');
+            const btnDegRad = document.getElementById('btn-deg-rad');
+            const btnShift = document.getElementById('btn-shift');
+
+            // حالة الحاسبة
+            let expression = '';
+            let lastAns = 0;
+            let angleMode = 'DEG'; // 'DEG' أو 'RAD'
+            let isShift = false;
+            let justEvaluated = false;
+
+            // تحديث الشاشة
+            function updateDisplay(resultText = null, isError = false) {
+                expressionDisplay.textContent = expression || '';
+                expressionDisplay.scrollLeft = expressionDisplay.scrollWidth;
+
+                if (resultText !== null) {
+                    resultDisplay.textContent = resultText;
+                    if (isError) {
+                        resultDisplay.classList.remove('text-white');
+                        resultDisplay.classList.add('text-rose-400');
+                    } else {
+                        resultDisplay.classList.remove('text-rose-400');
+                        resultDisplay.classList.add('text-white');
+                    }
+                    resultDisplay.scrollLeft = resultDisplay.scrollWidth;
+                }
+            }
+
+            // تنسيق الأرقام لتفادي أخطاء الفاصلة العشرية العائمة في JavaScript (مثل 1e-16)
+            function formatNumber(num) {
+                if (typeof num !== 'number' || Number.isNaN(num)) {
+                    throw new Error('خطأ رياضي');
+                }
+                if (!Number.isFinite(num)) {
+                    return num > 0 ? '∞' : '-∞';
+                }
+                // تقريب القيم القريبة جداً من الصفر
+                if (Math.abs(num) < 1e-13) {
+                    num = 0;
+                }
+                // تقريب الأخطاء العشرية الطفيفة إلى 12 خانة معنوية
+                const clean = Number(num.toPrecision(12));
+                if (Math.abs(clean) >= 1e13 || (Math.abs(clean) > 0 && Math.abs(clean) < 1e-9)) {
+                    return clean.toExponential(8).replace(/\.?0+e/, 'e');
+                }
+                return String(clean);
+            }
+
+            // دالة حساب المضروب (Factorial) بدعم الأعداد الصحيحة الموجبة والصفر
+            function factorial(n) {
+                if (n < 0 || !Number.isInteger(n)) {
+                    throw new Error('خطأ في المضروب');
+                }
+                if (n > 170) {
+                    return Infinity;
+                }
+                if (n === 0 || n === 1) return 1;
+                let res = 1;
+                for (let i = 2; i <= n; i++) {
+                    res *= i;
+                }
+                return res;
+            }
+
+            // دوال مثلثية تراعي وضع الدرجات (DEG) والراديان (RAD) بدقة عالية
+            function toRadians(x) {
+                return angleMode === 'DEG' ? (x * Math.PI) / 180 : x;
+            }
+
+            function fromRadians(x) {
+                return angleMode === 'DEG' ? (x * 180) / Math.PI : x;
+            }
+
+            function calcSin(x) {
+                if (angleMode === 'DEG') {
+                    const mod = ((x % 360) + 360) % 360;
+                    if (mod === 0 || mod === 180) return 0;
+                    if (mod === 90) return 1;
+                    if (mod === 270) return -1;
+                }
+                return Math.sin(toRadians(x));
+            }
+
+            function calcCos(x) {
+                if (angleMode === 'DEG') {
+                    const mod = ((x % 360) + 360) % 360;
+                    if (mod === 90 || mod === 270) return 0;
+                    if (mod === 0) return 1;
+                    if (mod === 180) return -1;
+                }
+                return Math.cos(toRadians(x));
+            }
+
+            function calcTan(x) {
+                if (angleMode === 'DEG') {
+                    const mod = ((x % 360) + 360) % 360;
+                    if (mod === 90 || mod === 270) {
+                        throw new Error('غير معرّف');
+                    }
+                    if (mod === 0 || mod === 180) return 0;
+                    if (mod === 45 || mod === 225) return 1;
+                    if (mod === 135 || mod === 315) return -1;
+                }
+                const c = Math.cos(toRadians(x));
+                if (Math.abs(c) < 1e-15) throw new Error('غير معرّف');
+                return Math.sin(toRadians(x)) / c;
+            }
+
+            function calcAsin(x) {
+                if (x < -1 || x > 1) throw new Error('خارج النطاق');
+                return fromRadians(Math.asin(x));
+            }
+
+            function calcAcos(x) {
+                if (x < -1 || x > 1) throw new Error('خارج النطاق');
+                return fromRadians(Math.acos(x));
+            }
+
+            function calcAtan(x) {
+                return fromRadians(Math.atan(x));
+            }
+
+            function calcLog10(x) {
+                if (x <= 0) throw new Error('خارج النطاق');
+                return Math.log10(x);
+            }
+
+            function calcLn(x) {
+                if (x <= 0) throw new Error('خارج النطاق');
+                return Math.log(x);
+            }
+
+            function calcSqrt(x) {
+                if (x < 0) throw new Error('جذر سالب');
+                return Math.sqrt(x);
+            }
+
+            function calcCbrt(x) {
+                return Math.cbrt(x);
+            }
+
+            function calcYRoot(y, x) {
+                if (y === 0) throw new Error('قسمة على صفر');
+                if (x < 0 && Math.abs(y % 2) !== 1) throw new Error('جذر زوجي لسالب');
+                return x < 0 ? -Math.pow(-x, 1 / y) : Math.pow(x, 1 / y);
+            }
+
+            function calcAcosh(x) {
+                if (x < 1) throw new Error('خارج النطاق');
+                return Math.acosh(x);
+            }
+
+            function calcAtanh(x) {
+                if (x <= -1 || x >= 1) throw new Error('خارج النطاق');
+                return Math.atanh(x);
+            }
+
+            // محلل رياضي آمن ودقيق (Tokenizer + Shunting-Yard Algorithm + RPN Evaluator)
+            function evaluateExpression(rawExpr) {
+                if (!rawExpr || !rawExpr.trim()) return 0;
+
+                // إغلاق الأقواس المفتوحة تلقائياً إذا نسيها المستخدم
+                let expr = rawExpr.trim();
+                let openParens = 0;
+                for (const ch of expr) {
+                    if (ch === '(') openParens++;
+                    else if (ch === ')') openParens--;
+                }
+                if (openParens < 0) throw new Error('خطأ في الأقواس');
+                if (openParens > 0) expr += ')'.repeat(openParens);
+
+                // استبدال الرموز المركبة
+                expr = expr.replace(/−/g, '-');
+
+                const tokens = [];
+                let i = 0;
+
+                while (i < expr.length) {
+                    const ch = expr[i];
+
+                    if (/\s/.test(ch)) {
+                        i++;
+                        continue;
+                    }
+
+                    // الأرقام والفاصلة العشرية والصيغة العلمية (مثل 1e-5)
+                    if (/[0-9.]/.test(ch)) {
+                        let numStr = '';
+                        let hasDot = false;
+                        while (i < expr.length && /[0-9.]/.test(expr[i])) {
+                            if (expr[i] === '.') {
+                                if (hasDot) throw new Error('فاصلة مكررة');
+                                hasDot = true;
+                            }
+                            numStr += expr[i++];
+                        }
+                        if (numStr === '.') throw new Error('صيغة رقم خاطئة');
+
+                        // دعم الأس العلمي e+ أو e- بعد الرقم
+                        if (i < expr.length && (expr[i] === 'e' || expr[i] === 'E') && (expr[i + 1] === '+' || expr[i + 1] === '-' || /[0-9]/.test(expr[i + 1]))) {
+                            numStr += expr[i++];
+                            if (expr[i] === '+' || expr[i] === '-') {
+                                numStr += expr[i++];
+                            }
+                            let expDigits = '';
+                            while (i < expr.length && /[0-9]/.test(expr[i])) {
+                                expDigits += expr[i++];
+                            }
+                            if (!expDigits) throw new Error('أس علمي غير مكتمل');
+                            numStr += expDigits;
+                        }
+
+                        tokens.push({ type: 'number', value: parseFloat(numStr) });
+                        continue;
+                    }
+
+                    // الثوابت والدوال
+                    if (/[a-zA-Zπ√∛]/.test(ch)) {
+                        if (ch === 'π') {
+                            tokens.push({ type: 'number', value: Math.PI });
+                            i++;
+                            continue;
+                        }
+                        if (ch === '√') {
+                            tokens.push({ type: 'func', value: 'sqrt' });
+                            i++;
+                            continue;
+                        }
+                        if (ch === '∛') {
+                            tokens.push({ type: 'func', value: 'cbrt' });
+                            i++;
+                            continue;
+                        }
+
+                        let ident = '';
+                        while (i < expr.length && /[a-zA-Z0-9]/.test(expr[i])) {
+                            ident += expr[i++];
+                        }
+
+                        if (ident === 'e') {
+                            tokens.push({ type: 'number', value: Math.E });
+                        } else if (ident === 'Ans') {
+                            tokens.push({ type: 'number', value: lastAns });
+                        } else if (ident === 'mod') {
+                            tokens.push({ type: 'op', value: 'mod' });
+                        } else if (ident === 'yroot') {
+                            tokens.push({ type: 'op', value: 'yroot' });
+                        } else {
+                            tokens.push({ type: 'func', value: ident });
+                        }
+                        continue;
+                    }
+
+                    // الأقواس
+                    if (ch === '(') {
+                        tokens.push({ type: 'lparen', value: '(' });
+                        i++;
+                        continue;
+                    }
+                    if (ch === ')') {
+                        tokens.push({ type: 'rparen', value: ')' });
+                        i++;
+                        continue;
+                    }
+
+                    // المعاملات
+                    if (['+', '-', '×', '*', '÷', '/', '^', '!', '%'].includes(ch)) {
+                        let opVal = ch;
+                        if (ch === '*') opVal = '×';
+                        if (ch === '/') opVal = '÷';
+                        tokens.push({ type: 'op', value: opVal });
+                        i++;
+                        continue;
+                    }
+
+                    throw new Error('رمز غير معروف');
+                }
+
+                // معالجة الضرب الضمني (مثل 2π أو 3sin(30) أو (2)(3)) والإشارات الأحادية (+/-)
+                const processed = [];
+                for (let j = 0; j < tokens.length; j++) {
+                    const curr = tokens[j];
+                    const prev = processed[processed.length - 1];
+
+                    // إدراج ضرب ضمني
+                    if (prev) {
+                        const prevIsVal = prev.type === 'number' || prev.type === 'rparen' || (prev.type === 'op' && (prev.value === '!' || prev.value === '%'));
+                        const currIsValOrFunc = curr.type === 'number' || curr.type === 'lparen' || curr.type === 'func';
+                        if (prevIsVal && currIsValOrFunc) {
+                            processed.push({ type: 'op', value: '×' });
+                        }
+                    }
+
+                    // معالجة السالب والموجب الأحادي
+                    if (curr.type === 'op' && (curr.value === '-' || curr.value === '+')) {
+                        const isUnary = !prev || prev.type === 'lparen' || (prev.type === 'op' && prev.value !== '!' && prev.value !== '%');
+                        if (isUnary) {
+                            if (curr.value === '-') {
+                                processed.push({ type: 'op', value: 'u-' });
+                            }
+                            continue;
+                        }
+                    }
+
+                    processed.push(curr);
+                }
+
+                // أولوية العمليات
+                const precedence = {
+                    '+': 1,
+                    '-': 1,
+                    '×': 2,
+                    '÷': 2,
+                    'mod': 2,
+                    'u-': 3,
+                    '^': 4,
+                    'yroot': 4,
+                    '!': 5,
+                    '%': 5
+                };
+
+                const rightAssociative = new Set(['^', 'u-', 'yroot']);
+                const postfixUnary = new Set(['!', '%']);
+
+                const outputQueue = [];
+                const opStack = [];
+
+                for (const token of processed) {
+                    if (token.type === 'number') {
+                        outputQueue.push(token);
+                    } else if (token.type === 'func') {
+                        opStack.push(token);
+                    } else if (token.type === 'op') {
+                        if (postfixUnary.has(token.value)) {
+                            outputQueue.push(token);
+                        } else {
+                            while (opStack.length > 0) {
+                                const top = opStack[opStack.length - 1];
+                                if (top.type === 'func') {
+                                    outputQueue.push(opStack.pop());
+                                } else if (
+                                    top.type === 'op' &&
+                                    ((!rightAssociative.has(token.value) && precedence[token.value] <= precedence[top.value]) ||
+                                        (rightAssociative.has(token.value) && precedence[token.value] < precedence[top.value]))
+                                ) {
+                                    outputQueue.push(opStack.pop());
+                                } else {
+                                    break;
+                                }
+                            }
+                            opStack.push(token);
+                        }
+                    } else if (token.type === 'lparen') {
+                        opStack.push(token);
+                    } else if (token.type === 'rparen') {
+                        while (opStack.length > 0 && opStack[opStack.length - 1].type !== 'lparen') {
+                            outputQueue.push(opStack.pop());
+                        }
+                        if (opStack.length === 0) throw new Error('خطأ في الأقواس');
+                        opStack.pop(); // إزالة '('
+                        if (opStack.length > 0 && opStack[opStack.length - 1].type === 'func') {
+                            outputQueue.push(opStack.pop());
+                        }
+                    }
+                }
+
+                while (opStack.length > 0) {
+                    const top = opStack.pop();
+                    if (top.type === 'lparen' || top.type === 'rparen') {
+                        throw new Error('خطأ في الأقواس');
+                    }
+                    outputQueue.push(top);
+                }
+
+                // تقييم RPN
+                const evalStack = [];
+                for (const token of outputQueue) {
+                    if (token.type === 'number') {
+                        evalStack.push(token.value);
+                    } else if (token.type === 'op') {
+                        if (token.value === 'u-') {
+                            if (evalStack.length < 1) throw new Error('صيغة غير مكتملة');
+                            evalStack.push(-evalStack.pop());
+                        } else if (token.value === '!') {
+                            if (evalStack.length < 1) throw new Error('صيغة غير مكتملة');
+                            evalStack.push(factorial(evalStack.pop()));
+                        } else if (token.value === '%') {
+                            if (evalStack.length < 1) throw new Error('صيغة غير مكتملة');
+                            evalStack.push(evalStack.pop() / 100);
+                        } else {
+                            if (evalStack.length < 2) throw new Error('صيغة غير مكتملة');
+                            const b = evalStack.pop();
+                            const a = evalStack.pop();
+                            switch (token.value) {
+                                case '+': evalStack.push(a + b); break;
+                                case '-': evalStack.push(a - b); break;
+                                case '×': evalStack.push(a * b); break;
+                                case '÷':
+                                    if (b === 0) throw new Error('قسمة على صفر');
+                                    evalStack.push(a / b);
+                                    break;
+                                case 'mod':
+                                    if (b === 0) throw new Error('قسمة على صفر');
+                                    evalStack.push(a % b);
+                                    break;
+                                case '^':
+                                    evalStack.push(Math.pow(a, b));
+                                    break;
+                                case 'yroot':
+                                    evalStack.push(calcYRoot(a, b));
+                                    break;
+                                default:
+                                    throw new Error('عملية غير مدعومة');
+                            }
+                        }
+                    } else if (token.type === 'func') {
+                        if (evalStack.length < 1) throw new Error('وسيط الدالة مفقود');
+                        const x = evalStack.pop();
+                        switch (token.value) {
+                            case 'sin': evalStack.push(calcSin(x)); break;
+                            case 'cos': evalStack.push(calcCos(x)); break;
+                            case 'tan': evalStack.push(calcTan(x)); break;
+                            case 'asin': evalStack.push(calcAsin(x)); break;
+                            case 'acos': evalStack.push(calcAcos(x)); break;
+                            case 'atan': evalStack.push(calcAtan(x)); break;
+                            case 'sinh': evalStack.push(Math.sinh(x)); break;
+                            case 'cosh': evalStack.push(Math.cosh(x)); break;
+                            case 'tanh': evalStack.push(Math.tanh(x)); break;
+                            case 'asinh': evalStack.push(Math.asinh(x)); break;
+                            case 'acosh': evalStack.push(calcAcosh(x)); break;
+                            case 'atanh': evalStack.push(calcAtanh(x)); break;
+                            case 'log': evalStack.push(calcLog10(x)); break;
+                            case 'ln': evalStack.push(calcLn(x)); break;
+                            case 'sqrt': evalStack.push(calcSqrt(x)); break;
+                            case 'cbrt': evalStack.push(calcCbrt(x)); break;
+                            case 'abs': evalStack.push(Math.abs(x)); break;
+                            default:
+                                throw new Error('دالة غير معروفة');
+                        }
+                    }
+                }
+
+                if (evalStack.length !== 1) throw new Error('خطأ في الصيغة');
+                return evalStack[0];
+            }
+
+            // إدراج رمز أو دالة في التعبير الرياضي
+            function insertValue(val) {
+                const isOperator = ['+', '-', '×', '÷', '^', ' mod ', 'yroot', '%', '!'].includes(val);
+
+                if (justEvaluated) {
+                    if (isOperator) {
+                        expression = 'Ans' + val;
+                    } else {
+                        expression = val;
+                    }
+                    justEvaluated = false;
+                } else {
+                    expression += val;
+                }
+
+                updateDisplay();
+            }
+
+            // مسح الكل (AC)
+            function clearAll() {
+                expression = '';
+                justEvaluated = false;
+                updateDisplay('0', false);
+            }
+
+            // حذف آخر عنصر أو دالة كاملة (DEL)
+            function deleteLast() {
+                if (justEvaluated) {
+                    justEvaluated = false;
+                }
+                if (!expression) {
+                    updateDisplay('0', false);
+                    return;
+                }
+
+                const multiTokens = [
+                    'asinh(', 'acosh(', 'atanh(',
+                    'asin(', 'acos(', 'atan(',
+                    'sinh(', 'cosh(', 'tanh(',
+                    'sin(', 'cos(', 'tan(',
+                    'log(', 'ln(', 'abs(',
+                    '10^(', 'e^(', '√(', '∛(',
+                    ' mod ', 'yroot', 'Ans'
+                ];
+
+                for (const tok of multiTokens) {
+                    if (expression.endsWith(tok)) {
+                        expression = expression.slice(0, -tok.length);
+                        updateDisplay(expression ? null : '0', false);
+                        return;
+                    }
+                }
+
+                expression = expression.slice(0, -1);
+                updateDisplay(expression ? null : '0', false);
+            }
+
+            // تغيير إشارة آخر رقم أو التعبير (+/-)
+            function toggleSign() {
+                if (justEvaluated) {
+                    expression = '-(Ans)';
+                    justEvaluated = false;
+                    updateDisplay();
+                    return;
+                }
+                if (!expression) {
+                    expression = '-';
+                    updateDisplay();
+                    return;
+                }
+                // البحث عن آخر رقم في التعبير وعكس إشارته
+                const match = expression.match(/(.*?)(\(-[0-9.]+\)|[0-9.]+)$/);
+                if (match) {
+                    const prefix = match[1];
+                    const numPart = match[2];
+                    if (numPart.startsWith('(-') && numPart.endsWith(')')) {
+                        expression = prefix + numPart.slice(2, -1);
+                    } else {
+                        expression = prefix + '(-' + numPart + ')';
+                    }
+                } else if (expression.endsWith('-')) {
+                    expression = expression.slice(0, -1);
+                } else {
+                    expression += '(-';
+                }
+                updateDisplay();
+            }
+
+            // حساب المقلوب (1/x)
+            function applyReciprocal() {
+                if (justEvaluated || !expression) {
+                    expression = '1÷(Ans)';
+                    justEvaluated = false;
+                } else {
+                    expression = `1÷(${expression})`;
+                }
+                updateDisplay();
+            }
+
+            // التبديل بين DEG و RAD
+            function toggleAngleMode() {
+                angleMode = angleMode === 'DEG' ? 'RAD' : 'DEG';
+                angleBadge.textContent = angleMode;
+                btnDegRad.textContent = angleMode;
+            }
+
+            // التبديل لوضع 2nd (لتبديل بعض الأزرار الإضافية السريعة)
+            function toggleShift() {
+                isShift = !isShift;
+                shiftBadge.classList.toggle('hidden', !isShift);
+                if (isShift) {
+                    btnShift.classList.add('bg-amber-500', 'text-slate-950');
+                    btnShift.classList.remove('bg-amber-500/15', 'text-amber-400');
+                } else {
+                    btnShift.classList.remove('bg-amber-500', 'text-slate-950');
+                    btnShift.classList.add('bg-amber-500/15', 'text-amber-400');
+                }
+            }
+
+            // تنفيذ العملية الحسابية (=)
+            function calculateResult() {
+                if (!expression.trim()) return;
+                try {
+                    const value = evaluateExpression(expression);
+                    const formatted = formatNumber(value);
+                    if (Number.isFinite(value)) {
+                        lastAns = Number(value.toPrecision(12));
+                        ansIndicator.textContent = `Ans = ${formatted}`;
+                    }
+                    updateDisplay(formatted, false);
+                    justEvaluated = true;
+                } catch (err) {
+                    updateDisplay(err.message || 'خطأ رياضي', true);
+                    justEvaluated = false;
+                }
+            }
+
+            // ربط أحداث النقر/اللمس لجميع الأزرار
+            document.querySelectorAll('.calc-btn').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const insertVal = btn.getAttribute('data-insert');
+                    const action = btn.getAttribute('data-action');
+
+                    if (insertVal !== null) {
+                        insertValue(insertVal);
+                    } else if (action) {
+                        switch (action) {
+                            case 'ac': clearAll(); break;
+                            case 'del': deleteLast(); break;
+                            case 'equals': calculateResult(); break;
+                            case 'toggle-angle': toggleAngleMode(); break;
+                            case 'shift': toggleShift(); break;
+                            case 'negate': toggleSign(); break;
+                            case 'reciprocal': applyReciprocal(); break;
+                        }
+                    }
+                });
+            });
+
+            // دعم الإدخال الكامل عبر لوحة المفاتيح (Keyboard Support)
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+                const key = e.key;
+                if (/^[0-9.]$/.test(key)) {
+                    e.preventDefault();
+                    insertValue(key);
+                } else if (key === '+') {
+                    e.preventDefault();
+                    insertValue('+');
+                } else if (key === '-') {
+                    e.preventDefault();
+                    insertValue('-');
+                } else if (key === '*') {
+                    e.preventDefault();
+                    insertValue('×');
+                } else if (key === '/') {
+                    e.preventDefault();
+                    insertValue('÷');
+                } else if (key === '^') {
+                    e.preventDefault();
+                    insertValue('^');
+                } else if (key === '%') {
+                    e.preventDefault();
+                    insertValue('%');
+                } else if (key === '!') {
+                    e.preventDefault();
+                    insertValue('!');
+                } else if (key === '(' || key === ')') {
+                    e.preventDefault();
+                    insertValue(key);
+                } else if (key === 'Enter' || key === '=') {
+                    e.preventDefault();
+                    calculateResult();
+                } else if (key === 'Backspace') {
+                    e.preventDefault();
+                    deleteLast();
+                } else if (key === 'Escape' || key === 'Delete') {
+                    e.preventDefault();
+                    clearAll();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+```
+
