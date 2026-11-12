@@ -3183,3 +3183,531 @@
 </html>
 ```
 
+
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Time Is It? - Interactive Kids Analog Clock</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Google Fonts: Fredoka & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Fredoka', 'Inter', sans-serif;
+      background: radial-gradient(circle at top left, #bae6fd 0%, #e0f2fe 40%, #fef08a 100%);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Compact Clock Face Container */
+    .clock-wrapper {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      touch-action: none; /* Prevent scrolling while dragging clock hands on touch devices */
+    }
+
+    @media (min-width: 480px) {
+      .clock-wrapper {
+        width: 290px;
+        height: 290px;
+      }
+    }
+
+    .clock-face {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #fffdf7;
+      border: 10px solid #0284c7;
+      box-shadow:
+        inset 0 0 18px rgba(2, 132, 199, 0.14),
+        0 10px 20px rgba(2, 132, 199, 0.22),
+        0 0 0 4px #7dd3fc;
+      position: relative;
+    }
+
+    /* Hour Numbers (1 - 12) */
+    .hour-number {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 20px;
+      pointer-events: none;
+    }
+
+    @media (min-width: 480px) {
+      .hour-number {
+        font-size: 1.75rem;
+        padding: 22px;
+      }
+    }
+
+    .hour-number span {
+      display: inline-block;
+    }
+
+    /* Outer Minute Helper Badges (05, 10... 60) */
+    .minute-helper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding: 3px;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .minute-helper span {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      border-radius: 9999px;
+      padding: 0 4px;
+      line-height: 1.2;
+    }
+
+    /* 60 Tick Marks */
+    .tick {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .tick::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 5px;
+      background: #94a3b8;
+      border-radius: 2px;
+    }
+
+    .tick.major::after {
+      width: 3px;
+      height: 9px;
+      background: #0284c7;
+    }
+
+    /* Clock Hands */
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      border-radius: 9999px;
+      cursor: grab;
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .hand:active,
+    .hand.dragging {
+      cursor: grabbing;
+      transition: none; /* Instant response during drag */
+    }
+
+    /* Small Hand (Hour - Red) */
+    .hour-hand {
+      width: 12px;
+      height: 27%;
+      background: linear-gradient(to top, #dc2626, #ef4444);
+      margin-left: -6px;
+      z-index: 10;
+      box-shadow: 0 2px 6px rgba(220, 38, 38, 0.45);
+      border: 2px solid #ffffff;
+    }
+
+    /* Big Hand (Minute - Blue) */
+    .minute-hand {
+      width: 9px;
+      height: 38%;
+      background: linear-gradient(to top, #1d4ed8, #2563eb);
+      margin-left: -4.5px;
+      z-index: 12;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
+      border: 2px solid #ffffff;
+    }
+
+    /* Expanded invisible touch hit-area for easier dragging by kids */
+    .hand::before {
+      content: '';
+      position: absolute;
+      top: -14px;
+      bottom: 0;
+      left: -18px;
+      right: -18px;
+    }
+
+    /* Center Pin */
+    .center-cap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      transform: translate(-50%, -50%);
+      background: #f59e0b;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      z-index: 20;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+    }
+
+    /* Playful 3D Push Button Effect */
+    .btn-push {
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+      box-shadow: 0 3px 0 rgba(15, 23, 42, 0.22);
+    }
+    .btn-push:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.22);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-2 sm:p-4">
+
+  <!-- Compact Main Card Container -->
+  <main class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border-4 border-sky-400 max-w-md w-full p-4 flex flex-col items-center">
+
+    <!-- Compact Header & Minute Helper Toggle -->
+    <div class="w-full flex items-center justify-between gap-2 mb-2.5">
+      <h1 class="text-xl sm:text-2xl font-bold text-sky-700 tracking-tight flex items-center gap-1.5">
+        <span>🕒</span> What Time Is It?
+      </h1>
+
+      <label class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded-full cursor-pointer transition">
+        <input type="checkbox" id="toggleHelpers" checked class="w-3.5 h-3.5 accent-blue-600 rounded cursor-pointer" onchange="toggleMinuteHelpers()" />
+        <span class="text-xs font-bold text-blue-800">Minutes</span>
+      </label>
+    </div>
+
+    <!-- Compact Color-Coded Legend -->
+    <div class="flex items-center justify-center gap-4 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 mb-3 w-full text-xs sm:text-sm">
+      <div class="flex items-center gap-1.5">
+        <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+        <span class="font-bold text-red-600">Small = Hour</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
+        <span class="font-bold text-blue-600">Big = Minutes</span>
+      </div>
+    </div>
+
+    <!-- Analog Clock Container -->
+    <div class="clock-wrapper mb-2" id="clockWrapper">
+      <div class="clock-face" id="clockFace">
+        <div class="hand hour-hand" id="hourHand" title="Drag Small Hand (Hour)"></div>
+        <div class="hand minute-hand" id="minuteHand" title="Drag Big Hand (Minutes)"></div>
+        <div class="center-cap"></div>
+      </div>
+    </div>
+
+    <!-- Tip Instruction -->
+    <p class="text-xs text-slate-500 font-medium mb-3 text-center">
+      💡 Drag the hands directly on the clock!
+    </p>
+
+    <!-- Primary Action Button: "What time is it now?" -->
+    <button
+      type="button"
+      onclick="revealAndSpeakTime()"
+      class="btn-push w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg py-2.5 px-4 rounded-2xl mb-3 flex items-center justify-center gap-2"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>What time is it now?</span>
+    </button>
+
+    <!-- Compact Output Box -->
+    <label
+      id="timeLabel"
+      class="w-full min-h-[76px] bg-slate-50 border-2 border-dashed border-sky-300 rounded-2xl p-2.5 flex flex-col items-center justify-center text-center transition-all"
+    >
+      <div class="flex items-center justify-center gap-2">
+        <span id="digitalOutput" class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-wider">? : ?</span>
+        <!-- Replay Pronunciation Button -->
+        <button
+          type="button"
+          id="speakAgainBtn"
+          onclick="speakCurrentPhrase(event)"
+          title="Listen again"
+          class="hidden bg-sky-100 hover:bg-sky-200 text-sky-700 p-1.5 rounded-full transition active:scale-95"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+        </button>
+      </div>
+      <span id="textOutput" class="text-sm sm:text-base font-semibold text-sky-700 mt-0.5">
+        Drag the hands, then click "What time is it now?"
+      </span>
+    </label>
+
+  </main>
+
+  <script>
+    // DOM Element References
+    const clockFace = document.getElementById('clockFace');
+    const hourHand = document.getElementById('hourHand');
+    const minuteHand = document.getElementById('minuteHand');
+    const digitalOutput = document.getElementById('digitalOutput');
+    const textOutput = document.getElementById('textOutput');
+    const timeLabel = document.getElementById('timeLabel');
+    const speakAgainBtn = document.getElementById('speakAgainBtn');
+
+    // Clock State
+    let hours = 3;
+    let minutes = 0;
+    let isRevealed = false;
+    let activeDragHand = null;
+
+    /**
+     * Dynamically populates 60 tick marks, 12 hour numbers, and 12 outer minute badges
+     */
+    function buildClockFace() {
+      for (let m = 0; m < 60; m++) {
+        const tick = document.createElement('div');
+        tick.className = m % 5 === 0 ? 'tick major' : 'tick';
+        tick.style.transform = `rotate(${m * 6}deg)`;
+        clockFace.appendChild(tick);
+      }
+
+      for (let i = 1; i <= 12; i++) {
+        const angle = i * 30;
+
+        // Hour Number (1 - 12)
+        const numDiv = document.createElement('div');
+        numDiv.className = 'hour-number';
+        numDiv.style.transform = `rotate(${angle}deg)`;
+
+        const numSpan = document.createElement('span');
+        numSpan.textContent = i;
+        numSpan.style.transform = `rotate(-${angle}deg)`;
+        numDiv.appendChild(numSpan);
+        clockFace.appendChild(numDiv);
+
+        // Outer Minute Helper Badge (05 - 60)
+        const minHelper = document.createElement('div');
+        minHelper.className = 'minute-helper';
+        minHelper.style.transform = `rotate(${angle}deg)`;
+
+        const minSpan = document.createElement('span');
+        const minVal = (i * 5).toString().padStart(2, '0');
+        minSpan.textContent = minVal;
+        minSpan.style.transform = `rotate(-${angle}deg)`;
+        minHelper.appendChild(minSpan);
+        clockFace.appendChild(minHelper);
+      }
+    }
+
+    /**
+     * Toggles visibility of outer minute badges
+     */
+    function toggleMinuteHelpers() {
+      const show = document.getElementById('toggleHelpers').checked;
+      document.querySelectorAll('.minute-helper').forEach(el => {
+        el.style.opacity = show ? '1' : '0';
+      });
+    }
+
+    /**
+     * Updates rotation angles of both hands smoothly
+     */
+    function updateHands() {
+      const minuteDeg = minutes * 6;
+      const hourDeg = ((hours % 12) * 30) + (minutes * 0.5);
+
+      minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+      hourHand.style.transform = `rotate(${hourDeg}deg)`;
+    }
+
+    /**
+     * Resets the answer box back to quiz mode (? : ?) when hands are moved
+     */
+    function setQuizMode(customHint = 'Drag the hands, then click "What time is it now?"') {
+      isRevealed = false;
+      digitalOutput.textContent = '? : ?';
+      textOutput.textContent = customHint;
+      textOutput.className = 'text-sm sm:text-base font-semibold text-sky-700 mt-0.5';
+      timeLabel.classList.remove('bg-emerald-50', 'border-emerald-400', 'border-solid');
+      timeLabel.classList.add('bg-slate-50', 'border-sky-300', 'border-dashed');
+      speakAgainBtn.classList.add('hidden');
+    }
+
+    /**
+     * Formats hours and minutes into natural English time phrasing
+     */
+    function getEnglishTimePhrase(h, m) {
+      const nextHour = (h % 12) + 1;
+      if (m === 0) return `It's ${h} o'clock`;
+      if (m === 15) return `It's quarter past ${h}`;
+      if (m === 30) return `It's half past ${h}`;
+      if (m === 45) return `It's quarter to ${nextHour}`;
+      if (m < 30) {
+        const minWord = m === 1 ? 'minute' : 'minutes';
+        return m % 5 === 0 ? `It's ${m} past ${h}` : `It's ${m} ${minWord} past ${h}`;
+      } else {
+        const rem = 60 - m;
+        const minWord = rem === 1 ? 'minute' : 'minutes';
+        return rem % 5 === 0 ? `It's ${rem} to ${nextHour}` : `It's ${rem} ${minWord} to ${nextHour}`;
+      }
+    }
+
+    /**
+     * Uses Web Speech API to read the English time phrase aloud
+     */
+    function speakText(phrase) {
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(phrase);
+          utterance.lang = 'en-US';
+          utterance.rate = 0.9;
+          utterance.pitch = 1.1;
+          window.speechSynthesis.speak(utterance);
+        }
+      } catch (err) {
+        console.warn('Speech synthesis unavailable:', err);
+      }
+    }
+
+    /**
+     * Reveals digital time, English phrase, highlights card, and speaks aloud
+     */
+    function revealAndSpeakTime() {
+      isRevealed = true;
+      const formattedHour = hours.toString().padStart(2, '0');
+      const formattedMin = minutes.toString().padStart(2, '0');
+      const phrase = getEnglishTimePhrase(hours, minutes);
+
+      digitalOutput.textContent = `${formattedHour}:${formattedMin}`;
+      textOutput.textContent = phrase;
+      textOutput.className = 'text-base sm:text-lg font-bold text-emerald-700 mt-0.5';
+
+      timeLabel.classList.remove('bg-slate-50', 'border-sky-300', 'border-dashed');
+      timeLabel.classList.add('bg-emerald-50', 'border-emerald-400', 'border-solid');
+      speakAgainBtn.classList.remove('hidden');
+
+      speakText(phrase);
+    }
+
+    /**
+     * Replays current revealed phrase when speaker button is clicked
+     */
+    function speakCurrentPhrase(event) {
+      if (event) event.preventDefault();
+      if (isRevealed) {
+        speakText(getEnglishTimePhrase(hours, minutes));
+      }
+    }
+
+    /**
+     * Calculates clockwise angle (0 to 360) from clock center to pointer coordinates
+     */
+    function getAngleFromCenter(clientX, clientY) {
+      const rect = clockFace.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const dx = clientX - centerX;
+      const dy = clientY - centerY;
+      let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+      if (angle < 0) angle += 360;
+      return angle;
+    }
+
+    /**
+     * Updates clock state when dragging either the hour or minute hand
+     */
+    function handleDragMove(clientX, clientY) {
+      if (!activeDragHand) return;
+      const angle = getAngleFromCenter(clientX, clientY);
+
+      if (activeDragHand === 'minute') {
+        const newMinutes = Math.round(angle / 6) % 60;
+        // Detect crossing 12 o'clock clockwise or counter-clockwise
+        if (minutes > 45 && newMinutes < 15) {
+          hours = (hours % 12) + 1;
+        } else if (minutes < 15 && newMinutes > 45) {
+          hours = hours - 1 <= 0 ? 12 : hours - 1;
+        }
+        minutes = newMinutes;
+      } else if (activeDragHand === 'hour') {
+        let newHour = Math.round(angle / 30) % 12;
+        if (newHour === 0) newHour = 12;
+        hours = newHour;
+      }
+
+      updateHands();
+      if (isRevealed) {
+        setQuizMode('Can you tell the time? Click "What time is it now?"');
+      }
+    }
+
+    function startDrag(handType, el, e) {
+      e.preventDefault();
+      activeDragHand = handType;
+      el.classList.add('dragging');
+    }
+
+    // Mouse & Touch Event Listeners for Direct Hand Dragging
+    hourHand.addEventListener('mousedown', (e) => startDrag('hour', hourHand, e));
+    minuteHand.addEventListener('mousedown', (e) => startDrag('minute', minuteHand, e));
+    hourHand.addEventListener('touchstart', (e) => startDrag('hour', hourHand, e), { passive: false });
+    minuteHand.addEventListener('touchstart', (e) => startDrag('minute', minuteHand, e), { passive: false });
+
+    window.addEventListener('mousemove', (e) => {
+      if (activeDragHand) handleDragMove(e.clientX, e.clientY);
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (activeDragHand && e.touches.length > 0) {
+        handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: false });
+
+    function endDrag() {
+      if (activeDragHand) {
+        hourHand.classList.remove('dragging');
+        minuteHand.classList.remove('dragging');
+        activeDragHand = null;
+      }
+    }
+
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchend', endDrag);
+
+    // Initialize Clock
+    buildClockFace();
+    updateHands();
+  </script>
+</body>
+</html>
+```
+
+
+
