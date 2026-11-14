@@ -1,15 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الملط للرياضيات - أ. محمد الملط</title>
+    <title>أكاديمية الملط للرياضيات - أ. محمد الملط | 2026 EdTech & AI</title>
     
-    <!-- الخطوط والأيقونات -->
+    <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
@@ -17,28 +16,29 @@
     <script>
         tailwind.config = {
             theme: {
-                extend: {
+                extend: {I've
                     colors: {
                         brand: {
                             gold: '#D4AF37',
-                            darkBg: '#050a14',
-                            cardBg: '#0f172a',
+                            deepSpace: '#040711',
+                            cardBg: '#0b1121',
                             accentSky: '#38bdf8'
                         },
                         academy: {
-                            card: '#111827',
-                            screen: '#070b12',
-                            btn: '#1e293b',
-                            btnHover: '#283548',
-                            sci: '#162032',
-                            sciHover: '#1f2d47'
+                            card: '#0e1526',
+                            screen: '#050811',
+                            btn: '#192338',
+                            btnHover: '#24324f',
+                            sci: '#111a2e',
+                            sciHover: '#1b2845'
                         }
                     },
                     fontFamily: {
                         cairo: ['Cairo', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                         orbitron: ['Orbitron', 'sans-serif'],
-                        roboto: ['Roboto', 'sans-serif']
+                        roboto: ['Roboto', 'sans-serif'],
+                        fredoka: ['Fredoka', 'sans-serif']
                     }
                 }
             }
@@ -52,7 +52,7 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #050a14;
+            background-color: #040711;
             color: #f8fafc;
             min-height: 100vh;
             overflow-x: hidden;
@@ -60,139 +60,166 @@
             top: 0 !important;
         }
 
-        /* إخفاء شريط ترجمة جوجل العلوي */
+        /* إخفاء شريط ترجمة جوجل */
         .goog-te-banner-frame, .skiptranslate {
             display: none !important;
         }
 
-        /* خلفية شبكية هندسية */
-        .bg-math-grid {
+        /* خلفية شبكية هندسية عميقة */
+        .bg-cosmic-math {
+            background-color: #040711;
             background-image: 
-                radial-gradient(rgba(212, 175, 55, 0.12) 1px, transparent 1px), 
-                radial-gradient(rgba(56, 189, 248, 0.08) 1px, #050a14 1px);
-            background-size: 32px 32px;
-            background-position: 0 0, 16px 16px;
+                radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+                linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
         }
 
-        /* خلفية رموز الرياضيات العائمة للشعار */
+        /* رموز والمعادلات العائمة */
         .math-symbols-bg {
             position: fixed;
             inset: 0;
             overflow: hidden;
             z-index: 0;
-            opacity: 0.14;
+            opacity: 0.16;
             pointer-events: none;
         }
 
         .math-symbol {
             position: absolute;
-            color: #38bdf8;
-            font-weight: bold;
-            animation: floatSymbol 16s linear infinite;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            animation: floatFormula 18s linear infinite;
             user-select: none;
+            text-shadow: 0 0 12px currentColor;
         }
 
-        @keyframes floatSymbol {
-            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        @keyframes floatFormula {
+            0% { transform: translateY(105vh) rotate(-4deg) scale(0.95); opacity: 0; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(-12vh) rotate(6deg) scale(1.05); opacity: 0; }
         }
 
-        /* الشريط الإخباري المتحرك */
-        @keyframes marquee {
+        /* الأشرطة الإخبارية المتحركة */
+        @keyframes marqueeRtl {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
-        .animate-marquee {
+        @keyframes marqueeLtr {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .animate-marquee-1 {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 28s linear infinite;
+            animation: marqueeRtl 30s linear infinite;
         }
-        .marquee-container:hover .animate-marquee {
+        .animate-marquee-2 {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marqueeRtl 36s linear infinite;
+        }
+        .marquee-container:hover .animate-marquee-1,
+        .marquee-container:hover .animate-marquee-2 {
             animation-play-state: paused;
         }
 
-        /* بطاقة الشعار المتلألئ بالمؤقت التلقائي */
-        .logo-container {
+        /* بطاقة الشعار التوليدي المتلألئ */
+        .hero-logo-card {
             position: relative;
             z-index: 10;
-            text-align: center;
-            padding: 40px 25px;
-            max-width: 820px;
-            width: 92%;
-            margin: 30px auto;
-            background: rgba(15, 23, 42, 0.85);
-            border-radius: 28px;
-            backdrop-filter: blur(16px);
-            border: 2px solid rgba(0, 242, 254, 0.4);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-            transition: border-color 0.9s ease, box-shadow 0.9s ease;
+            overflow: hidden;
+            max-width: 900px;
+            width: 94%;
+            margin: 28px auto;
+            background: rgba(11, 17, 33, 0.82);
+            border-radius: 32px;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(56, 189, 248, 0.45);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(56, 189, 248, 0.08);
+            transition: border-color 1s ease, box-shadow 1s ease;
         }
 
-        .logo-icon {
-            width: 124px;
-            height: 124px;
+        .logo-orb {
+            width: 132px;
+            height: 132px;
             margin: 0 auto 20px auto;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.45) 100%);
+            background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, rgba(4,7,17,0.8) 100%);
             border: 3px solid currentColor;
-            transition: color 0.9s ease, box-shadow 0.9s ease;
+            transition: color 1s ease, box-shadow 1s ease;
         }
 
-        .logo-icon::before {
-            content: "π";
-            font-size: 54px;
-            font-weight: 900;
-            transition: color 0.9s ease;
+        .logo-orb .phi-pi {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: -2px;
         }
 
-        .logo-icon .ring {
+        .logo-orb .ring-outer {
             position: absolute;
-            width: 115%;
-            height: 115%;
+            width: 118%;
+            height: 118%;
             border: 2px dashed currentColor;
             border-radius: 50%;
-            animation: rotateRing 18s linear infinite;
-            opacity: 0.7;
+            animation: spinSlow 20s linear infinite;
+            opacity: 0.75;
         }
 
-        .logo-icon .triangle {
+        .logo-orb .sacred-hex {
             position: absolute;
-            width: 80%;
-            height: 80%;
+            width: 84%;
+            height: 84%;
             border: 1.5px solid currentColor;
             transform: rotate(45deg);
-            opacity: 0.4;
-            animation: rotateRingReverse 25s linear infinite;
+            opacity: 0.45;
+            animation: spinReverse 26s linear infinite;
         }
 
-        @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes rotateRingReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+        .logo-orb .sacred-hex-2 {
+            position: absolute;
+            width: 84%;
+            height: 84%;
+            border: 1.5px solid currentColor;
+            transform: rotate(15deg);
+            opacity: 0.35;
+            animation: spinSlow 32s linear infinite;
+        }
 
-        .timer-dot {
+        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+        .timer-pulse-dot {
             width: 12px;
             height: 12px;
-            background-color: currentColor;
             border-radius: 50%;
-            margin: 22px auto 0 auto;
-            box-shadow: 0 0 18px currentColor;
-            transition: background-color 0.9s ease, box-shadow 0.9s ease;
+            margin: 20px auto 0 auto;
+            transition: background-color 1s ease, box-shadow 1s ease;
         }
 
-        /* البطاقات الزجاجية */
-        .glass-card {
-            background: rgba(15, 23, 42, 0.88);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.25);
+        /* البطاقات الزجاجية المستقبلية */
+        .glass-panel {
+            background: rgba(11, 17, 33, 0.85);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
         }
 
         .gold-gradient-text {
-            background: linear-gradient(135deg, #FFF8DC 0%, #D4AF37 50%, #B38F24 100%);
+            background: linear-gradient(135deg, #FFF8DC 0%, #FACC15 45%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cyber-gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #f472b6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -200,12 +227,12 @@
         /* تنسيق حقل الإحصاء النشط */
         .active-input {
             border-color: #f97316 !important;
-            background-color: #2a1b15 !important;
+            background-color: #271710 !important;
             box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.25) !important;
         }
 
         .key-btn, .calc-btn {
-            transition: transform 0.08s ease, background-color 0.15s ease;
+            transition: transform 0.08s ease, background-color 0.15s ease, box-shadow 0.15s ease;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -225,24 +252,168 @@
             background: #334155;
             border-radius: 9999px;
         }
+
+        /* تنسيقات ساعة الأطفال التفاعلية */
+        .kids-clock-section {
+            font-family: 'Fredoka', 'Cairo', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .clock-wrapper {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            touch-action: none;
+        }
+        @media (min-width: 480px) {
+            .clock-wrapper { width: 290px; height: 290px; }
+        }
+        .clock-face {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #fffdf7;
+            border: 10px solid #0284c7;
+            box-shadow: inset 0 0 18px rgba(2, 132, 199, 0.14), 0 10px 25px rgba(2, 132, 199, 0.35), 0 0 0 4px #7dd3fc;
+            position: relative;
+        }
+        .hour-number {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #0f172a;
+            padding: 20px;
+            pointer-events: none;
+        }
+        @media (min-width: 480px) {
+            .hour-number { font-size: 1.7rem; padding: 22px; }
+        }
+        .hour-number span { display: inline-block; }
+        .minute-helper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            padding: 3px;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .minute-helper span {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #2563eb;
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            border-radius: 9999px;
+            padding: 0 4px;
+            line-height: 1.2;
+        }
+        .tick {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .tick::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 5px;
+            background: #94a3b8;
+            border-radius: 2px;
+        }
+        .tick.major::after {
+            width: 3px;
+            height: 9px;
+            background: #0284c7;
+        }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 9999px;
+            cursor: grab;
+            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .hand:active, .hand.dragging { cursor: grabbing; transition: none; }
+        .hour-hand {
+            width: 12px;
+            height: 27%;
+            background: linear-gradient(to top, #dc2626, #ef4444);
+            margin-left: -6px;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.45);
+            border: 2px solid #ffffff;
+        }
+        .minute-hand {
+            width: 9px;
+            height: 38%;
+            background: linear-gradient(to top, #1d4ed8, #2563eb);
+            margin-left: -4.5px;
+            z-index: 12;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
+            border: 2px solid #ffffff;
+        }
+        .hand::before {
+            content: '';
+            position: absolute;
+            top: -14px;
+            bottom: 0;
+            left: -18px;
+            right: -18px;
+        }
+        .center-cap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            transform: translate(-50%, -50%);
+            background: #f59e0b;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            z-index: 20;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+        .btn-push {
+            transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+            box-shadow: 0 3px 0 rgba(15, 23, 42, 0.25);
+        }
+        .btn-push:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(15, 23, 42, 0.25);
+        }
     </style>
 </head>
-<body class="bg-math-grid selection:bg-amber-500 selection:text-slate-950">
+<body class="bg-cosmic-math selection:bg-amber-500 selection:text-slate-950">
 
-    <!-- خلفية رموز الرياضيات العائمة -->
+    <!-- خلفية المعادلات والرموز العائمة -->
     <div class="math-symbols-bg" id="mathBg"></div>
 
-    <!-- 1. الشريط العلوي: قائمة اللغات + عداد الزوار -->
-    <div class="relative z-20 w-full flex flex-wrap justify-between items-center gap-2 px-4 py-2.5 bg-slate-950/95 border-b border-amber-500/30">
+    <!-- 1. الشريط العلوي: تبديل اللغات + عداد الزوار المباشر -->
+    <div class="relative z-30 w-full flex flex-wrap justify-between items-center gap-2 px-4 py-2.5 bg-slate-950/95 border-b border-amber-500/30">
         <div class="flex items-center gap-2">
-            <select id="maltLangSelect" onchange="changeLanguage(this.value)" class="bg-neutral-900 text-amber-400 border border-amber-500/40 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold outline-none cursor-pointer shadow-md hover:border-amber-400 transition">
+            <select id="maltLangSelect" onchange="changeLanguage(this.value)" class="bg-slate-900 text-amber-400 border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold outline-none cursor-pointer shadow-md hover:border-amber-400 transition">
                 <option value="ar" selected>🇪🇬 العربية - Arabic - Arabe</option>
                 <option value="en">🇬🇧 English - English - Anglais</option>
                 <option value="fr">🇫🇷 Français - French - Français</option>
             </select>
+            <span class="hidden md:inline-flex items-center gap-1.5 text-[11px] bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2.5 py-1 rounded-lg font-mono">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> AI &amp; GEOGEBRA POWERED
+            </span>
         </div>
 
-        <!-- عداد الزوار التلقائي -->
         <div class="flex items-center gap-2 bg-slate-900/90 px-3.5 py-1.5 rounded-xl border border-amber-500/30 text-xs sm:text-sm">
             <i class="fa-solid fa-users text-amber-400"></i>
             <span class="text-amber-400 font-bold" data-i18n="visitorsLabel">إجمالي زوار الموقع:</span>
@@ -251,98 +422,123 @@
     </div>
     <div id="google_translate_element" style="display:none;"></div>
 
-    <!-- 2. الشريط الإخباري المتحرك (Marquee) -->
-    <div class="relative z-20 w-full bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 text-white border-b border-cyan-500/40 overflow-hidden py-2.5 shadow-lg">
-        <div class="marquee-container relative flex items-center h-7">
-            <div class="animate-marquee text-xs sm:text-sm md:text-base font-bold tracking-wide flex items-center gap-8">
-                <span class="text-amber-300">
-                    ✨ مع تحياتي: الأستاذ / محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨ ⚡ [ ACADEMY OF EL-MALT ] ⚡
-                </span>
-                <span class="text-cyan-300">
-                    ✨ مع تحياتي: الأستاذ / محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨ ⚡ [ ACADEMY OF EL-MALT ] ⚡
-                </span>
+    <!-- 2. شريطان إخباريان متطوران (Dual Marquee Tickers) -->
+    <div class="relative z-20 w-full bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white border-b border-cyan-500/30 overflow-hidden py-2">
+        <div class="marquee-container relative flex items-center h-6">
+            <div class="animate-marquee-1 text-xs sm:text-sm font-bold tracking-wide flex items-center gap-10">
+                <span class="text-amber-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
+                <span class="text-cyan-300 font-mono">⚡ [ ACADEMY OF EL-MALT • MATHEMATICS &amp; AI ] ⚡</span>
+                <span class="text-emerald-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
             </div>
         </div>
     </div>
 
-    <!-- 3. الساعة الرقمية والتاريخ المباشر (نظام 12 ساعة) -->
-    <header class="relative z-20 w-full py-3.5 px-4 flex justify-center items-center bg-slate-900/60 backdrop-blur-md border-b border-white/10">
-        <div class="inline-flex flex-col items-center gap-1 bg-slate-950/85 px-6 py-2.5 rounded-2xl border border-sky-500/30 shadow-[0_0_25px_rgba(56,189,248,0.15)]">
-            <div class="flex items-center gap-2 math-ltr">
-                <span class="font-orbitron text-xl sm:text-2xl font-bold text-sky-400" id="hours">12</span>
-                <span class="font-orbitron text-xl text-rose-500 animate-pulse">:</span>
-                <span class="font-orbitron text-xl sm:text-2xl font-bold text-sky-400" id="minutes">00</span>
-                <span class="font-orbitron text-xl text-rose-500 animate-pulse">:</span>
-                <span class="font-orbitron text-xl sm:text-2xl font-bold text-sky-400" id="seconds">00</span>
-                <span class="font-orbitron text-xs font-bold px-2 py-0.5 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded" id="period">AM</span>
+    <div class="relative z-20 w-full bg-slate-900/90 text-slate-200 border-b border-amber-500/25 overflow-hidden py-1.5">
+        <div class="marquee-container relative flex items-center h-6">
+            <div class="animate-marquee-2 text-xs sm:text-sm font-semibold flex items-center gap-12">
+                <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون» — جاليليو جاليلي</span>
+                <span class="text-amber-300">🧠 «التفكير الرياضي ليس مجرد أرقام، بل هو تنظيم للعقل وحل للمشكلات»</span>
+                <span class="text-fuchsia-300 font-mono">∞ e^(iπ) + 1 = 0 • φ = 1.6180339887...</span>
+                <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون»</span>
             </div>
-            <div class="font-roboto text-xs font-medium text-slate-400 tracking-wider math-ltr" id="date-latin">Loading Date...</div>
+        </div>
+    </div>
+
+    <!-- 3. الساعة الرقمية والتاريخ المباشر -->
+    <header class="relative z-20 w-full py-3 px-4 flex justify-center items-center bg-slate-950/60 backdrop-blur-md border-b border-white/10">
+        <div class="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-5 bg-slate-900/85 px-6 py-2 rounded-2xl border border-sky-500/30 shadow-[0_0_25px_rgba(56,189,248,0.15)]">
+            <div class="flex items-center gap-2 math-ltr">
+                <i class="fa-regular fa-clock text-sky-400 text-sm"></i>
+                <span class="font-orbitron text-lg sm:text-xl font-bold text-sky-400" id="hours">12</span>
+                <span class="font-orbitron text-lg text-rose-500 animate-pulse">:</span>
+                <span class="font-orbitron text-lg sm:text-xl font-bold text-sky-400" id="minutes">00</span>
+                <span class="font-orbitron text-lg text-rose-500 animate-pulse">:</span>
+                <span class="font-orbitron text-lg sm:text-xl font-bold text-sky-400" id="seconds">00</span>
+                <span class="font-orbitron text-[11px] font-bold px-2 py-0.5 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded" id="period">AM</span>
+            </div>
+            <span class="hidden sm:inline text-slate-700">|</span>
+            <div class="font-roboto text-xs font-medium text-slate-300 tracking-wider math-ltr" id="date-latin">Loading Date...</div>
         </div>
     </header>
 
-    <!-- شريط التنقل السريع بين أقسام المنصة -->
-    <nav class="sticky top-0 z-30 glass-card border-b border-amber-500/30 px-4 py-2.5 shadow-xl">
+    <!-- شريط التنقل السريع -->
+    <nav class="sticky top-0 z-30 glass-panel border-b border-amber-500/30 px-4 py-2.5 shadow-xl">
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
             <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 font-black text-lg">
-                    <i class="fa-solid fa-square-root-variable"></i>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 font-black text-lg shadow-md">
+                    <i class="fa-solid fa-infinity"></i>
                 </div>
                 <span class="font-black text-base sm:text-lg gold-gradient-text" data-i18n="navBrand">أكاديمية الملط</span>
             </div>
 
-            <div class="flex flex-wrap items-center gap-3 sm:gap-5 text-xs sm:text-sm font-bold text-slate-300">
+            <div class="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs sm:text-sm font-bold text-slate-300">
                 <a href="#logo-section" class="hover:text-amber-400 transition">الشعار</a>
                 <a href="#teacher-section" class="hover:text-amber-400 transition">المعلم</a>
+                <a href="#math-art-studio" class="text-cyan-300 hover:text-cyan-200 transition flex items-center gap-1"><i class="fa-solid fa-wand-magic-sparkles text-[11px]"></i> استوديو الفن الرياضي</a>
                 <a href="#directives-section" class="hover:text-amber-400 transition">التوجيهات</a>
+                <a href="#sci-calc-section" class="hover:text-amber-400 transition">الحاسبة العلمية</a>
                 <a href="#normal-calc-section" class="hover:text-amber-400 transition">المنحنى الطبيعي</a>
                 <a href="#whiteboard-section" class="hover:text-amber-400 transition">السبورة</a>
-                <a href="#sci-calc-section" class="hover:text-amber-400 transition">الحاسبة العلمية</a>
+                <a href="#kids-clock-section" class="hover:text-amber-400 transition">الساعة</a>
                 <a href="#register-section" class="hover:text-amber-400 transition">التسجيل</a>
             </div>
         </div>
     </nav>
 
-    <!-- 4. بطاقة الشعار الرئيسي المتلألئ بالمؤقت التلقائي -->
-    <section id="logo-section" class="relative z-10 px-2">
-        <div class="logo-container" id="logoCard">
-            <div class="logo-icon" id="logoIcon">
-                <div class="ring"></div>
-                <div class="triangle"></div>
+    <!-- 4. الشعار التوليدي المتلألئ بالمؤقت التلقائي + خلفية الفن الرياضي الحي -->
+    <section id="logo-section" class="relative z-10 px-2 pt-4">
+        <div class="hero-logo-card" id="logoCard">
+            <!-- Canvas الفن الرياضي التوليدي في الخلفية (النسبة الذهبية + منحنيات الوردة القطبية) -->
+            <canvas id="heroGenerativeCanvas" class="absolute inset-0 w-full h-full opacity-35 pointer-events-none"></canvas>
+            
+            <div class="relative z-10 py-10 px-6 text-center">
+                <div class="logo-orb" id="logoIcon">
+                    <div class="ring-outer"></div>
+                    <div class="sacred-hex"></div>
+                    <div class="sacred-hex-2"></div>
+                    <span class="phi-pi">π·φ</span>
+                </div>
+
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/15 text-[11px] font-mono text-cyan-300 mb-3">
+                    <span>r = a·cos(kθ)</span>
+                    <span>•</span>
+                    <span>φ = 1.618</span>
+                    <span>•</span>
+                    <span>e<sup>iπ</sup> + 1 = 0</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-black mb-2 transition-colors duration-700" id="mainTitle" data-i18n="logoTitle">أ. محمد الملط</h1>
+                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-100 mb-4" data-i18n="logoSubtitle">أكاديمية الملط</h2>
+                <p class="text-sm sm:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto border-t border-white/15 pt-4 font-semibold" data-i18n="logoDesc">
+                    أقوى وأكبر وأول أكاديمية رياضيات فى العالم وفى الشرق الأوسط
+                </p>
+                <div class="timer-pulse-dot" id="timerDot"></div>
             </div>
-            <h1 class="academy-title text-3xl sm:text-5xl font-black mb-2 transition-colors duration-700" id="mainTitle" data-i18n="logoTitle">أ. محمد الملط</h1>
-            <h2 class="text-xl sm:text-2xl font-bold text-slate-100 mb-4" data-i18n="logoSubtitle">أكاديمية الملط</h2>
-            <p class="text-sm sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto border-t border-white/15 pt-4" data-i18n="logoDesc">
-                أقوى وأكبر وأول أكاديمية رياضيات فى العالم وفى الشرق الأوسط
-            </p>
-            <div class="timer-dot" id="timerDot"></div>
         </div>
     </section>
 
-    <!-- 5. بطاقات الروابط السريعة -->
-    <section class="relative z-10 max-w-4xl mx-auto px-4 my-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <a href="https://moh888.weebly.com/" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center gap-4 p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 hover:-translate-y-1 transition-all shadow-lg">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xl shrink-0">
+    <!-- 5. روابط المنصات التعليمية الرسمية -->
+    <section class="relative z-10 max-w-5xl mx-auto px-4 my-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <a href="https://moh888.weebly.com/" target="_blank" rel="noopener noreferrer" class="glass-panel flex items-center gap-3.5 p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 hover:-translate-y-1 transition-all">
+                <div class="w-11 h-11 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xl shrink-0">
                     <i class="fa-solid fa-laptop-code"></i>
                 </div>
                 <div>
-                    <span class="text-[11px] text-sky-400 font-bold block">منصة تعليمية تفاعلية</span>
-                    <h3 class="text-sm sm:text-base font-bold text-white">.منصة الإحصاء </h3>
+                    <span class="text-[11px] text-sky-400 font-bold block"> مشروع الإحصاء اونلاين</span>
+                    <h3 class="text-sm font-bold text-white">الرياضيات التفاعلية (1)</h3>
                 </div>
             </a>
-            
-            
-            <a href="https://ex8.weebly.com/" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center gap-4 p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 hover:-translate-y-1 transition-all shadow-lg">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xl shrink-0">
-                    <i class="fa-solid fa-laptop-code"></i>
+
+            <a href="https://ex8.weebly.com" target="_blank" rel="noopener noreferrer" class="glass-panel flex items-center gap-3.5 p-4 rounded-2xl border border-cyan-500/30 hover:border-cyan-400 hover:-translate-y-1 transition-all">
+                <div class="w-11 h-11 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-compass-drafting"></i>
                 </div>
                 <div>
-                    <span class="text-[11px] text-sky-400 font-bold block">  منصة تعليمية</span>
-                    <h3 class="text-sm sm:text-base font-bold text-white"> مشروع الرياضيات التفاعلية- .  </h3>
+                    <span class="text-[11px] text-cyan-300 font-bold block">بنك الاختبارات والتمارين</span>
+                    <h3 class="text-sm font-bold text-white">مشروع الرياضيات التفاعلية النشطة</h3>
                 </div>
             </a>
-            
-            
             
             
             
@@ -351,13 +547,13 @@
             
             
 
-            <a href="https://www.facebook.com/trump.egymisr" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center gap-4 p-4 rounded-2xl border border-blue-500/30 hover:border-blue-400 hover:-translate-y-1 transition-all shadow-lg">
-                <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl shrink-0">
+            <a href="https://www.facebook.com/trump.egymisr" target="_blank" rel="noopener noreferrer" class="glass-panel flex items-center gap-3.5 p-4 rounded-2xl border border-blue-500/30 hover:border-blue-400 hover:-translate-y-1 transition-all">
+                <div class="w-11 h-11 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl shrink-0">
                     <i class="fab fa-facebook-f"></i>
                 </div>
                 <div>
-                    <span class="text-[11px] text-blue-400 font-bold block">تواصل معنا على فيسبوك</span>
-                    <h3 class="text-sm sm:text-base font-bold text-white">تابع صفحة الأستاذ محمد الملط</h3>
+                    <span class="text-[11px] text-blue-400 font-bold block">مجتمع الفيسبوك الرسمي</span>
+                    <h3 class="text-sm font-bold text-white">صفحة أ. محمد الملط</h3>
                 </div>
             </a>
         </div>
@@ -366,9 +562,8 @@
     <!-- 6. قسم التعريف بالمعلم أ. محمد الملط وأزرار واتساب -->
     <section id="teacher-section" class="relative z-10 max-w-7xl mx-auto py-10 px-4">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <!-- صورة المعلم -->
             <div class="lg:col-span-5 flex justify-center">
-                <div class="relative w-full max-w-md glass-card rounded-3xl p-3 border-2 border-amber-500/50 shadow-[0_0_35px_-5px_rgba(212,175,55,0.35)]">
+                <div class="relative w-full max-w-md glass-panel rounded-3xl p-3 border-2 border-amber-500/50 shadow-[0_0_40px_-5px_rgba(212,175,55,0.35)]">
                     <img id="teacherHeroImage" 
                          src="https://i.ibb.co/h1VQvhbV/FB-IMG-1791192257132.jpg" 
                          alt="أستاذ محمد الملط - خبير GeoGebra & AI" 
@@ -383,7 +578,6 @@
                 </div>
             </div>
 
-            <!-- النبذة التعريفية وأزرار التواصل المباشر -->
             <div class="lg:col-span-7 space-y-6 text-center lg:text-right">
                 <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-full text-amber-400 text-xs sm:text-sm font-bold">
                     <i class="fa-solid fa-crown"></i>
@@ -394,17 +588,16 @@
                     أكاديمية <span class="gold-gradient-text">الملط رياضيات</span>
                 </h2>
 
-                <div class="p-5 rounded-2xl glass-card border-r-4 border-amber-500 shadow-xl text-right">
+                <div class="p-5 rounded-2xl glass-panel border-r-4 border-amber-500 shadow-xl text-right">
                     <h3 class="text-lg sm:text-2xl font-bold text-amber-300 flex items-center gap-2">
                         <i class="fa-solid fa-chalkboard-user"></i>
-                        <span>أستاذ محمد الملط - خبير GeoGebra & AI</span>
+                        <span>أستاذ محمد الملط - خبير GeoGebra &amp; AI</span>
                     </h3>
                     <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
-                        رائد الشرح التفاعلي لرياضيات المرحلة الإعدادية والثانوية والجامعية بأحدث تقنيات <span class="text-sky-400 font-bold">GeoGebra</span> والذكاء الاصطناعي <span class="text-amber-400 font-bold">AI</span> لتحويل المفاهيم الرياضية المجردة إلى تجربة بصرية ممتعة.
+                        رائد الشرح التفاعلي لرياضيات المرحلة الإعدادية والثانوية والجامعية بأحدث تقنيات <span class="text-sky-400 font-bold">GeoGebra</span> والذكاء الاصطناعي <span class="text-amber-400 font-bold">AI</span> لتحويل المعادلات والهندسة التحليلية إلى لوحات بصرية نابضة بالحياة.
                     </p>
                 </div>
 
-                <!-- أزرار الواتساب المباشر -->
                 <div class="pt-2 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                     <a href="https://wa.me/201010955349" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition-all hover:-translate-y-1">
                         <i class="fa-brands fa-whatsapp text-2xl"></i>
@@ -426,7 +619,104 @@
         </div>
     </section>
 
-    <!-- 7. قسم توجيهات المعلم + لوحة تحكم المعلم المحمية -->
+    <!-- 7. استوديو الفن الرياضي التوليدي وراسم الدوال المتقدم (GeoGebra & AI Art Studio) -->
+    <section id="math-art-studio" class="relative z-10 py-10 px-4 max-w-6xl mx-auto">
+        <div class="glass-panel rounded-3xl p-5 sm:p-8 border border-cyan-500/40 shadow-[0_0_50px_rgba(56,189,248,0.12)]">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold mb-2">
+                        <i class="fa-solid fa-atom"></i> المختبر البصري التفاعلي • GeoGebra Style Engine
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">
+                        استوديو <span class="cyber-gradient-text">الفن الرياضي وراسم الدوال</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-1">استكشف جمال الهندسة القطبية، منحنيات ليساجو، متسلسلات فورييه، ورسم أي دالة رياضية <span dir="ltr" class="font-mono text-amber-300">f(x)</span> فوراً</p>
+                </div>
+
+                <!-- أزرار اختيار النمط الرياضي -->
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" onclick="setStudioMode('rose')" id="mode-rose" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 shadow-md transition">
+                        🌸 الوردة القطبية r=cos(kθ)
+                    </button>
+                    <button type="button" onclick="setStudioMode('lissajous')" id="mode-lissajous" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition">
+                        ∞ منحنيات ليساجو
+                    </button>
+                    <button type="button" onclick="setStudioMode('fourier')" id="mode-fourier" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition">
+                        ⚙️ حلقات فورييه
+                    </button>
+                    <button type="button" onclick="setStudioMode('plotter')" id="mode-plotter" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition">
+                        📈 راسم الدوال f(x)
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- لوحة التحكم بالمعاملات -->
+                <div class="lg:col-span-4 space-y-4 bg-slate-950/90 p-5 rounded-2xl border border-slate-800">
+                    <!-- تحكم الوردة القطبية وليساجو وفورييه -->
+                    <div id="parametricControls" class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span class="text-slate-300" id="param1Label">معامل التماثل (k):</span>
+                                <span class="font-mono text-cyan-400" id="param1Val">5</span>
+                            </div>
+                            <input type="range" id="studioParam1" min="1" max="12" step="1" value="5" oninput="updateStudioParams()" class="w-full accent-cyan-400 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span class="text-slate-300" id="param2Label">معامل الطور / التردد (n):</span>
+                                <span class="font-mono text-amber-400" id="param2Val">3</span>
+                            </div>
+                            <input type="range" id="studioParam2" min="1" max="12" step="1" value="3" oninput="updateStudioParams()" class="w-full accent-amber-400 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span class="text-slate-300">سرعة الحركة التوليدية:</span>
+                                <span class="font-mono text-emerald-400" id="speedVal">1.0x</span>
+                            </div>
+                            <input type="range" id="studioSpeed" min="0" max="3" step="0.5" value="1" oninput="updateStudioParams()" class="w-full accent-emerald-400 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- تحكم راسم الدوال f(x) -->
+                    <div id="plotterControls" class="hidden space-y-3">
+                        <label class="block text-xs font-bold text-amber-300">اكتب معادلة الدالة <span dir="ltr" class="font-mono">f(x)</span>:</label>
+                        <div class="flex items-center gap-2 math-ltr">
+                            <span class="text-cyan-400 font-mono font-bold text-sm">f(x)=</span>
+                            <input type="text" id="customFuncInput" value="sin(x) * cos(2*x) * 3" placeholder="e.g. x^2 - 4" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2 text-sm font-mono text-white outline-none">
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 math-ltr">
+                            <button type="button" onclick="setPresetFunc('sin(x) * 3')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-cyan-300 px-2.5 py-1 rounded-lg">sin(x)</button>
+                            <button type="button" onclick="setPresetFunc('0.3 * x^2 - 3')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-amber-300 px-2.5 py-1 rounded-lg">0.3x²-3</button>
+                            <button type="button" onclick="setPresetFunc('0.15 * x^3 - x')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-emerald-300 px-2.5 py-1 rounded-lg">0.15x³-x</button>
+                            <button type="button" onclick="setPresetFunc('4 * exp(-0.2*x^2) * cos(3*x)')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-pink-300 px-2.5 py-1 rounded-lg">Wave Packet</button>
+                        </div>
+                        <button type="button" onclick="drawCustomPlotter()" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold py-2.5 rounded-xl text-xs shadow-lg">
+                            ارسم الدالة على الشبكة
+                        </button>
+                    </div>
+
+                    <!-- عرض المعادلة الحية -->
+                    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-center math-ltr">
+                        <span class="text-[10px] text-slate-400 block uppercase tracking-wider mb-1">Active Mathematical Formula</span>
+                        <code id="activeFormulaDisplay" class="text-xs sm:text-sm font-mono font-bold text-cyan-300">r(θ) = R · cos(5θ + φ)</code>
+                    </div>
+                </div>
+
+                <!-- شاشة العرض التفاعلية Canvas -->
+                <div class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-slate-800 bg-[#03060e] shadow-inner">
+                    <canvas id="mathArtCanvas" width="720" height="400" class="w-full h-[320px] sm:h-[400px] block"></canvas>
+                    <div class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[11px] font-mono text-slate-400 math-ltr">
+                        El-Malt Generative Engine v2.6
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. قسم توجيهات المعلم + لوحة تحكم المعلم المحمية -->
     <section id="directives-section" class="relative z-10 py-10 px-4 max-w-7xl mx-auto">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
             <div>
@@ -438,127 +728,19 @@
             </div>
             <div class="flex items-center gap-3">
                 <span id="teacherStatusBadge" class="text-xs px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-slate-400 font-bold">وضع الزائر</span>
-                <button onclick="openTeacherControlPanel()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 shadow-md transition">
+                <button type="button" onclick="openTeacherControlPanel()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 shadow-md transition">
                     <i class="fa-solid fa-user-gear"></i>
                     <span>لوحة المعلم</span>
                 </button>
             </div>
         </div>
 
-        <div id="directivesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- يتم توليد البطاقات برمجياً -->
-        </div>
+        <div id="directivesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 8. حاسبة المساحة تحت المنحنى الطبيعي المعياري P(a ≤ Z ≤ b) -->
-    <section id="normal-calc-section" class="relative z-10 py-10 px-4 max-w-xl mx-auto">
-        <div class="glass-card rounded-3xl p-5 sm:p-7 border border-indigo-500/40 shadow-2xl space-y-5">
-            <div class="text-center space-y-1.5">
-                <span class="inline-flex items-center gap-1.5 bg-indigo-500/15 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-300 text-xs font-bold">
-                    📊 حاسبة الإحصاء المعياري
-                </span>
-                <h2 class="text-xl sm:text-2xl font-black text-white">حساب المساحة تحت المنحنى الطبيعي المعياري</h2>
-                <p class="text-xs sm:text-sm text-slate-400">حساب المساحة المحصورة <span dir="ltr" class="font-mono text-sky-300">P(a ≤ Z ≤ b)</span> ضمن الفترة <span dir="ltr" class="font-mono text-amber-300">[-1, 1]</span></p>
-            </div>
-
-            <!-- حقول الإدخال -->
-            <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <label for="valA" class="block text-xs font-bold text-slate-300 mb-1">القيمة المعيارية (a):</label>
-                    <input type="text" id="valA" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valA')"
-                           class="w-full text-center text-lg font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition active-input">
-                </div>
-                <div>
-                    <label for="valB" class="block text-xs font-bold text-slate-300 mb-1">القيمة المعيارية (b):</label>
-                    <input type="text" id="valB" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valB')"
-                           class="w-full text-center text-lg font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition">
-                </div>
-            </div>
-
-            <!-- لوحة المفاتيح المدمجة -->
-            <div class="bg-slate-950/90 p-3 rounded-2xl border border-slate-800">
-                <div class="grid grid-cols-4 gap-2 font-mono">
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('7')">7</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('8')">8</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('9')">9</button>
-                    <button type="button" class="key-btn bg-rose-600 hover:bg-rose-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="appendNormalVal('-')">- (سالب)</button>
-
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('4')">4</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('5')">5</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('6')">6</button>
-                    <button type="button" class="key-btn bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="normalBackspace()">⌫ مسح</button>
-
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('1')">1</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('2')">2</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('3')">3</button>
-                    <button type="button" class="key-btn bg-amber-600 hover:bg-amber-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="clearNormalField()">C تفريغ</button>
-
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('0')">0</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('.')">.</button>
-                    <button type="button" class="key-btn col-span-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="switchNormalField()">🔄 تبديل الحقل (a / b)</button>
-                </div>
-            </div>
-
-            <!-- أزرار الحساب والإعادة -->
-            <div class="grid grid-cols-2 gap-3">
-                <button type="button" onclick="calculateArea()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg text-sm transition">
-                    احسب المساحة والرسم
-                </button>
-                <button type="button" onclick="resetNormalForm()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl border border-slate-700 text-sm transition">
-                    إعادة ضبط
-                </button>
-            </div>
-
-            <div id="errorBox" class="hidden bg-red-500/15 border border-red-500/40 rounded-xl p-3 text-red-300 text-xs text-center font-bold"></div>
-            <div id="result" class="hidden bg-slate-950 border-r-4 border-indigo-500 p-4 rounded-2xl space-y-1 text-right"></div>
-
-            <!-- لوحة الرسم البياني للمنحنى الطبيعي -->
-            <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex justify-center">
-                <canvas id="chartCanvas" width="500" height="230" class="w-full h-auto rounded-xl"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- 9. السبورة الذكية التفاعلية -->
-    <section id="whiteboard-section" class="relative z-10 py-10 px-4 max-w-5xl mx-auto">
-        <div class="glass-card rounded-3xl p-5 sm:p-6 border border-amber-500/40 shadow-2xl">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
-                <h2 class="text-xl font-black text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-chalkboard text-amber-500"></i>
-                    <span>السبورة الذكية التفاعلية</span>
-                </h2>
-                <div class="flex flex-wrap items-center gap-3">
-                    <div class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
-                        <label for="wbColor" class="text-xs text-slate-300 font-bold">اللون:</label>
-                        <input type="color" id="wbColor" value="#38bdf8" class="w-7 h-7 bg-transparent border-0 cursor-pointer">
-                    </div>
-                    <div class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
-                        <label for="wbLineWidth" class="text-xs text-slate-300 font-bold">السمك:</label>
-                        <select id="wbLineWidth" class="bg-slate-950 text-white text-xs rounded px-2 py-1 outline-none border border-slate-700">
-                            <option value="2">رفيع (2)</option>
-                            <option value="4" selected>متوسط (4)</option>
-                            <option value="8">عريض (8)</option>
-                            <option value="14">تخطيط (14)</option>
-                        </select>
-                    </div>
-                    <button type="button" onclick="clearWhiteboard()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3.5 py-1.5 rounded-xl text-xs font-bold border border-red-500/30 transition">
-                        <i class="fa-solid fa-eraser"></i> مسح
-                    </button>
-                    <button type="button" onclick="saveWhiteboardImage()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-3.5 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/30 transition">
-                        <i class="fa-solid fa-download"></i> حفظ PNG
-                    </button>
-                </div>
-            </div>
-            <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                <canvas id="smartWhiteboard" class="w-full cursor-crosshair touch-none" style="height: 380px;"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- 10. الحاسبة العلمية المتكاملة لأكاديمية الملط -->
+    <!-- 9. الحاسبة العلمية المتكاملة لأكاديمية الملط -->
     <section id="sci-calc-section" class="relative z-10 py-10 px-4 flex justify-center">
         <div class="w-full max-w-[460px] bg-academy-card/95 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden p-4 sm:p-5">
-            <!-- الترويسة -->
             <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-2xl bg-sky-500/15 border border-sky-400/30 flex items-center justify-center text-sky-400">
@@ -566,12 +748,11 @@
                     </div>
                     <div>
                         <h2 class="text-base sm:text-lg font-extrabold text-white">أكاديمية الملط - الحاسبة العلمية</h2>
-                        <p class="text-[11px] text-slate-400">دقة رياضية متكاملة للعلوم والهندسة</p>
+                        <p class="text-[11px] text-slate-400">تدعم لوحة المفاتيح والدوال المثلثية والزائدية</p>
                     </div>
                 </div>
             </div>
 
-            <!-- شاشة العرض المزدوجة -->
             <div class="bg-academy-screen border border-slate-800 rounded-2xl p-3.5 mb-4 shadow-inner">
                 <div class="flex items-center justify-between text-[11px] font-mono mb-2">
                     <div class="flex items-center gap-2">
@@ -584,7 +765,6 @@
                 <div id="result-display" class="math-ltr calc-screen-scroll w-full overflow-x-auto whitespace-nowrap text-right font-mono text-2xl sm:text-3xl font-bold text-white min-h-[40px] leading-10 mt-0.5">0</div>
             </div>
 
-            <!-- شبكة أزرار الحاسبة العلمية -->
             <div class="grid grid-cols-6 gap-1.5 math-ltr font-mono">
                 <button type="button" id="btn-shift" data-action="shift" class="calc-btn h-10 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/30 text-xs font-bold">2nd</button>
                 <button type="button" id="btn-deg-rad" data-action="toggle-angle" class="calc-btn h-10 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-xs font-bold">DEG</button>
@@ -651,11 +831,188 @@
         </div>
     </section>
 
-    <!-- 11. نموذج تسجيل الطلاب في أكاديمية الملط -->
+    <!-- 10. حاسبة المساحة تحت المنحنى الطبيعي المعياري P(a ≤ Z ≤ b) -->
+    <section id="normal-calc-section" class="relative z-10 py-10 px-4 max-w-xl mx-auto">
+        <div class="glass-panel rounded-3xl p-5 sm:p-7 border border-indigo-500/40 shadow-2xl space-y-5">
+            <div class="text-center space-y-1.5">
+                <span class="inline-flex items-center gap-1.5 bg-indigo-500/15 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-300 text-xs font-bold">
+                    📊 حاسبة الإحصاء المعياري
+                </span>
+                <h2 class="text-xl sm:text-2xl font-black text-white">حساب المساحة تحت المنحنى الطبيعي المعياري</h2>
+                <p class="text-xs sm:text-sm text-slate-400">حساب المساحة المحصورة <span dir="ltr" class="font-mono text-sky-300">P(a ≤ Z ≤ b)</span> ضمن الفترة <span dir="ltr" class="font-mono text-amber-300">[-1, 1]</span></p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label for="valA" class="block text-xs font-bold text-slate-300 mb-1">القيمة المعيارية (a):</label>
+                    <input type="text" id="valA" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valA')"
+                           class="w-full text-center text-lg font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition active-input">
+                </div>
+                <div>
+                    <label for="valB" class="block text-xs font-bold text-slate-300 mb-1">القيمة المعيارية (b):</label>
+                    <input type="text" id="valB" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valB')"
+                           class="w-full text-center text-lg font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition">
+                </div>
+            </div>
+
+            <div class="bg-slate-950/90 p-3 rounded-2xl border border-slate-800">
+                <div class="grid grid-cols-4 gap-2 font-mono">
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('7')">7</button>
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('8')">8</button>
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('9')">9</button>
+                    <button type="button" class="key-btn bg-rose-600 hover:bg-rose-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="appendNormalVal('-')">- (سالب)</button>
+
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('4')">4</button>
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('5')">5</button>
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('6')">6</button>
+                    <button type="button" class="key-btn bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="normalBackspace()">⌫ مسح</button>
+
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('1')">1</button>
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('2')">2</button>
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('3')">3</button>
+                    <button type="button" class="key-btn bg-amber-600 hover:bg-amber-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="clearNormalField()">C تفريغ</button>
+
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('0')">0</button>
+                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('.')">.</button>
+                    <button type="button" class="key-btn col-span-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="switchNormalField()">🔄 تبديل الحقل (a / b)</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button type="button" onclick="calculateArea()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg text-sm transition">
+                    احسب المساحة والرسم
+                </button>
+                <button type="button" onclick="resetNormalForm()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl border border-slate-700 text-sm transition">
+                    إعادة ضبط
+                </button>
+            </div>
+
+            <div id="errorBox" class="hidden bg-red-500/15 border border-red-500/40 rounded-xl p-3 text-red-300 text-xs text-center font-bold"></div>
+            <div id="result" class="hidden bg-slate-950 border-r-4 border-indigo-500 p-4 rounded-2xl space-y-1 text-right"></div>
+
+            <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex justify-center">
+                <canvas id="chartCanvas" width="500" height="230" class="w-full h-auto rounded-xl"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. السبورة الذكية التفاعلية (مع شبكة إحداثيات ديكارتية هندسية) -->
+    <section id="whiteboard-section" class="relative z-10 py-10 px-4 max-w-5xl mx-auto">
+        <div class="glass-panel rounded-3xl p-5 sm:p-6 border border-amber-500/40 shadow-2xl">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
+                <h2 class="text-xl font-black text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-chalkboard text-amber-500"></i>
+                    <span>السبورة الذكية التفاعلية</span>
+                </h2>
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button type="button" id="wbGridToggle" onclick="toggleWhiteboardGrid()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-3 py-1.5 rounded-xl text-xs font-bold border border-sky-500/40 transition">
+                        <i class="fa-solid fa-border-all"></i> شبكة الإحداثيات
+                    </button>
+                    <div class="flex items-center gap-1.5 bg-slate-900 px-2.5 py-1 rounded-xl border border-slate-700">
+                        <label for="wbColor" class="text-xs text-slate-300 font-bold">اللون:</label>
+                        <input type="color" id="wbColor" value="#38bdf8" class="w-6 h-6 bg-transparent border-0 cursor-pointer">
+                    </div>
+                    <div class="flex items-center gap-1.5 bg-slate-900 px-2.5 py-1 rounded-xl border border-slate-700">
+                        <label for="wbLineWidth" class="text-xs text-slate-300 font-bold">السمك:</label>
+                        <select id="wbLineWidth" class="bg-slate-950 text-white text-xs rounded px-2 py-1 outline-none border border-slate-700">
+                            <option value="2">رفيع (2)</option>
+                            <option value="4" selected>متوسط (4)</option>
+                            <option value="8">عريض (8)</option>
+                            <option value="14">تخطيط (14)</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="clearWhiteboard()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-red-500/30 transition">
+                        <i class="fa-solid fa-eraser"></i> مسح
+                    </button>
+                    <button type="button" onclick="saveWhiteboardImage()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/30 transition">
+                        <i class="fa-solid fa-download"></i> حفظ PNG
+                    </button>
+                </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                <canvas id="wbGridCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+                <canvas id="smartWhiteboard" class="relative z-10 w-full cursor-crosshair touch-none" style="height: 390px;"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. الساعة التعليمية التفاعلية للأطفال (What Time Is It?) -->
+    <section id="kids-clock-section" class="relative z-10 py-10 px-4 flex justify-center kids-clock-section" dir="ltr">
+        <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border-4 border-sky-400 max-w-md w-full p-5 flex flex-col items-center text-slate-800">
+            <div class="w-full flex items-center justify-between gap-2 mb-3">
+                <h2 class="text-xl sm:text-2xl font-bold text-sky-700 tracking-tight flex items-center gap-1.5">
+                    <span>🕒</span> What Time Is It?
+                </h2>
+                <label class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded-full cursor-pointer transition">
+                    <input type="checkbox" id="toggleHelpers" checked class="w-3.5 h-3.5 accent-blue-600 rounded cursor-pointer" onchange="toggleMinuteHelpers()" />
+                    <span class="text-xs font-bold text-blue-800">Minutes</span>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-center gap-4 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 mb-4 w-full text-xs sm:text-sm">
+                <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                    <span class="font-bold text-red-600">Small = Hour</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
+                    <span class="font-bold text-blue-600">Big = Minutes</span>
+                </div>
+            </div>
+
+            <div class="clock-wrapper mb-3" id="clockWrapper">
+                <div class="clock-face" id="clockFace">
+                    <div class="hand hour-hand" id="hourHand" title="Drag Small Hand (Hour)"></div>
+                    <div class="hand minute-hand" id="minuteHand" title="Drag Big Hand (Minutes)"></div>
+                    <div class="center-cap"></div>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-500 font-medium mb-3 text-center">
+                💡 Drag the hands directly on the clock!
+            </p>
+
+            <button
+                type="button"
+                onclick="revealAndSpeakTime()"
+                class="btn-push w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg py-2.5 px-4 rounded-2xl mb-3 flex items-center justify-center gap-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>What time is it now?</span>
+            </button>
+
+            <div
+                id="timeLabel"
+                class="w-full min-h-[78px] bg-slate-50 border-2 border-dashed border-sky-300 rounded-2xl p-2.5 flex flex-col items-center justify-center text-center transition-all"
+            >
+                <div class="flex items-center justify-center gap-2">
+                    <span id="digitalOutput" class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-wider">? : ?</span>
+                    <button
+                        type="button"
+                        id="speakAgainBtn"
+                        onclick="speakCurrentPhrase(event)"
+                        title="Listen again"
+                        class="hidden bg-sky-100 hover:bg-sky-200 text-sky-700 p-1.5 rounded-full transition active:scale-95"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                    </button>
+                </div>
+                <span id="textOutput" class="text-sm sm:text-base font-semibold text-sky-700 mt-0.5">
+                    Drag the hands, then click "What time is it now?"
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. نموذج تسجيل الطلاب في أكاديمية الملط -->
     <section id="register-section" class="relative z-10 max-w-xl mx-auto py-10 px-4">
-        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-sky-500/30 shadow-2xl">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-sky-500/30 shadow-2xl">
             <h2 class="text-2xl font-black text-sky-400 text-center mb-1">تسجيل الطلاب - أكاديمية الملط</h2>
-            <p class="text-center text-slate-400 text-xs sm:text-sm mb-6">سجل بياناتك للانضمام الفوري لحصص الأستاذ محمد عبدالمنعم الملط</p>
+            <p class="text-center text-slate-400 text-xs sm:text-sm mb-6">سجل بياناتك للانضمام الفوري لحصص الأستاذ محمد الملط</p>
             
             <form id="student-registration-form" action="https://formspree.io/f/mvkknoop" method="POST" class="space-y-4">
                 <input type="hidden" name="email" value="moh888941@gmail.com">
@@ -697,7 +1054,7 @@
         </div>
     </section>
 
-    <!-- 12. أزرار واتساب العائمة وتذييل الصفحة -->
+    <!-- أزرار واتساب العائمة وتذييل الصفحة -->
     <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-2.5">
         <a href="https://wa.me/201010955349" target="_blank" rel="noopener noreferrer" title="واتساب 1: 201010955349" class="w-12 h-12 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center text-xl shadow-2xl hover:scale-110 transition-transform border-2 border-white/20">
             <i class="fa-brands fa-whatsapp"></i>
@@ -707,17 +1064,17 @@
         </a>
     </div>
 
-    <footer class="relative z-10 glass-card border-t border-slate-800 py-8 px-4 mt-12 text-center text-slate-400 text-sm">
+    <footer class="relative z-10 glass-panel border-t border-slate-800 py-8 px-4 mt-12 text-center text-slate-400 text-sm">
         <div class="max-w-7xl mx-auto space-y-2">
             <p class="font-black text-amber-400 text-base">أكاديمية الملط رياضيات - أقوى وأكبر وأول أكاديمية رياضيات في العالم</p>
-            <p class="text-xs text-slate-300">أستاذ محمد الملط - خبير GeoGebra & AI</p>
-            <p class="text-xs text-slate-500">جميع الحقوق محفوظة © <span id="currentYear"></span></p>
+            <p class="text-xs text-slate-300">أستاذ محمد الملط - خبير GeoGebra &amp; AI</p>
+            <p class="text-xs text-slate-500">جميع الحقوق محفوظة © <span id="currentYear">2026</span></p>
         </div>
     </footer>
 
     <!-- نافذة تسجيل دخول المعلم -->
     <div id="loginModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-card max-w-md w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 relative shadow-2xl">
+        <div class="glass-panel max-w-md w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 relative shadow-2xl">
             <button type="button" onclick="closeModal('loginModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
@@ -736,9 +1093,9 @@
         </div>
     </div>
 
-    <!-- نافذة إضافة توجيه جديد -->
+    <!-- نافذة إضافة توجيه جديد (تم تحديثها بزر الجهاز والكاميرا معاً) -->
     <div id="adminPanelModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-card max-w-xl w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 relative shadow-2xl">
+        <div class="glass-panel max-w-xl w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 relative shadow-2xl">
             <button type="button" onclick="closeModal('adminPanelModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
@@ -747,20 +1104,43 @@
             </h3>
             <form onsubmit="saveGuideline(event)" class="space-y-4">
                 <textarea id="guidelineText" rows="4" required placeholder="اكتب نص التوجيه أو الواجب هنا..." class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white rounded-xl p-3.5 text-sm outline-none"></textarea>
+                
                 <div>
-                    <label class="block text-xs text-slate-300 font-bold mb-1">إرفاق صورة توضيحية (اختياري):</label>
-                    <input type="file" id="guidelineImage" accept="image/*" onchange="previewDirectiveImage(event)" class="w-full text-xs text-slate-400">
+                    <label class="block text-xs text-slate-300 font-bold mb-2">إرفاق صورة توضيحية (اختياري):</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- زر اختيار ملف من الجهاز -->
+                        <label class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-amber-500 text-slate-200 py-3 px-4 rounded-xl cursor-pointer text-xs font-bold transition shadow">
+                            <i class="fa-solid fa-folder-open text-sky-400 text-base"></i>
+                            <span>اختر ملف من الجهاز</span>
+                            <input type="file" id="deviceFile" accept="image/*" class="hidden" onchange="previewDirectiveImage(event)">
+                        </label>
+                        <!-- زر التقاط من الكاميرا -->
+                        <label class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-amber-500 text-slate-200 py-3 px-4 rounded-xl cursor-pointer text-xs font-bold transition shadow">
+                            <i class="fa-solid fa-camera text-amber-400 text-base"></i>
+                            <span>التقاط من الكاميرا</span>
+                            <input type="file" id="cameraFile" accept="image/*" capture="environment" class="hidden" onchange="previewDirectiveImage(event)">
+                        </label>
+                    </div>
+
+                    <!-- معاينة الصورة المصغرة المرفقة -->
+                    <div id="directiveImgPreviewContainer" class="hidden mt-3 relative">
+                        <img id="directiveImgPreview" src="" alt="معاينة الصورة" class="w-full h-36 object-cover rounded-xl border border-slate-700 shadow-md">
+                        <button type="button" onclick="removeDirectiveImage()" class="absolute top-2 left-2 bg-rose-600 hover:bg-rose-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                 </div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition">
+
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition shadow-lg">
                     نشر التوجيه على المنصة
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- نافذة تأكيد الحذف المخصصة (بديل confirm) -->
+    <!-- نافذة تأكيد الحذف المخصصة -->
     <div id="confirmDeleteModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-card max-w-sm w-full p-6 rounded-3xl border border-red-500/40 text-center space-y-4">
+        <div class="glass-panel max-w-sm w-full p-6 rounded-3xl border border-red-500/40 text-center space-y-4">
             <div class="w-12 h-12 rounded-full bg-red-500/20 text-red-400 mx-auto flex items-center justify-center text-xl">
                 <i class="fa-solid fa-trash-can"></i>
             </div>
@@ -785,7 +1165,7 @@
 
     <!-- البرمجيات الشاملة والتفاعلية -->
     <script>
-        /* ================= 1. تبديل اللغات (جوجل + نصوص أساسية) ================= */
+        /* ================= 1. تبديل اللغات ================= */
         const translations = {
             ar: {
                 visitorsLabel: "إجمالي زوار الموقع:",
@@ -811,14 +1191,12 @@
         };
 
         function changeLanguage(langCode) {
-            // تحديث النصوص الأساسية فوراً
             const dict = translations[langCode] || translations.ar;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (dict[key]) el.textContent = dict[key];
             });
 
-            // تفعيل ترجمة جوجل الخلفية إن توفرت
             const selectField = document.querySelector(".goog-te-combo");
             if (selectField) {
                 selectField.value = langCode;
@@ -826,30 +1204,30 @@
             }
         }
 
-        /* ================= 2. عداد الزوار (يبدأ من 1251 ويزيد تلقائياً) ================= */
+        /* ================= 2. عداد الزوار ================= */
         function initVisitorCounter() {
             let count = parseInt(localStorage.getItem('elmolt_total_views'), 10);
-            if (isNaN(count) || count < 1250) {
-                count = 1250;
-            }
+            if (isNaN(count) || count < 1250) count = 1250;
             count += 1;
             localStorage.setItem('elmolt_total_views', count);
             const el = document.getElementById('visitor-count');
             if (el) el.textContent = count.toLocaleString('en-US');
         }
 
-        /* ================= 3. مؤقت ألوان الشعار المتلألئ والرموز العائمة ================= */
+        /* ================= 3. مؤقت ألوان الشعار المتلألئ + الفن التوليدي في الخلفية ================= */
         const colorThemes = [
-            { primary: "#00f2fe", shadow: "rgba(0, 242, 254, 0.35)" },
-            { primary: "#facc15", shadow: "rgba(250, 204, 21, 0.35)" },
-            { primary: "#00ff87", shadow: "rgba(0, 255, 135, 0.35)" },
-            { primary: "#ff4d6d", shadow: "rgba(255, 77, 109, 0.35)" },
-            { primary: "#a855f7", shadow: "rgba(168, 85, 247, 0.35)" }
+            { primary: "#00f2fe", shadow: "rgba(0, 242, 254, 0.38)" },
+            { primary: "#facc15", shadow: "rgba(250, 204, 21, 0.38)" },
+            { primary: "#00ff87", shadow: "rgba(0, 255, 135, 0.38)" },
+            { primary: "#f472b6", shadow: "rgba(244, 114, 182, 0.38)" },
+            { primary: "#a855f7", shadow: "rgba(168, 85, 247, 0.38)" }
         ];
         let themeIdx = 0;
+        let activeThemeColor = colorThemes[0].primary;
 
         function cycleLogoTheme() {
             const theme = colorThemes[themeIdx];
+            activeThemeColor = theme.primary;
             const logoIcon = document.getElementById("logoIcon");
             const mainTitle = document.getElementById("mainTitle");
             const timerDot = document.getElementById("timerDot");
@@ -857,34 +1235,340 @@
 
             if (logoIcon && mainTitle && timerDot && logoCard) {
                 logoIcon.style.color = theme.primary;
-                logoIcon.style.boxShadow = `0 0 35px ${theme.shadow}`;
+                logoIcon.style.boxShadow = `0 0 38px ${theme.shadow}`;
                 mainTitle.style.color = theme.primary;
-                mainTitle.style.textShadow = `0 0 20px ${theme.shadow}`;
+                mainTitle.style.textShadow = `0 0 24px ${theme.shadow}`;
                 timerDot.style.backgroundColor = theme.primary;
                 timerDot.style.boxShadow = `0 0 20px ${theme.primary}`;
                 logoCard.style.borderColor = theme.primary;
-                logoCard.style.boxShadow = `0 25px 60px rgba(0, 0, 0, 0.7), 0 0 30px ${theme.shadow}`;
+                logoCard.style.boxShadow = `0 30px 70px rgba(0, 0, 0, 0.8), 0 0 35px ${theme.shadow}`;
             }
             themeIdx = (themeIdx + 1) % colorThemes.length;
         }
 
+        function initHeroGenerativeBackdrop() {
+            const canvas = document.getElementById('heroGenerativeCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let phase = 0;
+
+            function resize() {
+                canvas.width = canvas.parentElement.clientWidth || 850;
+                canvas.height = canvas.parentElement.clientHeight || 380;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function renderHeroArt() {
+                const w = canvas.width, h = canvas.height;
+                ctx.clearRect(0, 0, w, h);
+                const cx = w / 2, cy = h / 2;
+
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.strokeStyle = activeThemeColor;
+                ctx.lineWidth = 1.4;
+                ctx.beginPath();
+                const maxR = Math.min(w, h) * 0.44;
+                for (let t = 0; t <= Math.PI * 2; t += 0.015) {
+                    const r = maxR * Math.cos(6 * t + phase) * (0.75 + 0.25 * Math.sin(3 * t - phase));
+                    const x = r * Math.cos(t);
+                    const y = r * Math.sin(t);
+                    if (t === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.stroke();
+
+                ctx.strokeStyle = "rgba(212, 175, 55, 0.45)";
+                ctx.lineWidth = 1.1;
+                ctx.beginPath();
+                for (let a = 0; a < Math.PI * 6; a += 0.05) {
+                    const rad = 4 * Math.pow(1.16, a);
+                    if (rad > maxR) break;
+                    const x = rad * Math.cos(a - phase * 0.8);
+                    const y = rad * Math.sin(a - phase * 0.8);
+                    if (a === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                ctx.restore();
+
+                phase += 0.012;
+                requestAnimationFrame(renderHeroArt);
+            }
+            renderHeroArt();
+        }
+
         function spawnFloatingSymbols() {
-            const symbols = ["∑", "∫", "π", "∞", "√", "Δ", "θ", "f(x)"];
+            const formulas = ["∑", "∫", "π", "∞", "√", "Δ", "θ", "∇", "φ", "e^(iπ)+1=0", "f'(x)", "lim"];
+            const colors = ["#38bdf8", "#facc15", "#34d399", "#f472b6", "#a78bfa"];
             const mathBg = document.getElementById("mathBg");
             if (!mathBg) return;
             for (let i = 0; i < 24; i++) {
                 const span = document.createElement("span");
                 span.className = "math-symbol";
-                span.innerText = symbols[i % symbols.length];
-                span.style.left = (Math.random() * 96) + "%";
-                span.style.fontSize = (Math.random() * 1.4 + 1) + "rem";
-                span.style.animationDuration = (Math.random() * 10 + 12) + "s";
-                span.style.animationDelay = (Math.random() * -12) + "s";
+                span.innerText = formulas[i % formulas.length];
+                span.style.color = colors[i % colors.length];
+                span.style.left = (Math.random() * 94) + "%";
+                span.style.fontSize = (Math.random() * 1.1 + 0.95) + "rem";
+                span.style.animationDuration = (Math.random() * 12 + 14) + "s";
+                span.style.animationDelay = (Math.random() * -14) + "s";
                 mathBg.appendChild(span);
             }
         }
 
-        /* ================= 4. الساعة الرقمية والتاريخ ================= */
+        /* ================= 4. استوديو الفن الرياضي وراسم الدوال المتقدم ================= */
+        let studioMode = 'rose';
+        let studioP1 = 5;
+        let studioP2 = 3;
+        let studioSpeed = 1;
+        let studioTime = 0;
+
+        function setStudioMode(mode) {
+            studioMode = mode;
+            document.querySelectorAll('.studio-tab').forEach(btn => {
+                btn.className = "studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition";
+            });
+            const activeBtn = document.getElementById(`mode-${mode}`);
+            if (activeBtn) {
+                activeBtn.className = "studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 shadow-md transition";
+            }
+
+            const paramControls = document.getElementById('parametricControls');
+            const plotControls = document.getElementById('plotterControls');
+
+            if (mode === 'plotter') {
+                paramControls.classList.add('hidden');
+                plotControls.classList.remove('hidden');
+                drawCustomPlotter();
+            } else {
+                paramControls.classList.remove('hidden');
+                plotControls.classList.add('hidden');
+                if (mode === 'rose') {
+                    document.getElementById('param1Label').textContent = 'عدد البتلات (k):';
+                    document.getElementById('param2Label').textContent = 'معامل التعديل (n):';
+                } else if (mode === 'lissajous') {
+                    document.getElementById('param1Label').textContent = 'التردد الأفقي (a):';
+                    document.getElementById('param2Label').textContent = 'التردد الرأسي (b):';
+                } else if (mode === 'fourier') {
+                    document.getElementById('param1Label').textContent = 'عدد التوافقيات (N):';
+                    document.getElementById('param2Label').textContent = 'معامل القفزة (s):';
+                }
+                updateStudioParams();
+            }
+        }
+
+        function updateStudioParams() {
+            studioP1 = parseInt(document.getElementById('studioParam1').value, 10);
+            studioP2 = parseInt(document.getElementById('studioParam2').value, 10);
+            studioSpeed = parseFloat(document.getElementById('studioSpeed').value);
+
+            document.getElementById('param1Val').textContent = studioP1;
+            document.getElementById('param2Val').textContent = studioP2;
+            document.getElementById('speedVal').textContent = studioSpeed.toFixed(1) + 'x';
+
+            const formulaEl = document.getElementById('activeFormulaDisplay');
+            if (studioMode === 'rose') {
+                formulaEl.textContent = `r(θ) = R · cos(${studioP1}θ) + sin(${studioP2}θ)`;
+            } else if (studioMode === 'lissajous') {
+                formulaEl.textContent = `x = A·sin(${studioP1}t + δ),  y = B·sin(${studioP2}t)`;
+            } else if (studioMode === 'fourier') {
+                formulaEl.textContent = `f(t) = ∑ (4 / nπ) · sin(n·ω·t)  [N = ${studioP1}]`;
+            }
+        }
+
+        function setPresetFunc(expr) {
+            document.getElementById('customFuncInput').value = expr;
+            drawCustomPlotter();
+        }
+
+        function safeEvalMathFunc(expr, xVal) {
+            let s = expr.toLowerCase()
+                .replace(/\^/g, '**')
+                .replace(/\bsin\b/g, 'Math.sin')
+                .replace(/\bcos\b/g, 'Math.cos')
+                .replace(/\btan\b/g, 'Math.tan')
+                .replace(/\bsqrt\b/g, 'Math.sqrt')
+                .replace(/\babs\b/g, 'Math.abs')
+                .replace(/\bexp\b/g, 'Math.exp')
+                .replace(/\blog\b/g, 'Math.log10')
+                .replace(/\bln\b/g, 'Math.log')
+                .replace(/\bpi\b/g, 'Math.PI')
+                .replace(/\be\b/g, 'Math.E')
+                .replace(/(\d)(x)/g, '$1*$2')
+                .replace(/(x)(\()/g, '$1*$2');
+            const fn = new Function('x', `return (${s});`);
+            return fn(xVal);
+        }
+
+        function drawCartesianAxes(ctx, w, h, scale) {
+            const cx = w / 2, cy = h / 2;
+            ctx.strokeStyle = "rgba(56, 189, 248, 0.12)";
+            ctx.lineWidth = 1;
+            for (let x = cx % scale; x < w; x += scale) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+            }
+            for (let y = cy % scale; y < h; y += scale) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+            }
+
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.32)";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
+
+            ctx.fillStyle = "#94a3b8";
+            ctx.font = "11px JetBrains Mono, monospace";
+            for (let i = -8; i <= 8; i++) {
+                if (i === 0) continue;
+                ctx.fillText(i, cx + i * scale - 4, cy + 14);
+                ctx.fillText(-i, cx + 6, cy + i * scale + 4);
+            }
+        }
+
+        function drawCustomPlotter() {
+            const canvas = document.getElementById('mathArtCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+            const cx = w / 2, cy = h / 2, scale = 38;
+            const expr = document.getElementById('customFuncInput').value.trim() || 'sin(x)*3';
+
+            document.getElementById('activeFormulaDisplay').textContent = `f(x) = ${expr}`;
+            ctx.clearRect(0, 0, w, h);
+            drawCartesianAxes(ctx, w, h, scale);
+
+            try {
+                ctx.beginPath();
+                ctx.strokeStyle = "#facc15";
+                ctx.lineWidth = 3;
+                ctx.shadowColor = "rgba(250, 204, 21, 0.65)";
+                ctx.shadowBlur = 12;
+
+                let penDown = false;
+                for (let px = 0; px <= w; px += 2) {
+                    const x = (px - cx) / scale;
+                    const y = safeEvalMathFunc(expr, x);
+                    if (typeof y === 'number' && Number.isFinite(y) && Math.abs(y) < 50) {
+                        const py = cy - y * scale;
+                        if (!penDown) { ctx.moveTo(px, py); penDown = true; }
+                        else ctx.lineTo(px, py);
+                    } else {
+                        penDown = false;
+                    }
+                }
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+            } catch (e) {
+                ctx.fillStyle = "#f43f5e";
+                ctx.font = "bold 14px Cairo, sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText("صيغة الدالة غير مكتملة — جرب: sin(x)*3 أو x^2 - 2", cx, cy - 20);
+                ctx.textAlign = "start";
+            }
+        }
+
+        let fourierWave = [];
+        function animateMathArtStudio() {
+            const canvas = document.getElementById('mathArtCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+
+            if (studioMode !== 'plotter') {
+                ctx.clearRect(0, 0, w, h);
+                drawCartesianAxes(ctx, w, h, 40);
+
+                const cx = w / 2, cy = h / 2;
+
+                if (studioMode === 'rose') {
+                    const maxR = Math.min(w, h) * 0.38;
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#38bdf8";
+                    ctx.lineWidth = 2.5;
+                    ctx.shadowColor = "rgba(56, 189, 248, 0.7)";
+                    ctx.shadowBlur = 14;
+
+                    for (let theta = 0; theta <= Math.PI * 2; theta += 0.008) {
+                        const r = maxR * (0.7 * Math.cos(studioP1 * theta + studioTime) + 0.3 * Math.sin(studioP2 * theta - studioTime));
+                        const x = cx + r * Math.cos(theta);
+                        const y = cy + r * Math.sin(theta);
+                        if (theta === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+                } else if (studioMode === 'lissajous') {
+                    const rx = w * 0.36, ry = h * 0.38;
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#f472b6";
+                    ctx.lineWidth = 2.8;
+                    ctx.shadowColor = "rgba(244, 114, 182, 0.7)";
+                    ctx.shadowBlur = 14;
+
+                    for (let t = 0; t <= Math.PI * 2 + 0.05; t += 0.01) {
+                        const x = cx + rx * Math.sin(studioP1 * t + studioTime);
+                        const y = cy + ry * Math.sin(studioP2 * t);
+                        if (t === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+                } else if (studioMode === 'fourier') {
+                    let x = w * 0.26, y = cy;
+                    for (let i = 0; i < studioP1; i++) {
+                        const prevX = x, prevY = y;
+                        const n = i * studioP2 + 1;
+                        const radius = 62 * (4 / (n * Math.PI));
+                        x += radius * Math.cos(n * studioTime);
+                        y += radius * Math.sin(n * studioTime);
+
+                        ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
+                        ctx.lineWidth = 1.2;
+                        ctx.beginPath();
+                        ctx.arc(prevX, prevY, radius, 0, Math.PI * 2);
+                        ctx.stroke();
+
+                        ctx.strokeStyle = "#facc15";
+                        ctx.lineWidth = 1.8;
+                        ctx.beginPath();
+                        ctx.moveTo(prevX, prevY);
+                        ctx.lineTo(x, y);
+                        ctx.stroke();
+                    }
+
+                    fourierWave.unshift(y);
+                    if (fourierWave.length > 340) fourierWave.pop();
+
+                    const waveStartX = w * 0.52;
+                    ctx.strokeStyle = "rgba(250, 204, 21, 0.45)";
+                    ctx.setLineDash([4, 4]);
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(waveStartX, fourierWave[0]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#34d399";
+                    ctx.lineWidth = 2.6;
+                    for (let i = 0; i < fourierWave.length; i++) {
+                        const wx = waveStartX + i;
+                        const wy = fourierWave[i];
+                        if (i === 0) ctx.moveTo(wx, wy);
+                        else ctx.lineTo(wx, wy);
+                    }
+                    ctx.stroke();
+                }
+
+                studioTime += 0.025 * studioSpeed;
+            }
+            requestAnimationFrame(animateMathArtStudio);
+        }
+
+        /* ================= 5. الساعة الرقمية والتاريخ ================= */
         function updateClockAndDate() {
             const now = new Date();
             let hours = now.getHours();
@@ -902,15 +1586,15 @@
             });
         }
 
-        /* ================= 5. صورة المعلم البديلة SVG ================= */
-        const SVG_FALLBACK = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='100%' height='100%' fill='%230f172a'/><circle cx='300' cy='230' r='110' fill='%23D4AF37' opacity='0.2'/><circle cx='300' cy='210' r='80' fill='%23D4AF37'/><path d='M150 500 C150 360, 450 360, 450 500 Z' fill='%23D4AF37'/><text x='50%' y='540' font-family='sans-serif' font-weight='bold' font-size='26' fill='%23ffffff' text-anchor='middle'>أستاذ محمد الملط</text><text x='50%' y='575' font-family='sans-serif' font-size='18' fill='%2338bdf8' text-anchor='middle'>خبير GeoGebra &amp; AI</text></svg>";
+        /* ================= 6. صورة المعلم البديلة SVG ================= */
+        const SVG_FALLBACK = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='100%' height='100%' fill='%230b1121'/><circle cx='300' cy='230' r='110' fill='%23D4AF37' opacity='0.2'/><circle cx='300' cy='210' r='80' fill='%23D4AF37'/><path d='M150 500 C150 360, 450 360, 450 500 Z' fill='%23D4AF37'/><text x='50%' y='540' font-family='sans-serif' font-weight='bold' font-size='26' fill='%23ffffff' text-anchor='middle'>أستاذ محمد الملط</text><text x='50%' y='575' font-family='sans-serif' font-size='18' fill='%2338bdf8' text-anchor='middle'>خبير GeoGebra &amp; AI</text></svg>";
 
         function handleImageError(img) {
             img.onerror = null;
             img.src = SVG_FALLBACK;
         }
 
-        /* ================= 6. إدارة توجيهات المعلم (PIN: Moh@#$123) ================= */
+        /* ================= 7. إدارة توجيهات المعلم (PIN: Moh@#$123) ================= */
         const TEACHER_PIN = "Moh@#$123";
         let uploadedDirectiveImg = "";
         let pendingDeleteId = null;
@@ -918,7 +1602,7 @@
         const DEFAULT_DIRECTIVES = [
             {
                 id: 1,
-                text: "أهلاً ومرحباً بكم في منصة أكاديمية الملط للرياضيات!\nتابعوا هذه اللوحة باستمرار للحصول على أهم التوجيهات والواجبات المباشرة من الأستاذ محمد الملط.",
+                text: "أهلاً ومرحباً بكم في النسخة المتطورة من أكاديمية الملط للرياضيات!\nجرّبوا الآن استوديو الفن الرياضي وراسم الدوال التفاعلي واستكشفوا جمال الرياضيات والذكاء الاصطناعي.",
                 image: "",
                 date: new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
             }
@@ -940,11 +1624,8 @@
         }
 
         function openTeacherControlPanel() {
-            if (isTeacherLoggedIn()) {
-                document.getElementById('adminPanelModal').classList.remove('hidden');
-            } else {
-                document.getElementById('loginModal').classList.remove('hidden');
-            }
+            if (isTeacherLoggedIn()) document.getElementById('adminPanelModal').classList.remove('hidden');
+            else document.getElementById('loginModal').classList.remove('hidden');
         }
 
         function closeModal(id) {
@@ -974,8 +1655,28 @@
             const reader = new FileReader();
             reader.onload = (e) => {
                 uploadedDirectiveImg = e.target.result;
+                const previewContainer = document.getElementById('directiveImgPreviewContainer');
+                const previewImg = document.getElementById('directiveImgPreview');
+                if (previewContainer && previewImg) {
+                    previewImg.src = uploadedDirectiveImg;
+                    previewContainer.classList.remove('hidden');
+                }
             };
             reader.readAsDataURL(file);
+        }
+
+        function removeDirectiveImage() {
+            uploadedDirectiveImg = "";
+            const previewContainer = document.getElementById('directiveImgPreviewContainer');
+            const previewImg = document.getElementById('directiveImgPreview');
+            if (previewContainer && previewImg) {
+                previewImg.src = "";
+                previewContainer.classList.add('hidden');
+            }
+            const deviceFile = document.getElementById('deviceFile');
+            const cameraFile = document.getElementById('cameraFile');
+            if (deviceFile) deviceFile.value = "";
+            if (cameraFile) cameraFile.value = "";
         }
 
         function saveGuideline(e) {
@@ -993,8 +1694,7 @@
             localStorage.setItem('elmalt_directives', JSON.stringify(list));
 
             document.getElementById('guidelineText').value = '';
-            document.getElementById('guidelineImage').value = '';
-            uploadedDirectiveImg = '';
+            removeDirectiveImage();
             closeModal('adminPanelModal');
             renderDirectives();
             showToast("تم نشر التوجيه بنجاح!");
@@ -1024,12 +1724,12 @@
             const loggedIn = isTeacherLoggedIn();
 
             if (list.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-8 glass-card rounded-2xl text-slate-400 text-sm">لا توجد توجيهات منشورة حالياً.</div>`;
+                container.innerHTML = `<div class="col-span-full text-center py-8 glass-panel rounded-2xl text-slate-400 text-sm">لا توجد توجيهات منشورة حالياً.</div>`;
                 return;
             }
 
             container.innerHTML = list.map(post => `
-                <div class="glass-card rounded-2xl p-5 border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between">
+                <div class="glass-panel rounded-2xl p-5 border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-800">
                             <div class="flex items-center gap-2">
@@ -1050,263 +1750,7 @@
             `).join('');
         }
 
-        /* ================= 7. حاسبة المساحة تحت المنحنى الطبيعي المعياري ================= */
-        let activeNormalField = 'valA';
-
-        function setActiveField(fieldId) {
-            activeNormalField = fieldId;
-            document.getElementById('valA').classList.toggle('active-input', fieldId === 'valA');
-            document.getElementById('valB').classList.toggle('active-input', fieldId === 'valB');
-        }
-
-        function switchNormalField() {
-            setActiveField(activeNormalField === 'valA' ? 'valB' : 'valA');
-        }
-
-        function appendNormalVal(char) {
-            hideNormalError();
-            const field = document.getElementById(activeNormalField);
-            if (!field) return;
-            if (char === '-') {
-                field.value = field.value.startsWith('-') ? field.value.slice(1) : '-' + field.value;
-                return;
-            }
-            if (char === '.' && field.value.includes('.')) return;
-            field.value += char;
-        }
-
-        function normalBackspace() {
-            hideNormalError();
-            const field = document.getElementById(activeNormalField);
-            if (field) field.value = field.value.slice(0, -1);
-        }
-
-        function clearNormalField() {
-            hideNormalError();
-            const field = document.getElementById(activeNormalField);
-            if (field) field.value = '';
-        }
-
-        function showNormalError(msg) {
-            const box = document.getElementById('errorBox');
-            box.textContent = msg;
-            box.classList.remove('hidden');
-        }
-
-        function hideNormalError() {
-            document.getElementById('errorBox').classList.add('hidden');
-        }
-
-        function normalCDF(z) {
-            if (z < -6) return 0;
-            if (z > 6) return 1;
-            const b1 = 0.319381530, b2 = -0.356563782, b3 = 1.781477937, b4 = -1.821255978, b5 = 1.330274429;
-            const p = 0.2316419, c = 0.39894228;
-            const absZ = Math.abs(z);
-            const t = 1.0 / (1.0 + p * absZ);
-            const pdf = c * Math.exp(-0.5 * absZ * absZ);
-            const poly = t * (b1 + t * (b2 + t * (b3 + t * (b4 + t * b5))));
-            const cdf = 1.0 - pdf * poly;
-            return z >= 0 ? cdf : 1.0 - cdf;
-        }
-
-        function normalPDF(x) {
-            return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
-        }
-
-        function calculateArea() {
-            hideNormalError();
-            const inA = document.getElementById('valA').value;
-            const inB = document.getElementById('valB').value;
-
-            if (inA === '' || inB === '') {
-                showNormalError("يرجى إدخال قيمتي a و b باستخدام لوحة المفاتيح المدمجة.");
-                return;
-            }
-            const a = parseFloat(inA);
-            const b = parseFloat(inB);
-
-            if (isNaN(a) || isNaN(b)) {
-                showNormalError("تأكد من إدخال أرقام صحيحة.");
-                return;
-            }
-            if (a < -1 || a > 1 || b < -1 || b > 1) {
-                showNormalError("تنبيه: القيم a و b يجب أن تكون محصورة بين -1 و 1 (-1 ≤ a, b ≤ 1).");
-                return;
-            }
-
-            const minVal = Math.min(a, b);
-            const maxVal = Math.max(a, b);
-            const area = normalCDF(maxVal) - normalCDF(minVal);
-
-            const resDiv = document.getElementById('result');
-            resDiv.classList.remove('hidden');
-            resDiv.innerHTML = `
-                <div class="text-xs sm:text-sm font-bold text-indigo-300">
-                    المساحة المحصورة: <span dir="ltr" class="font-mono text-white">P(${minVal} ≤ Z ≤ ${maxVal})</span> = 
-                    <span class="text-lg text-amber-400 font-mono font-extrabold">${area.toFixed(4)}</span>
-                </div>
-                <div class="text-xs text-slate-400">
-                    النسبة المئوية للمساحة: <span class="font-mono text-emerald-400 font-bold">${(area * 100).toFixed(2)}%</span>
-                </div>
-            `;
-
-            drawNormalCurve(minVal, maxVal);
-        }
-
-        function resetNormalForm() {
-            hideNormalError();
-            document.getElementById('valA').value = '';
-            document.getElementById('valB').value = '';
-            document.getElementById('result').classList.add('hidden');
-            setActiveField('valA');
-            drawNormalCurve(null, null);
-        }
-
-        function drawNormalCurve(a, b) {
-            const canvas = document.getElementById('chartCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const w = canvas.width, h = canvas.height;
-            ctx.clearRect(0, 0, w, h);
-
-            const xMin = -3.0, xMax = 3.0, yMin = 0, yMax = 0.45, pad = 34;
-            const toX = x => pad + (x - xMin) / (xMax - xMin) * (w - 2 * pad);
-            const toY = y => h - pad - (y - yMin) / (yMax - yMin) * (h - 2 * pad);
-
-            // تظليل المساحة المحصورة
-            if (a !== null && b !== null) {
-                ctx.beginPath();
-                ctx.fillStyle = "rgba(249, 115, 22, 0.45)";
-                ctx.moveTo(toX(a), toY(0));
-                for (let x = a; x <= b; x += 0.01) {
-                    ctx.lineTo(toX(x), toY(normalPDF(x)));
-                }
-                ctx.lineTo(toX(b), toY(0));
-                ctx.closePath();
-                ctx.fill();
-            }
-
-            // رسم المنحنى الطبيعي
-            ctx.beginPath();
-            ctx.strokeStyle = "#38bdf8";
-            ctx.lineWidth = 3;
-            for (let x = xMin; x <= xMax; x += 0.02) {
-                const px = toX(x), py = toY(normalPDF(x));
-                if (x === xMin) ctx.moveTo(px, py);
-                else ctx.lineTo(px, py);
-            }
-            ctx.stroke();
-
-            // المحور الأفقي والترقيم
-            ctx.beginPath();
-            ctx.strokeStyle = "#475569";
-            ctx.lineWidth = 1.5;
-            ctx.moveTo(toX(xMin), toY(0));
-            ctx.lineTo(toX(xMax), toY(0));
-            ctx.stroke();
-
-            ctx.fillStyle = "#94a3b8";
-            ctx.font = "12px JetBrains Mono, sans-serif";
-            ctx.textAlign = "center";
-            for (let z = -3; z <= 3; z++) {
-                const px = toX(z), py = toY(0);
-                ctx.fillText(z, px, py + 16);
-            }
-
-            // خطوط التحديد العمودية
-            if (a !== null) drawZMarker(ctx, toX(a), toY(0), toY(normalPDF(a)), `a=${a}`);
-            if (b !== null) drawZMarker(ctx, toX(b), toY(0), toY(normalPDF(b)), `b=${b}`);
-        }
-
-        function drawZMarker(ctx, x, yBot, yTop, label) {
-            ctx.beginPath();
-            ctx.strokeStyle = "#f43f5e";
-            ctx.setLineDash([4, 4]);
-            ctx.lineWidth = 2;
-            ctx.moveTo(x, yBot);
-            ctx.lineTo(x, yTop);
-            ctx.stroke();
-            ctx.setLineDash([]);
-            ctx.fillStyle = "#f43f5e";
-            ctx.font = "bold 11px JetBrains Mono, sans-serif";
-            ctx.fillText(label, x, yTop - 6);
-        }
-
-        /* ================= 8. السبورة الذكية التفاعلية ================= */
-        let wbDrawing = false;
-        let wbCtx = null;
-
-        function initWhiteboard() {
-            const canvas = document.getElementById('smartWhiteboard');
-            if (!canvas) return;
-            wbCtx = canvas.getContext('2d');
-
-            function resizeWb() {
-                const temp = wbCtx.getImageData(0, 0, canvas.width, canvas.height);
-                canvas.width = canvas.parentElement.clientWidth || 750;
-                canvas.height = 380;
-                wbCtx.putImageData(temp, 0, 0);
-                wbCtx.lineJoin = 'round';
-                wbCtx.lineCap = 'round';
-            }
-            resizeWb();
-            window.addEventListener('resize', resizeWb);
-
-            const getCoords = (e) => {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                return { x: clientX - rect.left, y: clientY - rect.top };
-            };
-
-            const start = (e) => {
-                wbDrawing = true;
-                const pos = getCoords(e);
-                wbCtx.beginPath();
-                wbCtx.moveTo(pos.x, pos.y);
-            };
-
-            const move = (e) => {
-                if (!wbDrawing) return;
-                if (e.cancelable) e.preventDefault();
-                const pos = getCoords(e);
-                wbCtx.strokeStyle = document.getElementById('wbColor').value;
-                wbCtx.lineWidth = document.getElementById('wbLineWidth').value;
-                wbCtx.lineTo(pos.x, pos.y);
-                wbCtx.stroke();
-            };
-
-            const end = () => {
-                wbDrawing = false;
-                wbCtx.beginPath();
-            };
-
-            canvas.addEventListener('mousedown', start);
-            canvas.addEventListener('mousemove', move);
-            window.addEventListener('mouseup', end);
-
-            canvas.addEventListener('touchstart', start, { passive: false });
-            canvas.addEventListener('touchmove', move, { passive: false });
-            canvas.addEventListener('touchend', end);
-        }
-
-        function clearWhiteboard() {
-            const canvas = document.getElementById('smartWhiteboard');
-            if (wbCtx && canvas) wbCtx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function saveWhiteboardImage() {
-            const canvas = document.getElementById('smartWhiteboard');
-            if (!canvas) return;
-            const link = document.createElement('a');
-            link.download = 'elmalt-whiteboard.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            showToast("تم حفظ صورة السبورة بنجاح!");
-        }
-
-        /* ================= 9. المحرك الرياضي للحاسبة العلمية ================= */
+        /* ================= 8. الحاسبة العلمية المتكاملة ================= */
         (function initScientificCalculator() {
             const exprDisplay = document.getElementById('expression-display');
             const resDisplay = document.getElementById('result-display');
@@ -1520,63 +1964,525 @@
                 return evalSt[0];
             }
 
+            function handleCalcInput(ins, act) {
+                if (ins !== null) {
+                    const isOp = ['+', '-', '×', '÷', '^', ' mod ', 'yroot', '%', '!'].includes(ins);
+                    if (justEvaluated) {
+                        expression = isOp ? 'Ans' + ins : ins;
+                        justEvaluated = false;
+                    } else {
+                        expression += ins;
+                    }
+                    updateDisplay();
+                } else if (act === 'ac') {
+                    expression = '';
+                    justEvaluated = false;
+                    updateDisplay('0', false);
+                } else if (act === 'del') {
+                    justEvaluated = false;
+                    expression = expression.slice(0, -1);
+                    updateDisplay(expression ? null : '0', false);
+                } else if (act === 'toggle-angle') {
+                    angleMode = angleMode === 'DEG' ? 'RAD' : 'DEG';
+                    angleBadge.textContent = angleMode;
+                    btnDegRad.textContent = angleMode;
+                } else if (act === 'shift') {
+                    isShift = !isShift;
+                    shiftBadge.classList.toggle('hidden', !isShift);
+                    btnShift.classList.toggle('bg-amber-500', isShift);
+                    btnShift.classList.toggle('text-slate-950', isShift);
+                } else if (act === 'negate') {
+                    expression = expression.startsWith('-') ? expression.slice(1) : '-' + expression;
+                    updateDisplay();
+                } else if (act === 'reciprocal') {
+                    expression = expression ? `1÷(${expression})` : '1÷(Ans)';
+                    updateDisplay();
+                } else if (act === 'equals') {
+                    if (!expression.trim()) return;
+                    try {
+                        const val = evaluateSciExpr(expression);
+                        const fmt = formatNum(val);
+                        if (Number.isFinite(val)) {
+                            lastAns = Number(val.toPrecision(12));
+                            ansIndicator.textContent = `Ans = ${fmt}`;
+                        }
+                        updateDisplay(fmt, false);
+                        justEvaluated = true;
+                    } catch (e) {
+                        updateDisplay(e.message || 'خطأ رياضي', true);
+                        justEvaluated = false;
+                    }
+                }
+            }
+
             document.querySelectorAll('.calc-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const ins = btn.getAttribute('data-insert');
-                    const act = btn.getAttribute('data-action');
-                    if (ins !== null) {
-                        const isOp = ['+', '-', '×', '÷', '^', ' mod ', 'yroot', '%', '!'].includes(ins);
-                        if (justEvaluated) {
-                            expression = isOp ? 'Ans' + ins : ins;
-                            justEvaluated = false;
-                        } else {
-                            expression += ins;
-                        }
-                        updateDisplay();
-                    } else if (act === 'ac') {
-                        expression = '';
-                        justEvaluated = false;
-                        updateDisplay('0', false);
-                    } else if (act === 'del') {
-                        justEvaluated = false;
-                        expression = expression.slice(0, -1);
-                        updateDisplay(expression ? null : '0', false);
-                    } else if (act === 'toggle-angle') {
-                        angleMode = angleMode === 'DEG' ? 'RAD' : 'DEG';
-                        angleBadge.textContent = angleMode;
-                        btnDegRad.textContent = angleMode;
-                    } else if (act === 'shift') {
-                        isShift = !isShift;
-                        shiftBadge.classList.toggle('hidden', !isShift);
-                        btnShift.classList.toggle('bg-amber-500', isShift);
-                        btnShift.classList.toggle('text-slate-950', isShift);
-                    } else if (act === 'negate') {
-                        expression = expression.startsWith('-') ? expression.slice(1) : '-' + expression;
-                        updateDisplay();
-                    } else if (act === 'reciprocal') {
-                        expression = expression ? `1÷(${expression})` : '1÷(Ans)';
-                        updateDisplay();
-                    } else if (act === 'equals') {
-                        if (!expression.trim()) return;
-                        try {
-                            const val = evaluateSciExpr(expression);
-                            const fmt = formatNum(val);
-                            if (Number.isFinite(val)) {
-                                lastAns = Number(val.toPrecision(12));
-                                ansIndicator.textContent = `Ans = ${fmt}`;
-                            }
-                            updateDisplay(fmt, false);
-                            justEvaluated = true;
-                        } catch (e) {
-                            updateDisplay(e.message || 'خطأ رياضي', true);
-                            justEvaluated = false;
-                        }
-                    }
+                    handleCalcInput(btn.getAttribute('data-insert'), btn.getAttribute('data-action'));
                 });
             });
         })();
 
-        /* ================= 10. نموذج تسجيل الطلاب (Formspree) ================= */
+        /* ================= 9. حاسبة المساحة تحت المنحنى الطبيعي المعياري ================= */
+        let activeNormalField = 'valA';
+
+        function setActiveField(fieldId) {
+            activeNormalField = fieldId;
+            document.getElementById('valA').classList.toggle('active-input', fieldId === 'valA');
+            document.getElementById('valB').classList.toggle('active-input', fieldId === 'valB');
+        }
+
+        function switchNormalField() {
+            setActiveField(activeNormalField === 'valA' ? 'valB' : 'valA');
+        }
+
+        function appendNormalVal(char) {
+            hideNormalError();
+            const field = document.getElementById(activeNormalField);
+            if (!field) return;
+            if (char === '-') {
+                field.value = field.value.startsWith('-') ? field.value.slice(1) : '-' + field.value;
+                return;
+            }
+            if (char === '.' && field.value.includes('.')) return;
+            field.value += char;
+        }
+
+        function normalBackspace() {
+            hideNormalError();
+            const field = document.getElementById(activeNormalField);
+            if (field) field.value = field.value.slice(0, -1);
+        }
+
+        function clearNormalField() {
+            hideNormalError();
+            const field = document.getElementById(activeNormalField);
+            if (field) field.value = '';
+        }
+
+        function showNormalError(msg) {
+            const box = document.getElementById('errorBox');
+            box.textContent = msg;
+            box.classList.remove('hidden');
+        }
+
+        function hideNormalError() {
+            document.getElementById('errorBox').classList.add('hidden');
+        }
+
+        function normalCDF(z) {
+            if (z < -6) return 0;
+            if (z > 6) return 1;
+            const b1 = 0.319381530, b2 = -0.356563782, b3 = 1.781477937, b4 = -1.821255978, b5 = 1.330274429;
+            const p = 0.2316419, c = 0.39894228;
+            const absZ = Math.abs(z);
+            const t = 1.0 / (1.0 + p * absZ);
+            const pdf = c * Math.exp(-0.5 * absZ * absZ);
+            const poly = t * (b1 + t * (b2 + t * (b3 + t * (b4 + t * b5))));
+            const cdf = 1.0 - pdf * poly;
+            return z >= 0 ? cdf : 1.0 - cdf;
+        }
+
+        function normalPDF(x) {
+            return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+        }
+
+        function calculateArea() {
+            hideNormalError();
+            const inA = document.getElementById('valA').value;
+            const inB = document.getElementById('valB').value;
+
+            if (inA === '' || inB === '') {
+                showNormalError("يرجى إدخال قيمتي a و b باستخدام لوحة المفاتيح المدمجة.");
+                return;
+            }
+            const a = parseFloat(inA);
+            const b = parseFloat(inB);
+
+            if (isNaN(a) || isNaN(b)) {
+                showNormalError("تأكد من إدخال أرقام صحيحة.");
+                return;
+            }
+            if (a < -1 || a > 1 || b < -1 || b > 1) {
+                showNormalError("تنبيه: القيم a و b يجب أن تكون محصورة بين -1 و 1 (-1 ≤ a, b ≤ 1).");
+                return;
+            }
+
+            const minVal = Math.min(a, b);
+            const maxVal = Math.max(a, b);
+            const area = normalCDF(maxVal) - normalCDF(minVal);
+
+            const resDiv = document.getElementById('result');
+            resDiv.classList.remove('hidden');
+            resDiv.innerHTML = `
+                <div class="text-xs sm:text-sm font-bold text-indigo-300">
+                    المساحة المحصورة: <span dir="ltr" class="font-mono text-white">P(${minVal} ≤ Z ≤ ${maxVal})</span> = 
+                    <span class="text-lg text-amber-400 font-mono font-extrabold">${area.toFixed(4)}</span>
+                </div>
+                <div class="text-xs text-slate-400">
+                    النسبة المئوية للمساحة: <span class="font-mono text-emerald-400 font-bold">${(area * 100).toFixed(2)}%</span>
+                </div>
+            `;
+
+            drawNormalCurve(minVal, maxVal);
+        }
+
+        function resetNormalForm() {
+            hideNormalError();
+            document.getElementById('valA').value = '';
+            document.getElementById('valB').value = '';
+            document.getElementById('result').classList.add('hidden');
+            setActiveField('valA');
+            drawNormalCurve(null, null);
+        }
+
+        function drawNormalCurve(a, b) {
+            const canvas = document.getElementById('chartCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
+
+            const xMin = -3.0, xMax = 3.0, yMin = 0, yMax = 0.45, pad = 34;
+            const toX = x => pad + (x - xMin) / (xMax - xMin) * (w - 2 * pad);
+            const toY = y => h - pad - (y - yMin) / (yMax - yMin) * (h - 2 * pad);
+
+            if (a !== null && b !== null) {
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(249, 115, 22, 0.45)";
+                ctx.moveTo(toX(a), toY(0));
+                for (let x = a; x <= b; x += 0.01) {
+                    ctx.lineTo(toX(x), toY(normalPDF(x)));
+                }
+                ctx.lineTo(toX(b), toY(0));
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            ctx.beginPath();
+            ctx.strokeStyle = "#38bdf8";
+            ctx.lineWidth = 3;
+            for (let x = xMin; x <= xMax; x += 0.02) {
+                const px = toX(x), py = toY(normalPDF(x));
+                if (x === xMin) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.strokeStyle = "#475569";
+            ctx.lineWidth = 1.5;
+            ctx.moveTo(toX(xMin), toY(0));
+            ctx.lineTo(toX(xMax), toY(0));
+            ctx.stroke();
+
+            ctx.fillStyle = "#94a3b8";
+            ctx.font = "12px JetBrains Mono, sans-serif";
+            ctx.textAlign = "center";
+            for (let z = -3; z <= 3; z++) {
+                const px = toX(z), py = toY(0);
+                ctx.fillText(z, px, py + 16);
+            }
+
+            if (a !== null) drawZMarker(ctx, toX(a), toY(0), toY(normalPDF(a)), `a=${a}`);
+            if (b !== null) drawZMarker(ctx, toX(b), toY(0), toY(normalPDF(b)), `b=${b}`);
+        }
+
+        function drawZMarker(ctx, x, yBot, yTop, label) {
+            ctx.beginPath();
+            ctx.strokeStyle = "#f43f5e";
+            ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 2;
+            ctx.moveTo(x, yBot);
+            ctx.lineTo(x, yTop);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = "#f43f5e";
+            ctx.font = "bold 11px JetBrains Mono, sans-serif";
+            ctx.fillText(label, x, yTop - 6);
+        }
+
+        /* ================= 10. السبورة الذكية التفاعلية مع شبكة الإحداثيات ================= */
+        let wbDrawing = false;
+        let wbCtx = null;
+        let wbShowGrid = false;
+
+        function drawWbCoordinateGrid() {
+            const gridCanvas = document.getElementById('wbGridCanvas');
+            if (!gridCanvas) return;
+            const gCtx = gridCanvas.getContext('2d');
+            gridCanvas.width = gridCanvas.parentElement.clientWidth || 750;
+            gridCanvas.height = 390;
+            gCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+
+            if (!wbShowGrid) return;
+            const w = gridCanvas.width, h = gridCanvas.height;
+            const cx = w / 2, cy = h / 2, step = 30;
+
+            gCtx.strokeStyle = "rgba(56, 189, 248, 0.14)";
+            gCtx.lineWidth = 1;
+            for (let x = cx % step; x < w; x += step) {
+                gCtx.beginPath(); gCtx.moveTo(x, 0); gCtx.lineTo(x, h); gCtx.stroke();
+            }
+            for (let y = cy % step; y < h; y += step) {
+                gCtx.beginPath(); gCtx.moveTo(0, y); gCtx.lineTo(w, y); gCtx.stroke();
+            }
+
+            gCtx.strokeStyle = "rgba(250, 204, 21, 0.45)";
+            gCtx.lineWidth = 1.8;
+            gCtx.beginPath(); gCtx.moveTo(0, cy); gCtx.lineTo(w, cy); gCtx.stroke();
+            gCtx.beginPath(); gCtx.moveTo(cx, 0); gCtx.lineTo(cx, h); gCtx.stroke();
+        }
+
+        function toggleWhiteboardGrid() {
+            wbShowGrid = !wbShowGrid;
+            const btn = document.getElementById('wbGridToggle');
+            btn.classList.toggle('bg-sky-500', wbShowGrid);
+            btn.classList.toggle('text-slate-950', wbShowGrid);
+            drawWbCoordinateGrid();
+        }
+
+        function initWhiteboard() {
+            const canvas = document.getElementById('smartWhiteboard');
+            if (!canvas) return;
+            wbCtx = canvas.getContext('2d');
+
+            function resizeWb() {
+                const temp = wbCtx.getImageData(0, 0, canvas.width, canvas.height);
+                canvas.width = canvas.parentElement.clientWidth || 750;
+                canvas.height = 390;
+                wbCtx.putImageData(temp, 0, 0);
+                wbCtx.lineJoin = 'round';
+                wbCtx.lineCap = 'round';
+                drawWbCoordinateGrid();
+            }
+            resizeWb();
+            window.addEventListener('resize', resizeWb);
+
+            const getCoords = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            };
+
+            const start = (e) => {
+                wbDrawing = true;
+                const pos = getCoords(e);
+                wbCtx.beginPath();
+                wbCtx.moveTo(pos.x, pos.y);
+            };
+
+            const move = (e) => {
+                if (!wbDrawing) return;
+                if (e.cancelable) e.preventDefault();
+                const pos = getCoords(e);
+                wbCtx.strokeStyle = document.getElementById('wbColor').value;
+                wbCtx.lineWidth = document.getElementById('wbLineWidth').value;
+                wbCtx.lineTo(pos.x, pos.y);
+                wbCtx.stroke();
+            };
+
+            const end = () => {
+                wbDrawing = false;
+                wbCtx.beginPath();
+            };
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', move);
+            window.addEventListener('mouseup', end);
+
+            canvas.addEventListener('touchstart', start, { passive: false });
+            canvas.addEventListener('touchmove', move, { passive: false });
+            canvas.addEventListener('touchend', end);
+        }
+
+        function clearWhiteboard() {
+            const canvas = document.getElementById('smartWhiteboard');
+            if (wbCtx && canvas) wbCtx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveWhiteboardImage() {
+            const canvas = document.getElementById('smartWhiteboard');
+            if (!canvas) return;
+            const link = document.createElement('a');
+            link.download = 'elmalt-whiteboard.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast("تم حفظ صورة السبورة بنجاح!");
+        }
+
+        /* ================= 11. ساعة الأطفال التفاعلية ================= */
+        const clockFace = document.getElementById('clockFace');
+        const hourHand = document.getElementById('hourHand');
+        const minuteHand = document.getElementById('minuteHand');
+        const digitalOutput = document.getElementById('digitalOutput');
+        const textOutput = document.getElementById('textOutput');
+        const timeLabel = document.getElementById('timeLabel');
+        const speakAgainBtn = document.getElementById('speakAgainBtn');
+
+        let kidsHours = 3;
+        let kidsMinutes = 0;
+        let kidsTimeRevealed = false;
+        let activeDragHand = null;
+
+        function buildKidsClockFace() {
+            if (!clockFace) return;
+            for (let m = 0; m < 60; m++) {
+                const tick = document.createElement('div');
+                tick.className = m % 5 === 0 ? 'tick major' : 'tick';
+                tick.style.transform = `rotate(${m * 6}deg)`;
+                clockFace.appendChild(tick);
+            }
+            for (let i = 1; i <= 12; i++) {
+                const angle = i * 30;
+                const numDiv = document.createElement('div');
+                numDiv.className = 'hour-number';
+                numDiv.style.transform = `rotate(${angle}deg)`;
+                const numSpan = document.createElement('span');
+                numSpan.textContent = i;
+                numSpan.style.transform = `rotate(-${angle}deg)`;
+                numDiv.appendChild(numSpan);
+                clockFace.appendChild(numDiv);
+
+                const minHelper = document.createElement('div');
+                minHelper.className = 'minute-helper';
+                minHelper.style.transform = `rotate(${angle}deg)`;
+                const minSpan = document.createElement('span');
+                minSpan.textContent = (i * 5).toString().padStart(2, '0');
+                minSpan.style.transform = `rotate(-${angle}deg)`;
+                minHelper.appendChild(minSpan);
+                clockFace.appendChild(minHelper);
+            }
+        }
+
+        function toggleMinuteHelpers() {
+            const show = document.getElementById('toggleHelpers').checked;
+            document.querySelectorAll('.minute-helper').forEach(el => {
+                el.style.opacity = show ? '1' : '0';
+            });
+        }
+
+        function updateKidsClockHands() {
+            const minuteDeg = kidsMinutes * 6;
+            const hourDeg = ((kidsHours % 12) * 30) + (kidsMinutes * 0.5);
+            minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+            hourHand.style.transform = `rotate(${hourDeg}deg)`;
+        }
+
+        function resetKidsQuizMode() {
+            kidsTimeRevealed = false;
+            digitalOutput.textContent = '? : ?';
+            textOutput.textContent = 'Can you tell the time? Click "What time is it now?"';
+            textOutput.className = 'text-sm sm:text-base font-semibold text-sky-700 mt-0.5';
+            timeLabel.classList.remove('bg-emerald-50', 'border-emerald-400', 'border-solid');
+            timeLabel.classList.add('bg-slate-50', 'border-sky-300', 'border-dashed');
+            speakAgainBtn.classList.add('hidden');
+        }
+
+        function getEnglishTimePhrase(h, m) {
+            const nextHour = (h % 12) + 1;
+            if (m === 0) return `It's ${h} o'clock`;
+            if (m === 15) return `It's quarter past ${h}`;
+            if (m === 30) return `It's half past ${h}`;
+            if (m === 45) return `It's quarter to ${nextHour}`;
+            if (m < 30) {
+                const minWord = m === 1 ? 'minute' : 'minutes';
+                return m % 5 === 0 ? `It's ${m} past ${h}` : `It's ${m} ${minWord} past ${h}`;
+            } else {
+                const rem = 60 - m;
+                const minWord = rem === 1 ? 'minute' : 'minutes';
+                return rem % 5 === 0 ? `It's ${rem} to ${nextHour}` : `It's ${rem} ${minWord} to ${nextHour}`;
+            }
+        }
+
+        function speakText(phrase) {
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(phrase);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1.1;
+                    window.speechSynthesis.speak(utterance);
+                }
+            } catch (err) {}
+        }
+
+        function revealAndSpeakTime() {
+            kidsTimeRevealed = true;
+            const formattedHour = kidsHours.toString().padStart(2, '0');
+            const formattedMin = kidsMinutes.toString().padStart(2, '0');
+            const phrase = getEnglishTimePhrase(kidsHours, kidsMinutes);
+
+            digitalOutput.textContent = `${formattedHour}:${formattedMin}`;
+            textOutput.textContent = phrase;
+            textOutput.className = 'text-base sm:text-lg font-bold text-emerald-700 mt-0.5';
+
+            timeLabel.classList.remove('bg-slate-50', 'border-sky-300', 'border-dashed');
+            timeLabel.classList.add('bg-emerald-50', 'border-emerald-400', 'border-solid');
+            speakAgainBtn.classList.remove('hidden');
+
+            speakText(phrase);
+        }
+
+        function speakCurrentPhrase(event) {
+            if (event) event.preventDefault();
+            if (kidsTimeRevealed) speakText(getEnglishTimePhrase(kidsHours, kidsMinutes));
+        }
+
+        function getClockAngle(clientX, clientY) {
+            const rect = clockFace.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            let angle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI) + 90;
+            if (angle < 0) angle += 360;
+            return angle;
+        }
+
+        function handleClockDragMove(clientX, clientY) {
+            if (!activeDragHand) return;
+            const angle = getClockAngle(clientX, clientY);
+            if (activeDragHand === 'minute') {
+                const newMinutes = Math.round(angle / 6) % 60;
+                if (kidsMinutes > 45 && newMinutes < 15) kidsHours = (kidsHours % 12) + 1;
+                else if (kidsMinutes < 15 && newMinutes > 45) kidsHours = kidsHours - 1 <= 0 ? 12 : kidsHours - 1;
+                kidsMinutes = newMinutes;
+            } else if (activeDragHand === 'hour') {
+                let newHour = Math.round(angle / 30) % 12;
+                if (newHour === 0) newHour = 12;
+                kidsHours = newHour;
+            }
+            updateKidsClockHands();
+            if (kidsTimeRevealed) resetKidsQuizMode();
+        }
+
+        function startClockDrag(handType, el, e) {
+            e.preventDefault();
+            activeDragHand = handType;
+            el.classList.add('dragging');
+        }
+
+        if (hourHand && minuteHand) {
+            hourHand.addEventListener('mousedown', (e) => startClockDrag('hour', hourHand, e));
+            minuteHand.addEventListener('mousedown', (e) => startClockDrag('minute', minuteHand, e));
+            hourHand.addEventListener('touchstart', (e) => startClockDrag('hour', hourHand, e), { passive: false });
+            minuteHand.addEventListener('touchstart', (e) => startClockDrag('minute', minuteHand, e), { passive: false });
+
+            window.addEventListener('mousemove', (e) => { if (activeDragHand) handleClockDragMove(e.clientX, e.clientY); });
+            window.addEventListener('touchmove', (e) => { if (activeDragHand && e.touches.length > 0) handleClockDragMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+
+            const endClockDrag = () => {
+                if (activeDragHand) {
+                    hourHand.classList.remove('dragging');
+                    minuteHand.classList.remove('dragging');
+                    activeDragHand = null;
+                }
+            };
+            window.addEventListener('mouseup', endClockDrag);
+            window.addEventListener('touchend', endClockDrag);
+        }
+
+        /* ================= 12. نموذج تسجيل الطلاب (Formspree) ================= */
         const studentForm = document.getElementById("student-registration-form");
         if (studentForm) {
             studentForm.addEventListener("submit", async function (e) {
@@ -1612,7 +2518,7 @@
             });
         }
 
-        /* ================= 11. إشعارات منبثقة أنيقة ================= */
+        /* ================= 13. إشعارات منبثقة أنيقة ================= */
         function showToast(msg) {
             const toast = document.createElement('div');
             toast.className = 'fixed bottom-5 left-5 bg-amber-500 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm shadow-2xl z-50 transition-opacity duration-300 flex items-center gap-2';
@@ -1636,538 +2542,22 @@
             spawnFloatingSymbols();
             cycleLogoTheme();
             setInterval(cycleLogoTheme, 3500);
+            initHeroGenerativeBackdrop();
 
             updateClockAndDate();
             setInterval(updateClockAndDate, 1000);
+
+            updateStudioParams();
+            animateMathArtStudio();
 
             updateTeacherUI();
             renderDirectives();
             drawNormalCurve(null, null);
             initWhiteboard();
+
+            buildKidsClockFace();
+            updateKidsClockHands();
         });
     </script>
 </body>
 </html>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What Time Is It? - Interactive Kids Analog Clock</title>
-  <!-- Load Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Load Google Fonts: Fredoka & Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Fredoka', 'Inter', sans-serif;
-      background: radial-gradient(circle at top left, #bae6fd 0%, #e0f2fe 40%, #fef08a 100%);
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    /* Compact Clock Face Container */
-    .clock-wrapper {
-      position: relative;
-      width: 260px;
-      height: 260px;
-      touch-action: none; /* Prevent scrolling while dragging clock hands on touch devices */
-    }
-
-    @media (min-width: 480px) {
-      .clock-wrapper {
-        width: 290px;
-        height: 290px;
-      }
-    }
-
-    .clock-face {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: #fffdf7;
-      border: 10px solid #0284c7;
-      box-shadow:
-        inset 0 0 18px rgba(2, 132, 199, 0.14),
-        0 10px 20px rgba(2, 132, 199, 0.22),
-        0 0 0 4px #7dd3fc;
-      position: relative;
-    }
-
-    /* Hour Numbers (1 - 12) */
-    .hour-number {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #0f172a;
-      padding: 20px;
-      pointer-events: none;
-    }
-
-    @media (min-width: 480px) {
-      .hour-number {
-        font-size: 1.75rem;
-        padding: 22px;
-      }
-    }
-
-    .hour-number span {
-      display: inline-block;
-    }
-
-    /* Outer Minute Helper Badges (05, 10... 60) */
-    .minute-helper {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      padding: 3px;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .minute-helper span {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: #2563eb;
-      background: #dbeafe;
-      border: 1px solid #93c5fd;
-      border-radius: 9999px;
-      padding: 0 4px;
-      line-height: 1.2;
-    }
-
-    /* 60 Tick Marks */
-    .tick {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-    }
-
-    .tick::after {
-      content: '';
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      height: 5px;
-      background: #94a3b8;
-      border-radius: 2px;
-    }
-
-    .tick.major::after {
-      width: 3px;
-      height: 9px;
-      background: #0284c7;
-    }
-
-    /* Clock Hands */
-    .hand {
-      position: absolute;
-      bottom: 50%;
-      left: 50%;
-      transform-origin: bottom center;
-      border-radius: 9999px;
-      cursor: grab;
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .hand:active,
-    .hand.dragging {
-      cursor: grabbing;
-      transition: none; /* Instant response during drag */
-    }
-
-    /* Small Hand (Hour - Red) */
-    .hour-hand {
-      width: 12px;
-      height: 27%;
-      background: linear-gradient(to top, #dc2626, #ef4444);
-      margin-left: -6px;
-      z-index: 10;
-      box-shadow: 0 2px 6px rgba(220, 38, 38, 0.45);
-      border: 2px solid #ffffff;
-    }
-
-    /* Big Hand (Minute - Blue) */
-    .minute-hand {
-      width: 9px;
-      height: 38%;
-      background: linear-gradient(to top, #1d4ed8, #2563eb);
-      margin-left: -4.5px;
-      z-index: 12;
-      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
-      border: 2px solid #ffffff;
-    }
-
-    /* Expanded invisible touch hit-area for easier dragging by kids */
-    .hand::before {
-      content: '';
-      position: absolute;
-      top: -14px;
-      bottom: 0;
-      left: -18px;
-      right: -18px;
-    }
-
-    /* Center Pin */
-    .center-cap {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 20px;
-      height: 20px;
-      transform: translate(-50%, -50%);
-      background: #f59e0b;
-      border: 3px solid #ffffff;
-      border-radius: 50%;
-      z-index: 20;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      pointer-events: none;
-    }
-
-    /* Playful 3D Push Button Effect */
-    .btn-push {
-      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
-      box-shadow: 0 3px 0 rgba(15, 23, 42, 0.22);
-    }
-    .btn-push:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.22);
-    }
-  </style>
-</head>
-<body class="min-h-screen flex flex-col items-center justify-center p-2 sm:p-4">
-
-  <!-- Compact Main Card Container -->
-  <main class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border-4 border-sky-400 max-w-md w-full p-4 flex flex-col items-center">
-
-    <!-- Compact Header & Minute Helper Toggle -->
-    <div class="w-full flex items-center justify-between gap-2 mb-2.5">
-      <h1 class="text-xl sm:text-2xl font-bold text-sky-700 tracking-tight flex items-center gap-1.5">
-        <span>🕒</span> What Time Is It?
-      </h1>
-
-      <label class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded-full cursor-pointer transition">
-        <input type="checkbox" id="toggleHelpers" checked class="w-3.5 h-3.5 accent-blue-600 rounded cursor-pointer" onchange="toggleMinuteHelpers()" />
-        <span class="text-xs font-bold text-blue-800">Minutes</span>
-      </label>
-    </div>
-
-    <!-- Compact Color-Coded Legend -->
-    <div class="flex items-center justify-center gap-4 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 mb-3 w-full text-xs sm:text-sm">
-      <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
-        <span class="font-bold text-red-600">Small = Hour</span>
-      </div>
-      <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
-        <span class="font-bold text-blue-600">Big = Minutes</span>
-      </div>
-    </div>
-
-    <!-- Analog Clock Container -->
-    <div class="clock-wrapper mb-2" id="clockWrapper">
-      <div class="clock-face" id="clockFace">
-        <div class="hand hour-hand" id="hourHand" title="Drag Small Hand (Hour)"></div>
-        <div class="hand minute-hand" id="minuteHand" title="Drag Big Hand (Minutes)"></div>
-        <div class="center-cap"></div>
-      </div>
-    </div>
-
-    <!-- Tip Instruction -->
-    <p class="text-xs text-slate-500 font-medium mb-3 text-center">
-      💡 Drag the hands directly on the clock!
-    </p>
-
-    <!-- Primary Action Button: "What time is it now?" -->
-    <button
-      type="button"
-      onclick="revealAndSpeakTime()"
-      class="btn-push w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg py-2.5 px-4 rounded-2xl mb-3 flex items-center justify-center gap-2"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-      <span>What time is it now?</span>
-    </button>
-
-    <!-- Compact Output Box -->
-    <label
-      id="timeLabel"
-      class="w-full min-h-[76px] bg-slate-50 border-2 border-dashed border-sky-300 rounded-2xl p-2.5 flex flex-col items-center justify-center text-center transition-all"
-    >
-      <div class="flex items-center justify-center gap-2">
-        <span id="digitalOutput" class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-wider">? : ?</span>
-        <!-- Replay Pronunciation Button -->
-        <button
-          type="button"
-          id="speakAgainBtn"
-          onclick="speakCurrentPhrase(event)"
-          title="Listen again"
-          class="hidden bg-sky-100 hover:bg-sky-200 text-sky-700 p-1.5 rounded-full transition active:scale-95"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-          </svg>
-        </button>
-      </div>
-      <span id="textOutput" class="text-sm sm:text-base font-semibold text-sky-700 mt-0.5">
-        Drag the hands, then click "What time is it now?"
-      </span>
-    </label>
-
-  </main>
-
-  <script>
-    // DOM Element References
-    const clockFace = document.getElementById('clockFace');
-    const hourHand = document.getElementById('hourHand');
-    const minuteHand = document.getElementById('minuteHand');
-    const digitalOutput = document.getElementById('digitalOutput');
-    const textOutput = document.getElementById('textOutput');
-    const timeLabel = document.getElementById('timeLabel');
-    const speakAgainBtn = document.getElementById('speakAgainBtn');
-
-    // Clock State
-    let hours = 3;
-    let minutes = 0;
-    let isRevealed = false;
-    let activeDragHand = null;
-
-    /**
-     * Dynamically populates 60 tick marks, 12 hour numbers, and 12 outer minute badges
-     */
-    function buildClockFace() {
-      for (let m = 0; m < 60; m++) {
-        const tick = document.createElement('div');
-        tick.className = m % 5 === 0 ? 'tick major' : 'tick';
-        tick.style.transform = `rotate(${m * 6}deg)`;
-        clockFace.appendChild(tick);
-      }
-
-      for (let i = 1; i <= 12; i++) {
-        const angle = i * 30;
-
-        // Hour Number (1 - 12)
-        const numDiv = document.createElement('div');
-        numDiv.className = 'hour-number';
-        numDiv.style.transform = `rotate(${angle}deg)`;
-
-        const numSpan = document.createElement('span');
-        numSpan.textContent = i;
-        numSpan.style.transform = `rotate(-${angle}deg)`;
-        numDiv.appendChild(numSpan);
-        clockFace.appendChild(numDiv);
-
-        // Outer Minute Helper Badge (05 - 60)
-        const minHelper = document.createElement('div');
-        minHelper.className = 'minute-helper';
-        minHelper.style.transform = `rotate(${angle}deg)`;
-
-        const minSpan = document.createElement('span');
-        const minVal = (i * 5).toString().padStart(2, '0');
-        minSpan.textContent = minVal;
-        minSpan.style.transform = `rotate(-${angle}deg)`;
-        minHelper.appendChild(minSpan);
-        clockFace.appendChild(minHelper);
-      }
-    }
-
-    /**
-     * Toggles visibility of outer minute badges
-     */
-    function toggleMinuteHelpers() {
-      const show = document.getElementById('toggleHelpers').checked;
-      document.querySelectorAll('.minute-helper').forEach(el => {
-        el.style.opacity = show ? '1' : '0';
-      });
-    }
-
-    /**
-     * Updates rotation angles of both hands smoothly
-     */
-    function updateHands() {
-      const minuteDeg = minutes * 6;
-      const hourDeg = ((hours % 12) * 30) + (minutes * 0.5);
-
-      minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
-      hourHand.style.transform = `rotate(${hourDeg}deg)`;
-    }
-
-    /**
-     * Resets the answer box back to quiz mode (? : ?) when hands are moved
-     */
-    function setQuizMode(customHint = 'Drag the hands, then click "What time is it now?"') {
-      isRevealed = false;
-      digitalOutput.textContent = '? : ?';
-      textOutput.textContent = customHint;
-      textOutput.className = 'text-sm sm:text-base font-semibold text-sky-700 mt-0.5';
-      timeLabel.classList.remove('bg-emerald-50', 'border-emerald-400', 'border-solid');
-      timeLabel.classList.add('bg-slate-50', 'border-sky-300', 'border-dashed');
-      speakAgainBtn.classList.add('hidden');
-    }
-
-    /**
-     * Formats hours and minutes into natural English time phrasing
-     */
-    function getEnglishTimePhrase(h, m) {
-      const nextHour = (h % 12) + 1;
-      if (m === 0) return `It's ${h} o'clock`;
-      if (m === 15) return `It's quarter past ${h}`;
-      if (m === 30) return `It's half past ${h}`;
-      if (m === 45) return `It's quarter to ${nextHour}`;
-      if (m < 30) {
-        const minWord = m === 1 ? 'minute' : 'minutes';
-        return m % 5 === 0 ? `It's ${m} past ${h}` : `It's ${m} ${minWord} past ${h}`;
-      } else {
-        const rem = 60 - m;
-        const minWord = rem === 1 ? 'minute' : 'minutes';
-        return rem % 5 === 0 ? `It's ${rem} to ${nextHour}` : `It's ${rem} ${minWord} to ${nextHour}`;
-      }
-    }
-
-    /**
-     * Uses Web Speech API to read the English time phrase aloud
-     */
-    function speakText(phrase) {
-      try {
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(phrase);
-          utterance.lang = 'en-US';
-          utterance.rate = 0.9;
-          utterance.pitch = 1.1;
-          window.speechSynthesis.speak(utterance);
-        }
-      } catch (err) {
-        console.warn('Speech synthesis unavailable:', err);
-      }
-    }
-
-    /**
-     * Reveals digital time, English phrase, highlights card, and speaks aloud
-     */
-    function revealAndSpeakTime() {
-      isRevealed = true;
-      const formattedHour = hours.toString().padStart(2, '0');
-      const formattedMin = minutes.toString().padStart(2, '0');
-      const phrase = getEnglishTimePhrase(hours, minutes);
-
-      digitalOutput.textContent = `${formattedHour}:${formattedMin}`;
-      textOutput.textContent = phrase;
-      textOutput.className = 'text-base sm:text-lg font-bold text-emerald-700 mt-0.5';
-
-      timeLabel.classList.remove('bg-slate-50', 'border-sky-300', 'border-dashed');
-      timeLabel.classList.add('bg-emerald-50', 'border-emerald-400', 'border-solid');
-      speakAgainBtn.classList.remove('hidden');
-
-      speakText(phrase);
-    }
-
-    /**
-     * Replays current revealed phrase when speaker button is clicked
-     */
-    function speakCurrentPhrase(event) {
-      if (event) event.preventDefault();
-      if (isRevealed) {
-        speakText(getEnglishTimePhrase(hours, minutes));
-      }
-    }
-
-    /**
-     * Calculates clockwise angle (0 to 360) from clock center to pointer coordinates
-     */
-    function getAngleFromCenter(clientX, clientY) {
-      const rect = clockFace.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const dx = clientX - centerX;
-      const dy = clientY - centerY;
-      let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-      if (angle < 0) angle += 360;
-      return angle;
-    }
-
-    /**
-     * Updates clock state when dragging either the hour or minute hand
-     */
-    function handleDragMove(clientX, clientY) {
-      if (!activeDragHand) return;
-      const angle = getAngleFromCenter(clientX, clientY);
-
-      if (activeDragHand === 'minute') {
-        const newMinutes = Math.round(angle / 6) % 60;
-        // Detect crossing 12 o'clock clockwise or counter-clockwise
-        if (minutes > 45 && newMinutes < 15) {
-          hours = (hours % 12) + 1;
-        } else if (minutes < 15 && newMinutes > 45) {
-          hours = hours - 1 <= 0 ? 12 : hours - 1;
-        }
-        minutes = newMinutes;
-      } else if (activeDragHand === 'hour') {
-        let newHour = Math.round(angle / 30) % 12;
-        if (newHour === 0) newHour = 12;
-        hours = newHour;
-      }
-
-      updateHands();
-      if (isRevealed) {
-        setQuizMode('Can you tell the time? Click "What time is it now?"');
-      }
-    }
-
-    function startDrag(handType, el, e) {
-      e.preventDefault();
-      activeDragHand = handType;
-      el.classList.add('dragging');
-    }
-
-    // Mouse & Touch Event Listeners for Direct Hand Dragging
-    hourHand.addEventListener('mousedown', (e) => startDrag('hour', hourHand, e));
-    minuteHand.addEventListener('mousedown', (e) => startDrag('minute', minuteHand, e));
-    hourHand.addEventListener('touchstart', (e) => startDrag('hour', hourHand, e), { passive: false });
-    minuteHand.addEventListener('touchstart', (e) => startDrag('minute', minuteHand, e), { passive: false });
-
-    window.addEventListener('mousemove', (e) => {
-      if (activeDragHand) handleDragMove(e.clientX, e.clientY);
-    });
-
-    window.addEventListener('touchmove', (e) => {
-      if (activeDragHand && e.touches.length > 0) {
-        handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: false });
-
-    function endDrag() {
-      if (activeDragHand) {
-        hourHand.classList.remove('dragging');
-        minuteHand.classList.remove('dragging');
-        activeDragHand = null;
-      }
-    }
-
-    window.addEventListener('mouseup', endDrag);
-    window.addEventListener('touchend', endDrag);
-
-    // Initialize Clock
-    buildClockFace();
-    updateHands();
-  </script>
-</body>
-</html>
-```
