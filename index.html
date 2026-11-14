@@ -1047,6 +1047,287 @@
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
+    <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الملط للرياضيات - نظام التسجيل والمتابعة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-indigo-950 to-blue-950 min-h-screen text-white p-4 sm:p-6">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- الشريط العلوي للتنقل بين التسجيل والمتابعة -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 bg-slate-900/70 p-4 rounded-2xl border border-slate-800 shadow-xl">
+            <div class="text-center sm:text-right mb-4 sm:mb-0">
+                <span class="inline-block bg-emerald-500/10 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full mb-1 border border-emerald-500/20">
+                    أكاديمية الملط للرياضيات
+                </span>
+                <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">
+                    نظام التسجيل والمتابعة الموحد
+                </h1>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="switchTab('register')" id="btnRegister" class="px-4 py-2.5 rounded-xl text-sm font-bold bg-emerald-500 text-white transition-all shadow-lg shadow-emerald-500/20">
+                    📝 نموذج التسجيل
+                </button>
+                <button onclick="checkAdminPassword()" id="btnAdmin" class="px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+                    📊 لوحة المشرف الخاصة (<span id="badgeCount">0</span>)
+                </button>
+            </div>
+        </div>
+
+        <!-- 1. قسم تسجيل الطلاب -->
+        <div id="registerSection" class="glass-card rounded-3xl shadow-2xl p-6 sm:p-8 max-w-lg mx-auto">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-white">تسجيل طالب جديد</h2>
+                <p class="text-slate-400 text-sm mt-1">أدخل بيانات الطالب ليتم حفظها في نظام المتابعة فوراً</p>
+            </div>
+
+            <form id="studentForm" onsubmit="saveStudent(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-1">اسم الطالب الثلاثي</label>
+                    <input type="text" id="studentName" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500" placeholder="اكتب اسم الطالب هنا...">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-1">رقم الموبايل (واتساب)</label>
+                    <input type="tel" id="studentPhone" required dir="ltr" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-left" placeholder="010xxxxxxxx">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-1">المرحلة التعليمية</label>
+                    <select id="educationLevel" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
+                        <option value="" disabled selected>اختر المرحلة التعليمية...</option>
+                        <option value="إعدادى">إعدادى</option>
+                        <option value="ثانوى">ثانوى</option>
+                        <option value="بكالوريا">بكالوريا</option>
+                        <option value="جامعات">جامعات</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-2">الرقم المخصص للمتابعة</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="flex items-center p-3 bg-slate-900/90 border border-slate-700 rounded-xl cursor-pointer hover:border-emerald-500">
+                            <input type="radio" name="whatsappNumber" value="01010955349" checked class="text-emerald-500">
+                            <span class="mr-2 text-xs font-medium" dir="ltr">01010955349</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-slate-900/90 border border-slate-700 rounded-xl cursor-pointer hover:border-emerald-500">
+                            <input type="radio" name="whatsappNumber" value="01107832272" class="text-emerald-500">
+                            <span class="mr-2 text-xs font-medium" dir="ltr">01107832272</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-emerald-500/25 transition-all mt-4">
+                    حفظ البيانات الآن ✅
+                </button>
+            </form>
+
+            <!-- رسالة تأكيد الحفظ -->
+            <div id="successMsg" class="hidden text-center py-8 space-y-4">
+                <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto text-emerald-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white">تم تسجيل الطالب وحفظ بياناته بنجاح!</h3>
+                <div class="flex justify-center gap-3 pt-2">
+                    <button onclick="resetForm()" class="bg-slate-800 hover:bg-slate-700 px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-700">
+                        تسجيل طالب آخر
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. قسم لوحة التحكم الخاصة للمشرف فقط -->
+        <div id="adminSection" class="hidden glass-card rounded-3xl shadow-2xl p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white">لوحة تحكم المشرف (خاصة بك وحدك)</h2>
+                    <p class="text-xs text-slate-400 mt-1">عرض ومتابعة الطلاب المسجلين مع إمكانية التصدير</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md">
+                        📥 تحميل كملف Excel
+                    </button>
+                    <button onclick="lockAdminPanel()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded-xl text-xs font-bold transition-all">
+                        🔒 قفل اللوحة والخروج
+                    </button>
+                </div>
+            </div>
+
+            <!-- حقل بحث سريع -->
+            <div class="mb-4">
+                <input type="text" id="searchInput" onkeyup="renderTable()" placeholder="🔍 ابحث باسم الطالب أو رقم الموبايل..." class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-800">
+                <table class="w-full text-right border-collapse">
+                    <thead class="bg-slate-900/90">
+                        <tr class="border-b border-slate-700 text-slate-300 text-xs">
+                            <th class="p-3">#</th>
+                            <th class="p-3">اسم الطالب</th>
+                            <th class="p-3">رقم الموبايل</th>
+                            <th class="p-3">المرحلة</th>
+                            <th class="p-3">رقم المتابعة</th>
+                            <th class="p-3">وقت التسجيل</th>
+                            <th class="p-3 text-center">تحكم</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="text-sm divide-y divide-slate-800/60">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // الرقم السري الخاص بك
+        const ADMIN_PASSWORD = "Moh@#$123";
+
+        window.onload = function() {
+            updateBadge();
+        };
+
+        // التحقق من كلمة المرور قبل فتح لوحة التحكم
+        function checkAdminPassword() {
+            let pass = prompt("أدخل كلمة المرور الخاصة بالمشرف لعرض البيانات:");
+            if (pass === ADMIN_PASSWORD) {
+                switchTab('admin');
+            } else if (pass !== null) {
+                alert("كلمة المرور غير صحيحة!");
+            }
+        }
+
+        // قفل لوحة التحكم والرجوع لصفحة التسجيل
+        function lockAdminPanel() {
+            switchTab('register');
+        }
+
+        // التبديل بين الأقسام
+        function switchTab(tab) {
+            const regSec = document.getElementById('registerSection');
+            const admSec = document.getElementById('adminSection');
+            const btnReg = document.getElementById('btnRegister');
+            const btnAdm = document.getElementById('btnAdmin');
+
+            if (tab === 'register') {
+                regSec.classList.remove('hidden');
+                admSec.classList.add('hidden');
+                btnReg.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-emerald-500 text-white transition-all shadow-lg shadow-emerald-500/20";
+                btnAdm.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+            } else {
+                regSec.classList.add('hidden');
+                admSec.classList.remove('hidden');
+                btnAdm.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-indigo-600 text-white transition-all shadow-lg shadow-indigo-600/20";
+                btnReg.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+                renderTable();
+            }
+        }
+
+        // حفظ بيانات الطالب
+        function saveStudent(e) {
+            e.preventDefault();
+            const student = {
+                id: Date.now(),
+                name: document.getElementById('studentName').value.trim(),
+                phone: document.getElementById('studentPhone').value.trim(),
+                level: document.getElementById('educationLevel').value,
+                assignedTo: document.querySelector('input[name="whatsappNumber"]:checked').value,
+                time: new Date().toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' })
+            };
+
+            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
+            list.unshift(student);
+            localStorage.setItem('malat_academy_db', JSON.stringify(list));
+
+            updateBadge();
+            document.getElementById('studentForm').classList.add('hidden');
+            document.getElementById('successMsg').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('studentForm').reset();
+            document.getElementById('successMsg').classList.add('hidden');
+            document.getElementById('studentForm').classList.remove('hidden');
+        }
+
+        function updateBadge() {
+            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
+            document.getElementById('badgeCount').textContent = list.length;
+        }
+
+        // عرض البيانات في الجدول
+        function renderTable() {
+            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const tbody = document.getElementById('tableBody');
+
+            const filtered = list.filter(s => 
+                s.name.toLowerCase().includes(query) || s.phone.includes(query)
+            );
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center p-8 text-slate-500">لا توجد بيانات مسجلة مطابقة حالياً.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((s, idx) => `
+                <tr class="hover:bg-slate-900/50 transition-colors">
+                    <td class="p-3 text-slate-500 text-xs">${idx + 1}</td>
+                    <td class="p-3 font-bold text-white">${s.name}</td>
+                    <td class="p-3 text-emerald-400 font-medium" dir="ltr">${s.phone}</td>
+                    <td class="p-3"><span class="bg-slate-800 px-2.5 py-1 rounded-lg text-xs">${s.level}</span></td>
+                    <td class="p-3 text-slate-300 text-xs" dir="ltr">${s.assignedTo}</td>
+                    <td class="p-3 text-slate-400 text-xs">${s.time}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="deleteRow(${s.id})" class="text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 px-2.5 py-1 rounded-lg text-xs">حذف</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteRow(id) {
+            if (confirm('هل تريد حذف هذا السجل؟')) {
+                let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
+                list = list.filter(item => item.id !== id);
+                localStorage.setItem('malat_academy_db', JSON.stringify(list));
+                updateBadge();
+                renderTable();
+            }
+        }
+
+        // تصدير البيانات إلى ملف Excel (CSV)
+        function exportToCSV() {
+            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
+            if (list.length === 0) {
+                alert('لا توجد بيانات لتصديرها!');
+                return;
+            }
+            let csv = "\uFEFFاسم الطالب,رقم الموبايل,المرحلة التعليمية,رقم المتابعة,وقت التسجيل\n";
+            list.forEach(s => {
+                csv += `"${s.name}","${s.phone}","${s.level}","${s.assignedTo}","${s.time}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "سجل_طلاب_أكاديمية_الملط.csv";
+            link.click();
+        }
+    </script>
+</body>
+</html>
+
 
     <footer class="relative z-10 glass-panel border-t border-slate-800 py-8 px-4 mt-12 text-center text-slate-400 text-sm">
         <div class="max-w-7xl mx-auto space-y-2">
@@ -2545,3 +2826,6 @@
     </script>
 </body>
 </html>
+
+
+
