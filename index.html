@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
@@ -101,6 +103,12 @@
             85% { opacity: 0.9; }
             100% { transform: translateY(-12vh) rotate(6deg) scale(1.05); opacity: 0; }
         }
+        
+        
+        
+        
+        
+        
 
         /* الأشرطة الإخبارية المتحركة */
         @keyframes marqueeRtl {
@@ -1185,7 +1193,10 @@
                         </tr>
                     </thead>
                     <tbody id="tableBody" class="text-sm divide-y divide-slate-800/60">
-                    </tbody>
+                  
+
+
+  </tbody>
                 </table>
             </div>
         </div>
@@ -2824,6 +2835,187 @@
             updateKidsClockHands();
         });
     </script>
+    
+    
+    <!-- بداية فقرة أكاديمية الملط التفاعلية (متوافقة 100% مع Android WebView وتعمل بدون إنترنت) -->
+<div class="almalt-quiz-widget" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 420px; margin: 15px auto; padding: 16px; border-radius: 16px; background: linear-gradient(145deg, #0f172a, #1e293b); color: #f8fafc; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); border: 1px solid rgba(56, 189, 248, 0.25); text-align: center;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.85rem; color: #38bdf8; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 6px; direction: rtl;">
+        <span>🎓 تحدي أكاديمية الملط</span>
+        <span id="qStage" style="background: rgba(56, 189, 248, 0.15); padding: 2px 10px; border-radius: 12px; font-weight: bold; font-size: 0.78rem;">اختر الإجابة</span>
+    </div>
+
+    <div style="min-height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(15, 23, 42, 0.6); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
+        <div id="qText" style="direction: rtl; margin-bottom: 8px; color: #e2e8f0; font-size: 0.95rem;">جاري التجهيز...</div>
+        <div id="qMath" dir="ltr" style="direction: ltr; unicode-bidi: isolate; font-family: 'Times New Roman', serif; font-size: 1.35rem; color: #fbbf24; font-weight: bold; margin: 4px 0; display: flex; align-items: center; justify-content: center; gap: 6px;"></div>
+    </div>
+
+    <!-- الاختيارات رأسية وتحت بعضها -->
+    <div id="qOptions" dir="ltr" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; direction: ltr; unicode-bidi: isolate;"></div>
+
+    <button onclick="generateNewQuestion()" style="width: 100%; padding: 10px; border: none; border-radius: 10px; background: linear-gradient(90deg, #0284c7, #2563eb); color: white; font-size: 1rem; font-weight: bold; cursor: pointer; direction: rtl;">سؤال جديد</button>
+</div>
+
+<script>
+    // دالة لرسم الجذر التربيعي بخط علوي ممتد
+    function renderSqrt(content) {
+        return `<span style="display:inline-flex; align-items:stretch; vertical-align:middle;">` +
+               `<span style="font-size:1.25em; line-height:1; margin-right:1px;">&radic;</span>` +
+               `<span style="border-top: 1.8px solid currentColor; padding: 1px 4px 0 2px; display:inline-block;">${content}</span>` +
+               `</span>`;
+    }
+
+    // دالة لتصميم الكسور بشكل احترافي
+    function renderFraction(num, den) {
+        return `<span style="display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; margin:0 4px; font-size: 1.15rem;">` +
+               `<span style="border-bottom: 1.8px solid currentColor; padding: 0 4px 2px 4px;">${num}</span>` +
+               `<span style="padding: 2px 4px 0 4px;">${den}</span></span>`;
+    }
+
+    function rand(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function shuffle(array) {
+        return array.sort(() => Math.random() - 0.5);
+    }
+
+    const questionGenerators = [
+        // 1. المعادلة الجذرية
+        () => {
+            const a = rand(2, 4), b = rand(1, 6), c = rand(3, 7);
+            const cSqMinusB = c * c - b;
+            if (cSqMinusB <= 0 || cSqMinusB % a !== 0) return questionGenerators[0]();
+            const correctX = cSqMinusB / a;
+            return {
+                stage: "المرحلة الثانوية",
+                text: "أوجد قيمة x التي تحقق المعادلة:",
+                mathHTML: `${renderSqrt(`${a}x + ${b}`)} = ${c}`,
+                correct: `x = ${correctX}`,
+                options: shuffle([
+                    `x = ${correctX}`,
+                    `x = ${correctX + 2}`,
+                    `x = ${correctX > 2 ? correctX - 2 : correctX + 3}`,
+                    `x = ${c}`
+                ])
+            };
+        },
+        // 2. المعادلة بعد تربيع الطرفين
+        () => {
+            const a = rand(2, 4), b = rand(1, 6), x = rand(2, 5);
+            const res = a * x + b;
+            return {
+                stage: "المرحلة الثانوية",
+                text: "حل المعادلة الخطية التالية:",
+                mathHTML: `${a}x + ${b} = ${res}`,
+                correct: `x = ${x}`,
+                options: shuffle([
+                    `x = ${x}`,
+                    `x = ${x + 2}`,
+                    `x = ${x > 1 ? x - 1 : x + 3}`,
+                    `x = ${res}`
+                ])
+            };
+        },
+        // 3. الصيغة الكسرية (مع دعم النتائج العشرية بدقة مثل 8.5)
+        () => {
+            const denominators = [2, 4];
+            const a = denominators[rand(0, denominators.length - 1)];
+            const c = rand(4, 8); // مثل 6
+            const b = rand(1, 5); // مثل 2 -> (36 - 2) / 4 = 8.5
+            const numeratorVal = c * c - b;
+            const correctVal = numeratorVal / a; // يدعم الأعداد الصحيحة والعشرية مثل 8.5
+            
+            const fractionHTML = `x = ` + renderFraction(`${c}<sup>2</sup> - ${b}`, `${a}`);
+            return {
+                stage: "المرحلة الثانوية",
+                text: "احسب القيمة النهائية للناتج من الصيغة:",
+                mathHTML: fractionHTML,
+                correct: `x = ${correctVal}`,
+                options: shuffle([
+                    `x = ${correctVal}`,
+                    `x = ${correctVal + 1}`,
+                    `x = ${c - b}`,
+                    `x = ${a * c}`
+                ])
+            };
+        },
+        // 4. فيثاغورس
+        () => {
+            const triples = [[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 15, 17]];
+            const [a, b, c] = triples[rand(0, triples.length - 1)];
+            return {
+                stage: "المرحلة الإعدادية",
+                text: "أوجد طول الوتر c في المثلث القائم:",
+                mathHTML: `c = ${renderSqrt(`${a}<sup>2</sup> + ${b}<sup>2</sup>`)}`,
+                correct: `c = ${c}`,
+                options: shuffle([
+                    `c = ${c}`,
+                    `c = ${a + b}`,
+                    `c = ${c + 2}`,
+                    `c = ${b - a + 4}`
+                ])
+            };
+        }
+    ];
+
+    function generateNewQuestion() {
+        try {
+            const generator = questionGenerators[rand(0, questionGenerators.length - 1)];
+            const q = generator();
+
+            document.getElementById('qStage').innerText = q.stage;
+            document.getElementById('qText').innerText = q.text;
+            document.getElementById('qMath').innerHTML = q.mathHTML;
+
+            const optionsContainer = document.getElementById('qOptions');
+            optionsContainer.innerHTML = '';
+
+            let uniqueOptions = [...new Set(q.options)];
+            while (uniqueOptions.length < 4) {
+                uniqueOptions.push(`x = ${rand(1, 25)}`);
+            }
+
+            uniqueOptions.slice(0, 4).forEach(opt => {
+                const btn = document.createElement('button');
+                btn.setAttribute('dir', 'ltr');
+                btn.style.cssText = "background: #334155; color: #fff; border: 1px solid #475569; border-radius: 10px; padding: 10px 12px; font-size: 1.05rem; font-family: 'Times New Roman', serif; cursor: pointer; direction: ltr; unicode-bidi: isolate; width: 100%; text-align: center;";
+                btn.innerHTML = opt;
+
+                btn.onclick = () => {
+                    const allBtns = optionsContainer.querySelectorAll('button');
+                    allBtns.forEach(b => b.disabled = true);
+
+                    if (opt === q.correct) {
+                        btn.style.background = '#15803d';
+                        btn.style.borderColor = '#4ade80';
+                    } else {
+                        btn.style.background = '#b91c1c';
+                        btn.style.borderColor = '#f87171';
+                        allBtns.forEach((b, idx) => {
+                            if (uniqueOptions[idx] === q.correct) {
+                                b.style.background = '#15803d';
+                                b.style.borderColor = '#4ade80';
+                            }
+                        });
+                    }
+                };
+                optionsContainer.appendChild(btn);
+            });
+        } catch (err) {
+            console.error("Error:", err);
+            document.getElementById('qText').innerText = "حدث خطأ في تحميل السؤال";
+        }
+    }
+
+    setTimeout(generateNewQuestion, 50);
+</script>
+
+    
+    
+    
+    
+    
 </body>
 </html>
 
