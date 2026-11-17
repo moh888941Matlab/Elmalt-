@@ -1,3023 +1,362 @@
-
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الملط للرياضيات - أ. محمد الملط | 2026 EdTech & AI</title>
-    
-    <!-- Google Fonts & FontAwesome -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {I've
-                    colors: {
-                        brand: {
-                            gold: '#D4AF37',
-                            deepSpace: '#040711',
-                            cardBg: '#0b1121',
-                            accentSky: '#38bdf8'
-                        },
-                        academy: {
-                            card: '#0e1526',
-                            screen: '#050811',
-                            btn: '#192338',
-                            btnHover: '#24324f',
-                            sci: '#111a2e',
-                            sciHover: '#1b2845'
-                        }
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        orbitron: ['Orbitron', 'sans-serif'],
-                        roboto: ['Roboto', 'sans-serif'],
-                        fredoka: ['Fredoka', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #040711;
-            color: #f8fafc;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            top: 0 !important;
-        }
-
-        /* إخفاء شريط ترجمة جوجل */
-        .goog-te-banner-frame, .skiptranslate {
-            display: none !important;
-        }
-
-        /* خلفية شبكية هندسية عميقة */
-        .bg-cosmic-math {
-            background-color: #040711;
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 85% 75%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
-                linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-        }
-
-        /* رموز والمعادلات العائمة */
-        .math-symbols-bg {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0;
-            opacity: 0.16;
-            pointer-events: none;
-        }
-
-        .math-symbol {
-            position: absolute;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            animation: floatFormula 18s linear infinite;
-            user-select: none;
-            text-shadow: 0 0 12px currentColor;
-        }
-
-        @keyframes floatFormula {
-            0% { transform: translateY(105vh) rotate(-4deg) scale(0.95); opacity: 0; }
-            15% { opacity: 0.9; }
-            85% { opacity: 0.9; }
-            100% { transform: translateY(-12vh) rotate(6deg) scale(1.05); opacity: 0; }
-        }
-        
-        
-        
-        
-        
-        
-
-        /* الأشرطة الإخبارية المتحركة */
-        @keyframes marqueeRtl {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        @keyframes marqueeLtr {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        .animate-marquee-1 {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marqueeRtl 30s linear infinite;
-        }
-        .animate-marquee-2 {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marqueeRtl 36s linear infinite;
-        }
-        .marquee-container:hover .animate-marquee-1,
-        .marquee-container:hover .animate-marquee-2 {
-            animation-play-state: paused;
-        }
-
-        /* بطاقة الشعار التوليدي المتلألئ */
-        .hero-logo-card {
-            position: relative;
-            z-index: 10;
-            overflow: hidden;
-            max-width: 900px;
-            width: 94%;
-            margin: 28px auto;
-            background: rgba(11, 17, 33, 0.82);
-            border-radius: 32px;
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(56, 189, 248, 0.45);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(56, 189, 248, 0.08);
-            transition: border-color 1s ease, box-shadow 1s ease;
-        }
-
-        .logo-orb {
-            width: 132px;
-            height: 132px;
-            margin: 0 auto 20px auto;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, rgba(4,7,17,0.8) 100%);
-            border: 3px solid currentColor;
-            transition: color 1s ease, box-shadow 1s ease;
-        }
-
-        .logo-orb .phi-pi {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 52px;
-            font-weight: 800;
-            letter-spacing: -2px;
-        }
-
-        .logo-orb .ring-outer {
-            position: absolute;
-            width: 118%;
-            height: 118%;
-            border: 2px dashed currentColor;
-            border-radius: 50%;
-            animation: spinSlow 20s linear infinite;
-            opacity: 0.75;
-        }
-
-        .logo-orb .sacred-hex {
-            position: absolute;
-            width: 84%;
-            height: 84%;
-            border: 1.5px solid currentColor;
-            transform: rotate(45deg);
-            opacity: 0.45;
-            animation: spinReverse 26s linear infinite;
-        }
-
-        .logo-orb .sacred-hex-2 {
-            position: absolute;
-            width: 84%;
-            height: 84%;
-            border: 1.5px solid currentColor;
-            transform: rotate(15deg);
-            opacity: 0.35;
-            animation: spinSlow 32s linear infinite;
-        }
-
-        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-
-        .timer-pulse-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin: 20px auto 0 auto;
-            transition: background-color 1s ease, box-shadow 1s ease;
-        }
-
-        /* البطاقات الزجاجية المستقبلية */
-        .glass-panel {
-            background: rgba(11, 17, 33, 0.85);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(212, 175, 55, 0.22);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
-        }
-
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #FFF8DC 0%, #FACC15 45%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .cyber-gradient-text {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #f472b6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* تنسيق حقل الإحصاء النشط */
-        .active-input {
-            border-color: #f97316 !important;
-            background-color: #271710 !important;
-            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.25) !important;
-        }
-
-        .key-btn, .calc-btn {
-            transition: transform 0.08s ease, background-color 0.15s ease, box-shadow 0.15s ease;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .key-btn:active, .calc-btn:active {
-            transform: scale(0.94);
-        }
-
-        .math-ltr {
-            direction: ltr;
-            unicode-bidi: isolate;
-        }
-
-        .calc-screen-scroll::-webkit-scrollbar {
-            height: 4px;
-        }
-        .calc-screen-scroll::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 9999px;
-        }
-
-        /* تنسيقات ساعة الأطفال التفاعلية */
-        .kids-clock-section {
-            font-family: 'Fredoka', 'Cairo', sans-serif;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        .clock-wrapper {
-            position: relative;
-            width: 260px;
-            height: 260px;
-            touch-action: none;
-        }
-        @media (min-width: 480px) {
-            .clock-wrapper { width: 290px; height: 290px; }
-        }
-        .clock-face {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #fffdf7;
-            border: 10px solid #0284c7;
-            box-shadow: inset 0 0 18px rgba(2, 132, 199, 0.14), 0 10px 25px rgba(2, 132, 199, 0.35), 0 0 0 4px #7dd3fc;
-            position: relative;
-        }
-        .hour-number {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            font-size: 1.45rem;
-            font-weight: 700;
-            color: #0f172a;
-            padding: 20px;
-            pointer-events: none;
-        }
-        @media (min-width: 480px) {
-            .hour-number { font-size: 1.7rem; padding: 22px; }
-        }
-        .hour-number span { display: inline-block; }
-        .minute-helper {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            padding: 3px;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-        .minute-helper span {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: #2563eb;
-            background: #dbeafe;
-            border: 1px solid #93c5fd;
-            border-radius: 9999px;
-            padding: 0 4px;
-            line-height: 1.2;
-        }
-        .tick {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        .tick::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 5px;
-            background: #94a3b8;
-            border-radius: 2px;
-        }
-        .tick.major::after {
-            width: 3px;
-            height: 9px;
-            background: #0284c7;
-        }
-        .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom center;
-            border-radius: 9999px;
-            cursor: grab;
-            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .hand:active, .hand.dragging { cursor: grabbing; transition: none; }
-        .hour-hand {
-            width: 12px;
-            height: 27%;
-            background: linear-gradient(to top, #dc2626, #ef4444);
-            margin-left: -6px;
-            z-index: 10;
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.45);
-            border: 2px solid #ffffff;
-        }
-        .minute-hand {
-            width: 9px;
-            height: 38%;
-            background: linear-gradient(to top, #1d4ed8, #2563eb);
-            margin-left: -4.5px;
-            z-index: 12;
-            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
-            border: 2px solid #ffffff;
-        }
-        .hand::before {
-            content: '';
-            position: absolute;
-            top: -14px;
-            bottom: 0;
-            left: -18px;
-            right: -18px;
-        }
-        .center-cap {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            transform: translate(-50%, -50%);
-            background: #f59e0b;
-            border: 3px solid #ffffff;
-            border-radius: 50%;
-            z-index: 20;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            pointer-events: none;
-        }
-        .btn-push {
-            transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
-            box-shadow: 0 3px 0 rgba(15, 23, 42, 0.25);
-        }
-        .btn-push:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 rgba(15, 23, 42, 0.25);
-        }
-    </style>
-</head>
-<body class="bg-cosmic-math selection:bg-amber-500 selection:text-slate-950">
-
-    <!-- خلفية المعادلات والرموز العائمة -->
-    <div class="math-symbols-bg" id="mathBg"></div>
-
-    <!-- 1. الشريط العلوي: تبديل اللغات + عداد الزوار المباشر -->
-    <div class="relative z-30 w-full flex flex-wrap justify-between items-center gap-2 px-4 py-2.5 bg-slate-950/95 border-b border-amber-500/30">
-        <div class="flex items-center gap-2">
-            <select id="maltLangSelect" onchange="changeLanguage(this.value)" class="bg-slate-900 text-amber-400 border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold outline-none cursor-pointer shadow-md hover:border-amber-400 transition">
-                <option value="ar" selected>🇪🇬 العربية - Arabic - Arabe</option>
-                <option value="en">🇬🇧 English - English - Anglais</option>
-                <option value="fr">🇫🇷 Français - French - Français</option>
-            </select>
-            <span class="hidden md:inline-flex items-center gap-1.5 text-[11px] bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2.5 py-1 rounded-lg font-mono">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> AI &amp; GEOGEBRA POWERED
-            </span>
-        </div>
-
-        <div class="flex items-center gap-2 bg-slate-900/90 px-3.5 py-1.5 rounded-xl border border-amber-500/30 text-xs sm:text-sm">
-            <i class="fa-solid fa-users text-amber-400"></i>
-            <span class="text-amber-400 font-bold" data-i18n="visitorsLabel">إجمالي زوار الموقع:</span>
-            <span id="visitor-count" class="text-white font-mono font-extrabold bg-amber-500/20 px-2 py-0.5 rounded text-amber-300">1,251</span>
-        </div>
-    </div>
-    <div id="google_translate_element" style="display:none;"></div>
-
-    <!-- 2. شريطان إخباريان متطوران (Dual Marquee Tickers) -->
-    <div class="relative z-20 w-full bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white border-b border-cyan-500/30 overflow-hidden py-2">
-        <div class="marquee-container relative flex items-center h-6">
-            <div class="animate-marquee-1 text-xs sm:text-sm font-bold tracking-wide flex items-center gap-10">
-                <span class="text-amber-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
-                <span class="text-cyan-300 font-mono">⚡ [ ACADEMY OF EL-MALT • MATHEMATICS &amp; AI ] ⚡</span>
-                <span class="text-emerald-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="relative z-20 w-full bg-slate-900/90 text-slate-200 border-b border-amber-500/25 overflow-hidden py-1.5">
-        <div class="marquee-container relative flex items-center h-6">
-            <div class="animate-marquee-2 text-xs sm:text-sm font-semibold flex items-center gap-12">
-                <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون» — جاليليو جاليلي</span>
-                <span class="text-amber-300">🧠 «التفكير الرياضي ليس مجرد أرقام، بل هو تنظيم للعقل وحل للمشكلات»</span>
-                <span class="text-fuchsia-300 font-mono">∞ e^(iπ) + 1 = 0 • φ = 1.6180339887...</span>
-                <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون»</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. الساعة الرقمية والتاريخ المباشر -->
-    <header class="relative z-20 w-full py-3 px-4 flex justify-center items-center bg-slate-950/60 backdrop-blur-md border-b border-white/10">
-        <div class="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-5 bg-slate-900/85 px-6 py-2 rounded-2xl border border-sky-500/30 shadow-[0_0_25px_rgba(56,189,248,0.15)]">
-            <div class="flex items-center gap-2 math-ltr">
-                <i class="fa-regular fa-clock text-sky-400 text-sm"></i>
-                <span class="font-orbitron text-lg sm:text-xl font-bold text-sky-400" id="hours">12</span>
-                <span class="font-orbitron text-lg text-rose-500 animate-pulse">:</span>
-                <span class="font-orbitron text-lg sm:text-xl font-bold text-sky-400" id="minutes">00</span>
-                <span class="font-orbitron text-lg text-rose-500 animate-pulse">:</span>
-                <span class="font-orbitron text-lg sm:text-xl font-bold text-sky-400" id="seconds">00</span>
-                <span class="font-orbitron text-[11px] font-bold px-2 py-0.5 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded" id="period">AM</span>
-            </div>
-            <span class="hidden sm:inline text-slate-700">|</span>
-            <div class="font-roboto text-xs font-medium text-slate-300 tracking-wider math-ltr" id="date-latin">Loading Date...</div>
-        </div>
-    </header>
-
-    <!-- شريط التنقل السريع -->
-    <nav class="sticky top-0 z-30 glass-panel border-b border-amber-500/30 px-4 py-2.5 shadow-xl">
-        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 font-black text-lg shadow-md">
-                    <i class="fa-solid fa-infinity"></i>
-                </div>
-                <span class="font-black text-base sm:text-lg gold-gradient-text" data-i18n="navBrand">أكاديمية الملط</span>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs sm:text-sm font-bold text-slate-300">
-                <a href="#logo-section" class="hover:text-amber-400 transition">الشعار</a>
-                <a href="#teacher-section" class="hover:text-amber-400 transition">المعلم</a>
-                <a href="#math-art-studio" class="text-cyan-300 hover:text-cyan-200 transition flex items-center gap-1"><i class="fa-solid fa-wand-magic-sparkles text-[11px]"></i> استوديو الفن الرياضي</a>
-                <a href="#directives-section" class="hover:text-amber-400 transition">التوجيهات</a>
-                <a href="#sci-calc-section" class="hover:text-amber-400 transition">الحاسبة العلمية</a>
-                <a href="#normal-calc-section" class="hover:text-amber-400 transition">المنحنى الطبيعي</a>
-                <a href="#whiteboard-section" class="hover:text-amber-400 transition">السبورة</a>
-                <a href="#kids-clock-section" class="hover:text-amber-400 transition">الساعة</a>
-                <a href="#register-section" class="hover:text-amber-400 transition">التسجيل</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 4. الشعار التوليدي المتلألئ بالمؤقت التلقائي + خلفية الفن الرياضي الحي -->
-    <section id="logo-section" class="relative z-10 px-2 pt-4">
-        <div class="hero-logo-card" id="logoCard">
-            <!-- Canvas الفن الرياضي التوليدي في الخلفية (النسبة الذهبية + منحنيات الوردة القطبية) -->
-            <canvas id="heroGenerativeCanvas" class="absolute inset-0 w-full h-full opacity-35 pointer-events-none"></canvas>
-            
-            <div class="relative z-10 py-10 px-6 text-center">
-                <div class="logo-orb" id="logoIcon">
-                    <div class="ring-outer"></div>
-                    <div class="sacred-hex"></div>
-                    <div class="sacred-hex-2"></div>
-                    <span class="phi-pi">π·φ</span>
-                </div>
-
-                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/15 text-[11px] font-mono text-cyan-300 mb-3">
-                    <span>r = a·cos(kθ)</span>
-                    <span>•</span>
-                    <span>φ = 1.618</span>
-                    <span>•</span>
-                    <span>e<sup>iπ</sup> + 1 = 0</span>
-                </div>
-
-                <h1 class="text-3xl sm:text-5xl md:text-6xl font-black mb-2 transition-colors duration-700" id="mainTitle" data-i18n="logoTitle">أ. محمد الملط</h1>
-                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-100 mb-4" data-i18n="logoSubtitle">أكاديمية الملط</h2>
-                <p class="text-sm sm:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto border-t border-white/15 pt-4 font-semibold" data-i18n="logoDesc">
-                    أقوى وأكبر وأول أكاديمية رياضيات فى العالم وفى الشرق الأوسط
-                </p>
-                <div class="timer-pulse-dot" id="timerDot"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. روابط المنصات التعليمية الرسمية -->
-    <section class="relative z-10 max-w-5xl mx-auto px-4 my-6">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <a href="https://moh888.weebly.com/" target="_blank" rel="noopener noreferrer" class="glass-panel flex items-center gap-3.5 p-4 rounded-2xl border border-amber-500/30 hover:border-amber-400 hover:-translate-y-1 transition-all">
-                <div class="w-11 h-11 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xl shrink-0">
-                    <i class="fa-solid fa-laptop-code"></i>
-                </div>
-                <div>
-                    <span class="text-[11px] text-sky-400 font-bold block"> مشروع الإحصاء اونلاين</span>
-                    <h3 class="text-sm font-bold text-white">الرياضيات التفاعلية (1)</h3>
-                </div>
-            </a>
-
-            <a href="https://ex8.weebly.com" target="_blank" rel="noopener noreferrer" class="glass-panel flex items-center gap-3.5 p-4 rounded-2xl border border-cyan-500/30 hover:border-cyan-400 hover:-translate-y-1 transition-all">
-                <div class="w-11 h-11 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl shrink-0">
-                    <i class="fa-solid fa-compass-drafting"></i>
-                </div>
-                <div>
-                    <span class="text-[11px] text-cyan-300 font-bold block">بنك الاختبارات والتمارين</span>
-                    <h3 class="text-sm font-bold text-white">مشروع الرياضيات التفاعلية النشطة</h3>
-                </div>
-            </a>
-            
-            
-            
-            
-            
-            
-            
-
-            <a href="https://www.facebook.com/trump.egymisr" target="_blank" rel="noopener noreferrer" class="glass-panel flex items-center gap-3.5 p-4 rounded-2xl border border-blue-500/30 hover:border-blue-400 hover:-translate-y-1 transition-all">
-                <div class="w-11 h-11 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl shrink-0">
-                    <i class="fab fa-facebook-f"></i>
-                </div>
-                <div>
-                    <span class="text-[11px] text-blue-400 font-bold block">مجتمع الفيسبوك الرسمي</span>
-                    <h3 class="text-sm font-bold text-white">صفحة أ. محمد الملط</h3>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- 6. قسم التعريف بالمعلم أ. محمد الملط وأزرار واتساب -->
-    <!-- قسم التواصل مع أ. محمد الملط - مدير أكاديمية الملط -->
-<section id="contact-elmalt" dir="rtl" style="font-family:'Cairo',sans-serif; max-width:800px; margin:30px auto; padding:25px; background:#040711; border:2px solid #D4AF37; border-radius:24px; color:#fff; text-align:center;">
-
-  <h2 style="color:#D4AF37; font-size:28px; margin:0 0 8px;">تواصل مباشرة مع أ. محمد الملط 💬</h2>
-  <p style="color:#cbd5e1; font-size:16px; margin:0 0 5px;">مدير أكاديمية الملط للرياضيات</p>
-  <p style="color:#94a3b8; font-size:14px; margin:0 0 20px;">للحجز والاستفسار عن الحصص والمراجعات والواجبات والمتابعة</p>
-
-  <!-- الرقم الأول -->
-  <div style="background:#0b1121; border:1px solid #22c55e; border-radius:18px; padding:18px; margin-bottom:15px;">
-    <span style="display:inline-block; background:#22c55e; color:#fff; padding:4px 12px; border-radius:999px; font-size:13px; font-weight:bold;">واتساب رئيسي - للحجز السريع</span>
-    <div dir="ltr" style="font-size:26px; font-weight:900; letter-spacing:1px; margin:12px 0;">201010955349</div>
-    <a href="https://wa.me/201010955349?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0%20%D9%85%D8%AD%D9%85%D8%AF%20%D8%A7%D9%84%D9%85%D9%84%D8%B7%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%AD%D8%AC%D8%B2%20%D9%81%D9%8A%20%D8%A3%D9%83%D8%A7%D8%AF%D9%8A%D9%85%D9%8A%D8%A9%20%D8%A7%D9%84%D9%85%D9%84%D8%B7" target="_blank" style="display:inline-block; background:#22c55e; color:#fff; text-decoration:none; padding:12px 28px; border-radius:14px; font-weight:900; font-size:16px;">📱 ابدأ محادثة الآن</a>
-  </div>
-
-  <!-- الرقم الثاني -->
-  <div style="background:#0b1121; border:1px solid #16a34a; border-radius:18px; padding:18px;">
-    <span style="display:inline-block; background:#16a34a; color:#fff; padding:4px 12px; border-radius:999px; font-size:13px; font-weight:bold;">واتساب بديل - إذا كان الرقم الأول مشغولاً</span>
-    <div dir="ltr" style="font-size:26px; font-weight:900; letter-spacing:1px; margin:12px 0;">201107832272</div>
-    <a href="https://wa.me/201107832272?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0%20%D9%85%D8%AD%D9%85%D8%AF%20%D8%A7%D9%84%D9%85%D9%84%D8%B7%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%AD%D8%AC%D8%B2%20%D9%81%D9%8A%20%D8%A3%D9%83%D8%A7%D8%AF%D9%8A%D9%85%D9%8A%D8%A9%20%D8%A7%D9%84%D9%85%D9%84%D8%B7" target="_blank" style="display:inline-block; background:#16a34a; color:#fff; text-decoration:none; padding:12px 28px; border-radius:14px; font-weight:900; font-size:16px;">📱 ابدأ محادثة الآن</a>
-  </div>
-
-  <p style="margin:18px 0 0; font-size:13px; color:#facc15; font-weight:bold;">⏰ متاح يومياً للحجز والاستفسار | رد سريع | متابعة شخصية لكل طالب وولي أمر</p>
-
-</section>
-
-<!-- أزرار واتساب عائمة -->
-<div style="position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;">
-  <a href="https://wa.me/201010955349" target="_blank" title="واتساب 1: 201010955349" style="width:56px; height:56px; background:#22c55e; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; text-decoration:none; box-shadow:0 8px 20px rgba(0,0,0,.4);">💬</a>
-  <a href="https://wa.me/201107832272" target="_blank" title="واتساب 2: 201107832272" style="width:56px; height:56px; background:#16a34a; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; text-decoration:none; box-shadow:0 8px 20px rgba(0,0,0,.4);">💬</a>
-</div>
-
-                
-
-                
-                            
-                            
-                            
-                           
-                           
-                           
-                           
-                           
-
-    <!-- 7. استوديو الفن الرياضي التوليدي وراسم الدوال المتقدم (GeoGebra & AI Art Studio) -->
-    <section id="math-art-studio" class="relative z-10 py-10 px-4 max-w-6xl mx-auto">
-        <div class="glass-panel rounded-3xl p-5 sm:p-8 border border-cyan-500/40 shadow-[0_0_50px_rgba(56,189,248,0.12)]">
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
-                <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold mb-2">
-                        <i class="fa-solid fa-atom"></i> المختبر البصري التفاعلي • GeoGebra Style Engine
-                    </div>
-                    <h2 class="text-2xl sm:text-3xl font-black text-white">
-                        استوديو <span class="cyber-gradient-text">الفن الرياضي وراسم الدوال</span>
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-1">استكشف جمال الهندسة القطبية، منحنيات ليساجو، متسلسلات فورييه، ورسم أي دالة رياضية <span dir="ltr" class="font-mono text-amber-300">f(x)</span> فوراً</p>
-                </div>
-
-                <!-- أزرار اختيار النمط الرياضي -->
-                <div class="flex flex-wrap gap-2">
-                    <button type="button" onclick="setStudioMode('rose')" id="mode-rose" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 shadow-md transition">
-                        🌸 الوردة القطبية r=cos(kθ)
-                    </button>
-                    <button type="button" onclick="setStudioMode('lissajous')" id="mode-lissajous" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition">
-                        ∞ منحنيات ليساجو
-                    </button>
-                    <button type="button" onclick="setStudioMode('fourier')" id="mode-fourier" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition">
-                        ⚙️ حلقات فورييه
-                    </button>
-                    <button type="button" onclick="setStudioMode('plotter')" id="mode-plotter" class="studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition">
-                        📈 راسم الدوال f(x)
-                    </button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                <!-- لوحة التحكم بالمعاملات -->
-                <div class="lg:col-span-4 space-y-4 bg-slate-950/90 p-5 rounded-2xl border border-slate-800">
-                    <!-- تحكم الوردة القطبية وليساجو وفورييه -->
-                    <div id="parametricControls" class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-300" id="param1Label">معامل التماثل (k):</span>
-                                <span class="font-mono text-cyan-400" id="param1Val">5</span>
-                            </div>
-                            <input type="range" id="studioParam1" min="1" max="12" step="1" value="5" oninput="updateStudioParams()" class="w-full accent-cyan-400 cursor-pointer">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-300" id="param2Label">معامل الطور / التردد (n):</span>
-                                <span class="font-mono text-amber-400" id="param2Val">3</span>
-                            </div>
-                            <input type="range" id="studioParam2" min="1" max="12" step="1" value="3" oninput="updateStudioParams()" class="w-full accent-amber-400 cursor-pointer">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-300">سرعة الحركة التوليدية:</span>
-                                <span class="font-mono text-emerald-400" id="speedVal">1.0x</span>
-                            </div>
-                            <input type="range" id="studioSpeed" min="0" max="3" step="0.5" value="1" oninput="updateStudioParams()" class="w-full accent-emerald-400 cursor-pointer">
-                        </div>
-                    </div>
-
-                    <!-- تحكم راسم الدوال f(x) -->
-                    <div id="plotterControls" class="hidden space-y-3">
-                        <label class="block text-xs font-bold text-amber-300">اكتب معادلة الدالة <span dir="ltr" class="font-mono">f(x)</span>:</label>
-                        <div class="flex items-center gap-2 math-ltr">
-                            <span class="text-cyan-400 font-mono font-bold text-sm">f(x)=</span>
-                            <input type="text" id="customFuncInput" value="sin(x) * cos(2*x) * 3" placeholder="e.g. x^2 - 4" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2 text-sm font-mono text-white outline-none">
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 math-ltr">
-                            <button type="button" onclick="setPresetFunc('sin(x) * 3')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-cyan-300 px-2.5 py-1 rounded-lg">sin(x)</button>
-                            <button type="button" onclick="setPresetFunc('0.3 * x^2 - 3')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-amber-300 px-2.5 py-1 rounded-lg">0.3x²-3</button>
-                            <button type="button" onclick="setPresetFunc('0.15 * x^3 - x')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-emerald-300 px-2.5 py-1 rounded-lg">0.15x³-x</button>
-                            <button type="button" onclick="setPresetFunc('4 * exp(-0.2*x^2) * cos(3*x)')" class="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-pink-300 px-2.5 py-1 rounded-lg">Wave Packet</button>
-                        </div>
-                        <button type="button" onclick="drawCustomPlotter()" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold py-2.5 rounded-xl text-xs shadow-lg">
-                            ارسم الدالة على الشبكة
-                        </button>
-                    </div>
-
-                    <!-- عرض المعادلة الحية -->
-                    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-center math-ltr">
-                        <span class="text-[10px] text-slate-400 block uppercase tracking-wider mb-1">Active Mathematical Formula</span>
-                        <code id="activeFormulaDisplay" class="text-xs sm:text-sm font-mono font-bold text-cyan-300">r(θ) = R · cos(5θ + φ)</code>
-                    </div>
-                </div>
-
-                <!-- شاشة العرض التفاعلية Canvas -->
-                <div class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-slate-800 bg-[#03060e] shadow-inner">
-                    <canvas id="mathArtCanvas" width="720" height="400" class="w-full h-[320px] sm:h-[400px] block"></canvas>
-                    <div class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[11px] font-mono text-slate-400 math-ltr">
-                        El-Malt Generative Engine v2.6
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. قسم توجيهات المعلم + لوحة تحكم المعلم المحمية -->
-    <section id="directives-section" class="relative z-10 py-10 px-4 max-w-7xl mx-auto">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
-            <div>
-                <h2 class="text-2xl font-black text-amber-400 flex items-center gap-2.5">
-                    <i class="fa-solid fa-bullhorn text-amber-500"></i>
-                    <span>توجيهات وإعلانات المعلم</span>
-                </h2>
-                <p class="text-slate-400 text-xs sm:text-sm mt-1">التعليمات والواجبات المباشرة من الأستاذ محمد الملط</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <span id="teacherStatusBadge" class="text-xs px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-slate-400 font-bold">وضع الزائر</span>
-                <button type="button" onclick="openTeacherControlPanel()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 shadow-md transition">
-                    <i class="fa-solid fa-user-gear"></i>
-                    <span>لوحة المعلم</span>
-                </button>
-            </div>
-        </div>
-
-        <div id="directivesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-    </section>
-
-    <!-- 9. الحاسبة العلمية المتكاملة لأكاديمية الملط -->
-    <section id="sci-calc-section" class="relative z-10 py-10 px-4 flex justify-center">
-        <div class="w-full max-w-[460px] bg-academy-card/95 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden p-4 sm:p-5">
-            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-sky-500/15 border border-sky-400/30 flex items-center justify-center text-sky-400">
-                        <i class="fa-solid fa-calculator text-lg"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-base sm:text-lg font-extrabold text-white">أكاديمية الملط - الحاسبة العلمية</h2>
-                        <p class="text-[11px] text-slate-400">تدعم لوحة المفاتيح والدوال المثلثية والزائدية</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-academy-screen border border-slate-800 rounded-2xl p-3.5 mb-4 shadow-inner">
-                <div class="flex items-center justify-between text-[11px] font-mono mb-2">
-                    <div class="flex items-center gap-2">
-                        <span id="angle-badge" class="px-2 py-0.5 rounded-md bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold">DEG</span>
-                        <span id="shift-badge" class="hidden px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold">2nd</span>
-                    </div>
-                    <span id="ans-indicator" class="text-slate-500 math-ltr truncate max-w-[180px]">Ans = 0</span>
-                </div>
-                <div id="expression-display" class="math-ltr calc-screen-scroll w-full overflow-x-auto whitespace-nowrap text-right font-mono text-sm text-slate-400 min-h-[24px] leading-6"></div>
-                <div id="result-display" class="math-ltr calc-screen-scroll w-full overflow-x-auto whitespace-nowrap text-right font-mono text-2xl sm:text-3xl font-bold text-white min-h-[40px] leading-10 mt-0.5">0</div>
-            </div>
-
-            <div class="grid grid-cols-6 gap-1.5 math-ltr font-mono">
-                <button type="button" id="btn-shift" data-action="shift" class="calc-btn h-10 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/30 text-xs font-bold">2nd</button>
-                <button type="button" id="btn-deg-rad" data-action="toggle-angle" class="calc-btn h-10 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-xs font-bold">DEG</button>
-                <button type="button" data-insert="(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-sm font-semibold">(</button>
-                <button type="button" data-insert=")" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-sm font-semibold">)</button>
-                <button type="button" data-action="del" class="calc-btn h-10 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-400 border border-rose-500/30 text-xs font-bold">DEL</button>
-                <button type="button" data-action="ac" class="calc-btn h-10 rounded-xl bg-rose-600/25 hover:bg-rose-600/35 text-rose-300 border border-rose-500/40 text-xs font-bold">AC</button>
-
-                <button type="button" data-insert="sin(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-200 border border-slate-800 text-xs">sin</button>
-                <button type="button" data-insert="cos(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-200 border border-slate-800 text-xs">cos</button>
-                <button type="button" data-insert="tan(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-200 border border-slate-800 text-xs">tan</button>
-                <button type="button" data-insert="asin(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-indigo-300 border border-slate-800 text-[11px]">sin⁻¹</button>
-                <button type="button" data-insert="acos(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-indigo-300 border border-slate-800 text-[11px]">cos⁻¹</button>
-                <button type="button" data-insert="atan(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-indigo-300 border border-slate-800 text-[11px]">tan⁻¹</button>
-
-                <button type="button" data-insert="sinh(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-teal-200 border border-slate-800 text-xs">sinh</button>
-                <button type="button" data-insert="cosh(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-teal-200 border border-slate-800 text-xs">cosh</button>
-                <button type="button" data-insert="tanh(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-teal-200 border border-slate-800 text-xs">tanh</button>
-                <button type="button" data-insert="asinh(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-emerald-300 border border-slate-800 text-[11px]">sinh⁻¹</button>
-                <button type="button" data-insert="acosh(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-emerald-300 border border-slate-800 text-[11px]">cosh⁻¹</button>
-                <button type="button" data-insert="atanh(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-emerald-300 border border-slate-800 text-[11px]">tanh⁻¹</button>
-
-                <button type="button" data-insert="log(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">log</button>
-                <button type="button" data-insert="ln(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">ln</button>
-                <button type="button" data-insert="10^(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">10ˣ</button>
-                <button type="button" data-insert="e^(" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">eˣ</button>
-                <button type="button" data-insert="^" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">xʸ</button>
-                <button type="button" data-insert="yroot" class="calc-btn h-10 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">ʸ√x</button>
-
-                <button type="button" data-insert="^2" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">x²</button>
-                <button type="button" data-insert="√(" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-sm">√</button>
-                <button type="button" data-insert="7" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">7</button>
-                <button type="button" data-insert="8" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">8</button>
-                <button type="button" data-insert="9" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">9</button>
-                <button type="button" data-insert="÷" class="calc-btn h-11 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">÷</button>
-
-                <button type="button" data-insert="^3" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">x³</button>
-                <button type="button" data-insert="∛(" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-sm">∛</button>
-                <button type="button" data-insert="4" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">4</button>
-                <button type="button" data-insert="5" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">5</button>
-                <button type="button" data-insert="6" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">6</button>
-                <button type="button" data-insert="×" class="calc-btn h-11 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">×</button>
-
-                <button type="button" data-insert="!" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">n!</button>
-                <button type="button" data-action="reciprocal" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">1/x</button>
-                <button type="button" data-insert="1" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">1</button>
-                <button type="button" data-insert="2" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">2</button>
-                <button type="button" data-insert="3" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">3</button>
-                <button type="button" data-insert="-" class="calc-btn h-11 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">−</button>
-
-                <button type="button" data-insert="abs(" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-xs">|x|</button>
-                <button type="button" data-insert=" mod " class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-[11px]">mod</button>
-                <button type="button" data-insert="0" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">0</button>
-                <button type="button" data-insert="." class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-white border border-slate-700/60 text-base font-bold">.</button>
-                <button type="button" data-action="negate" class="calc-btn h-11 rounded-xl bg-academy-btn hover:bg-academy-btnHover text-slate-200 border border-slate-700/60 text-xs font-bold">+/-</button>
-                <button type="button" data-insert="+" class="calc-btn h-11 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-lg font-bold">+</button>
-
-                <button type="button" data-insert="π" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-amber-300 border border-slate-800 text-sm font-bold">π</button>
-                <button type="button" data-insert="e" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-amber-300 border border-slate-800 text-sm font-bold">e</button>
-                <button type="button" data-insert="%" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-slate-200 border border-slate-800 text-sm font-semibold">%</button>
-                <button type="button" data-insert="Ans" class="calc-btn h-11 rounded-xl bg-academy-sci hover:bg-academy-sciHover text-sky-300 border border-slate-800 text-xs font-bold">Ans</button>
-                <button type="button" data-action="equals" class="calc-btn col-span-2 h-11 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg border border-sky-400/40 text-xl font-extrabold">=</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- 10. حاسبة المساحة تحت المنحنى الطبيعي المعياري P(a ≤ Z ≤ b) -->
-    <section id="normal-calc-section" class="relative z-10 py-10 px-4 max-w-xl mx-auto">
-        <div class="glass-panel rounded-3xl p-5 sm:p-7 border border-indigo-500/40 shadow-2xl space-y-5">
-            <div class="text-center space-y-1.5">
-                <span class="inline-flex items-center gap-1.5 bg-indigo-500/15 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-300 text-xs font-bold">
-                    📊 حاسبة الإحصاء المعياري
-                </span>
-                <h2 class="text-xl sm:text-2xl font-black text-white">حساب المساحة تحت المنحنى الطبيعي المعياري</h2>
-                <p class="text-xs sm:text-sm text-slate-400">حساب المساحة المحصورة <span dir="ltr" class="font-mono text-sky-300">P(a ≤ Z ≤ b)</span> ضمن الفترة <span dir="ltr" class="font-mono text-amber-300">[-1, 1]</span></p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <label for="valA" class="block text-xs font-bold text-slate-300 mb-1">القيمة المعيارية (a):</label>
-                    <input type="text" id="valA" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valA')"
-                           class="w-full text-center text-lg font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition active-input">
-                </div>
-                <div>
-                    <label for="valB" class="block text-xs font-bold text-slate-300 mb-1">القيمة المعيارية (b):</label>
-                    <input type="text" id="valB" readonly placeholder="اضغط للإدخال" onclick="setActiveField('valB')"
-                           class="w-full text-center text-lg font-bold font-mono py-2.5 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 text-white cursor-pointer transition">
-                </div>
-            </div>
-
-            <div class="bg-slate-950/90 p-3 rounded-2xl border border-slate-800">
-                <div class="grid grid-cols-4 gap-2 font-mono">
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('7')">7</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('8')">8</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('9')">9</button>
-                    <button type="button" class="key-btn bg-rose-600 hover:bg-rose-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="appendNormalVal('-')">- (سالب)</button>
-
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('4')">4</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('5')">5</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('6')">6</button>
-                    <button type="button" class="key-btn bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="normalBackspace()">⌫ مسح</button>
-
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('1')">1</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('2')">2</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('3')">3</button>
-                    <button type="button" class="key-btn bg-amber-600 hover:bg-amber-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="clearNormalField()">C تفريغ</button>
-
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('0')">0</button>
-                    <button type="button" class="key-btn bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 text-lg rounded-xl" onclick="appendNormalVal('.')">.</button>
-                    <button type="button" class="key-btn col-span-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 text-xs rounded-xl font-cairo" onclick="switchNormalField()">🔄 تبديل الحقل (a / b)</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3">
-                <button type="button" onclick="calculateArea()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg text-sm transition">
-                    احسب المساحة والرسم
-                </button>
-                <button type="button" onclick="resetNormalForm()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl border border-slate-700 text-sm transition">
-                    إعادة ضبط
-                </button>
-            </div>
-
-            <div id="errorBox" class="hidden bg-red-500/15 border border-red-500/40 rounded-xl p-3 text-red-300 text-xs text-center font-bold"></div>
-            <div id="result" class="hidden bg-slate-950 border-r-4 border-indigo-500 p-4 rounded-2xl space-y-1 text-right"></div>
-
-            <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex justify-center">
-                <canvas id="chartCanvas" width="500" height="230" class="w-full h-auto rounded-xl"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- 11. السبورة الذكية التفاعلية (مع شبكة إحداثيات ديكارتية هندسية) -->
-    <section id="whiteboard-section" class="relative z-10 py-10 px-4 max-w-5xl mx-auto">
-        <div class="glass-panel rounded-3xl p-5 sm:p-6 border border-amber-500/40 shadow-2xl">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
-                <h2 class="text-xl font-black text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-chalkboard text-amber-500"></i>
-                    <span>السبورة الذكية التفاعلية</span>
-                </h2>
-                <div class="flex flex-wrap items-center gap-2.5">
-                    <button type="button" id="wbGridToggle" onclick="toggleWhiteboardGrid()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-3 py-1.5 rounded-xl text-xs font-bold border border-sky-500/40 transition">
-                        <i class="fa-solid fa-border-all"></i> شبكة الإحداثيات
-                    </button>
-                    <div class="flex items-center gap-1.5 bg-slate-900 px-2.5 py-1 rounded-xl border border-slate-700">
-                        <label for="wbColor" class="text-xs text-slate-300 font-bold">اللون:</label>
-                        <input type="color" id="wbColor" value="#38bdf8" class="w-6 h-6 bg-transparent border-0 cursor-pointer">
-                    </div>
-                    <div class="flex items-center gap-1.5 bg-slate-900 px-2.5 py-1 rounded-xl border border-slate-700">
-                        <label for="wbLineWidth" class="text-xs text-slate-300 font-bold">السمك:</label>
-                        <select id="wbLineWidth" class="bg-slate-950 text-white text-xs rounded px-2 py-1 outline-none border border-slate-700">
-                            <option value="2">رفيع (2)</option>
-                            <option value="4" selected>متوسط (4)</option>
-                            <option value="8">عريض (8)</option>
-                            <option value="14">تخطيط (14)</option>
-                        </select>
-                    </div>
-                    <button type="button" onclick="clearWhiteboard()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-red-500/30 transition">
-                        <i class="fa-solid fa-eraser"></i> مسح
-                    </button>
-                    <button type="button" onclick="saveWhiteboardImage()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/30 transition">
-                        <i class="fa-solid fa-download"></i> حفظ PNG
-                    </button>
-                </div>
-            </div>
-            <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                <canvas id="wbGridCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
-                <canvas id="smartWhiteboard" class="relative z-10 w-full cursor-crosshair touch-none" style="height: 390px;"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- 12. الساعة التعليمية التفاعلية للأطفال (What Time Is It?) -->
-    <section id="kids-clock-section" class="relative z-10 py-10 px-4 flex justify-center kids-clock-section" dir="ltr">
-        <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border-4 border-sky-400 max-w-md w-full p-5 flex flex-col items-center text-slate-800">
-            <div class="w-full flex items-center justify-between gap-2 mb-3">
-                <h2 class="text-xl sm:text-2xl font-bold text-sky-700 tracking-tight flex items-center gap-1.5">
-                    <span>🕒</span> What Time Is It?
-                </h2>
-                <label class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded-full cursor-pointer transition">
-                    <input type="checkbox" id="toggleHelpers" checked class="w-3.5 h-3.5 accent-blue-600 rounded cursor-pointer" onchange="toggleMinuteHelpers()" />
-                    <span class="text-xs font-bold text-blue-800">Minutes</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-center gap-4 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 mb-4 w-full text-xs sm:text-sm">
-                <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
-                    <span class="font-bold text-red-600">Small = Hour</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
-                    <span class="font-bold text-blue-600">Big = Minutes</span>
-                </div>
-            </div>
-
-            <div class="clock-wrapper mb-3" id="clockWrapper">
-                <div class="clock-face" id="clockFace">
-                    <div class="hand hour-hand" id="hourHand" title="Drag Small Hand (Hour)"></div>
-                    <div class="hand minute-hand" id="minuteHand" title="Drag Big Hand (Minutes)"></div>
-                    <div class="center-cap"></div>
-                </div>
-            </div>
-
-            <p class="text-xs text-slate-500 font-medium mb-3 text-center">
-                💡 Drag the hands directly on the clock!
-            </p>
-
-            <button
-                type="button"
-                onclick="revealAndSpeakTime()"
-                class="btn-push w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg py-2.5 px-4 rounded-2xl mb-3 flex items-center justify-center gap-2"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>What time is it now?</span>
-            </button>
-
-            <div
-                id="timeLabel"
-                class="w-full min-h-[78px] bg-slate-50 border-2 border-dashed border-sky-300 rounded-2xl p-2.5 flex flex-col items-center justify-center text-center transition-all"
-            >
-                <div class="flex items-center justify-center gap-2">
-                    <span id="digitalOutput" class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-wider">? : ?</span>
-                    <button
-                        type="button"
-                        id="speakAgainBtn"
-                        onclick="speakCurrentPhrase(event)"
-                        title="Listen again"
-                        class="hidden bg-sky-100 hover:bg-sky-200 text-sky-700 p-1.5 rounded-full transition active:scale-95"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                        </svg>
-                    </button>
-                </div>
-                <span id="textOutput" class="text-sm sm:text-base font-semibold text-sky-700 mt-0.5">
-                    Drag the hands, then click "What time is it now?"
-                </span>
-            </div>
-        </div>
-    </section>
-
-    <!-- 13. نموذج تسجيل الطلاب في أكاديمية الملط -->
-    <section id="register-section" class="relative z-10 max-w-xl mx-auto py-10 px-4">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-sky-500/30 shadow-2xl">
-            <h2 class="text-2xl font-black text-sky-400 text-center mb-1">تسجيل الطلاب - أكاديمية الملط</h2>
-            <p class="text-center text-slate-400 text-xs sm:text-sm mb-6">سجل بياناتك للانضمام الفوري لحصص الأستاذ محمد الملط</p>
-            
-            <form id="student-registration-form" action="https://formspree.io/f/mvkknoop" method="POST" class="space-y-4">
-                <input type="hidden" name="email" value="moh888941@gmail.com">
-                <div>
-                    <label for="student-name" class="block text-xs font-bold text-slate-300 mb-1">اسم الطالب:</label>
-                    <input type="text" id="student-name" name="student_name" placeholder="أدخل الاسم الثلاثي" required class="w-full p-3 bg-slate-900 border border-slate-700 focus:border-sky-500 rounded-xl text-white text-sm outline-none transition">
-                </div>
-                <div>
-                    <label for="student-phone" class="block text-xs font-bold text-slate-300 mb-1">رقم الموبايل / الواتساب:</label>
-                    <input type="tel" id="student-phone" name="student_phone" placeholder="أدخل رقم الهاتف أو الواتساب" required class="w-full p-3 bg-slate-900 border border-slate-700 focus:border-sky-500 rounded-xl text-white text-sm outline-none transition">
-                </div>
-                <div>
-                    <label for="education-stage" class="block text-xs font-bold text-slate-300 mb-1">المرحلة التعليمية:</label>
-                    <select id="education-stage" name="education_stage" required class="w-full p-3 bg-slate-900 border border-slate-700 focus:border-sky-500 rounded-xl text-white text-sm outline-none transition">
-                        <option value="" disabled selected>اختر المرحلة التعليمية</option>
-                        <option value="إعدادي">إعدادي</option>
-                        <option value="ثانوي">ثانوي</option>
-                        <option value="بكالوريا">بكالوريا</option>
-                        <option value="جامعات">جامعات</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="math-branch" class="block text-xs font-bold text-slate-300 mb-1">فرع الرياضيات المطلوب:</label>
-                    <select id="math-branch" name="math_branch" required class="w-full p-3 bg-slate-900 border border-slate-700 focus:border-sky-500 rounded-xl text-white text-sm outline-none transition">
-                        <option value="" disabled selected>اختر الفرع أو المنهج</option>
-                        <option value="جبر">جبر</option>
-                        <option value="هندسة">هندسة</option>
-                        <option value="استاتيكا">استاتيكا</option>
-                        <option value="ديناميكا">ديناميكا</option>
-                        <option value="تفاضل وتكامل">تفاضل وتكامل</option>
-                        <option value="منهج كامل">منهج كامل / فروع متعددة</option>
-                    </select>
-                </div>
-                <button type="submit" id="form-submit-btn" class="w-full py-3.5 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg text-sm transition">
-                    إرسال طلب التسجيل
-                </button>
-            </form>
-            <div id="form-status-message" class="text-center text-xs sm:text-sm font-bold mt-4"></div>
-        </div>
-    </section>
-
-    <!-- أزرار واتساب العائمة وتذييل الصفحة -->
-    <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-2.5">
-        <a href="https://wa.me/201010955349" target="_blank" rel="noopener noreferrer" title="واتساب 1: 201010955349" class="w-12 h-12 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center text-xl shadow-2xl hover:scale-110 transition-transform border-2 border-white/20">
-            <i class="fa-brands fa-whatsapp"></i>
-        </a>
-        <a href="https://wa.me/201107832272" target="_blank" rel="noopener noreferrer" title="واتساب 2: 201107832272" class="w-12 h-12 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full flex items-center justify-center text-xl shadow-2xl hover:scale-110 transition-transform border-2 border-white/20">
-            <i class="fa-brands fa-whatsapp"></i>
-        </a>
-    </div>
-    <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الملط للرياضيات - نظام التسجيل والمتابعة</title>
+    <title>السلام عليكم اكاديمية الملط أقوى وأكبر وأول اكاديمية رياضيات فى العالم وفى الشرق الأوسط</title>
+    <!-- تضمين مكتبة Tailwind CSS لتشغيل تنسيقات الأشرطة الإخبارية -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* تنسيقات الأشرطة الإخبارية المتحركة */
+        @keyframes marquee-scroll-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+        @keyframes marquee-scroll-left {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-wrapper {
+            display: flex;
+            width: max-content;
+        }
+
+        .animate-marquee-1 {
+            animation: marquee-scroll-right 28s linear infinite;
+        }
+
+        .animate-marquee-2 {
+            animation: marquee-scroll-left 35s linear infinite;
+        }
+
+        .marquee-container:hover .marquee-wrapper {
+            animation-play-state: paused;
+        }
+
+        /* تنسيقات الصفحة الأساسية */
+        .page-wrapper {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 750px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #1e3a8a;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 15px;
+        }
+        /* منطقة عرض المحتوى للطلاب */
+        .content-box {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        #display-text {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #0f172a;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+        }
+        #display-image {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            margin: 0 auto;
+        }
+        /* أزرار التحكم */
+        .btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 5px;
+        }
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+        .btn-save {
+            background-color: #16a34a;
+        }
+        .btn-save:hover {
+            background-color: #15803d;
+        }
+        /* لوحة تحكم المعلم */
+        #teacher-panel {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #eff6ff;
+            border: 2px dashed #3b82f6;
+            border-radius: 10px;
+            text-align: right;
+        }
+        #teacher-panel label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1e40af;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 1.1em;
+            font-family: inherit;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        input[type="file"] {
+            display: block;
+            margin-bottom: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        /* نافذة إدخال الرقم السري */
+        #login-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1.1em;
+            text-align: center;
+            box-sizing: border-box;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-950 via-indigo-950 to-blue-950 min-h-screen text-white p-4 sm:p-6">
+<body>
 
-    <div class="max-w-4xl mx-auto">
-        <!-- الشريط العلوي للتنقل بين التسجيل والمتابعة -->
-        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 bg-slate-900/70 p-4 rounded-2xl border border-slate-800 shadow-xl">
-            <div class="text-center sm:text-right mb-4 sm:mb-0">
-                <span class="inline-block bg-emerald-500/10 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full mb-1 border border-emerald-500/20">
-                    أكاديمية الملط للرياضيات
-                </span>
-                <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">
-                    نظام التسجيل والمتابعة الموحد
-                </h1>
-            </div>
-            <div class="flex gap-2">
-                <button onclick="switchTab('register')" id="btnRegister" class="px-4 py-2.5 rounded-xl text-sm font-bold bg-emerald-500 text-white transition-all shadow-lg shadow-emerald-500/20">
-                    📝 نموذج التسجيل
-                </button>
-                <button onclick="checkAdminPassword()" id="btnAdmin" class="px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
-                    📊 لوحة المشرف الخاصة (<span id="badgeCount">0</span>)
-                </button>
-            </div>
-        </div>
-
-        <!-- 1. قسم تسجيل الطلاب -->
-        <div id="registerSection" class="glass-card rounded-3xl shadow-2xl p-6 sm:p-8 max-w-lg mx-auto">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-white">تسجيل طالب جديد</h2>
-                <p class="text-slate-400 text-sm mt-1">أدخل بيانات الطالب ليتم حفظها في نظام المتابعة فوراً</p>
-            </div>
-
-            <form id="studentForm" onsubmit="saveStudent(event)" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-1">اسم الطالب الثلاثي</label>
-                    <input type="text" id="studentName" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500" placeholder="اكتب اسم الطالب هنا...">
+    <!-- الشريط الإخباري الأول -->
+    <div dir="rtl" class="relative z-20 w-full bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white border-b border-cyan-500/30 overflow-hidden py-2">
+        <div class="marquee-container relative flex items-center h-6 overflow-hidden">
+            <div class="marquee-wrapper animate-marquee-1 text-xs sm:text-sm font-bold tracking-wide items-center">
+                <!-- المجموعة الأولى -->
+                <div class="flex items-center gap-10 px-5 shrink-0">
+                    <span class="text-amber-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
+                    <span class="text-cyan-300 font-mono" dir="ltr">⚡ [ ACADEMY OF EL-MALT • MATHEMATICS &amp; AI ] ⚡</span>
+                    <span class="text-emerald-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-1">رقم الموبايل (واتساب)</label>
-                    <input type="tel" id="studentPhone" required dir="ltr" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-left" placeholder="010xxxxxxxx">
+                <!-- تكرار المجموعة لمنع أي فراغات -->
+                <div class="flex items-center gap-10 px-5 shrink-0" aria-hidden="true">
+                    <span class="text-amber-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
+                    <span class="text-cyan-300 font-mono" dir="ltr">⚡ [ ACADEMY OF EL-MALT • MATHEMATICS &amp; AI ] ⚡</span>
+                    <span class="text-emerald-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-1">المرحلة التعليمية</label>
-                    <select id="educationLevel" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500">
-                        <option value="" disabled selected>اختر المرحلة التعليمية...</option>
-                        <option value="إعدادى">إعدادى</option>
-                        <option value="ثانوى">ثانوى</option>
-                        <option value="بكالوريا">بكالوريا</option>
-                        <option value="جامعات">جامعات</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-2">الرقم المخصص للمتابعة</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <label class="flex items-center p-3 bg-slate-900/90 border border-slate-700 rounded-xl cursor-pointer hover:border-emerald-500">
-                            <input type="radio" name="whatsappNumber" value="01010955349" checked class="text-emerald-500">
-                            <span class="mr-2 text-xs font-medium" dir="ltr">01010955349</span>
-                        </label>
-                        <label class="flex items-center p-3 bg-slate-900/90 border border-slate-700 rounded-xl cursor-pointer hover:border-emerald-500">
-                            <input type="radio" name="whatsappNumber" value="01107832272" class="text-emerald-500">
-                            <span class="mr-2 text-xs font-medium" dir="ltr">01107832272</span>
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-emerald-500/25 transition-all mt-4">
-                    حفظ البيانات الآن ✅
-                </button>
-            </form>
-
-            <!-- رسالة تأكيد الحفظ -->
-            <div id="successMsg" class="hidden text-center py-8 space-y-4">
-                <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto text-emerald-400">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white">تم تسجيل الطالب وحفظ بياناته بنجاح!</h3>
-                <div class="flex justify-center gap-3 pt-2">
-                    <button onclick="resetForm()" class="bg-slate-800 hover:bg-slate-700 px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-700">
-                        تسجيل طالب آخر
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. قسم لوحة التحكم الخاصة للمشرف فقط -->
-        <div id="adminSection" class="hidden glass-card rounded-3xl shadow-2xl p-6 sm:p-8">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                <div>
-                    <h2 class="text-xl font-bold text-white">لوحة تحكم المشرف (خاصة بك وحدك)</h2>
-                    <p class="text-xs text-slate-400 mt-1">عرض ومتابعة الطلاب المسجلين مع إمكانية التصدير</p>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md">
-                        📥 تحميل كملف Excel
-                    </button>
-                    <button onclick="lockAdminPanel()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded-xl text-xs font-bold transition-all">
-                        🔒 قفل اللوحة والخروج
-                    </button>
-                </div>
-            </div>
-
-            <!-- حقل بحث سريع -->
-            <div class="mb-4">
-                <input type="text" id="searchInput" onkeyup="renderTable()" placeholder="🔍 ابحث باسم الطالب أو رقم الموبايل..." class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-            </div>
-
-            <div class="overflow-x-auto rounded-xl border border-slate-800">
-                <table class="w-full text-right border-collapse">
-                    <thead class="bg-slate-900/90">
-                        <tr class="border-b border-slate-700 text-slate-300 text-xs">
-                            <th class="p-3">#</th>
-                            <th class="p-3">اسم الطالب</th>
-                            <th class="p-3">رقم الموبايل</th>
-                            <th class="p-3">المرحلة</th>
-                            <th class="p-3">رقم المتابعة</th>
-                            <th class="p-3">وقت التسجيل</th>
-                            <th class="p-3 text-center">تحكم</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody" class="text-sm divide-y divide-slate-800/60">
-                  
-
-
-  </tbody>
-                </table>
             </div>
         </div>
     </div>
 
-    <script>
-        // الرقم السري الخاص بك
-        const ADMIN_PASSWORD = "Moh@#$123";
-
-        window.onload = function() {
-            updateBadge();
-        };
-
-        // التحقق من كلمة المرور قبل فتح لوحة التحكم
-        function checkAdminPassword() {
-            let pass = prompt("أدخل كلمة المرور الخاصة بالمشرف لعرض البيانات:");
-            if (pass === ADMIN_PASSWORD) {
-                switchTab('admin');
-            } else if (pass !== null) {
-                alert("كلمة المرور غير صحيحة!");
-            }
-        }
-
-        // قفل لوحة التحكم والرجوع لصفحة التسجيل
-        function lockAdminPanel() {
-            switchTab('register');
-        }
-
-        // التبديل بين الأقسام
-        function switchTab(tab) {
-            const regSec = document.getElementById('registerSection');
-            const admSec = document.getElementById('adminSection');
-            const btnReg = document.getElementById('btnRegister');
-            const btnAdm = document.getElementById('btnAdmin');
-
-            if (tab === 'register') {
-                regSec.classList.remove('hidden');
-                admSec.classList.add('hidden');
-                btnReg.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-emerald-500 text-white transition-all shadow-lg shadow-emerald-500/20";
-                btnAdm.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
-            } else {
-                regSec.classList.add('hidden');
-                admSec.classList.remove('hidden');
-                btnAdm.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-indigo-600 text-white transition-all shadow-lg shadow-indigo-600/20";
-                btnReg.className = "px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
-                renderTable();
-            }
-        }
-
-        // حفظ بيانات الطالب
-        function saveStudent(e) {
-            e.preventDefault();
-            const student = {
-                id: Date.now(),
-                name: document.getElementById('studentName').value.trim(),
-                phone: document.getElementById('studentPhone').value.trim(),
-                level: document.getElementById('educationLevel').value,
-                assignedTo: document.querySelector('input[name="whatsappNumber"]:checked').value,
-                time: new Date().toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' })
-            };
-
-            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
-            list.unshift(student);
-            localStorage.setItem('malat_academy_db', JSON.stringify(list));
-
-            updateBadge();
-            document.getElementById('studentForm').classList.add('hidden');
-            document.getElementById('successMsg').classList.remove('hidden');
-        }
-
-        function resetForm() {
-            document.getElementById('studentForm').reset();
-            document.getElementById('successMsg').classList.add('hidden');
-            document.getElementById('studentForm').classList.remove('hidden');
-        }
-
-        function updateBadge() {
-            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
-            document.getElementById('badgeCount').textContent = list.length;
-        }
-
-        // عرض البيانات في الجدول
-        function renderTable() {
-            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const tbody = document.getElementById('tableBody');
-
-            const filtered = list.filter(s => 
-                s.name.toLowerCase().includes(query) || s.phone.includes(query)
-            );
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center p-8 text-slate-500">لا توجد بيانات مسجلة مطابقة حالياً.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = filtered.map((s, idx) => `
-                <tr class="hover:bg-slate-900/50 transition-colors">
-                    <td class="p-3 text-slate-500 text-xs">${idx + 1}</td>
-                    <td class="p-3 font-bold text-white">${s.name}</td>
-                    <td class="p-3 text-emerald-400 font-medium" dir="ltr">${s.phone}</td>
-                    <td class="p-3"><span class="bg-slate-800 px-2.5 py-1 rounded-lg text-xs">${s.level}</span></td>
-                    <td class="p-3 text-slate-300 text-xs" dir="ltr">${s.assignedTo}</td>
-                    <td class="p-3 text-slate-400 text-xs">${s.time}</td>
-                    <td class="p-3 text-center">
-                        <button onclick="deleteRow(${s.id})" class="text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 px-2.5 py-1 rounded-lg text-xs">حذف</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function deleteRow(id) {
-            if (confirm('هل تريد حذف هذا السجل؟')) {
-                let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
-                list = list.filter(item => item.id !== id);
-                localStorage.setItem('malat_academy_db', JSON.stringify(list));
-                updateBadge();
-                renderTable();
-            }
-        }
-
-        // تصدير البيانات إلى ملف Excel (CSV)
-        function exportToCSV() {
-            let list = JSON.parse(localStorage.getItem('malat_academy_db') || '[]');
-            if (list.length === 0) {
-                alert('لا توجد بيانات لتصديرها!');
-                return;
-            }
-            let csv = "\uFEFFاسم الطالب,رقم الموبايل,المرحلة التعليمية,رقم المتابعة,وقت التسجيل\n";
-            list.forEach(s => {
-                csv += `"${s.name}","${s.phone}","${s.level}","${s.assignedTo}","${s.time}"\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "سجل_طلاب_أكاديمية_الملط.csv";
-            link.click();
-        }
-    </script>
-</body>
-</html>
-
-
-    <footer class="relative z-10 glass-panel border-t border-slate-800 py-8 px-4 mt-12 text-center text-slate-400 text-sm">
-        <div class="max-w-7xl mx-auto space-y-2">
-            <p class="font-black text-amber-400 text-base">أكاديمية الملط رياضيات - أقوى وأكبر وأول أكاديمية رياضيات في العالم</p>
-            <p class="text-xs text-slate-300">أستاذ محمد الملط - خبير GeoGebra &amp; AI</p>
-            <p class="text-xs text-slate-500">جميع الحقوق محفوظة © <span id="currentYear">2026</span></p>
-        </div>
-    </footer>
-
-    <!-- نافذة تسجيل دخول المعلم -->
-    <div id="loginModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-panel max-w-md w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 relative shadow-2xl">
-            <button type="button" onclick="closeModal('loginModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <div class="text-center mb-5">
-                <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center text-2xl mb-3 border border-amber-500/40">
-                    <i class="fa-solid fa-user-lock"></i>
+    <!-- الشريط الإخباري الثاني -->
+    <div dir="rtl" class="relative z-20 w-full bg-slate-900/95 text-slate-200 border-b border-amber-500/25 overflow-hidden py-1.5">
+        <div class="marquee-container relative flex items-center h-6 overflow-hidden">
+            <div class="marquee-wrapper animate-marquee-2 text-xs sm:text-sm font-semibold items-center">
+                <!-- المجموعة الأولى -->
+                <div class="flex items-center gap-12 px-6 shrink-0">
+                    <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون» — جاليليو جاليلي</span>
+                    <span class="text-amber-300">🧠 «التفكير الرياضي ليس مجرد أرقام، بل هو تنظيم للعقل وحل للمشكلات»</span>
+                    <span class="text-fuchsia-300 font-mono" dir="ltr">∞ e^(iπ) + 1 = 0 • φ = 1.6180339887...</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">تسجيل دخول المعلم</h3>
-                <p class="text-xs text-slate-400 mt-1">أدخل الرقم السري لإدارة التوجيهات</p>
+                <!-- تكرار المجموعة لمنع أي فراغات -->
+                <div class="flex items-center gap-12 px-6 shrink-0" aria-hidden="true">
+                    <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون» — جاليليو جاليلي</span>
+                    <span class="text-amber-300">🧠 «التفكير الرياضي ليس مجرد أرقام، بل هو تنظيم للعقل وحل للمشكلات»</span>
+                    <span class="text-fuchsia-300 font-mono" dir="ltr">∞ e^(iπ) + 1 = 0 • φ = 1.6180339887...</span>
+                </div>
             </div>
-            <form onsubmit="handleLogin(event)" class="space-y-4">
-                <input type="password" id="pinInput" placeholder="••••••••" required class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white text-center text-lg font-mono rounded-xl py-3 outline-none">
-                <div id="loginError" class="text-red-400 text-xs text-center hidden font-bold">الرقم السري غير صحيح!</div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition">دخول اللوحة</button>
-            </form>
         </div>
     </div>
 
-    <!-- نافذة إضافة توجيه جديد (تم تحديثها بزر الجهاز والكاميرا معاً) -->
-    <div id="adminPanelModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-panel max-w-xl w-full p-6 sm:p-8 rounded-3xl border border-amber-500/40 relative shadow-2xl">
-            <button type="button" onclick="closeModal('adminPanelModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h3 class="text-xl font-bold text-amber-400 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-pen-to-square"></i> إضافة توجيه جديد للطلاب
-            </h3>
-            <form onsubmit="saveGuideline(event)" class="space-y-4">
-                <textarea id="guidelineText" rows="4" required placeholder="اكتب نص التوجيه أو الواجب هنا..." class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-white rounded-xl p-3.5 text-sm outline-none"></textarea>
+    <!-- محتوى الصفحة الرئيسي -->
+    <div class="page-wrapper">
+        <div class="container">
+            <!-- عنوان المجموعة -->
+            <h1> اكاديمية الملط أقوى وأكبر وأول اكاديمية رياضيات فى العالم وفى الشرق الأوسط  </h1>
+
+            <!-- منطقة العرض للجميع (للقراءة فقط) -->
+            <div class="content-box">
+                <div id="display-text">أهلاً بكم مع أ. محمد الملط .</div>
+                <img id="display-image" src="" alt="صورة الدرس">
+            </div>
+
+            <!-- زر دخول المعلم -->
+            <button id="login-btn" class="btn" onclick="openLoginModal()">🔒 تعديل المحتوى (للمعلم فقط)</button>
+
+            <!-- لوحة تعديل المعلم -->
+            <div id="teacher-panel">
+                <h3 style="margin-top:0; color:#1e3a8a; text-align:center;">لوحة تحكم المعلم</h3>
                 
-                <div>
-                    <label class="block text-xs text-slate-300 font-bold mb-2">إرفاق صورة توضيحية (اختياري):</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <!-- زر اختيار ملف من الجهاز -->
-                        <label class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-amber-500 text-slate-200 py-3 px-4 rounded-xl cursor-pointer text-xs font-bold transition shadow">
-                            <i class="fa-solid fa-folder-open text-sky-400 text-base"></i>
-                            <span>اختر ملف من الجهاز</span>
-                            <input type="file" id="deviceFile" accept="image/*" class="hidden" onchange="previewDirectiveImage(event)">
-                        </label>
-                        <!-- زر التقاط من الكاميرا -->
-                        <label class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-amber-500 text-slate-200 py-3 px-4 rounded-xl cursor-pointer text-xs font-bold transition shadow">
-                            <i class="fa-solid fa-camera text-amber-400 text-base"></i>
-                            <span>التقاط من الكاميرا</span>
-                            <input type="file" id="cameraFile" accept="image/*" capture="environment" class="hidden" onchange="previewDirectiveImage(event)">
-                        </label>
-                    </div>
+                <label for="text-input">مرحبا بكم</label>
+                <textarea id="text-input" placeholder="اكتب رسالتك أو المسألة الرياضية هنا..."></textarea>
 
-                    <!-- معاينة الصورة المصغرة المرفقة -->
-                    <div id="directiveImgPreviewContainer" class="hidden mt-3 relative">
-                        <img id="directiveImgPreview" src="" alt="معاينة الصورة" class="w-full h-36 object-cover rounded-xl border border-slate-700 shadow-md">
-                        <button type="button" onclick="removeDirectiveImage()" class="absolute top-2 left-2 bg-rose-600 hover:bg-rose-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg transition">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
+                <label for="image-input">اختر صورة من جهازك:</label>
+                <input type="file" id="image-input" accept="image/*" onchange="previewImage(event)">
+
+                <div style="text-align: center;">
+                    <button class="btn btn-save" onclick="saveAndLock()">💾 حفظ التعديلات وإغلاق</button>
                 </div>
-
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition shadow-lg">
-                    نشر التوجيه على المنصة
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- نافذة تأكيد الحذف المخصصة -->
-    <div id="confirmDeleteModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-panel max-w-sm w-full p-6 rounded-3xl border border-red-500/40 text-center space-y-4">
-            <div class="w-12 h-12 rounded-full bg-red-500/20 text-red-400 mx-auto flex items-center justify-center text-xl">
-                <i class="fa-solid fa-trash-can"></i>
-            </div>
-            <h4 class="text-lg font-bold text-white">تأكيد حذف التوجيه</h4>
-            <p class="text-xs text-slate-300">هل أنت متأكد من رغبتك في حذف هذا التوجيه نهائياً؟</p>
-            <div class="flex gap-3 pt-2">
-                <button type="button" onclick="confirmDeleteAction()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 rounded-xl text-xs">نعم، احذف</button>
-                <button type="button" onclick="closeModal('confirmDeleteModal')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2.5 rounded-xl text-xs">إلغاء</button>
             </div>
         </div>
     </div>
 
-    <!-- استدعاء ترجمة جوجل -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            if (window.google && google.translate) {
-                new google.translate.TranslateElement({ pageLanguage: 'ar', autoDisplay: false }, 'google_translate_element');
-            }
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- نافذة التحقق من الرقم السري -->
+    <div id="login-modal">
+        <div class="modal-content">
+            <h3 style="margin-top:0;">دخول المعلم</h3>
+            <p style="font-size: 0.9em; color: #666;">أدخل الرقم السري للمتابعة</p>
+            <input type="password" id="password-field" placeholder="••••••••••">
+            <button class="btn" onclick="checkPassword()">دخول</button>
+            <button class="btn" style="background-color:#64748b;" onclick="closeLoginModal()">إلغاء</button>
+        </div>
+    </div>
 
-    <!-- البرمجيات الشاملة والتفاعلية -->
     <script>
-        /* ================= 1. تبديل اللغات ================= */
-        const translations = {
-            ar: {
-                visitorsLabel: "إجمالي زوار الموقع:",
-                navBrand: "أكاديمية الملط",
-                logoTitle: "أ. محمد الملط",
-                logoSubtitle: "أكاديمية الملط",
-                logoDesc: "أقوى وأكبر وأول أكاديمية رياضيات فى العالم وفى الشرق الأوسط"
-            },
-            en: {
-                visitorsLabel: "Total Visitors:",
-                navBrand: "El-Malt Academy",
-                logoTitle: "Mr. Mohamed El-Malt",
-                logoSubtitle: "El-Malt Academy",
-                logoDesc: "The Strongest, Largest, and First Mathematics Academy in the World and the Middle East"
-            },
-            fr: {
-                visitorsLabel: "Visiteurs Totaux :",
-                navBrand: "Académie El-Malt",
-                logoTitle: "M. Mohamed El-Malt",
-                logoSubtitle: "Académie El-Malt",
-                logoDesc: "La plus grande, la plus forte et la première académie de mathématiques au monde et au Moyen-Orient"
+        // الرقم السري الافتراضي الثابت (مشفر كـ Base64 لعدم ظهوره كنص صريح بسهولة)
+        const _0x1a2b = "bW9oQCMkMTIz"; 
+
+        // استرجاع البيانات المحفوظة عند فتح الصفحة
+        window.onload = function() {
+            const savedText = localStorage.getItem("group_bold_text");
+            const savedImg = localStorage.getItem("group_uploaded_img");
+
+            if (savedText) {
+                document.getElementById("display-text").innerText = savedText;
+                document.getElementById("text-input").value = savedText;
+            }
+            if (savedImg) {
+                const imgEl = document.getElementById("display-image");
+                imgEl.src = savedImg;
+                imgEl.style.display = "block";
             }
         };
 
-        function changeLanguage(langCode) {
-            const dict = translations[langCode] || translations.ar;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (dict[key]) el.textContent = dict[key];
-            });
-
-            const selectField = document.querySelector(".goog-te-combo");
-            if (selectField) {
-                selectField.value = langCode;
-                selectField.dispatchEvent(new Event('change'));
-            }
+        function openLoginModal() {
+            document.getElementById("login-modal").style.display = "flex";
+            document.getElementById("password-field").value = "";
+            document.getElementById("password-field").focus();
         }
 
-        /* ================= 2. عداد الزوار ================= */
-        function initVisitorCounter() {
-            let count = parseInt(localStorage.getItem('elmolt_total_views'), 10);
-            if (isNaN(count) || count < 1250) count = 1250;
-            count += 1;
-            localStorage.setItem('elmolt_total_views', count);
-            const el = document.getElementById('visitor-count');
-            if (el) el.textContent = count.toLocaleString('en-US');
+        function closeLoginModal() {
+            document.getElementById("login-modal").style.display = "none";
         }
 
-        /* ================= 3. مؤقت ألوان الشعار المتلألئ + الفن التوليدي في الخلفية ================= */
-        const colorThemes = [
-            { primary: "#00f2fe", shadow: "rgba(0, 242, 254, 0.38)" },
-            { primary: "#facc15", shadow: "rgba(250, 204, 21, 0.38)" },
-            { primary: "#00ff87", shadow: "rgba(0, 255, 135, 0.38)" },
-            { primary: "#f472b6", shadow: "rgba(244, 114, 182, 0.38)" },
-            { primary: "#a855f7", shadow: "rgba(168, 85, 247, 0.38)" }
-        ];
-        let themeIdx = 0;
-        let activeThemeColor = colorThemes[0].primary;
-
-        function cycleLogoTheme() {
-            const theme = colorThemes[themeIdx];
-            activeThemeColor = theme.primary;
-            const logoIcon = document.getElementById("logoIcon");
-            const mainTitle = document.getElementById("mainTitle");
-            const timerDot = document.getElementById("timerDot");
-            const logoCard = document.getElementById("logoCard");
-
-            if (logoIcon && mainTitle && timerDot && logoCard) {
-                logoIcon.style.color = theme.primary;
-                logoIcon.style.boxShadow = `0 0 38px ${theme.shadow}`;
-                mainTitle.style.color = theme.primary;
-                mainTitle.style.textShadow = `0 0 24px ${theme.shadow}`;
-                timerDot.style.backgroundColor = theme.primary;
-                timerDot.style.boxShadow = `0 0 20px ${theme.primary}`;
-                logoCard.style.borderColor = theme.primary;
-                logoCard.style.boxShadow = `0 30px 70px rgba(0, 0, 0, 0.8), 0 0 35px ${theme.shadow}`;
-            }
-            themeIdx = (themeIdx + 1) % colorThemes.length;
-        }
-
-        function initHeroGenerativeBackdrop() {
-            const canvas = document.getElementById('heroGenerativeCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let phase = 0;
-
-            function resize() {
-                canvas.width = canvas.parentElement.clientWidth || 850;
-                canvas.height = canvas.parentElement.clientHeight || 380;
-            }
-            resize();
-            window.addEventListener('resize', resize);
-
-            function renderHeroArt() {
-                const w = canvas.width, h = canvas.height;
-                ctx.clearRect(0, 0, w, h);
-                const cx = w / 2, cy = h / 2;
-
-                ctx.save();
-                ctx.translate(cx, cy);
-                ctx.strokeStyle = activeThemeColor;
-                ctx.lineWidth = 1.4;
-                ctx.beginPath();
-                const maxR = Math.min(w, h) * 0.44;
-                for (let t = 0; t <= Math.PI * 2; t += 0.015) {
-                    const r = maxR * Math.cos(6 * t + phase) * (0.75 + 0.25 * Math.sin(3 * t - phase));
-                    const x = r * Math.cos(t);
-                    const y = r * Math.sin(t);
-                    if (t === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.stroke();
-
-                ctx.strokeStyle = "rgba(212, 175, 55, 0.45)";
-                ctx.lineWidth = 1.1;
-                ctx.beginPath();
-                for (let a = 0; a < Math.PI * 6; a += 0.05) {
-                    const rad = 4 * Math.pow(1.16, a);
-                    if (rad > maxR) break;
-                    const x = rad * Math.cos(a - phase * 0.8);
-                    const y = rad * Math.sin(a - phase * 0.8);
-                    if (a === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-                ctx.restore();
-
-                phase += 0.012;
-                requestAnimationFrame(renderHeroArt);
-            }
-            renderHeroArt();
-        }
-
-        function spawnFloatingSymbols() {
-            const formulas = ["∑", "∫", "π", "∞", "√", "Δ", "θ", "∇", "φ", "e^(iπ)+1=0", "f'(x)", "lim"];
-            const colors = ["#38bdf8", "#facc15", "#34d399", "#f472b6", "#a78bfa"];
-            const mathBg = document.getElementById("mathBg");
-            if (!mathBg) return;
-            for (let i = 0; i < 24; i++) {
-                const span = document.createElement("span");
-                span.className = "math-symbol";
-                span.innerText = formulas[i % formulas.length];
-                span.style.color = colors[i % colors.length];
-                span.style.left = (Math.random() * 94) + "%";
-                span.style.fontSize = (Math.random() * 1.1 + 0.95) + "rem";
-                span.style.animationDuration = (Math.random() * 12 + 14) + "s";
-                span.style.animationDelay = (Math.random() * -14) + "s";
-                mathBg.appendChild(span);
-            }
-        }
-
-        /* ================= 4. استوديو الفن الرياضي وراسم الدوال المتقدم ================= */
-        let studioMode = 'rose';
-        let studioP1 = 5;
-        let studioP2 = 3;
-        let studioSpeed = 1;
-        let studioTime = 0;
-
-        function setStudioMode(mode) {
-            studioMode = mode;
-            document.querySelectorAll('.studio-tab').forEach(btn => {
-                btn.className = "studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:border-cyan-400 transition";
-            });
-            const activeBtn = document.getElementById(`mode-${mode}`);
-            if (activeBtn) {
-                activeBtn.className = "studio-tab px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 shadow-md transition";
-            }
-
-            const paramControls = document.getElementById('parametricControls');
-            const plotControls = document.getElementById('plotterControls');
-
-            if (mode === 'plotter') {
-                paramControls.classList.add('hidden');
-                plotControls.classList.remove('hidden');
-                drawCustomPlotter();
+        function checkPassword() {
+            const entered = document.getElementById("password-field").value;
+            // التحقق من الرقم السري moh@#$123
+            if (btoa(entered) === _0x1a2b) {
+                closeLoginModal();
+                document.getElementById("teacher-panel").style.display = "block";
+                document.getElementById("login-btn").style.display = "none";
+                document.getElementById("text-input").value = document.getElementById("display-text").innerText;
             } else {
-                paramControls.classList.remove('hidden');
-                plotControls.classList.add('hidden');
-                if (mode === 'rose') {
-                    document.getElementById('param1Label').textContent = 'عدد البتلات (k):';
-                    document.getElementById('param2Label').textContent = 'معامل التعديل (n):';
-                } else if (mode === 'lissajous') {
-                    document.getElementById('param1Label').textContent = 'التردد الأفقي (a):';
-                    document.getElementById('param2Label').textContent = 'التردد الرأسي (b):';
-                } else if (mode === 'fourier') {
-                    document.getElementById('param1Label').textContent = 'عدد التوافقيات (N):';
-                    document.getElementById('param2Label').textContent = 'معامل القفزة (s):';
-                }
-                updateStudioParams();
+                alert("❌ الرقم السري غير صحيح!");
             }
         }
 
-        function updateStudioParams() {
-            studioP1 = parseInt(document.getElementById('studioParam1').value, 10);
-            studioP2 = parseInt(document.getElementById('studioParam2').value, 10);
-            studioSpeed = parseFloat(document.getElementById('studioSpeed').value);
-
-            document.getElementById('param1Val').textContent = studioP1;
-            document.getElementById('param2Val').textContent = studioP2;
-            document.getElementById('speedVal').textContent = studioSpeed.toFixed(1) + 'x';
-
-            const formulaEl = document.getElementById('activeFormulaDisplay');
-            if (studioMode === 'rose') {
-                formulaEl.textContent = `r(θ) = R · cos(${studioP1}θ) + sin(${studioP2}θ)`;
-            } else if (studioMode === 'lissajous') {
-                formulaEl.textContent = `x = A·sin(${studioP1}t + δ),  y = B·sin(${studioP2}t)`;
-            } else if (studioMode === 'fourier') {
-                formulaEl.textContent = `f(t) = ∑ (4 / nπ) · sin(n·ω·t)  [N = ${studioP1}]`;
+        // السماح بالضغط على زر Enter لتأكيد الرقم السري
+        document.getElementById("password-field").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
             }
-        }
-
-        function setPresetFunc(expr) {
-            document.getElementById('customFuncInput').value = expr;
-            drawCustomPlotter();
-        }
-
-        function safeEvalMathFunc(expr, xVal) {
-            let s = expr.toLowerCase()
-                .replace(/\^/g, '**')
-                .replace(/\bsin\b/g, 'Math.sin')
-                .replace(/\bcos\b/g, 'Math.cos')
-                .replace(/\btan\b/g, 'Math.tan')
-                .replace(/\bsqrt\b/g, 'Math.sqrt')
-                .replace(/\babs\b/g, 'Math.abs')
-                .replace(/\bexp\b/g, 'Math.exp')
-                .replace(/\blog\b/g, 'Math.log10')
-                .replace(/\bln\b/g, 'Math.log')
-                .replace(/\bpi\b/g, 'Math.PI')
-                .replace(/\be\b/g, 'Math.E')
-                .replace(/(\d)(x)/g, '$1*$2')
-                .replace(/(x)(\()/g, '$1*$2');
-            const fn = new Function('x', `return (${s});`);
-            return fn(xVal);
-        }
-
-        function drawCartesianAxes(ctx, w, h, scale) {
-            const cx = w / 2, cy = h / 2;
-            ctx.strokeStyle = "rgba(56, 189, 248, 0.12)";
-            ctx.lineWidth = 1;
-            for (let x = cx % scale; x < w; x += scale) {
-                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-            }
-            for (let y = cy % scale; y < h; y += scale) {
-                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-            }
-
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.32)";
-            ctx.lineWidth = 1.5;
-            ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.stroke();
-            ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
-
-            ctx.fillStyle = "#94a3b8";
-            ctx.font = "11px JetBrains Mono, monospace";
-            for (let i = -8; i <= 8; i++) {
-                if (i === 0) continue;
-                ctx.fillText(i, cx + i * scale - 4, cy + 14);
-                ctx.fillText(-i, cx + 6, cy + i * scale + 4);
-            }
-        }
-
-        function drawCustomPlotter() {
-            const canvas = document.getElementById('mathArtCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const w = canvas.width, h = canvas.height;
-            const cx = w / 2, cy = h / 2, scale = 38;
-            const expr = document.getElementById('customFuncInput').value.trim() || 'sin(x)*3';
-
-            document.getElementById('activeFormulaDisplay').textContent = `f(x) = ${expr}`;
-            ctx.clearRect(0, 0, w, h);
-            drawCartesianAxes(ctx, w, h, scale);
-
-            try {
-                ctx.beginPath();
-                ctx.strokeStyle = "#facc15";
-                ctx.lineWidth = 3;
-                ctx.shadowColor = "rgba(250, 204, 21, 0.65)";
-                ctx.shadowBlur = 12;
-
-                let penDown = false;
-                for (let px = 0; px <= w; px += 2) {
-                    const x = (px - cx) / scale;
-                    const y = safeEvalMathFunc(expr, x);
-                    if (typeof y === 'number' && Number.isFinite(y) && Math.abs(y) < 50) {
-                        const py = cy - y * scale;
-                        if (!penDown) { ctx.moveTo(px, py); penDown = true; }
-                        else ctx.lineTo(px, py);
-                    } else {
-                        penDown = false;
-                    }
-                }
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-            } catch (e) {
-                ctx.fillStyle = "#f43f5e";
-                ctx.font = "bold 14px Cairo, sans-serif";
-                ctx.textAlign = "center";
-                ctx.fillText("صيغة الدالة غير مكتملة — جرب: sin(x)*3 أو x^2 - 2", cx, cy - 20);
-                ctx.textAlign = "start";
-            }
-        }
-
-        let fourierWave = [];
-        function animateMathArtStudio() {
-            const canvas = document.getElementById('mathArtCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const w = canvas.width, h = canvas.height;
-
-            if (studioMode !== 'plotter') {
-                ctx.clearRect(0, 0, w, h);
-                drawCartesianAxes(ctx, w, h, 40);
-
-                const cx = w / 2, cy = h / 2;
-
-                if (studioMode === 'rose') {
-                    const maxR = Math.min(w, h) * 0.38;
-                    ctx.beginPath();
-                    ctx.strokeStyle = "#38bdf8";
-                    ctx.lineWidth = 2.5;
-                    ctx.shadowColor = "rgba(56, 189, 248, 0.7)";
-                    ctx.shadowBlur = 14;
-
-                    for (let theta = 0; theta <= Math.PI * 2; theta += 0.008) {
-                        const r = maxR * (0.7 * Math.cos(studioP1 * theta + studioTime) + 0.3 * Math.sin(studioP2 * theta - studioTime));
-                        const x = cx + r * Math.cos(theta);
-                        const y = cy + r * Math.sin(theta);
-                        if (theta === 0) ctx.moveTo(x, y);
-                        else ctx.lineTo(x, y);
-                    }
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.shadowBlur = 0;
-                } else if (studioMode === 'lissajous') {
-                    const rx = w * 0.36, ry = h * 0.38;
-                    ctx.beginPath();
-                    ctx.strokeStyle = "#f472b6";
-                    ctx.lineWidth = 2.8;
-                    ctx.shadowColor = "rgba(244, 114, 182, 0.7)";
-                    ctx.shadowBlur = 14;
-
-                    for (let t = 0; t <= Math.PI * 2 + 0.05; t += 0.01) {
-                        const x = cx + rx * Math.sin(studioP1 * t + studioTime);
-                        const y = cy + ry * Math.sin(studioP2 * t);
-                        if (t === 0) ctx.moveTo(x, y);
-                        else ctx.lineTo(x, y);
-                    }
-                    ctx.stroke();
-                    ctx.shadowBlur = 0;
-                } else if (studioMode === 'fourier') {
-                    let x = w * 0.26, y = cy;
-                    for (let i = 0; i < studioP1; i++) {
-                        const prevX = x, prevY = y;
-                        const n = i * studioP2 + 1;
-                        const radius = 62 * (4 / (n * Math.PI));
-                        x += radius * Math.cos(n * studioTime);
-                        y += radius * Math.sin(n * studioTime);
-
-                        ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
-                        ctx.lineWidth = 1.2;
-                        ctx.beginPath();
-                        ctx.arc(prevX, prevY, radius, 0, Math.PI * 2);
-                        ctx.stroke();
-
-                        ctx.strokeStyle = "#facc15";
-                        ctx.lineWidth = 1.8;
-                        ctx.beginPath();
-                        ctx.moveTo(prevX, prevY);
-                        ctx.lineTo(x, y);
-                        ctx.stroke();
-                    }
-
-                    fourierWave.unshift(y);
-                    if (fourierWave.length > 340) fourierWave.pop();
-
-                    const waveStartX = w * 0.52;
-                    ctx.strokeStyle = "rgba(250, 204, 21, 0.45)";
-                    ctx.setLineDash([4, 4]);
-                    ctx.beginPath();
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(waveStartX, fourierWave[0]);
-                    ctx.stroke();
-                    ctx.setLineDash([]);
-
-                    ctx.beginPath();
-                    ctx.strokeStyle = "#34d399";
-                    ctx.lineWidth = 2.6;
-                    for (let i = 0; i < fourierWave.length; i++) {
-                        const wx = waveStartX + i;
-                        const wy = fourierWave[i];
-                        if (i === 0) ctx.moveTo(wx, wy);
-                        else ctx.lineTo(wx, wy);
-                    }
-                    ctx.stroke();
-                }
-
-                studioTime += 0.025 * studioSpeed;
-            }
-            requestAnimationFrame(animateMathArtStudio);
-        }
-
-        /* ================= 5. الساعة الرقمية والتاريخ ================= */
-        function updateClockAndDate() {
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const period = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12;
-
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
-            document.getElementById('period').textContent = period;
-            document.getElementById('date-latin').textContent = now.toLocaleDateString('en-US', {
-                weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
-            });
-        }
-
-        /* ================= 6. صورة المعلم البديلة SVG ================= */
-        const SVG_FALLBACK = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='100%' height='100%' fill='%230b1121'/><circle cx='300' cy='230' r='110' fill='%23D4AF37' opacity='0.2'/><circle cx='300' cy='210' r='80' fill='%23D4AF37'/><path d='M150 500 C150 360, 450 360, 450 500 Z' fill='%23D4AF37'/><text x='50%' y='540' font-family='sans-serif' font-weight='bold' font-size='26' fill='%23ffffff' text-anchor='middle'>أستاذ محمد الملط</text><text x='50%' y='575' font-family='sans-serif' font-size='18' fill='%2338bdf8' text-anchor='middle'>خبير GeoGebra &amp; AI</text></svg>";
-
-        function handleImageError(img) {
-            img.onerror = null;
-            img.src = SVG_FALLBACK;
-        }
-
-        /* ================= 7. إدارة توجيهات المعلم (PIN: Moh@#$123) ================= */
-        const TEACHER_PIN = "Moh@#$123";
-        let uploadedDirectiveImg = "";
-        let pendingDeleteId = null;
-
-        const DEFAULT_DIRECTIVES = [
-            {
-                id: 1,
-                text: "أهلاً ومرحباً بكم في النسخة المتطورة من أكاديمية الملط للرياضيات!\nجرّبوا الآن استوديو الفن الرياضي وراسم الدوال التفاعلي واستكشفوا جمال الرياضيات والذكاء الاصطناعي.",
-                image: "",
-                date: new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
-            }
-        ];
-
-        function isTeacherLoggedIn() {
-            return sessionStorage.getItem('elmalt_teacher_auth') === 'true';
-        }
-
-        function updateTeacherUI() {
-            const badge = document.getElementById('teacherStatusBadge');
-            if (isTeacherLoggedIn()) {
-                badge.textContent = "✓ معلم مسجل";
-                badge.className = "text-xs px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 font-bold";
-            } else {
-                badge.textContent = "وضع الزائر";
-                badge.className = "text-xs px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-slate-400 font-bold";
-            }
-        }
-
-        function openTeacherControlPanel() {
-            if (isTeacherLoggedIn()) document.getElementById('adminPanelModal').classList.remove('hidden');
-            else document.getElementById('loginModal').classList.remove('hidden');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const pin = document.getElementById('pinInput').value.trim();
-            if (pin === TEACHER_PIN) {
-                sessionStorage.setItem('elmalt_teacher_auth', 'true');
-                document.getElementById('loginError').classList.add('hidden');
-                document.getElementById('pinInput').value = '';
-                closeModal('loginModal');
-                updateTeacherUI();
-                renderDirectives();
-                openTeacherControlPanel();
-                showToast("تم تسجيل الدخول كمعلم بنجاح!");
-            } else {
-                document.getElementById('loginError').classList.remove('hidden');
-            }
-        }
-
-        function previewDirectiveImage(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                uploadedDirectiveImg = e.target.result;
-                const previewContainer = document.getElementById('directiveImgPreviewContainer');
-                const previewImg = document.getElementById('directiveImgPreview');
-                if (previewContainer && previewImg) {
-                    previewImg.src = uploadedDirectiveImg;
-                    previewContainer.classList.remove('hidden');
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function removeDirectiveImage() {
-            uploadedDirectiveImg = "";
-            const previewContainer = document.getElementById('directiveImgPreviewContainer');
-            const previewImg = document.getElementById('directiveImgPreview');
-            if (previewContainer && previewImg) {
-                previewImg.src = "";
-                previewContainer.classList.add('hidden');
-            }
-            const deviceFile = document.getElementById('deviceFile');
-            const cameraFile = document.getElementById('cameraFile');
-            if (deviceFile) deviceFile.value = "";
-            if (cameraFile) cameraFile.value = "";
-        }
-
-        function saveGuideline(e) {
-            e.preventDefault();
-            const text = document.getElementById('guidelineText').value.trim();
-            if (!text) return;
-
-            const list = JSON.parse(localStorage.getItem('elmalt_directives') || '[]');
-            list.unshift({
-                id: Date.now(),
-                text,
-                image: uploadedDirectiveImg,
-                date: new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
-            });
-            localStorage.setItem('elmalt_directives', JSON.stringify(list));
-
-            document.getElementById('guidelineText').value = '';
-            removeDirectiveImage();
-            closeModal('adminPanelModal');
-            renderDirectives();
-            showToast("تم نشر التوجيه بنجاح!");
-        }
-
-        function requestDeleteDirective(id) {
-            if (!isTeacherLoggedIn()) return;
-            pendingDeleteId = id;
-            document.getElementById('confirmDeleteModal').classList.remove('hidden');
-        }
-
-        function confirmDeleteAction() {
-            if (pendingDeleteId !== null) {
-                let list = JSON.parse(localStorage.getItem('elmalt_directives') || '[]');
-                list = list.filter(item => item.id !== pendingDeleteId);
-                localStorage.setItem('elmalt_directives', JSON.stringify(list));
-                pendingDeleteId = null;
-                closeModal('confirmDeleteModal');
-                renderDirectives();
-                showToast("تم حذف التوجيه.");
-            }
-        }
-
-        function renderDirectives() {
-            const container = document.getElementById('directivesContainer');
-            const list = JSON.parse(localStorage.getItem('elmalt_directives') || '[]');
-            const loggedIn = isTeacherLoggedIn();
-
-            if (list.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-8 glass-panel rounded-2xl text-slate-400 text-sm">لا توجد توجيهات منشورة حالياً.</div>`;
-                return;
-            }
-
-            container.innerHTML = list.map(post => `
-                <div class="glass-panel rounded-2xl p-5 border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-800">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
-                                    <i class="fa-solid fa-chalkboard-user"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-amber-300">أستاذ محمد الملط</h4>
-                                    <span class="text-[10px] text-slate-400">${post.date}</span>
-                                </div>
-                            </div>
-                            ${loggedIn ? `<button type="button" onclick="requestDeleteDirective(${post.id})" class="text-slate-400 hover:text-red-400 text-xs p-1" title="حذف"><i class="fa-solid fa-trash-can"></i></button>` : ''}
-                        </div>
-                        <p class="text-slate-200 text-sm leading-relaxed whitespace-pre-line">${post.text}</p>
-                        ${post.image ? `<img src="${post.image}" alt="صورة التوجيه" class="mt-3 rounded-xl w-full max-h-60 object-cover border border-slate-700">` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        /* ================= 8. الحاسبة العلمية المتكاملة ================= */
-        (function initScientificCalculator() {
-            const exprDisplay = document.getElementById('expression-display');
-            const resDisplay = document.getElementById('result-display');
-            const angleBadge = document.getElementById('angle-badge');
-            const shiftBadge = document.getElementById('shift-badge');
-            const ansIndicator = document.getElementById('ans-indicator');
-            const btnDegRad = document.getElementById('btn-deg-rad');
-            const btnShift = document.getElementById('btn-shift');
-
-            let expression = '';
-            let lastAns = 0;
-            let angleMode = 'DEG';
-            let isShift = false;
-            let justEvaluated = false;
-
-            function updateDisplay(resultText = null, isError = false) {
-                exprDisplay.textContent = expression;
-                exprDisplay.scrollLeft = exprDisplay.scrollWidth;
-                if (resultText !== null) {
-                    resDisplay.textContent = resultText;
-                    resDisplay.classList.toggle('text-rose-400', isError);
-                    resDisplay.classList.toggle('text-white', !isError);
-                    resDisplay.scrollLeft = resDisplay.scrollWidth;
-                }
-            }
-
-            function formatNum(num) {
-                if (typeof num !== 'number' || Number.isNaN(num)) throw new Error('خطأ رياضي');
-                if (!Number.isFinite(num)) return num > 0 ? '∞' : '-∞';
-                if (Math.abs(num) < 1e-13) num = 0;
-                const clean = Number(num.toPrecision(12));
-                if (Math.abs(clean) >= 1e13 || (Math.abs(clean) > 0 && Math.abs(clean) < 1e-9)) {
-                    return clean.toExponential(8).replace(/\.?0+e/, 'e');
-                }
-                return String(clean);
-            }
-
-            function factorial(n) {
-                if (n < 0 || !Number.isInteger(n)) throw new Error('خطأ في المضروب');
-                if (n > 170) return Infinity;
-                let res = 1;
-                for (let i = 2; i <= n; i++) res *= i;
-                return res;
-            }
-
-            const toRad = x => angleMode === 'DEG' ? (x * Math.PI) / 180 : x;
-            const fromRad = x => angleMode === 'DEG' ? (x * 180) / Math.PI : x;
-
-            function calcSin(x) {
-                if (angleMode === 'DEG') {
-                    const m = ((x % 360) + 360) % 360;
-                    if (m === 0 || m === 180) return 0;
-                    if (m === 90) return 1;
-                    if (m === 270) return -1;
-                }
-                return Math.sin(toRad(x));
-            }
-            function calcCos(x) {
-                if (angleMode === 'DEG') {
-                    const m = ((x % 360) + 360) % 360;
-                    if (m === 90 || m === 270) return 0;
-                    if (m === 0) return 1;
-                    if (m === 180) return -1;
-                }
-                return Math.cos(toRad(x));
-            }
-            function calcTan(x) {
-                if (angleMode === 'DEG') {
-                    const m = ((x % 360) + 360) % 360;
-                    if (m === 90 || m === 270) throw new Error('غير معرّف');
-                    if (m === 0 || m === 180) return 0;
-                }
-                return Math.tan(toRad(x));
-            }
-
-            function evaluateSciExpr(raw) {
-                if (!raw.trim()) return 0;
-                let expr = raw.trim().replace(/−/g, '-');
-                let open = 0;
-                for (const ch of expr) {
-                    if (ch === '(') open++;
-                    else if (ch === ')') open--;
-                }
-                if (open < 0) throw new Error('خطأ في الأقواس');
-                if (open > 0) expr += ')'.repeat(open);
-
-                const tokens = [];
-                let i = 0;
-                while (i < expr.length) {
-                    const ch = expr[i];
-                    if (/\s/.test(ch)) { i++; continue; }
-                    if (/[0-9.]/.test(ch)) {
-                        let num = '';
-                        while (i < expr.length && /[0-9.]/.test(expr[i])) num += expr[i++];
-                        tokens.push({ type: 'number', value: parseFloat(num) });
-                        continue;
-                    }
-                    if (/[a-zA-Zπ√∛]/.test(ch)) {
-                        if (ch === 'π') { tokens.push({ type: 'number', value: Math.PI }); i++; continue; }
-                        if (ch === '√') { tokens.push({ type: 'func', value: 'sqrt' }); i++; continue; }
-                        if (ch === '∛') { tokens.push({ type: 'func', value: 'cbrt' }); i++; continue; }
-                        let id = '';
-                        while (i < expr.length && /[a-zA-Z0-9]/.test(expr[i])) id += expr[i++];
-                        if (id === 'e') tokens.push({ type: 'number', value: Math.E });
-                        else if (id === 'Ans') tokens.push({ type: 'number', value: lastAns });
-                        else if (id === 'mod' || id === 'yroot') tokens.push({ type: 'op', value: id });
-                        else tokens.push({ type: 'func', value: id });
-                        continue;
-                    }
-                    if (ch === '(' || ch === ')') {
-                        tokens.push({ type: ch === '(' ? 'lparen' : 'rparen', value: ch });
-                        i++; continue;
-                    }
-                    if (['+', '-', '×', '*', '÷', '/', '^', '!', '%'].includes(ch)) {
-                        let op = ch === '*' ? '×' : ch === '/' ? '÷' : ch;
-                        tokens.push({ type: 'op', value: op });
-                        i++; continue;
-                    }
-                    throw new Error('رمز غير معروف');
-                }
-
-                const processed = [];
-                for (let j = 0; j < tokens.length; j++) {
-                    const curr = tokens[j], prev = processed[processed.length - 1];
-                    if (prev) {
-                        const prevVal = prev.type === 'number' || prev.type === 'rparen' || (prev.type === 'op' && (prev.value === '!' || prev.value === '%'));
-                        const currVal = curr.type === 'number' || curr.type === 'lparen' || curr.type === 'func';
-                        if (prevVal && currVal) processed.push({ type: 'op', value: '×' });
-                    }
-                    if (curr.type === 'op' && (curr.value === '-' || curr.value === '+')) {
-                        const isUnary = !prev || prev.type === 'lparen' || (prev.type === 'op' && prev.value !== '!' && prev.value !== '%');
-                        if (isUnary) {
-                            if (curr.value === '-') processed.push({ type: 'op', value: 'u-' });
-                            continue;
-                        }
-                    }
-                    processed.push(curr);
-                }
-
-                const prec = { '+': 1, '-': 1, '×': 2, '÷': 2, 'mod': 2, 'u-': 3, '^': 4, 'yroot': 4, '!': 5, '%': 5 };
-                const rightAssoc = new Set(['^', 'u-', 'yroot']);
-                const postfix = new Set(['!', '%']);
-                const out = [], stack = [];
-
-                for (const tok of processed) {
-                    if (tok.type === 'number') out.push(tok);
-                    else if (tok.type === 'func') stack.push(tok);
-                    else if (tok.type === 'op') {
-                        if (postfix.has(tok.value)) out.push(tok);
-                        else {
-                            while (stack.length) {
-                                const top = stack[stack.length - 1];
-                                if (top.type === 'func' || (top.type === 'op' && ((!rightAssoc.has(tok.value) && prec[tok.value] <= prec[top.value]) || (rightAssoc.has(tok.value) && prec[tok.value] < prec[top.value])))) {
-                                    out.push(stack.pop());
-                                } else break;
-                            }
-                            stack.push(tok);
-                        }
-                    } else if (tok.type === 'lparen') stack.push(tok);
-                    else if (tok.type === 'rparen') {
-                        while (stack.length && stack[stack.length - 1].type !== 'lparen') out.push(stack.pop());
-                        if (!stack.length) throw new Error('خطأ في الأقواس');
-                        stack.pop();
-                        if (stack.length && stack[stack.length - 1].type === 'func') out.push(stack.pop());
-                    }
-                }
-                while (stack.length) out.push(stack.pop());
-
-                const evalSt = [];
-                for (const tok of out) {
-                    if (tok.type === 'number') evalSt.push(tok.value);
-                    else if (tok.type === 'op') {
-                        if (tok.value === 'u-') evalSt.push(-evalSt.pop());
-                        else if (tok.value === '!') evalSt.push(factorial(evalSt.pop()));
-                        else if (tok.value === '%') evalSt.push(evalSt.pop() / 100);
-                        else {
-                            const b = evalSt.pop(), a = evalSt.pop();
-                            if (tok.value === '+') evalSt.push(a + b);
-                            else if (tok.value === '-') evalSt.push(a - b);
-                            else if (tok.value === '×') evalSt.push(a * b);
-                            else if (tok.value === '÷') { if (b === 0) throw new Error('قسمة على صفر'); evalSt.push(a / b); }
-                            else if (tok.value === 'mod') { if (b === 0) throw new Error('قسمة على صفر'); evalSt.push(a % b); }
-                            else if (tok.value === '^') evalSt.push(Math.pow(a, b));
-                            else if (tok.value === 'yroot') evalSt.push(Math.pow(b, 1 / a));
-                        }
-                    } else if (tok.type === 'func') {
-                        const x = evalSt.pop();
-                        switch (tok.value) {
-                            case 'sin': evalSt.push(calcSin(x)); break;
-                            case 'cos': evalSt.push(calcCos(x)); break;
-                            case 'tan': evalSt.push(calcTan(x)); break;
-                            case 'asin': if (x < -1 || x > 1) throw new Error('خارج النطاق'); evalSt.push(fromRad(Math.asin(x))); break;
-                            case 'acos': if (x < -1 || x > 1) throw new Error('خارج النطاق'); evalSt.push(fromRad(Math.acos(x))); break;
-                            case 'atan': evalSt.push(fromRad(Math.atan(x))); break;
-                            case 'sinh': evalSt.push(Math.sinh(x)); break;
-                            case 'cosh': evalSt.push(Math.cosh(x)); break;
-                            case 'tanh': evalSt.push(Math.tanh(x)); break;
-                            case 'asinh': evalSt.push(Math.asinh(x)); break;
-                            case 'acosh': if (x < 1) throw new Error('خارج النطاق'); evalSt.push(Math.acosh(x)); break;
-                            case 'atanh': if (x <= -1 || x >= 1) throw new Error('خارج النطاق'); evalSt.push(Math.atanh(x)); break;
-                            case 'log': if (x <= 0) throw new Error('خارج النطاق'); evalSt.push(Math.log10(x)); break;
-                            case 'ln': if (x <= 0) throw new Error('خارج النطاق'); evalSt.push(Math.log(x)); break;
-                            case 'sqrt': if (x < 0) throw new Error('جذر سالب'); evalSt.push(Math.sqrt(x)); break;
-                            case 'cbrt': evalSt.push(Math.cbrt(x)); break;
-                            case 'abs': evalSt.push(Math.abs(x)); break;
-                            default: throw new Error('دالة غير معروفة');
-                        }
-                    }
-                }
-                if (evalSt.length !== 1 || Number.isNaN(evalSt[0])) throw new Error('خطأ في الصيغة');
-                return evalSt[0];
-            }
-
-            function handleCalcInput(ins, act) {
-                if (ins !== null) {
-                    const isOp = ['+', '-', '×', '÷', '^', ' mod ', 'yroot', '%', '!'].includes(ins);
-                    if (justEvaluated) {
-                        expression = isOp ? 'Ans' + ins : ins;
-                        justEvaluated = false;
-                    } else {
-                        expression += ins;
-                    }
-                    updateDisplay();
-                } else if (act === 'ac') {
-                    expression = '';
-                    justEvaluated = false;
-                    updateDisplay('0', false);
-                } else if (act === 'del') {
-                    justEvaluated = false;
-                    expression = expression.slice(0, -1);
-                    updateDisplay(expression ? null : '0', false);
-                } else if (act === 'toggle-angle') {
-                    angleMode = angleMode === 'DEG' ? 'RAD' : 'DEG';
-                    angleBadge.textContent = angleMode;
-                    btnDegRad.textContent = angleMode;
-                } else if (act === 'shift') {
-                    isShift = !isShift;
-                    shiftBadge.classList.toggle('hidden', !isShift);
-                    btnShift.classList.toggle('bg-amber-500', isShift);
-                    btnShift.classList.toggle('text-slate-950', isShift);
-                } else if (act === 'negate') {
-                    expression = expression.startsWith('-') ? expression.slice(1) : '-' + expression;
-                    updateDisplay();
-                } else if (act === 'reciprocal') {
-                    expression = expression ? `1÷(${expression})` : '1÷(Ans)';
-                    updateDisplay();
-                } else if (act === 'equals') {
-                    if (!expression.trim()) return;
-                    try {
-                        const val = evaluateSciExpr(expression);
-                        const fmt = formatNum(val);
-                        if (Number.isFinite(val)) {
-                            lastAns = Number(val.toPrecision(12));
-                            ansIndicator.textContent = `Ans = ${fmt}`;
-                        }
-                        updateDisplay(fmt, false);
-                        justEvaluated = true;
-                    } catch (e) {
-                        updateDisplay(e.message || 'خطأ رياضي', true);
-                        justEvaluated = false;
-                    }
-                }
-            }
-
-            document.querySelectorAll('.calc-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    handleCalcInput(btn.getAttribute('data-insert'), btn.getAttribute('data-action'));
-                });
-            });
-        })();
-
-        /* ================= 9. حاسبة المساحة تحت المنحنى الطبيعي المعياري ================= */
-        let activeNormalField = 'valA';
-
-        function setActiveField(fieldId) {
-            activeNormalField = fieldId;
-            document.getElementById('valA').classList.toggle('active-input', fieldId === 'valA');
-            document.getElementById('valB').classList.toggle('active-input', fieldId === 'valB');
-        }
-
-        function switchNormalField() {
-            setActiveField(activeNormalField === 'valA' ? 'valB' : 'valA');
-        }
-
-        function appendNormalVal(char) {
-            hideNormalError();
-            const field = document.getElementById(activeNormalField);
-            if (!field) return;
-            if (char === '-') {
-                field.value = field.value.startsWith('-') ? field.value.slice(1) : '-' + field.value;
-                return;
-            }
-            if (char === '.' && field.value.includes('.')) return;
-            field.value += char;
-        }
-
-        function normalBackspace() {
-            hideNormalError();
-            const field = document.getElementById(activeNormalField);
-            if (field) field.value = field.value.slice(0, -1);
-        }
-
-        function clearNormalField() {
-            hideNormalError();
-            const field = document.getElementById(activeNormalField);
-            if (field) field.value = '';
-        }
-
-        function showNormalError(msg) {
-            const box = document.getElementById('errorBox');
-            box.textContent = msg;
-            box.classList.remove('hidden');
-        }
-
-        function hideNormalError() {
-            document.getElementById('errorBox').classList.add('hidden');
-        }
-
-        function normalCDF(z) {
-            if (z < -6) return 0;
-            if (z > 6) return 1;
-            const b1 = 0.319381530, b2 = -0.356563782, b3 = 1.781477937, b4 = -1.821255978, b5 = 1.330274429;
-            const p = 0.2316419, c = 0.39894228;
-            const absZ = Math.abs(z);
-            const t = 1.0 / (1.0 + p * absZ);
-            const pdf = c * Math.exp(-0.5 * absZ * absZ);
-            const poly = t * (b1 + t * (b2 + t * (b3 + t * (b4 + t * b5))));
-            const cdf = 1.0 - pdf * poly;
-            return z >= 0 ? cdf : 1.0 - cdf;
-        }
-
-        function normalPDF(x) {
-            return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
-        }
-
-        function calculateArea() {
-            hideNormalError();
-            const inA = document.getElementById('valA').value;
-            const inB = document.getElementById('valB').value;
-
-            if (inA === '' || inB === '') {
-                showNormalError("يرجى إدخال قيمتي a و b باستخدام لوحة المفاتيح المدمجة.");
-                return;
-            }
-            const a = parseFloat(inA);
-            const b = parseFloat(inB);
-
-            if (isNaN(a) || isNaN(b)) {
-                showNormalError("تأكد من إدخال أرقام صحيحة.");
-                return;
-            }
-            if (a < -1 || a > 1 || b < -1 || b > 1) {
-                showNormalError("تنبيه: القيم a و b يجب أن تكون محصورة بين -1 و 1 (-1 ≤ a, b ≤ 1).");
-                return;
-            }
-
-            const minVal = Math.min(a, b);
-            const maxVal = Math.max(a, b);
-            const area = normalCDF(maxVal) - normalCDF(minVal);
-
-            const resDiv = document.getElementById('result');
-            resDiv.classList.remove('hidden');
-            resDiv.innerHTML = `
-                <div class="text-xs sm:text-sm font-bold text-indigo-300">
-                    المساحة المحصورة: <span dir="ltr" class="font-mono text-white">P(${minVal} ≤ Z ≤ ${maxVal})</span> = 
-                    <span class="text-lg text-amber-400 font-mono font-extrabold">${area.toFixed(4)}</span>
-                </div>
-                <div class="text-xs text-slate-400">
-                    النسبة المئوية للمساحة: <span class="font-mono text-emerald-400 font-bold">${(area * 100).toFixed(2)}%</span>
-                </div>
-            `;
-
-            drawNormalCurve(minVal, maxVal);
-        }
-
-        function resetNormalForm() {
-            hideNormalError();
-            document.getElementById('valA').value = '';
-            document.getElementById('valB').value = '';
-            document.getElementById('result').classList.add('hidden');
-            setActiveField('valA');
-            drawNormalCurve(null, null);
-        }
-
-        function drawNormalCurve(a, b) {
-            const canvas = document.getElementById('chartCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const w = canvas.width, h = canvas.height;
-            ctx.clearRect(0, 0, w, h);
-
-            const xMin = -3.0, xMax = 3.0, yMin = 0, yMax = 0.45, pad = 34;
-            const toX = x => pad + (x - xMin) / (xMax - xMin) * (w - 2 * pad);
-            const toY = y => h - pad - (y - yMin) / (yMax - yMin) * (h - 2 * pad);
-
-            if (a !== null && b !== null) {
-                ctx.beginPath();
-                ctx.fillStyle = "rgba(249, 115, 22, 0.45)";
-                ctx.moveTo(toX(a), toY(0));
-                for (let x = a; x <= b; x += 0.01) {
-                    ctx.lineTo(toX(x), toY(normalPDF(x)));
-                }
-                ctx.lineTo(toX(b), toY(0));
-                ctx.closePath();
-                ctx.fill();
-            }
-
-            ctx.beginPath();
-            ctx.strokeStyle = "#38bdf8";
-            ctx.lineWidth = 3;
-            for (let x = xMin; x <= xMax; x += 0.02) {
-                const px = toX(x), py = toY(normalPDF(x));
-                if (x === xMin) ctx.moveTo(px, py);
-                else ctx.lineTo(px, py);
-            }
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.strokeStyle = "#475569";
-            ctx.lineWidth = 1.5;
-            ctx.moveTo(toX(xMin), toY(0));
-            ctx.lineTo(toX(xMax), toY(0));
-            ctx.stroke();
-
-            ctx.fillStyle = "#94a3b8";
-            ctx.font = "12px JetBrains Mono, sans-serif";
-            ctx.textAlign = "center";
-            for (let z = -3; z <= 3; z++) {
-                const px = toX(z), py = toY(0);
-                ctx.fillText(z, px, py + 16);
-            }
-
-            if (a !== null) drawZMarker(ctx, toX(a), toY(0), toY(normalPDF(a)), `a=${a}`);
-            if (b !== null) drawZMarker(ctx, toX(b), toY(0), toY(normalPDF(b)), `b=${b}`);
-        }
-
-        function drawZMarker(ctx, x, yBot, yTop, label) {
-            ctx.beginPath();
-            ctx.strokeStyle = "#f43f5e";
-            ctx.setLineDash([4, 4]);
-            ctx.lineWidth = 2;
-            ctx.moveTo(x, yBot);
-            ctx.lineTo(x, yTop);
-            ctx.stroke();
-            ctx.setLineDash([]);
-            ctx.fillStyle = "#f43f5e";
-            ctx.font = "bold 11px JetBrains Mono, sans-serif";
-            ctx.fillText(label, x, yTop - 6);
-        }
-
-        /* ================= 10. السبورة الذكية التفاعلية مع شبكة الإحداثيات ================= */
-        let wbDrawing = false;
-        let wbCtx = null;
-        let wbShowGrid = false;
-
-        function drawWbCoordinateGrid() {
-            const gridCanvas = document.getElementById('wbGridCanvas');
-            if (!gridCanvas) return;
-            const gCtx = gridCanvas.getContext('2d');
-            gridCanvas.width = gridCanvas.parentElement.clientWidth || 750;
-            gridCanvas.height = 390;
-            gCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
-
-            if (!wbShowGrid) return;
-            const w = gridCanvas.width, h = gridCanvas.height;
-            const cx = w / 2, cy = h / 2, step = 30;
-
-            gCtx.strokeStyle = "rgba(56, 189, 248, 0.14)";
-            gCtx.lineWidth = 1;
-            for (let x = cx % step; x < w; x += step) {
-                gCtx.beginPath(); gCtx.moveTo(x, 0); gCtx.lineTo(x, h); gCtx.stroke();
-            }
-            for (let y = cy % step; y < h; y += step) {
-                gCtx.beginPath(); gCtx.moveTo(0, y); gCtx.lineTo(w, y); gCtx.stroke();
-            }
-
-            gCtx.strokeStyle = "rgba(250, 204, 21, 0.45)";
-            gCtx.lineWidth = 1.8;
-            gCtx.beginPath(); gCtx.moveTo(0, cy); gCtx.lineTo(w, cy); gCtx.stroke();
-            gCtx.beginPath(); gCtx.moveTo(cx, 0); gCtx.lineTo(cx, h); gCtx.stroke();
-        }
-
-        function toggleWhiteboardGrid() {
-            wbShowGrid = !wbShowGrid;
-            const btn = document.getElementById('wbGridToggle');
-            btn.classList.toggle('bg-sky-500', wbShowGrid);
-            btn.classList.toggle('text-slate-950', wbShowGrid);
-            drawWbCoordinateGrid();
-        }
-
-        function initWhiteboard() {
-            const canvas = document.getElementById('smartWhiteboard');
-            if (!canvas) return;
-            wbCtx = canvas.getContext('2d');
-
-            function resizeWb() {
-                const temp = wbCtx.getImageData(0, 0, canvas.width, canvas.height);
-                canvas.width = canvas.parentElement.clientWidth || 750;
-                canvas.height = 390;
-                wbCtx.putImageData(temp, 0, 0);
-                wbCtx.lineJoin = 'round';
-                wbCtx.lineCap = 'round';
-                drawWbCoordinateGrid();
-            }
-            resizeWb();
-            window.addEventListener('resize', resizeWb);
-
-            const getCoords = (e) => {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                return { x: clientX - rect.left, y: clientY - rect.top };
-            };
-
-            const start = (e) => {
-                wbDrawing = true;
-                const pos = getCoords(e);
-                wbCtx.beginPath();
-                wbCtx.moveTo(pos.x, pos.y);
-            };
-
-            const move = (e) => {
-                if (!wbDrawing) return;
-                if (e.cancelable) e.preventDefault();
-                const pos = getCoords(e);
-                wbCtx.strokeStyle = document.getElementById('wbColor').value;
-                wbCtx.lineWidth = document.getElementById('wbLineWidth').value;
-                wbCtx.lineTo(pos.x, pos.y);
-                wbCtx.stroke();
-            };
-
-            const end = () => {
-                wbDrawing = false;
-                wbCtx.beginPath();
-            };
-
-            canvas.addEventListener('mousedown', start);
-            canvas.addEventListener('mousemove', move);
-            window.addEventListener('mouseup', end);
-
-            canvas.addEventListener('touchstart', start, { passive: false });
-            canvas.addEventListener('touchmove', move, { passive: false });
-            canvas.addEventListener('touchend', end);
-        }
-
-        function clearWhiteboard() {
-            const canvas = document.getElementById('smartWhiteboard');
-            if (wbCtx && canvas) wbCtx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function saveWhiteboardImage() {
-            const canvas = document.getElementById('smartWhiteboard');
-            if (!canvas) return;
-            const link = document.createElement('a');
-            link.download = 'elmalt-whiteboard.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            showToast("تم حفظ صورة السبورة بنجاح!");
-        }
-
-        /* ================= 11. ساعة الأطفال التفاعلية ================= */
-        const clockFace = document.getElementById('clockFace');
-        const hourHand = document.getElementById('hourHand');
-        const minuteHand = document.getElementById('minuteHand');
-        const digitalOutput = document.getElementById('digitalOutput');
-        const textOutput = document.getElementById('textOutput');
-        const timeLabel = document.getElementById('timeLabel');
-        const speakAgainBtn = document.getElementById('speakAgainBtn');
-
-        let kidsHours = 3;
-        let kidsMinutes = 0;
-        let kidsTimeRevealed = false;
-        let activeDragHand = null;
-
-        function buildKidsClockFace() {
-            if (!clockFace) return;
-            for (let m = 0; m < 60; m++) {
-                const tick = document.createElement('div');
-                tick.className = m % 5 === 0 ? 'tick major' : 'tick';
-                tick.style.transform = `rotate(${m * 6}deg)`;
-                clockFace.appendChild(tick);
-            }
-            for (let i = 1; i <= 12; i++) {
-                const angle = i * 30;
-                const numDiv = document.createElement('div');
-                numDiv.className = 'hour-number';
-                numDiv.style.transform = `rotate(${angle}deg)`;
-                const numSpan = document.createElement('span');
-                numSpan.textContent = i;
-                numSpan.style.transform = `rotate(-${angle}deg)`;
-                numDiv.appendChild(numSpan);
-                clockFace.appendChild(numDiv);
-
-                const minHelper = document.createElement('div');
-                minHelper.className = 'minute-helper';
-                minHelper.style.transform = `rotate(${angle}deg)`;
-                const minSpan = document.createElement('span');
-                minSpan.textContent = (i * 5).toString().padStart(2, '0');
-                minSpan.style.transform = `rotate(-${angle}deg)`;
-                minHelper.appendChild(minSpan);
-                clockFace.appendChild(minHelper);
-            }
-        }
-
-        function toggleMinuteHelpers() {
-            const show = document.getElementById('toggleHelpers').checked;
-            document.querySelectorAll('.minute-helper').forEach(el => {
-                el.style.opacity = show ? '1' : '0';
-            });
-        }
-
-        function updateKidsClockHands() {
-            const minuteDeg = kidsMinutes * 6;
-            const hourDeg = ((kidsHours % 12) * 30) + (kidsMinutes * 0.5);
-            minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
-            hourHand.style.transform = `rotate(${hourDeg}deg)`;
-        }
-
-        function resetKidsQuizMode() {
-            kidsTimeRevealed = false;
-            digitalOutput.textContent = '? : ?';
-            textOutput.textContent = 'Can you tell the time? Click "What time is it now?"';
-            textOutput.className = 'text-sm sm:text-base font-semibold text-sky-700 mt-0.5';
-            timeLabel.classList.remove('bg-emerald-50', 'border-emerald-400', 'border-solid');
-            timeLabel.classList.add('bg-slate-50', 'border-sky-300', 'border-dashed');
-            speakAgainBtn.classList.add('hidden');
-        }
-
-        function getEnglishTimePhrase(h, m) {
-            const nextHour = (h % 12) + 1;
-            if (m === 0) return `It's ${h} o'clock`;
-            if (m === 15) return `It's quarter past ${h}`;
-            if (m === 30) return `It's half past ${h}`;
-            if (m === 45) return `It's quarter to ${nextHour}`;
-            if (m < 30) {
-                const minWord = m === 1 ? 'minute' : 'minutes';
-                return m % 5 === 0 ? `It's ${m} past ${h}` : `It's ${m} ${minWord} past ${h}`;
-            } else {
-                const rem = 60 - m;
-                const minWord = rem === 1 ? 'minute' : 'minutes';
-                return rem % 5 === 0 ? `It's ${rem} to ${nextHour}` : `It's ${rem} ${minWord} to ${nextHour}`;
-            }
-        }
-
-        function speakText(phrase) {
-            try {
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                    const utterance = new SpeechSynthesisUtterance(phrase);
-                    utterance.lang = 'en-US';
-                    utterance.rate = 0.9;
-                    utterance.pitch = 1.1;
-                    window.speechSynthesis.speak(utterance);
-                }
-            } catch (err) {}
-        }
-
-        function revealAndSpeakTime() {
-            kidsTimeRevealed = true;
-            const formattedHour = kidsHours.toString().padStart(2, '0');
-            const formattedMin = kidsMinutes.toString().padStart(2, '0');
-            const phrase = getEnglishTimePhrase(kidsHours, kidsMinutes);
-
-            digitalOutput.textContent = `${formattedHour}:${formattedMin}`;
-            textOutput.textContent = phrase;
-            textOutput.className = 'text-base sm:text-lg font-bold text-emerald-700 mt-0.5';
-
-            timeLabel.classList.remove('bg-slate-50', 'border-sky-300', 'border-dashed');
-            timeLabel.classList.add('bg-emerald-50', 'border-emerald-400', 'border-solid');
-            speakAgainBtn.classList.remove('hidden');
-
-            speakText(phrase);
-        }
-
-        function speakCurrentPhrase(event) {
-            if (event) event.preventDefault();
-            if (kidsTimeRevealed) speakText(getEnglishTimePhrase(kidsHours, kidsMinutes));
-        }
-
-        function getClockAngle(clientX, clientY) {
-            const rect = clockFace.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            let angle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI) + 90;
-            if (angle < 0) angle += 360;
-            return angle;
-        }
-
-        function handleClockDragMove(clientX, clientY) {
-            if (!activeDragHand) return;
-            const angle = getClockAngle(clientX, clientY);
-            if (activeDragHand === 'minute') {
-                const newMinutes = Math.round(angle / 6) % 60;
-                if (kidsMinutes > 45 && newMinutes < 15) kidsHours = (kidsHours % 12) + 1;
-                else if (kidsMinutes < 15 && newMinutes > 45) kidsHours = kidsHours - 1 <= 0 ? 12 : kidsHours - 1;
-                kidsMinutes = newMinutes;
-            } else if (activeDragHand === 'hour') {
-                let newHour = Math.round(angle / 30) % 12;
-                if (newHour === 0) newHour = 12;
-                kidsHours = newHour;
-            }
-            updateKidsClockHands();
-            if (kidsTimeRevealed) resetKidsQuizMode();
-        }
-
-        function startClockDrag(handType, el, e) {
-            e.preventDefault();
-            activeDragHand = handType;
-            el.classList.add('dragging');
-        }
-
-        if (hourHand && minuteHand) {
-            hourHand.addEventListener('mousedown', (e) => startClockDrag('hour', hourHand, e));
-            minuteHand.addEventListener('mousedown', (e) => startClockDrag('minute', minuteHand, e));
-            hourHand.addEventListener('touchstart', (e) => startClockDrag('hour', hourHand, e), { passive: false });
-            minuteHand.addEventListener('touchstart', (e) => startClockDrag('minute', minuteHand, e), { passive: false });
-
-            window.addEventListener('mousemove', (e) => { if (activeDragHand) handleClockDragMove(e.clientX, e.clientY); });
-            window.addEventListener('touchmove', (e) => { if (activeDragHand && e.touches.length > 0) handleClockDragMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
-
-            const endClockDrag = () => {
-                if (activeDragHand) {
-                    hourHand.classList.remove('dragging');
-                    minuteHand.classList.remove('dragging');
-                    activeDragHand = null;
-                }
-            };
-            window.addEventListener('mouseup', endClockDrag);
-            window.addEventListener('touchend', endClockDrag);
-        }
-
-        /* ================= 12. نموذج تسجيل الطلاب (Formspree) ================= */
-        const studentForm = document.getElementById("student-registration-form");
-        if (studentForm) {
-            studentForm.addEventListener("submit", async function (e) {
-                e.preventDefault();
-                const statusMsg = document.getElementById("form-status-message");
-                const submitBtn = document.getElementById("form-submit-btn");
-                const studentName = document.getElementById("student-name").value;
-
-                submitBtn.disabled = true;
-                submitBtn.textContent = "جاري إرسال بيانات التسجيل...";
-
-                try {
-                    const response = await fetch(studentForm.action, {
-                        method: studentForm.method,
-                        body: new FormData(studentForm),
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (response.ok) {
-                        statusMsg.textContent = `✨ أهلاً بك يا ${studentName}! تم إرسال طلب تسجيلك بنجاح وسنتواصل معك قريباً.`;
-                        statusMsg.className = "text-center text-xs sm:text-sm font-bold mt-4 text-emerald-400";
-                        studentForm.reset();
-                    } else {
-                        statusMsg.textContent = "عذراً، حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.";
-                        statusMsg.className = "text-center text-xs sm:text-sm font-bold mt-4 text-rose-400";
-                    }
-                } catch (err) {
-                    statusMsg.textContent = "تعذر الاتصال بالخادم، يرجى التحقق من الإنترنت.";
-                    statusMsg.className = "text-center text-xs sm:text-sm font-bold mt-4 text-rose-400";
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = "إرسال طلب التسجيل";
-                }
-            });
-        }
-
-        /* ================= 13. إشعارات منبثقة أنيقة ================= */
-        function showToast(msg) {
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-5 left-5 bg-amber-500 text-slate-950 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm shadow-2xl z-50 transition-opacity duration-300 flex items-center gap-2';
-            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>${msg}</span>`;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        /* ================= التهيئة الشاملة عند تحميل الصفحة ================= */
-        window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            if (!localStorage.getItem('elmalt_directives')) {
-                localStorage.setItem('elmalt_directives', JSON.stringify(DEFAULT_DIRECTIVES));
-            }
-
-            initVisitorCounter();
-            spawnFloatingSymbols();
-            cycleLogoTheme();
-            setInterval(cycleLogoTheme, 3500);
-            initHeroGenerativeBackdrop();
-
-            updateClockAndDate();
-            setInterval(updateClockAndDate, 1000);
-
-            updateStudioParams();
-            animateMathArtStudio();
-
-            updateTeacherUI();
-            renderDirectives();
-            drawNormalCurve(null, null);
-            initWhiteboard();
-
-            buildKidsClockFace();
-            updateKidsClockHands();
         });
-    </script>
-    
-    
-    <!-- بداية فقرة أكاديمية الملط التفاعلية (متوافقة 100% مع Android WebView وتعمل بدون إنترنت) -->
-<div class="almalt-quiz-widget" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 420px; margin: 15px auto; padding: 16px; border-radius: 16px; background: linear-gradient(145deg, #0f172a, #1e293b); color: #f8fafc; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); border: 1px solid rgba(56, 189, 248, 0.25); text-align: center;">
-    
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.85rem; color: #38bdf8; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 6px; direction: rtl;">
-        <span>🎓 تحدي أكاديمية الملط</span>
-        <span id="qStage" style="background: rgba(56, 189, 248, 0.15); padding: 2px 10px; border-radius: 12px; font-weight: bold; font-size: 0.78rem;">اختر الإجابة</span>
-    </div>
 
-    <div style="min-height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(15, 23, 42, 0.6); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
-        <div id="qText" style="direction: rtl; margin-bottom: 8px; color: #e2e8f0; font-size: 0.95rem;">جاري التجهيز...</div>
-        <div id="qMath" dir="ltr" style="direction: ltr; unicode-bidi: isolate; font-family: 'Times New Roman', serif; font-size: 1.35rem; color: #fbbf24; font-weight: bold; margin: 4px 0; display: flex; align-items: center; justify-content: center; gap: 6px;"></div>
-    </div>
-
-    <!-- الاختيارات رأسية وتحت بعضها -->
-    <div id="qOptions" dir="ltr" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; direction: ltr; unicode-bidi: isolate;"></div>
-
-    <button onclick="generateNewQuestion()" style="width: 100%; padding: 10px; border: none; border-radius: 10px; background: linear-gradient(90deg, #0284c7, #2563eb); color: white; font-size: 1rem; font-weight: bold; cursor: pointer; direction: rtl;">سؤال جديد</button>
-</div>
-
-<script>
-    // دالة لرسم الجذر التربيعي بخط علوي ممتد
-    function renderSqrt(content) {
-        return `<span style="display:inline-flex; align-items:stretch; vertical-align:middle;">` +
-               `<span style="font-size:1.25em; line-height:1; margin-right:1px;">&radic;</span>` +
-               `<span style="border-top: 1.8px solid currentColor; padding: 1px 4px 0 2px; display:inline-block;">${content}</span>` +
-               `</span>`;
-    }
-
-    // دالة لتصميم الكسور بشكل احترافي
-    function renderFraction(num, den) {
-        return `<span style="display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; margin:0 4px; font-size: 1.15rem;">` +
-               `<span style="border-bottom: 1.8px solid currentColor; padding: 0 4px 2px 4px;">${num}</span>` +
-               `<span style="padding: 2px 4px 0 4px;">${den}</span></span>`;
-    }
-
-    function rand(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function shuffle(array) {
-        return array.sort(() => Math.random() - 0.5);
-    }
-
-    const questionGenerators = [
-        // 1. المعادلة الجذرية
-        () => {
-            const a = rand(2, 4), b = rand(1, 6), c = rand(3, 7);
-            const cSqMinusB = c * c - b;
-            if (cSqMinusB <= 0 || cSqMinusB % a !== 0) return questionGenerators[0]();
-            const correctX = cSqMinusB / a;
-            return {
-                stage: "المرحلة الثانوية",
-                text: "أوجد قيمة x التي تحقق المعادلة:",
-                mathHTML: `${renderSqrt(`${a}x + ${b}`)} = ${c}`,
-                correct: `x = ${correctX}`,
-                options: shuffle([
-                    `x = ${correctX}`,
-                    `x = ${correctX + 2}`,
-                    `x = ${correctX > 2 ? correctX - 2 : correctX + 3}`,
-                    `x = ${c}`
-                ])
-            };
-        },
-        // 2. المعادلة بعد تربيع الطرفين
-        () => {
-            const a = rand(2, 4), b = rand(1, 6), x = rand(2, 5);
-            const res = a * x + b;
-            return {
-                stage: "المرحلة الثانوية",
-                text: "حل المعادلة الخطية التالية:",
-                mathHTML: `${a}x + ${b} = ${res}`,
-                correct: `x = ${x}`,
-                options: shuffle([
-                    `x = ${x}`,
-                    `x = ${x + 2}`,
-                    `x = ${x > 1 ? x - 1 : x + 3}`,
-                    `x = ${res}`
-                ])
-            };
-        },
-        // 3. الصيغة الكسرية (مع دعم النتائج العشرية بدقة مثل 8.5)
-        () => {
-            const denominators = [2, 4];
-            const a = denominators[rand(0, denominators.length - 1)];
-            const c = rand(4, 8); // مثل 6
-            const b = rand(1, 5); // مثل 2 -> (36 - 2) / 4 = 8.5
-            const numeratorVal = c * c - b;
-            const correctVal = numeratorVal / a; // يدعم الأعداد الصحيحة والعشرية مثل 8.5
-            
-            const fractionHTML = `x = ` + renderFraction(`${c}<sup>2</sup> - ${b}`, `${a}`);
-            return {
-                stage: "المرحلة الثانوية",
-                text: "احسب القيمة النهائية للناتج من الصيغة:",
-                mathHTML: fractionHTML,
-                correct: `x = ${correctVal}`,
-                options: shuffle([
-                    `x = ${correctVal}`,
-                    `x = ${correctVal + 1}`,
-                    `x = ${c - b}`,
-                    `x = ${a * c}`
-                ])
-            };
-        },
-        // 4. فيثاغورس
-        () => {
-            const triples = [[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 15, 17]];
-            const [a, b, c] = triples[rand(0, triples.length - 1)];
-            return {
-                stage: "المرحلة الإعدادية",
-                text: "أوجد طول الوتر c في المثلث القائم:",
-                mathHTML: `c = ${renderSqrt(`${a}<sup>2</sup> + ${b}<sup>2</sup>`)}`,
-                correct: `c = ${c}`,
-                options: shuffle([
-                    `c = ${c}`,
-                    `c = ${a + b}`,
-                    `c = ${c + 2}`,
-                    `c = ${b - a + 4}`
-                ])
-            };
+        // معاينة وتحميل الصورة من الجهاز
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgEl = document.getElementById("display-image");
+                    imgEl.src = e.target.result;
+                    imgEl.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
         }
-    ];
 
-    function generateNewQuestion() {
-        try {
-            const generator = questionGenerators[rand(0, questionGenerators.length - 1)];
-            const q = generator();
+        // حفظ التعديلات وقفل اللوحة
+        function saveAndLock() {
+            const newText = document.getElementById("text-input").value;
+            const imgSrc = document.getElementById("display-image").src;
 
-            document.getElementById('qStage').innerText = q.stage;
-            document.getElementById('qText').innerText = q.text;
-            document.getElementById('qMath').innerHTML = q.mathHTML;
-
-            const optionsContainer = document.getElementById('qOptions');
-            optionsContainer.innerHTML = '';
-
-            let uniqueOptions = [...new Set(q.options)];
-            while (uniqueOptions.length < 4) {
-                uniqueOptions.push(`x = ${rand(1, 25)}`);
+            document.getElementById("display-text").innerText = newText;
+            
+            // الحفظ في ذاكرة المتصفح
+            try {
+                localStorage.setItem("group_bold_text", newText);
+                if (document.getElementById("display-image").style.display === "block") {
+                    localStorage.setItem("group_uploaded_img", imgSrc);
+                }
+            } catch (e) {
+                console.log("حجم الصورة كبير جداً للتخزين المحلي، ولكنها ستظهر في الجلسة الحالية.");
             }
 
-            uniqueOptions.slice(0, 4).forEach(opt => {
-                const btn = document.createElement('button');
-                btn.setAttribute('dir', 'ltr');
-                btn.style.cssText = "background: #334155; color: #fff; border: 1px solid #475569; border-radius: 10px; padding: 10px 12px; font-size: 1.05rem; font-family: 'Times New Roman', serif; cursor: pointer; direction: ltr; unicode-bidi: isolate; width: 100%; text-align: center;";
-                btn.innerHTML = opt;
-
-                btn.onclick = () => {
-                    const allBtns = optionsContainer.querySelectorAll('button');
-                    allBtns.forEach(b => b.disabled = true);
-
-                    if (opt === q.correct) {
-                        btn.style.background = '#15803d';
-                        btn.style.borderColor = '#4ade80';
-                    } else {
-                        btn.style.background = '#b91c1c';
-                        btn.style.borderColor = '#f87171';
-                        allBtns.forEach((b, idx) => {
-                            if (uniqueOptions[idx] === q.correct) {
-                                b.style.background = '#15803d';
-                                b.style.borderColor = '#4ade80';
-                            }
-                        });
-                    }
-                };
-                optionsContainer.appendChild(btn);
-            });
-        } catch (err) {
-            console.error("Error:", err);
-            document.getElementById('qText').innerText = "حدث خطأ في تحميل السؤال";
+            // إخفاء لوحة التحكم وإظهار زر الدخول مرة أخرى
+            document.getElementById("teacher-panel").style.display = "none";
+            document.getElementById("login-btn").style.display = "inline-block";
+            alert("✅ تم حفظ التعديلات بنجاح!");
         }
-    }
-
-    setTimeout(generateNewQuestion, 50);
-</script>
-
-    
-    
-    
-    
-    
+    </script>
 </body>
 </html>
-
-
-
