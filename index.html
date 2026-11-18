@@ -1,372 +1,204 @@
-
-<div style="background-color: #1e3a8a; padding: 25px 15px; text-align: center; width: 100%; box-sizing: border-box;">
-    <img src="https://i.ibb.co/xKHYLDVv/image.png" alt="صورة" style="width: 85%; max-width: 1000px; height: auto; border-radius: 12px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
-</div>
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>السلام عليكم اكاديمية الملط أقوى وأكبر وأول اكاديمية رياضيات فى العالم وفى الشرق الأوسط</title>
-    <!-- تضمين مكتبة Tailwind CSS لتشغيل تنسيقات الأشرطة الإخبارية -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-        
-        
-        
-        
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* تنسيقات الأشرطة الإخبارية المتحركة */
-        @keyframes marquee-scroll-right {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0%); }
-        }
-        @keyframes marquee-scroll-left {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .marquee-wrapper {
-            display: flex;
-            width: max-content;
-        }
-
-        .animate-marquee-1 {
-            animation: marquee-scroll-right 28s linear infinite;
-        }
-
-        .animate-marquee-2 {
-            animation: marquee-scroll-left 35s linear infinite;
-        }
-
-        .marquee-container:hover .marquee-wrapper {
-            animation-play-state: paused;
-        }
-
-        /* تنسيقات الصفحة الأساسية */
-        .page-wrapper {
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            flex-grow: 1;
-            box-sizing: border-box;
-        }
-
-        .container {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 750px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            padding: 30px;
-            text-align: center;
-        }
-        h1 {
-            color: #1e3a8a;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #3b82f6;
-            padding-bottom: 15px;
-        }
-        /* منطقة عرض المحتوى للطلاب */
-        .content-box {
-            margin: 25px 0;
-            padding: 20px;
-            background-color: #f8fafc;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-        }
-        #display-text {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #0f172a;
-            line-height: 1.8;
-            white-space: pre-wrap;
-            margin-bottom: 20px;
-        }
-        #display-image {
-            max-width: 100%;
-            max-height: 450px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            display: none;
-            margin: 0 auto;
-        }
-        /* أزرار التحكم */
-        .btn {
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1em;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin: 5px;
-        }
-        .btn:hover {
-            background-color: #1d4ed8;
-        }
-        .btn-save {
-            background-color: #16a34a;
-        }
-        .btn-save:hover {
-            background-color: #15803d;
-        }
-        /* لوحة تحكم المعلم */
-        #teacher-panel {
-            display: none;
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #eff6ff;
-            border: 2px dashed #3b82f6;
-            border-radius: 10px;
-            text-align: right;
-        }
-        #teacher-panel label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #1e40af;
-        }
-        textarea {
-            width: 100%;
-            height: 120px;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            font-size: 1.1em;
-            font-family: inherit;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-        }
-        input[type="file"] {
-            display: block;
-            margin-bottom: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        /* نافذة إدخال الرقم السري */
-        #login-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 350px;
-            text-align: center;
-        }
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1.1em;
-            text-align: center;
-            box-sizing: border-box;
-        }
-    </style>
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أكاديمية الملط</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#0a1230;color:#fff;min-height:100vh}
+header{text-align:center;padding:28px 16px 10px;background:linear-gradient(180deg,#0a1230,#12205a)}
+header h1{font-size:52px;color:#f5c518;line-height:1.1}
+header h1 span{color:#fff}
+.sub{margin-top:8px;font-size:18px;color:#ffe98a}
+.dean{margin-top:6px;font-size:17px;color:#d6deff}
+.clock-box{margin:18px auto 0;background:#fff;color:#111;width:min(420px,90%);border-radius:18px;padding:14px 10px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#clock{font-family:Arial,Helvetica,sans-serif;font-size:48px;font-weight:800;letter-spacing:2px;direction:ltr}
+#clock small{font-size:22px;color:#b8860b;margin-left:6px}
+.marquee{background:#f5c518;color:#111;overflow:hidden;white-space:nowrap;padding:11px 0;margin:18px 0;font-weight:800;font-size:18px}
+.marquee span{display:inline-block;padding-left:40px;animation:scroll 22s linear infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 40px}
+.card{background:#fff;color:#111;border-radius:18px;padding:18px;margin-top:6px}
+.card h2{text-align:center;color:#0a1230;font-size:28px;margin-bottom:12px}
+.empty{text-align:center;color:#666;padding:18px 0}
+.item{border:2px solid #eee;border-radius:14px;padding:12px;margin:12px 0;background:#fafafa;position:relative}
+.item.select-mode{cursor:pointer}
+.item.selected{border-color:#e11d48;background:#fff1f2}
+.item p{font-size:18px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.item img{width:100%;border-radius:12px;margin-top:10px;display:block;max-height:520px;object-fit:cover}
+.item .time{font-size:12px;color:#888;margin-top:8px;direction:ltr;text-align:left}
+.check{position:absolute;top:10px;left:10px;width:26px;height:26px;accent-color:#e11d48;display:none}
+.select-mode .check{display:block}
+.admin{margin-top:16px;background:#0f1e4e;border-radius:16px;padding:16px;color:#fff}
+.admin h3{text-align:center;margin-bottom:12px;color:#f5c518}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;font-family:inherit;font-size:16px;margin-bottom:10px}
+textarea{min-height:90px;resize:vertical}
+button{width:100%;padding:12px;border:0;border-radius:10px;font-size:17px;font-weight:800;cursor:pointer;margin-bottom:8px}
+.btn-gold{background:#f5c518;color:#111}
+.btn-red{background:#e11d48;color:#fff}
+.btn-dark{background:#fff;color:#111}
+.btn-outline{background:transparent;color:#fff;border:2px solid #f5c518}
+.error{color:#ffb3c1;text-align:center;margin-bottom:8px;display:none}
+.hint{font-size:13px;color:#cbd5ff;text-align:center;margin-top:6px}
+footer{text-align:center;color:#aab4e8;padding:18px;font-size:13px}
+@media(max-width:520px){header h1{font-size:38px}#clock{font-size:38px}}
+</style>
 </head>
 <body>
+<header>
+<h1>أكاديمية <span>الملط</span></h1>
+<div class="sub">أقوى وأكبر وأول أكاديمية رياضيات في العالم وفي الشرق الأوسط</div>
+<div class="dean">عميد الأكاديمية: أ. محمد عبدالمنعم الملط</div>
+<div class="clock-box"><div id="clock">--:--:-- <small></small></div></div>
+</header>
 
-    <!-- الشريط الإخباري الأول -->
-    <div dir="rtl" class="relative z-20 w-full bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white border-b border-cyan-500/30 overflow-hidden py-2">
-        <div class="marquee-container relative flex items-center h-6 overflow-hidden">
-            <div class="marquee-wrapper animate-marquee-1 text-xs sm:text-sm font-bold tracking-wide items-center">
-                <!-- المجموعة الأولى -->
-                <div class="flex items-center gap-10 px-5 shrink-0">
-                    <span class="text-amber-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
-                    <span class="text-cyan-300 font-mono" dir="ltr">⚡ [ ACADEMY OF EL-MALT • MATHEMATICS &amp; AI ] ⚡</span>
-                    <span class="text-emerald-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
-                </div>
-                <!-- تكرار المجموعة لمنع أي فراغات -->
-                <div class="flex items-center gap-10 px-5 shrink-0" aria-hidden="true">
-                    <span class="text-amber-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
-                    <span class="text-cyan-300 font-mono" dir="ltr">⚡ [ ACADEMY OF EL-MALT • MATHEMATICS &amp; AI ] ⚡</span>
-                    <span class="text-emerald-300">✨ مع تحياتي الأستاذ محمد عبدالمنعم الملط - معلم خبير الرياضيات - خبير الذكاء الاصطناعي - حفيد أينشتاين ✨</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="marquee"><span id="marqueeText">أكاديمية الملط ✦ أقوى وأكبر وأول أكاديمية رياضيات في العالم والشرق الأوسط ✦ مع الأستاذ محمد الملط حفيد أينشتاين ✦ الرياضيات متعة وفهم وليست حفظ ✦&nbsp;&nbsp;&nbsp; أكاديمية الملط ✦ أقوى وأكبر وأول أكاديمية رياضيات في العالم والشرق الأوسط ✦ مع الأستاذ محمد الملط حفيد أينشتاين ✦ الرياضيات متعة وفهم وليست حفظ ✦&nbsp;&nbsp;&nbsp;</span></div>
 
-    <!-- الشريط الإخباري الثاني -->
-    <div dir="rtl" class="relative z-20 w-full bg-slate-900/95 text-slate-200 border-b border-amber-500/25 overflow-hidden py-1.5">
-        <div class="marquee-container relative flex items-center h-6 overflow-hidden">
-            <div class="marquee-wrapper animate-marquee-2 text-xs sm:text-sm font-semibold items-center">
-                <!-- المجموعة الأولى -->
-                <div class="flex items-center gap-12 px-6 shrink-0">
-                    <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون» — جاليليو جاليلي</span>
-                    <span class="text-amber-300">🧠 «التفكير الرياضي ليس مجرد أرقام، بل هو تنظيم للعقل وحل للمشكلات»</span>
-                    <span class="text-fuchsia-300 font-mono" dir="ltr">∞ e^(iπ) + 1 = 0 • φ = 1.6180339887...</span>
-                </div>
-                <!-- تكرار المجموعة لمنع أي فراغات -->
-                <div class="flex items-center gap-12 px-6 shrink-0" aria-hidden="true">
-                    <span class="text-sky-300">🌌 «الرياضيات لغة استخدمها الله لكتابة الكون» — جاليليو جاليلي</span>
-                    <span class="text-amber-300">🧠 «التفكير الرياضي ليس مجرد أرقام، بل هو تنظيم للعقل وحل للمشكلات»</span>
-                    <span class="text-fuchsia-300 font-mono" dir="ltr">∞ e^(iπ) + 1 = 0 • φ = 1.6180339887...</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="wrap">
+<div class="card">
+<h2>توجيهات المعلم</h2>
+<div id="list"></div>
+<div id="empty" class="empty">لا توجد توجيهات منشورة بعد</div>
+</div>
 
-    <!-- محتوى الصفحة الرئيسي -->
-    <div class="page-wrapper">
-        <div class="container">
-            <!-- عنوان المجموعة -->
-            <h1> اكاديمية الملط أقوى وأكبر وأول اكاديمية رياضيات فى العالم وفى الشرق الأوسط  </h1>
+<div class="admin" id="loginBox">
+<h3>دخول المعلم</h3>
+<div id="err" class="error">الرقم السري غير صحيح</div>
+<input type="password" id="pass" placeholder="الرقم السري">
+<button class="btn-gold" onclick="login()">دخول</button>
+</div>
 
-            <!-- منطقة العرض للجميع (للقراءة فقط) -->
-            <div class="content-box">
-                <div id="display-text">أهلاً بكم مع أ. محمد الملط .</div>
-                <img id="display-image" src="" alt="صورة الدرس">
-            </div>
+<div class="admin" id="manageBox" style="display:none">
+<h3>إضافة محتوى جديد</h3>
+<textarea id="txt" placeholder="اكتب التوجيه هنا..."></textarea>
+<input type="file" id="imgInput" accept="image/*">
+<button class="btn-gold" onclick="addContent()">إضافة المحتوى</button>
+<button class="btn-outline" onclick="toggleSelect()">تحديد المحتوى المطلوب حذفه</button>
+<button class="btn-red" id="delBtn" style="display:none" onclick="deleteSelected()">حذف المحتوى المحدد</button>
+<div class="hint">اختر الصورة من جهازك، وستظهر مع التوجيه للطلاب</div>
+</div>
+</div>
+<footer>أكاديمية الملط © 2026 - أ. محمد عبدالمنعم الملط</footer>
 
-            <!-- زر دخول المعلم -->
-            <button id="login-btn" class="btn" onclick="openLoginModal()">🔒 تعديل المحتوى (للمعلم فقط)</button>
+<script>
+const PASSWORD = "Moh@#$123";
+const KEY = "almalat_guidance_v1";
+let items = [];
+let selectMode = false;
+let selected = new Set();
+let pendingImage = "";
 
-            <!-- لوحة تعديل المعلم -->
-            <div id="teacher-panel">
-                <h3 style="margin-top:0; color:#1e3a8a; text-align:center;">لوحة تحكم المعلم</h3>
-                
-                <label for="text-input">مرحبا بكم</label>
-                <textarea id="text-input" placeholder="اكتب رسالتك أو المسألة الرياضية هنا..."></textarea>
+try{ items = JSON.parse(localStorage.getItem(KEY) || "[]"); }catch(e){ items=[]; }
 
-                <label for="image-input">اختر صورة من جهازك:</label>
-                <input type="file" id="image-input" accept="image/*" onchange="previewImage(event)">
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(items)); }catch(e){ alert("مساحة التخزين ممتلئة، حاول تصغير حجم الصورة"); } }
 
-                <div style="text-align: center;">
-                    <button class="btn btn-save" onclick="saveAndLock()">💾 حفظ التعديلات وإغلاق</button>
-                </div>
-            </div>
-        </div>
-    </div>
+function render(){
+  const list = document.getElementById('list');
+  const empty = document.getElementById('empty');
+  list.innerHTML = "";
+  empty.style.display = items.length ? "none" : "block";
+  items.slice().reverse().forEach((it)=>{
+    const div = document.createElement('div');
+    div.className = "item" + (selectMode?" select-mode":"") + (selected.has(it.id)?" selected":"");
+    div.onclick = ()=>{ if(selectMode){ if(selected.has(it.id)) selected.delete(it.id); else selected.add(it.id); document.getElementById('delBtn').style.display = selected.size ? "block":"none"; render(); } };
+    let html = "";
+    if(selectMode) html += '<input type="checkbox" class="check" '+(selected.has(it.id)?"checked":"")+' onclick="event.stopPropagation()">';
+    if(it.text) html += '<p>'+escapeHtml(it.text)+'</p>';
+    if(it.image) html += '<img src="'+it.image+'" alt="توجيه المعلم">';
+    html += '<div class="time">'+(it.time||"")+'</div>';
+    div.innerHTML = html;
+    list.appendChild(div);
+  });
+}
+function escapeHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-    <!-- نافذة التحقق من الرقم السري -->
-    <div id="login-modal">
-        <div class="modal-content">
-            <h3 style="margin-top:0;">دخول المعلم</h3>
-            <p style="font-size: 0.9em; color: #666;">أدخل الرقم السري للمتابعة</p>
-            <input type="password" id="password-field" placeholder="••••••••••">
-            <button class="btn" onclick="checkPassword()">دخول</button>
-            <button class="btn" style="background-color:#64748b;" onclick="closeLoginModal()">إلغاء</button>
-        </div>
-    </div>
+function login(){
+  const v = document.getElementById('pass').value;
+  if(v === PASSWORD){
+    document.getElementById('loginBox').style.display="none";
+    document.getElementById('manageBox').style.display="block";
+  } else {
+    document.getElementById('err').style.display="block";
+  }
+}
+document.getElementById('imgInput').addEventListener('change', function(e){
+  const f = e.target.files[0];
+  if(!f){ pendingImage=""; return; }
+  const r = new FileReader();
+  r.onload = ()=>{ 
+    // compress image to fit localStorage
+    const img = new Image();
+    img.onload = ()=>{
+      const canvas = document.createElement('canvas');
+      const max = 900;
+      let w = img.width, h = img.height;
+      if(w>max){ h = h*max/w; w=max; }
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      pendingImage = canvas.toDataURL('image/jpeg', 0.75);
+    };
+    img.src = r.result;
+  };
+  r.readAsDataURL(f);
+});
 
-    <script>
-        // الرقم السري الافتراضي الثابت (مشفر كـ Base64 لعدم ظهوره كنص صريح بسهولة)
-        const _0x1a2b = "bW9oQCMkMTIz"; 
-
-        // استرجاع البيانات المحفوظة عند فتح الصفحة
-        window.onload = function() {
-            const savedText = localStorage.getItem("group_bold_text");
-            const savedImg = localStorage.getItem("group_uploaded_img");
-
-            if (savedText) {
-                document.getElementById("display-text").innerText = savedText;
-                document.getElementById("text-input").value = savedText;
-            }
-            if (savedImg) {
-                const imgEl = document.getElementById("display-image");
-                imgEl.src = savedImg;
-                imgEl.style.display = "block";
-            }
-        };
-
-        function openLoginModal() {
-            document.getElementById("login-modal").style.display = "flex";
-            document.getElementById("password-field").value = "";
-            document.getElementById("password-field").focus();
-        }
-
-        function closeLoginModal() {
-            document.getElementById("login-modal").style.display = "none";
-        }
-
-        function checkPassword() {
-            const entered = document.getElementById("password-field").value;
-            // التحقق من الرقم السري moh@#$123
-            if (btoa(entered) === _0x1a2b) {
-                closeLoginModal();
-                document.getElementById("teacher-panel").style.display = "block";
-                document.getElementById("login-btn").style.display = "none";
-                document.getElementById("text-input").value = document.getElementById("display-text").innerText;
-            } else {
-                alert("❌ الرقم السري غير صحيح!");
-            }
-        }
-
-        // السماح بالضغط على زر Enter لتأكيد الرقم السري
-        document.getElementById("password-field").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                checkPassword();
-            }
-        });
-
-        // معاينة وتحميل الصورة من الجهاز
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imgEl = document.getElementById("display-image");
-                    imgEl.src = e.target.result;
-                    imgEl.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // حفظ التعديلات وقفل اللوحة
-        function saveAndLock() {
-            const newText = document.getElementById("text-input").value;
-            const imgSrc = document.getElementById("display-image").src;
-
-            document.getElementById("display-text").innerText = newText;
-            
-            // الحفظ في ذاكرة المتصفح
-            try {
-                localStorage.setItem("group_bold_text", newText);
-                if (document.getElementById("display-image").style.display === "block") {
-                    localStorage.setItem("group_uploaded_img", imgSrc);
-                }
-            } catch (e) {
-                console.log("حجم الصورة كبير جداً للتخزين المحلي، ولكنها ستظهر في الجلسة الحالية.");
-            }
-
-            // إخفاء لوحة التحكم وإظهار زر الدخول مرة أخرى
-            document.getElementById("teacher-panel").style.display = "none";
-            document.getElementById("login-btn").style.display = "inline-block";
-            alert("✅ تم حفظ التعديلات بنجاح!");
-        }
-    </script>
-</body>
+function addContent(){
+  const text = document.getElementById('txt').value.trim();
+  if(!text && !pendingImage){ alert("اكتب توجيه أو اختر صورة"); return; }
+  const now = new Date();
+  items.push({id: Date.now(), text: text, image: pendingImage, time: now.toLocaleString('en-US')});
+  save(); render();
+  document.getElementById('txt').value="";
+  document.getElementById('imgInput').value="";
+  pendingImage="";
+  alert("تمت الإضافة بنجاح وستظهر للطلاب");
+}
+function toggleSelect(){
+  selectMode = !selectMode; selected.clear();
+  document.getElementById('delBtn').style.display="none";
+  render();
+}
+function deleteSelected(){
+  if(!selected.size) return;
+  if(!confirm("هل تريد حذف المحتوى المحدد؟")) return;
+  items = items.filter(it=>!selected.has(it.id));
+  save(); selectMode=false; selected.clear();
+  document.getElementById('delBtn').style.display="none";
+  render();
+}
+function tick(){
+  const d = new Date();
+  let h = d.getHours();
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12; if(h===0) h=12;
+  const hh = String(h).padStart(2,'0');
+  const mm = String(d.getMinutes()).padStart(2,'0');
+  const ss = String(d.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').innerHTML = hh+":"+mm+":"+ss+" <small>"+ampm+"</small>";
+}
+setInterval(tick,1000); tick(); render();
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
