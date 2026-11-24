@@ -1,6 +1,1148 @@
 
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحضير الدرس فى اكاديمية الملط</title>
+    
+    <!-- استدعاء خط Cairo من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- مكتبة KaTeX لدعم المعادلات الرياضية -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            950: '#050811',
+                            900: '#0a0f1f',
+                            850: '#0f172a',
+                            800: '#162038',
+                            700: '#1e293b',
+                        },
+                        gold: {
+                            300: '#fde047',
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            luxury: '#d4af37',
+                        }
+                    },
+                    boxShadow: {
+                        'gold-glow': '0 0 25px rgba(212, 175, 55, 0.25)',
+                        'gold-sm': '0 4px 14px rgba(212, 175, 55, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #050811;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(30, 58, 138, 0.2) 0%, transparent 50%);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* تأثير الزجاج الفاخر (Glassmorphism) */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.22);
+        }
+
+        .glass-header {
+            background: rgba(5, 8, 17, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-btn {
+            background: linear-gradient(135deg, #eab308 0%, #d4af37 55%, #b45309 100%);
+            color: #050811;
+            transition: all 0.25s ease;
+        }
+
+        .gold-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+        }
+
+        .gold-btn:active {
+            transform: translateY(0);
+        }
+
+        /* شريط تمرير مخصص أنيق */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f1f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.35);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.65);
+        }
+
+        /* وضع ملء الشاشة للدرس */
+        .lesson-fullscreen-active {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 9999 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            background: #050811 !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .lesson-fullscreen-active #lessonFrame {
+            height: calc(100vh - 64px) !important;
+            min-height: calc(100vh - 64px) !important;
+            border-radius: 0 !important;
+        }
+
+        /* حركة ظهور ناعمة */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.97) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-panel {
+            animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-between selection:bg-amber-500/30 selection:text-amber-200">
+
+    <!-- نظام الإشعارات الفاخرة (Toast Notifications) بديلاً عن alert -->
+    <div id="toastContainer" class="fixed bottom-5 left-5 z-[10000] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- الترويسة العلوية (Header) -->
+    <header class="glass-header sticky top-0 z-40 w-full shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- الهوية والشعار -->
+            <div class="flex items-center gap-3.5">
+                <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-700/20 border border-amber-400/40 flex items-center justify-center shadow-gold-sm shrink-0">
+                    <i class="fa-solid fa-square-root-variable text-2xl text-amber-400"></i>
+                    <span class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-2xl font-extrabold tracking-tight gold-gradient-text leading-tight">
+                        تحضير الدرس فى اكاديمية الملط
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-400 flex items-center gap-1.5 mt-0.5">
+                        <i class="fa-solid fa-graduation-cap text-amber-400/80"></i>
+                        <span>منصة العرض التفاعلي الذكي للرياضيات والعلوم</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- أزرار التبديل بين وضع الطلاب وبوابة المعلم -->
+            <div class="flex items-center gap-2.5 sm:gap-3">
+                <!-- مؤشر الحالة الحالية -->
+                <button id="btnStudentView" onclick="switchToStudentView()" 
+                    class="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-amber-500/20 text-amber-300 border border-amber-400/50 shadow-gold-sm cursor-pointer">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>وضع عرض الطلاب</span>
+                </button>
+
+                <!-- زر إدارة التحضير / دخول المعلم -->
+                <button id="btnTeacherPortal" onclick="handleTeacherButtonClick()" 
+                    class="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-600/70 hover:border-amber-400/50 cursor-pointer">
+                    <i id="teacherLockIcon" class="fa-solid fa-lock text-amber-400"></i>
+                    <span id="teacherBtnLabel">إدارة التحضير</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+
+        <!-- ===================================================================== -->
+        <!-- القسم الأول: لوحة تحكم المعلم المحمية (يتم حقنها برمجياً فقط بعد التحقق من الرقم السري) -->
+        <!-- ===================================================================== -->
+        <div id="teacherPanelMount"></div>
+
+        <!-- ===================================================================== -->
+        <!-- القسم الثاني: واجهة العرض الدائمة للطلاب (Student View - الوضع الافتراضي) -->
+        <!-- ===================================================================== -->
+        <section id="studentViewSection" class="animate-panel">
+            
+            <!-- شريط معلومات الدرس النشط للطلاب -->
+            <div id="lessonContainerCard" class="glass-panel rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
+                
+                <!-- رأس بطاقة الدرس -->
+                <div class="px-5 py-4 bg-navy-900/90 border-b border-amber-500/20 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            معروض الآن للطلاب
+                        </span>
+                        <div>
+                            <h2 id="activeLessonTitle" class="text-base sm:text-xl font-bold text-white">
+                                بانتظار نشر الدرس...
+                            </h2>
+                            <p id="activeLessonMeta" class="text-xs text-slate-400 mt-0.5 flex items-center gap-2">
+                                <i class="fa-regular fa-clock text-amber-400/80"></i>
+                                <span>أكاديمية الملط التعليمية</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- أدوات التحكم في العرض للطلاب والمعلم أثناء الشرح -->
+                    <div class="flex items-center gap-2">
+                        <button onclick="reloadActiveLessonFrame()" title="إعادة تنشيط عرض الدرس"
+                            class="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-amber-300 border border-slate-700 transition cursor-pointer">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                        <button id="btnToggleFullscreen" onclick="toggleLessonFullscreen()" 
+                            class="px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-400/40 text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer">
+                            <i id="fullscreenIcon" class="fa-solid fa-expand"></i>
+                            <span id="fullscreenText">ملء الشاشة</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- منطقة عرض كائن HTML المنفّذ للطلاب (مخفي تماماً أي كود مصدري) -->
+                <div id="lessonRenderArea" class="relative w-full bg-white dark:bg-navy-950 min-h-[72vh] flex flex-col">
+                    
+                    <!-- الحالة الفارغة قبل نشر أي درس -->
+                    <div id="emptyLessonPlaceholder" class="flex-grow flex flex-col items-center justify-center text-center p-8 sm:p-14 bg-gradient-to-b from-navy-900 to-navy-950">
+                        <div class="w-24 h-24 rounded-3xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center mb-6 shadow-gold-glow">
+                            <i class="fa-solid fa-compass-drafting text-4xl text-amber-400"></i>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+                            أهلاً بكم في <span class="text-amber-400">أكاديمية الملط</span>
+                        </h3>
+                        <p class="text-slate-300 max-w-lg text-sm sm:text-base leading-relaxed mb-6">
+                            الدرس الحالي قيد التحضير من قِبل المعلم، وسيظهر هنا مباشرة وبشكل تفاعلي فور نشره. استعدوا لرحلة ممتعة في عالم الرياضيات!
+                        </p>
+                        <div class="inline-flex items-center gap-4 px-5 py-3 rounded-2xl bg-slate-800/60 border border-slate-700/80 text-xs sm:text-sm text-amber-300/90">
+                            <span>$$\int_{a}^{b} f(x)\,dx = F(b) - F(a)$$</span>
+                        </div>
+                    </div>
+
+                    <!-- إطار تنفيذ كائن HTML المعزول والآمن والذكي (يظهر فقط عند وجود درس منشور) -->
+                    <iframe id="lessonFrame" 
+                        title="عرض الدرس التفاعلي - أكاديمية الملط"
+                        class="hidden w-full flex-grow min-h-[75vh] border-0 bg-white"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer class="border-t border-slate-800/80 bg-navy-950/90 py-4 px-4 mt-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                <span>جميع الحقوق محفوظة &copy; <strong class="text-slate-200">أكاديمية الملط</strong> - نظام تحضير وعرض الدروس التفاعلية</span>
+            </div>
+            <div class="text-slate-500">
+                وضع العرض الدائم للطلاب مُفعّل
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- نافذة تسجيل دخول المعلم المنبثقة (Modal) -->
+    <!-- ===================================================================== -->
+    <div id="teacherLoginModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-amber-400/40 animate-panel relative">
+            
+            <!-- زر الإغلاق -->
+            <button onclick="closeLoginModal()" class="absolute top-4 left-4 w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-red-500/20 text-slate-400 hover:text-red-300 flex items-center justify-center transition cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center mx-auto mb-4 shadow-gold-sm">
+                    <i class="fa-solid fa-key text-2xl text-amber-400"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-white">بوابة المعلم المحمية</h3>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1.5">
+                    أدخل الرقم السري الخاص بأكاديمية الملط لإدارة ونشر الدروس
+                </p>
+            </div>
+
+            <form id="teacherLoginForm" onsubmit="verifyTeacherPassword(event)" class="space-y-4">
+                <div>
+                    <label for="teacherPasswordInput" class="block text-xs font-bold text-amber-300 mb-2">
+                        الرقم السري للمعلم
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="teacherPasswordInput" required autocomplete="off"
+                            placeholder="أدخل الرقم السري هنا..."
+                            class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-navy-950/90 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 text-white text-left dir-ltr font-mono outline-none transition">
+                        
+                        <button type="button" onclick="togglePasswordVisibility()" title="إظهار / إخفاء الرقم السري"
+                            class="absolute inset-y-0 left-0 px-3.5 flex items-center text-slate-400 hover:text-amber-400 transition cursor-pointer">
+                            <i id="passwordEyeIcon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                    <p id="loginErrorMsg" class="hidden text-xs text-red-400 mt-2 flex items-center gap-1.5 font-semibold">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>الرقم السري غير صحيح! يرجى المحاولة مرة أخرى.</span>
+                    </p>
+                </div>
+
+                <div class="pt-2 flex items-center gap-3">
+                    <button type="submit" class="w-full gold-btn py-3.5 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg cursor-pointer">
+                        <i class="fa-solid fa-unlock-keyhole"></i>
+                        <span>دخول لوحة التحضير</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- البرمجة والمنطق الكامل للتطبيق -->
+    <!-- ===================================================================== -->
+    <script>
+        /**
+         * الثوابت والإعدادات الأساسية لأكاديمية الملط
+         */
+        const FIXED_TEACHER_PASS = "Moh@#$123"; // الرقم السري الثابت لا يتغير
+        const STORAGE_KEY_ACTIVE = "almalat_academy_active_lesson_v1";
+        const STORAGE_KEY_ARCHIVE = "almalat_academy_archive_lessons_v1";
+
+        // حالة الجلسة الحالية (تُفقد عند إغلاق الصفحة أو الضغط على وضع الطلاب لضمان الحماية الكاملة)
+        let isTeacherAuthenticated = false;
+        let isFullscreen = false;
+
+        /**
+         * تهيئة التطبيق عند تحميل الصفحة
+         */
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. تحميل وعرض الدرس النشط المحفوظ في localStorage مباشرة للطلاب
+            loadAndRenderActiveLesson();
+
+            // 2. تصيير معادلات KaTeX في الواجهة الرئيسية إن وجدت
+            renderMathInPage();
+
+            // 3. دعم اختصار لوحة المفاتيح Escape للخروج من وضع ملء الشاشة
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && isFullscreen) {
+                    toggleLessonFullscreen();
+                }
+            });
+        });
+
+        /**
+         * تصيير معادلات KaTeX في الصفحة الرئيسية
+         */
+        function renderMathInPage() {
+            if (typeof renderMathInElement === "function") {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        /**
+         * إظهار إشعار أنيق للمستخدم (Toast)
+         */
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            
+            const styles = {
+                success: "bg-emerald-950/95 border-emerald-500/50 text-emerald-200",
+                error: "bg-red-950/95 border-red-500/50 text-red-200",
+                info: "bg-navy-900/95 border-amber-400/50 text-amber-200"
+            };
+
+            const icons = {
+                success: "fa-circle-check text-emerald-400",
+                error: "fa-circle-xmark text-red-400",
+                info: "fa-sparkles text-amber-400"
+            };
+
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3.5 rounded-2xl border backdrop-blur-md shadow-2xl text-xs sm:text-sm font-bold transition-all duration-300 transform translate-y-2 opacity-0 ${styles[type] || styles.info}`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icons[type] || icons.info} text-lg shrink-0"></i>
+                <span class="leading-snug">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // تفعيل حركة الدخول
+            requestAnimationFrame(() => {
+                toast.classList.remove("translate-y-2", "opacity-0");
+            });
+
+            // إزالة الإشعار تلقائياً بعد 3.5 ثوانٍ
+            setTimeout(() => {
+                toast.classList.add("opacity-0", "translate-y-2");
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        /**
+         * تجهيز كود HTML المدخل ليعمل بكفاءة تامة داخل iframe (مع دعم KaTeX والخط العربي تلقائياً إذا لم يُضف)
+         */
+        function buildExecutableHtmlDocument(rawHtmlCode) {
+            const trimmed = rawHtmlCode.trim();
+            // إذا كان الكود عبارة عن مستند HTML متكامل يبدأ بـ <!DOCTYPE أو <html
+            const isFullDoc = /^<!doctype\s+html/i.test(trimmed) || /^<html[\s>]/i.test(trimmed);
+
+            const katexInjection = `
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+                <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>
+                <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+                    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});"><\/script>
+            `;
+
+            if (isFullDoc) {
+                // حقن دعم KaTeX في نهاية المستند إذا لم يكن موجوداً لضمان عمل المعادلات الرياضية دائماً
+                if (!trimmed.includes("katex")) {
+                    if (trimmed.includes("</body>")) {
+                        return trimmed.replace("</body>", `${katexInjection}\n</body>`);
+                    }
+                    return trimmed + katexInjection;
+                }
+                return trimmed;
+            }
+
+            // إذا أدخل المعلم مقتطف HTML (Snippet / Object / Div / Script / Style) نغلفه بمستند متكامل أنيق
+            return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    ${katexInjection}
+    <style>
+        body {
+            font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 16px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+        * { box-sizing: border-box; }
+    </style>
+</head>
+<body>
+${trimmed}
+</body>
+</html>`;
+        }
+
+        /**
+         * تحميل وعرض الدرس المنشور حالياً في واجهة الطلاب (بدون إظهار أي كود مصدري)
+         */
+        function loadAndRenderActiveLesson() {
+            const rawSaved = localStorage.getItem(STORAGE_KEY_ACTIVE);
+            const placeholder = document.getElementById("emptyLessonPlaceholder");
+            const iframe = document.getElementById("lessonFrame");
+            const titleEl = document.getElementById("activeLessonTitle");
+            const metaEl = document.getElementById("activeLessonMeta");
+
+            if (!rawSaved) {
+                placeholder.classList.remove("hidden");
+                iframe.classList.add("hidden");
+                iframe.removeAttribute("srcdoc");
+                titleEl.textContent = "بانتظار نشر الدرس...";
+                metaEl.innerHTML = `<i class="fa-regular fa-clock text-amber-400/80"></i> <span>أكاديمية الملط التعليمية</span>`;
+                return;
+            }
+
+            try {
+                const lessonData = JSON.parse(rawSaved);
+                if (!lessonData || !lessonData.code) {
+                    throw new Error("بيانات الدرس غير مكتملة");
+                }
+
+                // تحديث العنوان وتاريخ النشر
+                titleEl.textContent = lessonData.title || "درس تفاعلي - أكاديمية الملط";
+                metaEl.innerHTML = `
+                    <i class="fa-regular fa-calendar-check text-amber-400"></i>
+                    <span>تاريخ النشر: ${lessonData.publishedAt || "اليوم"}</span>
+                `;
+
+                // إخفاء رسالة الانتظار وإظهار الإطار المنفّذ فقط
+                placeholder.classList.add("hidden");
+                iframe.classList.remove("hidden");
+                
+                // حقن الكود المنفذ داخل iframe معزول عبر srcdoc
+                iframe.srcdoc = buildExecutableHtmlDocument(lessonData.code);
+
+                // ضبط ارتفاع الإطار تلقائياً بعد التحميل ليتناسب مع محتوى الدرس بسلاسة
+                iframe.onload = function() {
+                    try {
+                        const doc = iframe.contentDocument || iframe.contentWindow.document;
+                        if (doc && doc.body) {
+                            const contentHeight = Math.max(
+                                doc.body.scrollHeight,
+                                doc.documentElement.scrollHeight,
+                                620
+                            );
+                            if (!isFullscreen) {
+                                iframe.style.height = (contentHeight + 30) + "px";
+                            }
+                        }
+                    } catch (err) {
+                        // في حال وجود محتوى خارجي مقيد، نحافظ على الارتفاع الافتراضي المريح
+                        if (!isFullscreen) {
+                            iframe.style.height = "78vh";
+                        }
+                    }
+                };
+            } catch (e) {
+                console.error("خطأ في تحميل الدرس:", e);
+            }
+        }
+
+        /**
+         * إعادة تنشيط / إعادة تشغيل الدرس المعروض للطلاب
+         */
+        function reloadActiveLessonFrame() {
+            const rawSaved = localStorage.getItem(STORAGE_KEY_ACTIVE);
+            if (!rawSaved) {
+                showToast("لا يوجد درس منشور حالياً لإعادة تنشيطه.", "info");
+                return;
+            }
+            loadAndRenderActiveLesson();
+            showToast("تم إعادة تنشيط عرض الدرس بنجاح.", "success");
+        }
+
+        /**
+         * التبديل بين الوضع العادي وملء الشاشة للدرس المعروض
+         */
+        function toggleLessonFullscreen() {
+            const card = document.getElementById("lessonContainerCard");
+            const icon = document.getElementById("fullscreenIcon");
+            const text = document.getElementById("fullscreenText");
+            const iframe = document.getElementById("lessonFrame");
+
+            isFullscreen = !isFullscreen;
+
+            if (isFullscreen) {
+                card.classList.add("lesson-fullscreen-active");
+                icon.className = "fa-solid fa-compress";
+                text.textContent = "إنهاء ملء الشاشة";
+                document.body.style.overflow = "hidden";
+            } else {
+                card.classList.remove("lesson-fullscreen-active");
+                icon.className = "fa-solid fa-expand";
+                text.textContent = "ملء الشاشة";
+                document.body.style.overflow = "";
+                if (iframe && !iframe.classList.contains("hidden")) {
+                    iframe.style.height = "78vh";
+                }
+            }
+        }
+
+        /**
+         * التعامل مع زر "إدارة التحضير" في الشريط العلوي
+         */
+        function handleTeacherButtonClick() {
+            if (isTeacherAuthenticated) {
+                // إذا كان المعلم مسجلاً بالفعل، نظهر لوحة التحكم أو نركز عليها
+                renderTeacherControlPanel();
+                document.getElementById("teacherPanelMount").scrollIntoView({ behavior: "smooth" });
+            } else {
+                openLoginModal();
+            }
+        }
+
+        /**
+         * فتح نافذة إدخال الرقم السري للمعلم
+         */
+        function openLoginModal() {
+            const modal = document.getElementById("teacherLoginModal");
+            const input = document.getElementById("teacherPasswordInput");
+            const errorMsg = document.getElementById("loginErrorMsg");
+
+            input.value = "";
+            input.type = "password";
+            document.getElementById("passwordEyeIcon").className = "fa-solid fa-eye";
+            errorMsg.classList.add("hidden");
+
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            setTimeout(() => input.focus(), 100);
+        }
+
+        /**
+         * إغلاق نافذة تسجيل الدخول
+         */
+        function closeLoginModal() {
+            const modal = document.getElementById("teacherLoginModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+
+        /**
+         * إظهار أو إخفاء الرقم السري أثناء الكتابة
+         */
+        function togglePasswordVisibility() {
+            const input = document.getElementById("teacherPasswordInput");
+            const icon = document.getElementById("passwordEyeIcon");
+            if (input.type === "password") {
+                input.type = "text";
+                icon.className = "fa-solid fa-eye-slash text-amber-400";
+            } else {
+                input.type = "password";
+                icon.className = "fa-solid fa-eye";
+            }
+        }
+
+        /**
+         * التحقق من الرقم السري الثابت للمعلم: Moh@#$123
+         */
+        function verifyTeacherPassword(event) {
+            event.preventDefault();
+            const enteredPass = document.getElementById("teacherPasswordInput").value;
+            const errorMsg = document.getElementById("loginErrorMsg");
+
+            if (enteredPass === FIXED_TEACHER_PASS) {
+                isTeacherAuthenticated = true;
+                errorMsg.classList.add("hidden");
+                closeLoginModal();
+                updateHeaderButtonsState();
+                renderTeacherControlPanel();
+                showToast("مرحباً بك أستاذنا الفاضل! تم فتح لوحة تحضير الدروس.", "success");
+            } else {
+                errorMsg.classList.remove("hidden");
+                const input = document.getElementById("teacherPasswordInput");
+                input.classList.add("border-red-500");
+                input.focus();
+                setTimeout(() => input.classList.remove("border-red-500"), 1500);
+            }
+        }
+
+        /**
+         * تحديث مظهر أزرار الهيدر حسب الوضع الحالي (طالب أم معلم)
+         */
+        function updateHeaderButtonsState() {
+            const btnStudent = document.getElementById("btnStudentView");
+            const btnTeacher = document.getElementById("btnTeacherPortal");
+            const lockIcon = document.getElementById("teacherLockIcon");
+            const teacherLabel = document.getElementById("teacherBtnLabel");
+
+            if (isTeacherAuthenticated) {
+                btnTeacher.className = "px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-amber-500/20 text-amber-300 border border-amber-400/60 shadow-gold-sm cursor-pointer";
+                lockIcon.className = "fa-solid fa-lock-open text-emerald-400";
+                teacherLabel.textContent = "لوحة المعلم (مفتوحة)";
+
+                btnStudent.className = "px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-600/70 cursor-pointer";
+            } else {
+                btnStudent.className = "px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-amber-500/20 text-amber-300 border border-amber-400/50 shadow-gold-sm cursor-pointer";
+                btnTeacher.className = "px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-600/70 hover:border-amber-400/50 cursor-pointer";
+                lockIcon.className = "fa-solid fa-lock text-amber-400";
+                teacherLabel.textContent = "إدارة التحضير";
+            }
+        }
+
+        /**
+         * العودة لوضع عرض الطلاب وإزالة لوحة المعلم والكود المصدري تماماً من الـ DOM
+         */
+        function switchToStudentView(silent = false) {
+            isTeacherAuthenticated = false;
+            const mount = document.getElementById("teacherPanelMount");
+            mount.innerHTML = ""; // إزالة كاملة للكود المصدري ولوحة المعلم من DOM
+            updateHeaderButtonsState();
+            if (!silent) {
+                showToast("تم إغلاق لوحة المعلم وإخفاء الكود المصدري. أنت الآن في وضع عرض الطلاب.", "info");
+            }
+        }
+
+        /**
+         * بناء وحقن لوحة تحكم المعلم في الـ DOM (تُستدعى فقط بعد نجاح التحقق من الرقم السري)
+         */
+        function renderTeacherControlPanel() {
+            if (!isTeacherAuthenticated) return;
+
+            const mount = document.getElementById("teacherPanelMount");
+            const rawActive = localStorage.getItem(STORAGE_KEY_ACTIVE);
+            let currentTitle = "";
+            let currentCode = "";
+
+            if (rawActive) {
+                try {
+                    const parsed = JSON.parse(rawActive);
+                    currentTitle = parsed.title || "";
+                    currentCode = parsed.code || "";
+                } catch (e) {}
+            }
+
+            mount.innerHTML = `
+                <section class="glass-panel rounded-3xl p-5 sm:p-7 border-2 border-amber-400/40 shadow-gold-glow animate-panel mb-6">
+                    <!-- شريط عنوان لوحة المعلم -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-700/80">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400">
+                                <i class="fa-solid fa-code text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h2 class="text-lg sm:text-xl font-extrabold text-white">لوحة تحضير ونشر الدروس (خاصة بالمعلم)</h2>
+                                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30">محمية</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-0.5">الصق كود HTML الجاهز وسيتم تنفيذه ونشره فوراً للطلاب مع إخفاء الكود المصدري</p>
+                            </div>
+                        </div>
+
+                        <button onclick="switchToStudentView()" 
+                            class="px-4 py-2.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 text-red-300 border border-red-500/40 text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer">
+                            <i class="fa-solid fa-eye-slash"></i>
+                            <span>إغلاق وضع المعلم والعودة لعرض الطلاب</span>
+                        </button>
+                    </div>
+
+                    <!-- شبكة التحرير والأرشيف -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        
+                        <!-- العمود الأيمن: إدخال عنوان الدرس وكود HTML -->
+                        <div class="lg:col-span-8 space-y-4">
+                            <div>
+                                <label for="lessonTitleInput" class="block text-xs sm:text-sm font-bold text-amber-300 mb-2">
+                                    <i class="fa-solid fa-heading ml-1"></i> عنوان الدرس (يظهر للطلاب أعلى العرض)
+                                </label>
+                                <input type="text" id="lessonTitleInput" value="${escapeHtmlAttr(currentTitle)}"
+                                    placeholder="مثال: التفاضل والتكامل - تطبيقات على المشتقة الأولى"
+                                    class="w-full px-4 py-3 rounded-xl bg-navy-950/90 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 text-white text-sm outline-none transition">
+                            </div>
+
+                            <div>
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                    <label for="htmlObjectTextarea" class="text-xs sm:text-sm font-bold text-amber-300">
+                                        <i class="fa-solid fa-file-code ml-1"></i> كائن HTML للدرس (HTML Object Code)
+                                    </label>
+                                    <div class="flex items-center gap-2">
+                                        <button type="button" onclick="pasteFromClipboard()" 
+                                            class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
+                                            <i class="fa-regular fa-clipboard"></i>
+                                            <span>لصق من الحافظة</span>
+                                        </button>
+                                        <button type="button" onclick="clearCodeEditor()" 
+                                            class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-red-950/60 text-slate-300 hover:text-red-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
+                                            <i class="fa-solid fa-eraser"></i>
+                                            <span>مسح الحقل</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <textarea id="htmlObjectTextarea" rows="11" dir="ltr"
+                                    placeholder="<!-- الصق كود HTML الكامل هنا (يدعم CSS, JS, SVG, Canvas, GeoGebra, KaTeX) -->"
+                                    class="w-full p-4 rounded-2xl bg-navy-950 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 text-emerald-300 font-mono text-xs sm:text-sm leading-relaxed outline-none transition resize-y">${escapeHtmlContent(currentCode)}</textarea>
+                            </div>
+
+                            <!-- أزرار التنفيذ والنشر -->
+                            <div class="flex flex-wrap items-center gap-3 pt-2">
+                                <button type="button" onclick="publishAndHideCode(true)" 
+                                    class="flex-grow sm:flex-grow-0 gold-btn px-6 py-3.5 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2.5 shadow-lg cursor-pointer">
+                                    <i class="fa-solid fa-rocket"></i>
+                                    <span>تنفيذ ونشر الدرس مباشرة للطلاب (وإخفاء الكود)</span>
+                                </button>
+
+                                <button type="button" onclick="publishAndHideCode(false)" 
+                                    class="px-4 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/40 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer">
+                                    <i class="fa-solid fa-play"></i>
+                                    <span>تحديث العرض مع البقاء في اللوحة</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- العمود الأيسر: أرشيف التحضيرات والنسخ الاحتياطي -->
+                        <div class="lg:col-span-4 flex flex-col justify-between bg-navy-950/70 rounded-2xl p-4 border border-slate-800">
+                            <div>
+                                <div class="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-800">
+                                    <h3 class="text-sm font-extrabold text-amber-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-box-archive"></i>
+                                        <span>أرشيف الدروس المحفوظة</span>
+                                    </h3>
+                                    <span id="archiveCountBadge" class="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 text-xs font-bold">0</span>
+                                </div>
+
+                                <div id="teacherArchiveList" class="space-y-2.5 max-h-[340px] overflow-y-auto pl-1">
+                                    <!-- يتم تعبئتها ديناميكياً -->
+                                </div>
+                            </div>
+
+                            <!-- أدوات النسخ الاحتياطي JSON وحذف المنشور -->
+                            <div class="pt-4 mt-4 border-t border-slate-800 space-y-2">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button type="button" onclick="exportArchiveJson()" 
+                                        class="px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer">
+                                        <i class="fa-solid fa-download text-amber-400"></i>
+                                        <span>تصدير JSON</span>
+                                    </button>
+                                    <label class="px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer">
+                                        <i class="fa-solid fa-upload text-emerald-400"></i>
+                                        <span>استيراد JSON</span>
+                                        <input type="file" accept=".json" onchange="importArchiveJson(event)" class="hidden">
+                                    </label>
+                                </div>
+
+                                <button type="button" onclick="unpublishActiveLesson()" 
+                                    class="w-full px-3 py-2 rounded-xl bg-red-950/40 hover:bg-red-900/50 text-red-300 border border-red-800/50 text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer">
+                                    <i class="fa-solid fa-ban"></i>
+                                    <span>إيقاف عرض الدرس الحالي للطلاب</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            `;
+
+            renderArchiveList();
+        }
+
+        /**
+         * لصق الكود من الحافظة إلى محرر المعلم
+         */
+        async function pasteFromClipboard() {
+            const textarea = document.getElementById("htmlObjectTextarea");
+            if (!textarea) return;
+
+            try {
+                if (navigator.clipboard && navigator.clipboard.readText) {
+                    const text = await navigator.clipboard.readText();
+                    if (text) {
+                        textarea.value = text;
+                        showToast("تم لصق الكود من الحافظة بنجاح!", "success");
+                        return;
+                    }
+                }
+                throw new Error("Fallback needed");
+            } catch (err) {
+                textarea.focus();
+                showToast("يرجى الضغط على Ctrl+V (أو لصق مطول على الجوال) داخل صندوق الكود.", "info");
+            }
+        }
+
+        /**
+         * مسح حقل الكود في لوحة المعلم
+         */
+        function clearCodeEditor() {
+            const textarea = document.getElementById("htmlObjectTextarea");
+            if (textarea) {
+                textarea.value = "";
+                textarea.focus();
+                showToast("تم مسح حقل الكود.", "info");
+            }
+        }
+
+        /**
+         * تنسيق التاريخ والوقت باللغة العربية
+         */
+        function getFormattedArabicDate() {
+            const now = new Date();
+            return now.toLocaleDateString("ar-EG", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+        }
+
+        /**
+         * تنفيذ الكود ونشره في الصفحة بشكل دائم للطلاب مع إخفاء الكود المصدري
+         */
+        function publishAndHideCode(autoCloseTeacherPanel = true) {
+            if (!isTeacherAuthenticated) return;
+
+            const titleInput = document.getElementById("lessonTitleInput");
+            const codeInput = document.getElementById("htmlObjectTextarea");
+
+            const rawCode = codeInput.value.trim();
+            if (!rawCode) {
+                showToast("يرجى لصق كود HTML أولاً قبل النشر!", "error");
+                codeInput.focus();
+                return;
+            }
+
+            const lessonTitle = titleInput.value.trim() || "درس تفاعلي - أكاديمية الملط";
+            const publishedAt = getFormattedArabicDate();
+
+            const lessonObj = {
+                id: "lesson_" + Date.now(),
+                title: lessonTitle,
+                code: rawCode,
+                publishedAt: publishedAt
+            };
+
+            // 1. حفظ الدرس كدرس نشط دائم في localStorage
+            localStorage.setItem(STORAGE_KEY_ACTIVE, JSON.stringify(lessonObj));
+
+            // 2. إضافة الدرس إلى أرشيف المعلم تلقائياً (مع منع التكرار المطابق)
+            saveLessonToArchive(lessonObj);
+
+            // 3. تنفيذ وعرض الدرس فوراً في واجهة الطلاب
+            loadAndRenderActiveLesson();
+
+            // 4. إغلاق لوحة المعلم وإخفاء الكود المصدري تلقائياً ليظهر الناتج فقط للطلاب
+            if (autoCloseTeacherPanel) {
+                switchToStudentView(true);
+                showToast("تم تنفيذ ونشر الدرس للطلاب بنجاح وإخفاء الكود المصدري!", "success");
+            } else {
+                renderArchiveList();
+                showToast("تم تحديث الدرس المعروض للطلاب بنجاح.", "success");
+            }
+        }
+
+        /**
+         * حفظ الدرس في أرشيف المعلم
+         */
+        function saveLessonToArchive(lessonObj) {
+            let archive = getArchiveArray();
+            // إزالة أي نسخة سابقة بنفس العنوان والكود لمنع الازدواجية
+            archive = archive.filter(item => !(item.title === lessonObj.title && item.code === lessonObj.code));
+            archive.unshift(lessonObj);
+            // الاحتفاظ بآخر 30 تحضير كحد أقصى لضمان سرعة التخزين
+            if (archive.length > 30) archive = archive.slice(0, 30);
+            localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(archive));
+        }
+
+        /**
+         * جلب مصفوفة الأرشيف من localStorage
+         */
+        function getArchiveArray() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY_ARCHIVE);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        /**
+         * عرض قائمة الأرشيف داخل لوحة المعلم
+         */
+        function renderArchiveList() {
+            const listContainer = document.getElementById("teacherArchiveList");
+            const badge = document.getElementById("archiveCountBadge");
+            if (!listContainer || !badge) return;
+
+            const archive = getArchiveArray();
+            badge.textContent = archive.length;
+
+            if (archive.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-8 px-3 text-slate-500 text-xs border border-dashed border-slate-800 rounded-xl">
+                        <i class="fa-regular fa-folder-open text-2xl mb-2 block text-slate-600"></i>
+                        لا توجد دروس محفوظة في الأرشيف بعد.<br>سيتم حفظ كل درس تنشره هنا تلقائياً.
+                    </div>
+                `;
+                return;
+            }
+
+            listContainer.innerHTML = archive.map((item, idx) => `
+                <div class="p-3 rounded-xl bg-navy-900/90 border border-slate-800 hover:border-amber-400/40 transition group">
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-200 truncate" title="${escapeHtmlAttr(item.title)}">
+                                ${escapeHtmlContent(item.title)}
+                            </h4>
+                            <p class="text-[11px] text-slate-500 mt-0.5">${escapeHtmlContent(item.publishedAt || "")}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 mt-2.5 pt-2 border-t border-slate-800/80">
+                        <button type="button" onclick="publishFromArchive(${idx})" 
+                            class="flex-grow py-1.5 px-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 text-[11px] font-bold flex items-center justify-center gap-1 transition cursor-pointer">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>نشر للطلاب</span>
+                        </button>
+                        <button type="button" onclick="loadArchiveIntoEditor(${idx})" title="تعديل في المحرر"
+                            class="py-1.5 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-bold transition cursor-pointer">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button type="button" onclick="deleteFromArchive(${idx})" title="حذف من الأرشيف"
+                            class="py-1.5 px-2.5 rounded-lg bg-slate-800 hover:bg-red-950/70 text-slate-400 hover:text-red-300 text-[11px] font-bold transition cursor-pointer">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        /**
+         * نشر درس مباشرة من الأرشيف وإخفاء لوحة المعلم
+         */
+        function publishFromArchive(index) {
+            if (!isTeacherAuthenticated) return;
+            const archive = getArchiveArray();
+            const item = archive[index];
+            if (!item) return;
+
+            const updatedItem = {
+                ...item,
+                publishedAt: getFormattedArabicDate()
+            };
+
+            localStorage.setItem(STORAGE_KEY_ACTIVE, JSON.stringify(updatedItem));
+            loadAndRenderActiveLesson();
+            switchToStudentView(true);
+            showToast(`تم نشر "${updatedItem.title}" للطلاب وإخفاء الكود!`, "success");
+        }
+
+        /**
+         * تحميل درس من الأرشيف إلى محرر المعلم لتعديله
+         */
+        function loadArchiveIntoEditor(index) {
+            if (!isTeacherAuthenticated) return;
+            const archive = getArchiveArray();
+            const item = archive[index];
+            if (!item) return;
+
+            document.getElementById("lessonTitleInput").value = item.title || "";
+            document.getElementById("htmlObjectTextarea").value = item.code || "";
+            showToast("تم تحميل الدرس في المحرر جاهز للتعديل.", "info");
+        }
+
+        /**
+         * حذف عنصر من الأرشيف
+         */
+        function deleteFromArchive(index) {
+            if (!isTeacherAuthenticated) return;
+            const archive = getArchiveArray();
+            archive.splice(index, 1);
+            localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(archive));
+            renderArchiveList();
+            showToast("تم حذف الدرس من الأرشيف.", "info");
+        }
+
+        /**
+         * إيقاف عرض الدرس الحالي للطلاب (العودة لشاشة الانتظار)
+         */
+        function unpublishActiveLesson() {
+            if (!isTeacherAuthenticated) return;
+            localStorage.removeItem(STORAGE_KEY_ACTIVE);
+            loadAndRenderActiveLesson();
+            showToast("تم إيقاف عرض الدرس الحالي. تظهر الآن شاشة الترحيب للطلاب.", "info");
+        }
+
+        /**
+         * تصدير أرشيف الدروس كملف JSON احتياطي
+         */
+        function exportArchiveJson() {
+            if (!isTeacherAuthenticated) return;
+            const archive = getArchiveArray();
+            const active = localStorage.getItem(STORAGE_KEY_ACTIVE);
+            
+            const backupData = {
+                academy: "أكاديمية الملط",
+                exportedAt: new Date().toISOString(),
+                activeLesson: active ? JSON.parse(active) : null,
+                archive: archive
+            };
+
+            const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `almalat-lessons-backup-${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("تم تصدير النسخة الاحتياطية بنجاح.", "success");
+        }
+
+        /**
+         * استيراد نسخة احتياطية JSON
+         */
+        function importArchiveJson(event) {
+            if (!isTeacherAuthenticated) return;
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.archive && Array.isArray(data.archive)) {
+                        localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(data.archive));
+                    }
+                    if (data.activeLesson && data.activeLesson.code) {
+                        localStorage.setItem(STORAGE_KEY_ACTIVE, JSON.stringify(data.activeLesson));
+                        loadAndRenderActiveLesson();
+                    }
+                    renderArchiveList();
+                    showToast("تم استيراد الدروس بنجاح!", "success");
+                } catch (err) {
+                    showToast("ملف JSON غير صالح!", "error");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = "";
+        }
+
+        /**
+         * دوال مساعدة لتأمين عرض النصوص داخل عناصر HTML
+         */
+        function escapeHtmlContent(str) {
+            if (!str) return "";
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function escapeHtmlAttr(str) {
+            if (!str) return "";
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
 
 
 <!DOCTYPE html>
@@ -58,6 +1200,14 @@ section h2{color:#f5c542;margin-bottom:12px}
   </section>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
@@ -2655,4 +3805,13 @@ setInterval(tick,1000); tick(); render();
 let score=0,total=0;
 function show(sec,btn){document.getElementById('sec-q').classList.toggle('hidden',sec!=='q');document.getElementById('sec-p').classList.toggle('hidden',sec!=='p');document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
 function check(btn,exp){let card=btn.closest('.card');if(card.dataset.done)return;card.dataset.done=1;total++;let ok=btn.dataset.correct==='1';if(ok)score++;card.querySelectorAll('.opt').forEach(o=>{if(o.dataset.correct==='1')o.classList.add('correct');});if(!ok)btn.classList.add('wrong');let f=card.querySelector('.feedback');f.style.display='block';f.textContent=(ok?'أحسنت! إجابة صحيحة ✅  ':'إجابة غير صحيحة، حاول مرة أخرى ❌  ')+exp;document.getElementById('score').textContent=score;document.getElementById('total').textContent=total;}
-</script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
+</script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventList
+ener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
+
+
+
+
+
+
+
+
