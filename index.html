@@ -1,5 +1,326 @@
 
 
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دفتر تحضير الدروس</title>
+    <!-- استدعاء Tailwind CSS للتنسيق السريع والنظيف -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: auto;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+        }
+        .gold-text {
+            color: #ffd700;
+        }
+        .gold-bg {
+            background-color: #ffd700;
+            color: #0f172a;
+        }
+        .gold-bg:hover {
+            background-color: #eab308;
+        }
+        .card-dark {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+        }
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 pb-20">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- العنوان الرئيسي -->
+        <header class="text-center pb-4 mb-6 border-b border-slate-800">
+            <h1 class="text-2xl md:text-3xl font-bold gold-text">دفتر تحضير الدروس</h1>
+        </header>
+
+        <!-- صندوق التنبيهات المخصص (بديل alert) -->
+        <div id="toastBox" class="hidden fixed top-5 left-1/2 transform -translate-x-1/2 z-50 px-5 py-2.5 rounded-lg font-bold text-sm shadow-lg transition-all duration-300"></div>
+
+        <!-- شاشة دخول المعلم -->
+        <div id="loginSection" class="card-dark rounded-xl p-4 mb-6">
+            <div class="flex gap-2">
+                <input type="password" id="teacherPass" placeholder="الرقم السري للمعلم" 
+                    onkeydown="if(event.key === 'Enter') verifyTeacher()"
+                    class="w-full bg-slate-900 text-white border border-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-yellow-500 text-sm">
+                <button onclick="verifyTeacher()" class="gold-bg font-bold px-6 py-2.5 rounded-lg text-sm whitespace-nowrap transition">
+                    دخول
+                </button>
+            </div>
+        </div>
+
+        <!-- لوحة تحكم المعلم (مخفية افتراضياً) -->
+        <div id="teacherSection" class="hidden card-dark rounded-xl p-4 mb-6 space-y-3">
+            <!-- إعدادات الربط السحابي (Firebase) -->
+            <details id="firebaseSetup" class="bg-slate-900/80 border border-slate-700 rounded-lg p-3 text-xs">
+                <summary class="cursor-pointer gold-text font-bold select-none">ربط قاعدة بيانات Firebase السحابية</summary>
+                <div class="mt-3 space-y-2">
+                    <input type="text" id="fbUrlInput" dir="ltr" placeholder="https://your-project-default-rtdb.firebaseio.com" 
+                        class="w-full bg-slate-950 text-slate-200 border border-slate-700 rounded px-3 py-2 text-left font-mono">
+                    <button onclick="saveFirebaseUrl()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-1.5 rounded transition">
+                        حفظ الرابط السحابي
+                    </button>
+                </div>
+            </details>
+
+            <!-- نموذج إضافة الدرس -->
+            <input type="text" id="lessonTitle" placeholder="عنوان الدرس" 
+                class="w-full bg-slate-900 text-white border border-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-yellow-500 text-sm">
+            
+            <textarea id="lessonHtmlCode" dir="ltr" placeholder="الصق كود HTML أو Object أو Script هنا..." 
+                class="w-full bg-slate-900 text-slate-100 border border-slate-700 rounded-lg p-3 focus:outline-none focus:border-yellow-500 font-mono text-sm min-h-[140px] text-left"></textarea>
+            
+            <div class="flex justify-between items-center pt-1">
+                <button onclick="publishLesson()" class="gold-bg font-bold px-6 py-2.5 rounded-lg text-sm transition">
+                    نشر الدرس للطلاب
+                </button>
+                <button onclick="logoutTeacher()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2.5 rounded-lg text-sm transition">
+                    خروج
+                </button>
+            </div>
+        </div>
+
+        <!-- حاوية عرض الدروس بالتتابع -->
+        <main id="lessonsContainer" class="space-y-6"></main>
+    </div>
+
+    <!-- استدعاء مكتبة Firebase SDK (Realtime Database) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        // الرقم السري الثابت للمعلم
+        const MASTER_PASS = "Moh@#$123";
+        
+        // مفتاح التخزين المحلي الاحتياطي وإعدادات الرابط
+        const LOCAL_DB_KEY = "lessons_local_fallback_v1";
+        const FB_URL_KEY = "lessons_firebase_db_url";
+
+        let isTeacherAuthenticated = false;
+        let db = null;
+        let lessonsRef = null;
+        let currentLessons = [];
+
+        // إظهار رسالة تنبيه أنيقة بدون alert
+        window.showToast = function(msg, isError = false) {
+            const toast = document.getElementById("toastBox");
+            toast.textContent = msg;
+            toast.className = `fixed top-5 left-1/2 transform -translate-x-1/2 z-50 px-5 py-2.5 rounded-lg font-bold text-sm shadow-lg transition-all duration-300 ${
+                isError ? "bg-red-600 text-white" : "gold-bg"
+            }`;
+            toast.classList.remove("hidden");
+            setTimeout(() => toast.classList.add("hidden"), 3000);
+        };
+
+        // تهيئة الاتصال بـ Firebase أو العمل محلياً للمعاينة الفورية
+        function initDatabaseConnection() {
+            const savedUrl = localStorage.getItem(FB_URL_KEY) || "";
+            document.getElementById("fbUrlInput").value = savedUrl;
+
+            if (savedUrl && savedUrl.startsWith("https://")) {
+                try {
+                    const app = initializeApp({ databaseURL: savedUrl });
+                    db = getDatabase(app);
+                    lessonsRef = ref(db, "lessons_notebook");
+
+                    // الاستماع اللحظي للتغييرات من السحابة
+                    onValue(lessonsRef, (snapshot) => {
+                        const data = snapshot.val();
+                        currentLessons = [];
+                        if (data) {
+                            Object.keys(data).forEach((key) => {
+                                currentLessons.push({
+                                    id: key,
+                                    ...data[key]
+                                });
+                            });
+                        }
+                        renderAllLessons();
+                    }, (error) => {
+                        showToast("تعذر الاتصال بالسحابة، يتم العرض محلياً", true);
+                        loadLocalLessons();
+                    });
+                } catch (e) {
+                    loadLocalLessons();
+                }
+            } else {
+                loadLocalLessons();
+            }
+        }
+
+        // تحميل الدروس من التخزين المحلي في حال عدم إدخال رابط Firebase بعد
+        function loadLocalLessons() {
+            const raw = localStorage.getItem(LOCAL_DB_KEY);
+            currentLessons = raw ? JSON.parse(raw) : [];
+            renderAllLessons();
+        }
+
+        // حفظ رابط Firebase Realtime Database
+        window.saveFirebaseUrl = function() {
+            const url = document.getElementById("fbUrlInput").value.trim().replace(/\/$/, "");
+            if (!url.startsWith("https://")) {
+                showToast("يرجى إدخال رابط Firebase صحيح يبدأ بـ https://", true);
+                return;
+            }
+            localStorage.setItem(FB_URL_KEY, url);
+            showToast("تم حفظ الرابط السحابي، جاري المزامنة...");
+            setTimeout(() => location.reload(), 800);
+        };
+
+        // التحقق من الرقم السري للمعلم
+        window.verifyTeacher = function() {
+            const input = document.getElementById("teacherPass");
+            if (input.value === MASTER_PASS) {
+                isTeacherAuthenticated = true;
+                input.value = "";
+                document.getElementById("loginSection").classList.add("hidden");
+                document.getElementById("teacherSection").classList.remove("hidden");
+                renderAllLessons();
+                showToast("تم الدخول بصلاحيات المعلم");
+            } else {
+                showToast("الرقم السري غير صحيح", true);
+            }
+        };
+
+        // تسجيل خروج المعلم
+        window.logoutTeacher = function() {
+            isTeacherAuthenticated = false;
+            document.getElementById("teacherSection").classList.add("hidden");
+            document.getElementById("loginSection").classList.remove("hidden");
+            renderAllLessons();
+        };
+
+        // إضافة ونشر درس جديد
+        window.publishLesson = function() {
+            if (!isTeacherAuthenticated) return;
+
+            const titleEl = document.getElementById("lessonTitle");
+            const codeEl = document.getElementById("lessonHtmlCode");
+            const title = titleEl.value.trim();
+            const code = codeEl.value.trim();
+
+            if (!title || !code) {
+                showToast("أدخل عنوان الدرس وكود HTML أولاً", true);
+                return;
+            }
+
+            const newLesson = {
+                title: title,
+                code: code,
+                timestamp: Date.now()
+            };
+
+            if (lessonsRef) {
+                // الحفظ في Firebase Realtime Database
+                push(lessonsRef, newLesson)
+                    .then(() => {
+                        titleEl.value = "";
+                        codeEl.value = "";
+                        showToast("تم نشر الدرس للطلاب بنجاح");
+                    })
+                    .catch(() => showToast("خطأ في النشر، تأكد من قواعد Firebase", true));
+            } else {
+                // الحفظ في المعاينة المحلية الفورية
+                newLesson.id = "local_" + Date.now();
+                currentLessons.push(newLesson);
+                localStorage.setItem(LOCAL_DB_KEY, JSON.stringify(currentLessons));
+                titleEl.value = "";
+                codeEl.value = "";
+                renderAllLessons();
+                showToast("تمت الإضافة (معاينة محلية - اربط Firebase للمزامنة)");
+            }
+        };
+
+        // حذف درس محدد (متاح للمعلم فقط)
+        window.removeLesson = function(lessonId) {
+            if (!isTeacherAuthenticated) return;
+
+            if (lessonsRef && !String(lessonId).startsWith("local_")) {
+                const targetRef = ref(db, `lessons_notebook/${lessonId}`);
+                remove(targetRef)
+                    .then(() => showToast("تم حذف الدرس نهائياً"))
+                    .catch(() => showToast("فشل الحذف", true));
+            } else {
+                currentLessons = currentLessons.filter(item => item.id !== lessonId);
+                localStorage.setItem(LOCAL_DB_KEY, JSON.stringify(currentLessons));
+                renderAllLessons();
+                showToast("تم حذف الدرس");
+            }
+        };
+
+        // عرض الدروس في تتابع وتنفيذ أكواد HTML / Script بداخلها مباشرة
+        function renderAllLessons() {
+            const container = document.getElementById("lessonsContainer");
+            container.innerHTML = "";
+
+            currentLessons.forEach((lesson, idx) => {
+                const card = document.createElement("article");
+                card.className = "card-dark rounded-xl p-5 shadow-md transition-all";
+
+                const deleteButtonHtml = isTeacherAuthenticated
+                    ? `<button onclick="removeLesson('${lesson.id}')" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">حذف</button>`
+                    : "";
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-center pb-3 mb-4 border-b border-slate-800">
+                        <h2 class="text-lg font-bold gold-text">${idx + 1}. ${escapeHtml(lesson.title)}</h2>
+                        ${deleteButtonHtml}
+                    </div>
+                    <div id="render-target-${lesson.id}" class="w-full overflow-x-auto"></div>
+                `;
+
+                container.appendChild(card);
+
+                // تنفيذ كود HTML أو Object أو Script المرفق داخل الدرس مباشرة
+                const targetDiv = document.getElementById(`render-target-${lesson.id}`);
+                const range = document.createRange();
+                const fragment = range.createContextualFragment(lesson.code);
+                targetDiv.appendChild(fragment);
+            });
+        }
+
+        // حماية عنوان الدرس من الحقن النصي
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // بدء التشغيل
+        initDatabaseConnection();
+    </script>
+</body>
+</html>
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="dark">
 <head>
