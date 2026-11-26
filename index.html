@@ -1275,3 +1275,565 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#060a18;color:#fff;over
 <footer>أكاديمية الملط © 2026 - أ. محمد عبدالمنعم الملط</footer>
 
 </html>
+
+
+<section id="malat-academy-quiz-end" dir="ltr" style="max-width:960px;width:100%;overflow-x:clip;margin:32px auto 16px;padding:18px;border-radius:22px;background:linear-gradient(180deg,#0d1636 0%,#080f26 100%);color:#ffffff;border:1px solid rgba(0,229,255,0.35);font-family:'Segoe UI',Tahoma,Arial,sans-serif;box-shadow:0 12px 30px rgba(0,0,0,0.28);position:relative;z-index:2;">
+  <style>
+    #malat-academy-quiz-end,
+    #malat-academy-quiz-end * {
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+    #malat-academy-quiz-end .maq-badge {
+      display: inline-block;
+      background: rgba(255, 216, 77, 0.14);
+      color: #ffd84d;
+      border: 1px solid rgba(255, 216, 77, 0.45);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      margin-bottom: 8px;
+    }
+    #malat-academy-quiz-end .maq-head {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    #malat-academy-quiz-end .maq-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.3;
+      color: #ffd84d;
+      font-weight: 800;
+    }
+    #malat-academy-quiz-end .maq-sub {
+      font-size: 14px;
+      color: #d8f0ff;
+      margin-top: 6px;
+    }
+    #malat-academy-quiz-end .maq-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+    #malat-academy-quiz-end .maq-tags span {
+      background: #16285c;
+      color: #7ef9ff;
+      border: 1px solid rgba(0, 229, 255, 0.65);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    #malat-academy-quiz-end .maq-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    #malat-academy-quiz-end .maq-score {
+      background: #ffd84d;
+      color: #060a18;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+    #malat-academy-quiz-end .maq-prog {
+      width: 100%;
+      height: 12px;
+      background: #1c2e63;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    #malat-academy-quiz-end .maq-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00e5ff, #5cf2a0);
+      transition: width 0.25s ease;
+    }
+    #malat-academy-quiz-end .maq-box {
+      background: #070d24;
+      border: 1px solid #2b4385;
+      border-radius: 16px;
+      padding: 18px;
+    }
+    #malat-academy-quiz-end .maq-q {
+      font-size: 19px;
+      line-height: 1.45;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 4px 0 12px;
+      word-wrap: break-word;
+    }
+    /* ===== Visual Row / Column ===== */
+    #malat-academy-quiz-end .maq-visual {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px;
+      margin: 0 0 16px;
+      text-align: center;
+    }
+    #malat-academy-quiz-end .maq-visual-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: #6b7280;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    #malat-academy-quiz-end .maq-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    #malat-academy-quiz-end .maq-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    #malat-academy-quiz-end .maq-item {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      background: #eef6ff;
+      border: 2px solid #dbeafe;
+      border-radius: 12px;
+      line-height: 1;
+    }
+    #malat-academy-quiz-end .maq-arrow {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 800;
+      color: #2563eb;
+      margin-top: 8px;
+      padding: 0 4px;
+    }
+    #malat-academy-quiz-end .maq-arrow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #2563eb;
+      margin-top: 6px;
+    }
+    #malat-academy-quiz-end .maq-opts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 560px) {
+      #malat-academy-quiz-end {
+        padding: 14px;
+        border-radius: 16px;
+      }
+      #malat-academy-quiz-end .maq-title {
+        font-size: 20px;
+      }
+      #malat-academy-quiz-end .maq-opts {
+        grid-template-columns: 1fr;
+      }
+      #malat-academy-quiz-end .maq-item {
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
+      }
+    }
+    #malat-academy-quiz-end .maq-opt {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 2px solid #3c5aa8;
+      background: #12214d;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    #malat-academy-quiz-end .maq-opt:hover:not(:disabled) {
+      background: #1b3170;
+      border-color: #00e5ff;
+      transform: translateY(-1px);
+    }
+    #malat-academy-quiz-end .maq-opt.ok {
+      background: #009e73;
+      border-color: #6effd2;
+      color: #ffffff;
+    }
+    #malat-academy-quiz-end .maq-opt.no {
+      background: #c92a2a;
+      border-color: #ffa8a8;
+      color: #ffffff;
+    }
+    #malat-academy-quiz-end .maq-fb {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      display: none;
+    }
+    #malat-academy-quiz-end .maq-fb.show {
+      display: block;
+    }
+    #malat-academy-quiz-end .maq-fb.ok {
+      background: #103b2e;
+      color: #7ef9d4;
+      border: 1px solid #00b894;
+    }
+    #malat-academy-quiz-end .maq-fb.no {
+      background: #42161c;
+      color: #ffc9c9;
+      border: 1px solid #ff7675;
+    }
+    #malat-academy-quiz-end .maq-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    #malat-academy-quiz-end .maq-btn {
+      padding: 11px 18px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity 0.15s ease, transform 0.12s ease;
+    }
+    #malat-academy-quiz-end .maq-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+    #malat-academy-quiz-end .maq-prev {
+      background: #263b75;
+      color: #ffffff;
+    }
+    #malat-academy-quiz-end .maq-prev:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    #malat-academy-quiz-end .maq-next {
+      background: #00e5ff;
+      color: #060a18;
+      margin-left: auto;
+    }
+    #malat-academy-quiz-end .maq-res {
+      display: none;
+      text-align: center;
+      padding: 22px 16px;
+      border-radius: 16px;
+      background: #132559;
+      border: 1px solid #ffd84d;
+      margin-top: 12px;
+    }
+    #malat-academy-quiz-end .maq-again {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: none;
+      background: #ffd84d;
+      color: #060a18;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+
+  <div class="maq-head">
+    <div class="maq-badge">Malat Academy • أكاديمية الملط</div>
+    <h2 class="maq-title">Math Final Review - 60 Q</h2>
+    <div class="maq-sub">Grade 1 - Term 1 | Comprehensive Practice</div>
+    <div class="maq-tags">
+      <span>1-40 Numbers</span>
+      <span>41-60 Positions</span>
+    </div>
+  </div>
+
+  <div class="maq-top">
+    <span id="maqStep">Question 1 of 60</span>
+    <span class="maq-score" id="maqScore">Score: 0 / 60</span>
+  </div>
+  <div class="maq-prog"><div class="maq-fill" id="maqFill"></div></div>
+
+  <div id="maqStage"></div>
+  <div class="maq-res" id="maqRes"></div>
+  <button type="button" class="maq-again" id="maqAgain">Try Again</button>
+
+  <script>
+  (function () {
+    var root = document.getElementById("malat-academy-quiz-end");
+    if (!root) return;
+
+    function moveToPageEnd() {
+      var target = document.querySelector("main") || document.body;
+      if (target && root.parentElement !== target) {
+        target.appendChild(root);
+      } else if (root.parentElement && root.parentElement.lastElementChild !== root) {
+        root.parentElement.appendChild(root);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", moveToPageEnd);
+    } else {
+      moveToPageEnd();
+    }
+
+    // v = visual animals/birds, type = row / col
+    var Q = [
+      {q:"What number comes after 14?",o:["13","15","16","10"],a:1},
+      {q:"Count the stars: ★ ★ ★ ★ ★",o:["4","5","6","3"],a:1},
+      {q:"5 + 3 = ?",o:["7","8","9","6"],a:1},
+      {q:"10 - 2 = ?",o:["7","8","9","10"],a:1},
+      {q:"Which is greater? 12 ___ 9",o:["<",">","=","+"],a:1},
+      {q:"Which shape has 3 sides?",o:["Square","Circle","Triangle","Rectangle"],a:2},
+      {q:"7 + 6 = ?",o:["12","13","14","11"],a:1},
+      {q:"9 - 4 = ?",o:["3","4","5","6"],a:2},
+      {q:"What number is between 20 and 22?",o:["19","20","21","23"],a:2},
+      {q:"Count by 2s: 2, 4, 6, ___",o:["7","8","9","10"],a:1},
+      {q:"15 + 0 = ?",o:["0","15","1","16"],a:1},
+      {q:"Which is the smallest? 18, 11, 15",o:["18","11","15","Equal"],a:1},
+      {q:"8 + 2 + 3 = ?",o:["12","13","11","10"],a:1},
+      {q:"How many sides does a square have?",o:["3","4","5","6"],a:1},
+      {q:"19 - 10 = ?",o:["8","9","10","19"],a:1},
+      {q:"What is 6 + 6?",o:["10","11","12","13"],a:2},
+      {q:"Which is even?",o:["3","7","8","9"],a:2},
+      {q:"11 + 4 = ?",o:["14","15","16","13"],a:1},
+      {q:"What comes before 30?",o:["28","29","31","30"],a:1},
+      {q:"20 - 5 = ?",o:["10","15","12","18"],a:1},
+      {q:"Circle has ___ corners",o:["0","1","4","2"],a:0},
+      {q:"12 + 7 = ?",o:["18","19","20","17"],a:1},
+      {q:"10 + 10 = ?",o:["10","15","20","25"],a:2},
+      {q:"Which is equal? 16 ___ 16",o:["<",">","=","+"],a:2},
+      {q:"5 + 9 = ?",o:["13","14","15","12"],a:1},
+      {q:"Count: 17, 18, 19, ___",o:["20","21","19","18"],a:0},
+      {q:"14 - 6 = ?",o:["6","7","8","9"],a:2},
+      {q:"How many tens in 40?",o:["4","0","40","2"],a:0},
+      {q:"9 + 1 = ?",o:["9","10","11","8"],a:1},
+      {q:"Which number is odd?",o:["2","4","11","10"],a:2},
+      {q:"3 + 8 = ?",o:["10","11","12","9"],a:1},
+      {q:"18 - 3 = ?",o:["15","14","16","13"],a:0},
+      {q:"Rectangle has ___ sides",o:["3","4","5","2"],a:1},
+      {q:"6 + 4 + 5 = ?",o:["14","15","16","13"],a:1},
+      {q:"What is after 39?",o:["38","39","40","41"],a:2},
+      {q:"13 - 13 = ?",o:["0","13","1","12"],a:0},
+      {q:"Which is less? 8 ___ 12",o:["<",">","=","+"],a:0},
+      {q:"7 + 5 = ?",o:["11","12","13","10"],a:1},
+      {q:"Count by 10s: 10, 20, 30, ___",o:["35","40","50","25"],a:1},
+      {q:"16 - 8 = ?",o:["6","7","8","9"],a:2},
+
+      // ===== 41-60 Positions with Birds & Animals =====
+      // ROW: front = left, back = right
+      {q:"Look at the row. Which animal is 1st from the front?",type:"row",v:["🐶","🐱","🐰","🦊"],o:["Dog","Cat","Rabbit","Fox"],a:0},
+      {q:"Look at the row. Which animal is 3rd from the front?",type:"row",v:["🐶","🐱","🐰","🦊"],o:["Dog","Cat","Rabbit","Fox"],a:2},
+      {q:"Look at the row. Which animal is 1st from the back?",type:"row",v:["🐶","🐱","🐰","🦊"],o:["Fox","Rabbit","Cat","Dog"],a:0},
+      {q:"Look at the row. Which animal is 2nd from the back?",type:"row",v:["🐶","🐱","🐰","🦊"],o:["Rabbit","Cat","Dog","Fox"],a:0},
+      {q:"Look at the row. Where is the lion?",type:"row",v:["🐯","🦁","🐮","🐷"],o:["1st from the front","2nd from the front","3rd from the front","4th from the front"],a:1},
+      {q:"Look at the row. Where is the pig?",type:"row",v:["🐯","🦁","🐮","🐷"],o:["1st from the back","2nd from the back","3rd from the back","4th from the back"],a:0},
+      {q:"Look at the row. Which bird is 2nd from the front?",type:"row",v:["🐔","🦆","🦉","🐧"],o:["Chicken","Duck","Owl","Penguin"],a:1},
+      {q:"Look at the row. Which bird is 4th from the front?",type:"row",v:["🐔","🦆","🦉","🐧"],o:["Owl","Penguin","Duck","Chicken"],a:1},
+      {q:"Look at the row. Where is the owl?",type:"row",v:["🐔","🦆","🦉","🐧"],o:["2nd from the back","1st from the back","3rd from the front","4th from the front"],a:2},
+      {q:"Look at the row. Which animal is 1st from the front?",type:"row",v:["🐘","🐵","🐴","🐻"],o:["Elephant","Monkey","Horse","Bear"],a:0},
+      // COLUMN: top = first, bottom = last
+      {q:"Look at the column. Which animal is 1st from the top?",type:"col",v:["🐱","🐶","🐰","🐭"],o:["Cat","Dog","Rabbit","Mouse"],a:0},
+      {q:"Look at the column. Which animal is 3rd from the top?",type:"col",v:["🐱","🐶","🐰","🐭"],o:["Cat","Dog","Rabbit","Mouse"],a:2},
+      {q:"Look at the column. Which animal is 1st from the bottom?",type:"col",v:["🐱","🐶","🐰","🐭"],o:["Mouse","Rabbit","Dog","Cat"],a:0},
+      {q:"Look at the column. Which animal is 2nd from the bottom?",type:"col",v:["🐱","🐶","🐰","🐭"],o:["Rabbit","Mouse","Dog","Cat"],a:0},
+      {q:"Look at the column. Where is the bird?",type:"col",v:["🦅","🐦","🦜","🦢"],o:["1st from the top","2nd from the top","3rd from the top","4th from the top"],a:1},
+      {q:"Look at the column. Where is the swan?",type:"col",v:["🦅","🐦","🦜","🦢"],o:["1st from the bottom","2nd from the bottom","3rd from the bottom","4th from the bottom"],a:0},
+      {q:"Look at the column. Which animal is 2nd from the top?",type:"col",v:["🦁","🐯","🦒","🐊"],o:["Lion","Tiger","Giraffe","Crocodile"],a:1},
+      {q:"Look at the column. Which animal is 4th from the top?",type:"col",v:["🦁","🐯","🦒","🐊"],o:["Crocodile","Giraffe","Tiger","Lion"],a:0},
+      {q:"Look at the column. Where is the giraffe?",type:"col",v:["🦁","🐯","🦒","🐊"],o:["1st from the bottom","2nd from the bottom","3rd from the bottom","4th from the bottom"],a:1},
+      {q:"Look at the column. Which animal is 1st from the bottom?",type:"col",v:["🐝","🦋","🐞","🐢"],o:["Turtle","Ladybug","Butterfly","Bee"],a:0}
+    ];
+
+    var stage = root.querySelector("#maqStage");
+    var stepEl = root.querySelector("#maqStep");
+    var scoreEl = root.querySelector("#maqScore");
+    var fillEl = root.querySelector("#maqFill");
+    var resEl = root.querySelector("#maqRes");
+    var againBtn = root.querySelector("#maqAgain");
+
+    var idx = 0;
+    var ans = new Array(Q.length).fill(null);
+
+    function calcScore() {
+      var s = 0;
+      for (var i = 0; i < Q.length; i++) {
+        if (ans[i] === Q[i].a) s++;
+      }
+      return s;
+    }
+
+    function updateBar() {
+      var done = 0;
+      for (var i = 0; i < ans.length; i++) {
+        if (ans[i] !== null) done++;
+      }
+      stepEl.textContent = "Question " + (idx + 1) + " of " + Q.length;
+      scoreEl.textContent = "Score: " + calcScore() + " / " + Q.length;
+      fillEl.style.width = ((done / Q.length) * 100) + "%";
+    }
+
+    function showSummary() {
+      stage.style.display = "none";
+      var sc = calcScore();
+      var note = sc >= 54 ? "Excellent! Math Star - Malat Academy!" :
+                 sc >= 42 ? "Very Good Job!" :
+                 sc >= 30 ? "Good Effort! Keep Going!" :
+                 "Keep Practicing!";
+      resEl.innerHTML =
+        "<div style='font-size:13px;color:#7ef9ff;font-weight:700;margin-bottom:6px;'>Malat Academy Final Result</div>" +
+        "<h3 style='margin:0;font-size:32px;color:#ffd84d;'>" + sc + " / " + Q.length + "</h3>" +
+        "<p style='font-size:18px;margin:8px 0 0;color:#ffffff;'>" + note + "</p>";
+      resEl.style.display = "block";
+    }
+
+    function draw() {
+      stage.style.display = "block";
+      resEl.style.display = "none";
+      updateBar();
+
+      var cur = Q[idx];
+      var picked = ans[idx];
+      var locked = picked !== null;
+
+      stage.innerHTML = "";
+      var box = document.createElement("div");
+      box.className = "maq-box";
+
+      var qDiv = document.createElement("div");
+      qDiv.className = "maq-q";
+      qDiv.textContent = (idx + 1) + ". " + cur.q;
+      box.appendChild(qDiv);
+
+      // Visual Row / Column
+      if (cur.v) {
+        var vis = document.createElement("div");
+        vis.className = "maq-visual";
+        var lab = document.createElement("div");
+        lab.className = "maq-visual-label";
+        lab.textContent = cur.type === "col" ? "COLUMN - TOP TO BOTTOM" : "ROW - FRONT TO BACK";
+        vis.appendChild(lab);
+        var wrap = document.createElement("div");
+        wrap.className = cur.type === "col" ? "maq-col" : "maq-row";
+        for (var k = 0; k < cur.v.length; k++) {
+          var it = document.createElement("div");
+          it.className = "maq-item";
+          it.textContent = cur.v[k];
+          wrap.appendChild(it);
+        }
+        vis.appendChild(wrap);
+        var arrow = document.createElement("div");
+        if (cur.type === "col") {
+          arrow.className = "maq-arrow-col";
+          arrow.innerHTML = "<span>▲ TOP</span><span>▼ BOTTOM</span>";
+        } else {
+          arrow.className = "maq-arrow";
+          arrow.innerHTML = "<span>◀ FRONT</span><span>BACK ▶</span>";
+        }
+        vis.appendChild(arrow);
+        box.appendChild(vis);
+      }
+
+      var opts = document.createElement("div");
+      opts.className = "maq-opts";
+
+      for (var j = 0; j < cur.o.length; j++) {
+        (function (optIndex) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "maq-opt";
+          b.textContent = cur.o[optIndex];
+          if (locked) {
+            b.disabled = true;
+            if (optIndex === cur.a) b.className += " ok";
+            else if (optIndex === picked) b.className += " no";
+          } else {
+            b.onclick = function () {
+              ans[idx] = optIndex;
+              draw();
+            };
+          }
+          opts.appendChild(b);
+        })(j);
+      }
+      box.appendChild(opts);
+
+      if (locked) {
+        var fb = document.createElement("div");
+        if (picked === cur.a) {
+          fb.className = "maq-fb show ok";
+          fb.textContent = "Correct! Well Done!";
+        } else {
+          fb.className = "maq-fb show no";
+          fb.textContent = "Wrong! Correct answer is: " + cur.o[cur.a];
+        }
+        box.appendChild(fb);
+      }
+
+      var nav = document.createElement("div");
+      nav.className = "maq-nav";
+
+      var prev = document.createElement("button");
+      prev.type = "button";
+      prev.className = "maq-btn maq-prev";
+      prev.textContent = "Previous";
+      prev.disabled = idx === 0;
+      prev.onclick = function () {
+        if (idx > 0) {
+          idx--;
+          draw();
+        }
+      };
+
+      var next = document.createElement("button");
+      next.type = "button";
+      next.className = "maq-btn maq-next";
+      var last = idx === Q.length - 1;
+      next.textContent = last ? "Finish" : "Next";
+      next.onclick = function () {
+        if (last) {
+          showSummary();
+        } else {
+          idx++;
+          draw();
+        }
+      };
+
+      nav.appendChild(prev);
+      nav.appendChild(next);
+      box.appendChild(nav);
+      stage.appendChild(box);
+    }
+
+    againBtn.onclick = function () {
+      idx = 0;
+      ans = new Array(Q.length).fill(null);
+      draw();
+      root.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+
+    draw();
+  })();
+  </script>
+</section>
