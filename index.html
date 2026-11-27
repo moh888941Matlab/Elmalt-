@@ -81,6 +81,12 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#060a18;color:#fff;over
   
   
   
+  
+  
+  
+  
+  
+  
   <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -420,857 +426,249 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#060a18;color:#fff;over
     </main>
 
     
-    
-    
-    
-    
-    
-    
-    
-
-    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
-    <script>
-        /* -------------------- 1. WEB AUDIO API SOUND ENGINE -------------------- */
-        let soundEnabled = true;
-        let audioCtx = null;
-
-        function initAudio() {
-            if (!audioCtx) {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-        }
-
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
-            document.getElementById('sound-label').textContent = soundEnabled ? 'Sound ON' : 'Sound OFF';
-            if (soundEnabled) {
-                initAudio();
-                playTone(523.25, 'sine', 0.1, 0.15);
-            }
-        }
-
-        function playTone(freq, type, startTimeOffset, duration, vol = 0.2) {
-            if (!soundEnabled) return;
-            try {
-                initAudio();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + startTimeOffset);
-                
-                gain.gain.setValueAtTime(vol, audioCtx.currentTime + startTimeOffset);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + startTimeOffset + duration);
-                
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                
-                osc.start(audioCtx.currentTime + startTimeOffset);
-                osc.stop(audioCtx.currentTime + startTimeOffset + duration);
-            } catch (e) {
-                console.warn('Audio playback skipped:', e);
-            }
-        }
-
-        function playCorrectSound() {
-            playTone(523.25, 'triangle', 0, 0.14, 0.25);     // C5
-            playTone(659.25, 'triangle', 0.1, 0.14, 0.25);   // E5
-            playTone(783.99, 'triangle', 0.2, 0.28, 0.28);   // G5
-        }
-
-        function playWrongSound() {
-            playTone(240, 'sawtooth', 0, 0.18, 0.18);
-            playTone(190, 'sawtooth', 0.15, 0.28, 0.18);
-        }
-
-        function playFanfareSound() {
-            const notes = [523.25, 659.25, 783.99, 1046.50];
-            notes.forEach((n, idx) => playTone(n, 'triangle', idx * 0.12, 0.35, 0.25));
-        }
-
-        /* -------------------- 2. SVG ILLUSTRATION GENERATORS -------------------- */
-        const SVGHelpers = {
-            // Draws counting apples or stars
-            countItems: (count, emoji = '🍎', label = '') => {
-                let itemsHtml = '';
-                for (let i = 0; i < count; i++) {
-                    itemsHtml += `<span class="text-2xl sm:text-3xl inline-block transform hover:scale-125 transition select-none">${emoji}</span>`;
-                }
-                return `
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="flex flex-wrap justify-center gap-2 max-w-md">${itemsHtml}</div>
-                        ${label ? `<span class="text-xs text-gold-300 font-semibold">${label}</span>` : ''}
-                    </div>
-                `;
-            },
-            // Draws Place Value Tens rods and Ones cubes
-            placeValue: (tens, ones) => {
-                let tensHtml = '';
-                for (let t = 0; t < tens; t++) {
-                    let blocks = '';
-                    for (let b = 0; b < 10; b++) {
-                        blocks += `<div class="w-4 h-2.5 border-b border-navy-950 bg-gold-400"></div>`;
-                    }
-                    tensHtml += `<div class="flex flex-col border border-gold-300 rounded-sm overflow-hidden shadow">${blocks}</div>`;
-                }
-                let onesHtml = '';
-                for (let o = 0; o < ones; o++) {
-                    onesHtml += `<div class="w-4 h-4 bg-sky-400 border border-sky-200 rounded-sm shadow"></div>`;
-                }
-                return `
-                    <div class="flex items-end justify-center gap-8">
-                        <div class="flex flex-col items-center gap-2">
-                            <div class="flex gap-1.5 items-end min-h-[105px]">${tensHtml}</div>
-                            <span class="text-xs font-bold text-gold-400 uppercase tracking-wider">Tens</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-2">
-                            <div class="grid grid-cols-3 gap-1.5 items-end">${onesHtml}</div>
-                            <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Ones</span>
-                        </div>
-                    </div>
-                `;
-            },
-            // Draws Analog Clock (O'Clock or Half Past)
-            clock: (hour, minute) => {
-                const hourAngle = ((hour % 12) + minute / 60) * 30;
-                const minuteAngle = minute * 6;
-                let numbersSvg = '';
-                for (let n = 1; n <= 12; n++) {
-                    const angle = (n * 30 - 90) * (Math.PI / 180);
-                    const x = 75 + 53 * Math.cos(angle);
-                    const y = 75 + 53 * Math.sin(angle) + 4;
-                    numbersSvg += `<text x="${x}" y="${y}" text-anchor="middle" fill="#0b152b" font-size="11" font-weight="bold" font-family="Fredoka, sans-serif">${n}</text>`;
-                }
-                return `
-                    <svg width="150" height="150" viewBox="0 0 150 150" class="drop-shadow-lg">
-                        <circle cx="75" cy="75" r="70" fill="#fefce8" stroke="#facc15" stroke-width="6"/>
-                        <circle cx="75" cy="75" r="64" fill="none" stroke="#0b152b" stroke-width="1.5"/>
-                        ${numbersSvg}
-                        <!-- Hour Hand -->
-                        <line x1="75" y1="75" x2="75" y2="42" stroke="#0b152b" stroke-width="5" stroke-linecap="round" transform="rotate(${hourAngle} 75 75)"/>
-                        <!-- Minute Hand -->
-                        <line x1="75" y1="75" x2="75" y2="26" stroke="#e11d48" stroke-width="3" stroke-linecap="round" transform="rotate(${minuteAngle} 75 75)"/>
-                        <circle cx="75" cy="75" r="5" fill="#eab308" stroke="#0b152b" stroke-width="2"/>
-                    </svg>
-                `;
-            },
-            // Draws 2D & 3D Geometric Shapes
-            shape: (type) => {
-                const shapes = {
-                    triangle: `<svg width="130" height="120" viewBox="0 0 130 120"><polygon points="65,12 118,105 12,105" fill="#facc15" stroke="#ffffff" stroke-width="3"/></svg>`,
-                    rectangle: `<svg width="160" height="110" viewBox="0 0 160 110"><rect x="15" y="20" width="130" height="70" rx="4" fill="#38bdf8" stroke="#ffffff" stroke-width="3"/></svg>`,
-                    cube: `<svg width="130" height="130" viewBox="0 0 130 130">
-                        <polygon points="35,40 85,40 85,90 35,90" fill="#facc15" stroke="#0b152b" stroke-width="2.5"/>
-                        <polygon points="35,40 55,20 105,20 85,40" fill="#fde047" stroke="#0b152b" stroke-width="2.5"/>
-                        <polygon points="85,40 105,20 105,70 85,90" fill="#eab308" stroke="#0b152b" stroke-width="2.5"/>
-                    </svg>`,
-                    cylinder: `<svg width="120" height="130" viewBox="0 0 120 130">
-                        <path d="M25,30 L25,100 A35,14 0 0,0 95,100 L95,30 Z" fill="#34d399" stroke="#ffffff" stroke-width="2.5"/>
-                        <ellipse cx="60" cy="30" rx="35" ry="14" fill="#6ee7b7" stroke="#ffffff" stroke-width="2.5"/>
-                    </svg>`,
-                    sphere: `<svg width="120" height="120" viewBox="0 0 120 120">
-                        <defs><radialGradient id="ballGrad" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fda4af"/><stop offset="60%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#881337"/></radialGradient></defs>
-                        <circle cx="60" cy="60" r="48" fill="url(#ballGrad)" stroke="#ffffff" stroke-width="2"/>
-                    </svg>`,
-                    cone: `<svg width="120" height="130" viewBox="0 0 120 130">
-                        <polygon points="60,15 22,102 98,102" fill="#c084fc" stroke="#ffffff" stroke-width="2.5"/>
-                        <ellipse cx="60" cy="102" rx="38" ry="12" fill="#a855f7" stroke="#ffffff" stroke-width="2.5"/>
-                    </svg>`
-                };
-                return shapes[type] || '';
-            },
-            // Draws Ten Frame
-            tenFrame: (filledCount) => {
-                let cells = '';
-                for (let i = 0; i < 10; i++) {
-                    const dot = i < filledCount ? `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gold-400 shadow-md"></div>` : '';
-                    cells += `<div class="w-11 h-11 sm:w-12 sm:h-12 border-2 border-slate-500 flex items-center justify-center bg-navy-900">${dot}</div>`;
-                }
-                return `<div class="grid grid-cols-5 border-2 border-gold-400 rounded-lg overflow-hidden">${cells}</div>`;
-            }
-        };
-
-        /* -------------------- 3. 30 COMPREHENSIVE GRADE 1 QUESTIONS -------------------- */
-        const questionsBank = [
-            // --- TOPIC 1: Counting & Numbers up to 100 (Q1 - Q6) ---
-            {
-                id: 1,
-                topic: "Counting to 100",
-                question: "How many stars are shown in the box below?",
-                visual: () => SVGHelpers.countItems(14, '⭐'),
-                options: ["12", "14", "15", "16"],
-                answer: "14",
-                explanation: "Count carefully: there are 14 yellow stars in total."
-            },
-            {
-                id: 2,
-                topic: "Counting to 100",
-                question: "What number comes right AFTER 39?",
-                visual: null,
-                options: ["38", "40", "41", "30"],
-                answer: "40",
-                explanation: "When counting forward, 40 comes immediately after 39."
-            },
-            {
-                id: 3,
-                topic: "Counting to 100",
-                question: "What number comes right BEFORE 70?",
-                visual: null,
-                options: ["69", "71", "68", "60"],
-                answer: "69",
-                explanation: "One less than 70 is 69."
-            },
-            {
-                id: 4,
-                topic: "Ten Frame Counting",
-                question: "Look at the Ten Frame. How many gold counters are there?",
-                visual: () => SVGHelpers.tenFrame(8),
-                options: ["6", "7", "8", "9"],
-                answer: "8",
-                explanation: "5 counters on the top row + 3 counters on the bottom row = 8."
-            },
-            {
-                id: 5,
-                topic: "Skip Counting",
-                question: "Complete the counting by 10s pattern: 10, 20, 30, ___, 50",
-                visual: null,
-                options: ["35", "40", "45", "60"],
-                answer: "40",
-                explanation: "Counting by tens: 10, 20, 30, 40, 50."
-            },
-            {
-                id: 6,
-                topic: "Number Words",
-                question: "Which number matches the word 'Eighteen'?",
-                visual: null,
-                options: ["8", "18", "80", "16"],
-                answer: "18",
-                explanation: "Eighteen is written as 18 (1 ten and 8 ones)."
-            },
-
-            // --- TOPIC 2: Comparing Numbers <, >, = (Q7 - Q10) ---
-            {
-                id: 7,
-                topic: "Comparing Numbers",
-                question: "Choose the correct sign to compare:   45  [ ? ]  54",
-                visual: null,
-                options: ["<", ">", "=", "+"],
-                answer: "<",
-                explanation: "45 has 4 tens while 54 has 5 tens, so 45 is less than (<) 54."
-            },
-            {
-                id: 8,
-                topic: "Comparing Numbers",
-                question: "Choose the correct sign to compare:   82  [ ? ]  28",
-                visual: null,
-                options: [">", "<", "=", "-"],
-                answer: ">",
-                explanation: "82 is greater than (>) 28 because 8 tens is larger than 2 tens."
-            },
-            {
-                id: 9,
-                topic: "Comparing Numbers",
-                question: "Choose the correct sign:   10 + 5  [ ? ]  15",
-                visual: null,
-                options: ["=", ">", "<", "≠"],
-                answer: "=",
-                explanation: "10 + 5 equals 15, so both sides are equal (=)."
-            },
-            {
-                id: 10,
-                topic: "Comparing Numbers",
-                question: "Which number is GREATER than 67?",
-                visual: null,
-                options: ["59", "66", "71", "48"],
-                answer: "71",
-                explanation: "71 is greater than 67."
-            },
-
-            // --- TOPIC 3: Addition & Subtraction within 20 (Q11 - Q18) ---
-            {
-                id: 11,
-                topic: "Addition within 20",
-                question: "Add the apples together:  7 + 5 = ?",
-                visual: () => SVGHelpers.countItems(7, '🍎', '7 Red Apples') + `<div class="mx-4 text-2xl font-bold text-gold-400">+</div>` + SVGHelpers.countItems(5, '🍏', '5 Green Apples'),
-                options: ["11", "12", "13", "14"],
-                answer: "12",
-                explanation: "7 + 5 = 12. (Make 10: 7 + 3 = 10, plus 2 more = 12)."
-            },
-            {
-                id: 12,
-                topic: "Addition within 20",
-                question: "What is  9 + 6 ?",
-                visual: null,
-                options: ["14", "15", "16", "17"],
-                answer: "15",
-                explanation: "9 + 1 = 10, and 10 + 5 = 15."
-            },
-            {
-                id: 13,
-                topic: "Subtraction within 20",
-                question: "Subtract:  14 - 6 = ?",
-                visual: null,
-                options: ["7", "8", "9", "6"],
-                answer: "8",
-                explanation: "14 - 6 = 8 because 8 + 6 = 14."
-            },
-            {
-                id: 14,
-                topic: "Subtraction within 20",
-                question: "Sara had 16 balloons. 4 balloons flew away. How many balloons are left?",
-                visual: null,
-                options: ["11", "12", "13", "20"],
-                answer: "12",
-                explanation: "16 - 4 = 12 balloons left."
-            },
-            {
-                id: 15,
-                topic: "Missing Addend",
-                question: "Find the missing number:   8 + [ ? ] = 15",
-                visual: null,
-                options: ["6", "7", "8", "9"],
-                answer: "7",
-                explanation: "Count on from 8 to 15: 8 + 7 = 15."
-            },
-            {
-                id: 16,
-                topic: "Doubles Facts",
-                question: "What is the double of 7?   (7 + 7 = ?)",
-                visual: null,
-                options: ["12", "14", "16", "15"],
-                answer: "14",
-                explanation: "Double 7 is 7 + 7 = 14."
-            },
-            {
-                id: 17,
-                topic: "Addition within 20",
-                question: "Solve:   11 + 8 = ?",
-                visual: null,
-                options: ["18", "19", "20", "17"],
-                answer: "19",
-                explanation: "11 + 8 = 19."
-            },
-            {
-                id: 18,
-                topic: "Subtraction within 20",
-                question: "Solve:   20 - 10 = ?",
-                visual: null,
-                options: ["0", "5", "10", "15"],
-                answer: "10",
-                explanation: "2 tens minus 1 ten equals 1 ten (10)."
-            },
-
-            // --- TOPIC 4: Place Value - Tens & Ones (Q19 - Q22) ---
-            {
-                id: 19,
-                topic: "Place Value (Tens & Ones)",
-                question: "Look at the blocks. What number do they show?",
-                visual: () => SVGHelpers.placeValue(3, 4),
-                options: ["43", "34", "30", "7"],
-                answer: "34",
-                explanation: "3 Tens (30) + 4 Ones (4) = 34."
-            },
-            {
-                id: 20,
-                topic: "Place Value (Tens & Ones)",
-                question: "How many TENS are in the number 62?",
-                visual: null,
-                options: ["2", "6", "60", "8"],
-                answer: "6",
-                explanation: "In 62, the digit 6 is in the Tens place (6 tens)."
-            },
-            {
-                id: 21,
-                topic: "Place Value (Tens & Ones)",
-                question: "5 Tens and 9 Ones make which number?",
-                visual: null,
-                options: ["95", "59", "509", "14"],
-                answer: "59",
-                explanation: "5 Tens = 50, plus 9 Ones = 59."
-            },
-            {
-                id: 22,
-                topic: "Place Value (Tens & Ones)",
-                question: "What is the VALUE of the digit 7 in 73?",
-                visual: null,
-                options: ["7", "3", "70", "73"],
-                answer: "70",
-                explanation: "7 is in the tens place, so its value is 70."
-            },
-
-            // --- TOPIC 5: 2D & 3D Geometric Shapes (Q23 - Q26) ---
-            {
-                id: 23,
-                topic: "2D Shapes",
-                question: "What is the name of this 2D shape with 3 sides and 3 vertices?",
-                visual: () => SVGHelpers.shape('triangle'),
-                options: ["Square", "Circle", "Triangle", "Rectangle"],
-                answer: "Triangle",
-                explanation: "A Triangle has 3 straight sides and 3 corners (vertices)."
-            },
-            {
-                id: 24,
-                topic: "3D Shapes",
-                question: "Identify this 3D solid shape (shaped like a dice or box):",
-                visual: () => SVGHelpers.shape('cube'),
-                options: ["Sphere", "Cube", "Cylinder", "Cone"],
-                answer: "Cube",
-                explanation: "A Cube is a 3D shape with 6 flat square faces."
-            },
-            {
-                id: 25,
-                topic: "3D Shapes",
-                question: "Which 3D shape looks like a soda can and can roll?",
-                visual: () => SVGHelpers.shape('cylinder'),
-                options: ["Cylinder", "Cube", "Pyramid", "Triangle"],
-                answer: "Cylinder",
-                explanation: "A Cylinder has 2 flat circular faces and 1 curved surface."
-            },
-            {
-                id: 26,
-                topic: "3D Shapes",
-                question: "A basketball or globe is shaped like which 3D solid?",
-                visual: () => SVGHelpers.shape('sphere'),
-                options: ["Cone", "Cube", "Sphere", "Rectangle"],
-                answer: "Sphere",
-                explanation: "A Sphere is completely round like a ball with 0 flat faces."
-            },
-
-            // --- TOPIC 6: Telling Time (Q27 - Q28) ---
-            {
-                id: 27,
-                topic: "Telling Time",
-                question: "What time does the analog clock show?",
-                visual: () => SVGHelpers.clock(4, 0),
-                options: ["12:04", "4:00", "4:30", "3:00"],
-                answer: "4:00",
-                explanation: "The short hour hand points to 4 and the long minute hand points to 12, so it is 4:00 (4 o'clock)."
-            },
-            {
-                id: 28,
-                topic: "Telling Time",
-                question: "Look closely at the hands. What time is shown on the clock?",
-                visual: () => SVGHelpers.clock(9, 30),
-                options: ["9:00", "6:09", "9:30", "10:30"],
-                answer: "9:30",
-                explanation: "The hour hand is halfway between 9 and 10, and the minute hand is on 6 (30 minutes), so it is 9:30 (Half past 9)."
-            },
-
-            // --- TOPIC 7: Ordering Numbers (Q29 - Q30) ---
-            {
-                id: 29,
-                topic: "Ordering Numbers",
-                question: "Order these numbers from SMALLEST to GREATEST (Ascending):   34,  12,  29",
-                visual: null,
-                options: ["34, 29, 12", "12, 29, 34", "29, 12, 34", "12, 34, 29"],
-                answer: "12, 29, 34",
-                explanation: "From smallest to greatest: 12 is smallest, then 29, then 34."
-            },
-            {
-                id: 30,
-                topic: "Ordering Numbers",
-                question: "Order these numbers from GREATEST to SMALLEST (Descending):   51,  88,  19",
-                visual: null,
-                options: ["19, 51, 88", "88, 19, 51", "88, 51, 19", "51, 88, 19"],
-                answer: "88, 51, 19",
-                explanation: "From greatest to smallest: 88 is largest, followed by 51, and 19 is smallest."
-            }
-        ];
-
-        /* -------------------- 4. APPLICATION STATE -------------------- */
-        let currentIndex = 0;
-        let score = 0;
-        let userAnswers = []; // Stores { questionObj, selected, isCorrect }
-        let studentName = "Math Hero";
-        let timerInterval = null;
-        let elapsedSeconds = 0;
-        let questionAnswered = false;
-
-        /* -------------------- 5. QUIZ FLOW FUNCTIONS -------------------- */
-        function startQuiz() {
-            const nameInput = document.getElementById('student-name').value.trim();
-            studentName = nameInput || "Math Hero";
-
-            initAudio();
-            playTone(440, 'sine', 0, 0.12, 0.2);
-            playTone(554.37, 'sine', 0.1, 0.18, 0.2);
-
-            // Reset state
-            currentIndex = 0;
-            score = 0;
-            userAnswers = [];
-            elapsedSeconds = 0;
-
-            // Switch screens
-            document.getElementById('welcome-screen').classList.add('hidden');
-            document.getElementById('results-screen').classList.add('hidden');
-            document.getElementById('quiz-screen').classList.remove('hidden');
-            document.getElementById('quiz-screen').classList.add('flex');
-            document.getElementById('header-timer-badge').classList.remove('hidden');
-            document.getElementById('header-timer-badge').classList.add('flex');
-
-            startTimer();
-            renderQuestion();
-        }
-
-        function startTimer() {
-            clearInterval(timerInterval);
-            updateTimerDisplay();
-            timerInterval = setInterval(() => {
-                elapsedSeconds++;
-                updateTimerDisplay();
-            }, 1000);
-        }
-
-        function updateTimerDisplay() {
-            const mins = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
-            const secs = String(elapsedSeconds % 60).padStart(2, '0');
-            document.getElementById('timer-display').textContent = `${mins}:${secs}`;
-        }
-
-        function renderQuestion() {
-            questionAnswered = false;
-            const q = questionsBank[currentIndex];
-
-            // Update Progress & Header
-            document.getElementById('q-current').textContent = currentIndex + 1;
-            document.getElementById('q-topic-badge').textContent = q.topic;
-            document.getElementById('live-score').textContent = score;
-            const pct = ((currentIndex + 1) / questionsBank.length) * 100;
-            document.getElementById('progress-bar').style.width = `${pct}%`;
-
-            // Animate Card
-            const card = document.getElementById('question-card');
-            card.classList.remove('animate-pop');
-            void card.offsetWidth; // trigger reflow
-            card.classList.add('animate-pop');
-
-            // Question Text
-            document.getElementById('question-text').textContent = q.question;
-
-            // Visual SVG
-            const visualContainer = document.getElementById('visual-container');
-            if (q.visual) {
-                visualContainer.innerHTML = q.visual();
-                visualContainer.classList.remove('hidden');
-            } else {
-                visualContainer.innerHTML = '';
-                visualContainer.classList.add('hidden');
-            }
-
-            // Hide Feedback Banner
-            document.getElementById('feedback-banner').classList.add('hidden');
-
-            // Render Options
-            const optionsGrid = document.getElementById('options-grid');
-            optionsGrid.innerHTML = '';
-            const letters = ['A', 'B', 'C', 'D'];
-
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "option-btn w-full p-4 rounded-2xl bg-navy-900/90 border-2 border-slate-700 text-left flex items-center gap-4 font-display text-lg sm:text-xl font-semibold text-white cursor-pointer";
-                btn.innerHTML = `
-                    <span class="w-9 h-9 rounded-xl bg-navy-800 border border-gold-400/30 text-gold-400 flex items-center justify-center text-sm font-bold shrink-0">
-                        ${letters[idx]}
-                    </span>
-                    <span class="flex-grow">${opt}</span>
-                `;
-                btn.onclick = () => handleAnswer(opt, btn);
-                optionsGrid.appendChild(btn);
-            });
-        }
-
-        function handleAnswer(selectedOption, clickedBtn) {
-            if (questionAnswered) return;
-            questionAnswered = true;
-
-            const q = questionsBank[currentIndex];
-            const isCorrect = selectedOption === q.answer;
-
-            if (isCorrect) {
-                score++;
-                document.getElementById('live-score').textContent = score;
-                playCorrectSound();
-            } else {
-                playWrongSound();
-            }
-
-            userAnswers.push({
-                questionObj: q,
-                selected: selectedOption,
-                isCorrect: isCorrect
-            });
-
-            // Style all buttons
-            const allBtns = document.getElementById('options-grid').querySelectorAll('button');
-            allBtns.forEach(btn => {
-                btn.disabled = true;
-                const optText = btn.querySelector('span:last-child').textContent;
-
-                if (optText === q.answer) {
-                    btn.classList.remove('border-slate-700', 'bg-navy-900/90');
-                    btn.classList.add('border-emerald-400', 'bg-emerald-500/20', 'text-emerald-200');
-                    btn.querySelector('span:first-child').classList.add('bg-emerald-500', 'text-navy-950');
-                } else if (btn === clickedBtn && !isCorrect) {
-                    btn.classList.remove('border-slate-700', 'bg-navy-900/90');
-                    btn.classList.add('border-rose-500', 'bg-rose-500/20', 'text-rose-200');
-                    btn.querySelector('span:first-child').classList.add('bg-rose-500', 'text-white');
-                } else {
-                    btn.classList.add('opacity-50');
-                }
-            });
-
-            // Show Feedback Banner
-            const banner = document.getElementById('feedback-banner');
-            const fIcon = document.getElementById('feedback-icon');
-            const fTitle = document.getElementById('feedback-title');
-            const fExp = document.getElementById('feedback-explanation');
-            const nextBtn = document.getElementById('next-btn');
-
-            banner.classList.remove('hidden', 'bg-emerald-500/15', 'border-emerald-400/50', 'text-emerald-200', 'bg-rose-500/15', 'border-rose-400/50', 'text-rose-200');
-
-            if (isCorrect) {
-                banner.classList.add('bg-emerald-500/15', 'border-emerald-400/50', 'text-emerald-200');
-                fIcon.textContent = '🌟';
-                fTitle.textContent = 'Brilliant! Correct Answer!';
-            } else {
-                banner.classList.add('bg-rose-500/15', 'border-rose-400/50', 'text-rose-200');
-                fIcon.textContent = '💡';
-                fTitle.textContent = `Not quite! The correct answer is ${q.answer}`;
-            }
-
-            fExp.textContent = q.explanation;
-            nextBtn.textContent = currentIndex === questionsBank.length - 1 ? 'Finish & See Score 🏆' : 'Next Question ➔';
-        }
-
-        function nextQuestion() {
-            if (currentIndex < questionsBank.length - 1) {
-                currentIndex++;
-                renderQuestion();
-            } else {
-                finishQuiz();
-            }
-        }
-
-        function finishQuiz() {
-            clearInterval(timerInterval);
-            playFanfareSound();
-
-            document.getElementById('quiz-screen').classList.add('hidden');
-            document.getElementById('quiz-screen').classList.remove('flex');
-            document.getElementById('header-timer-badge').classList.add('hidden');
-            document.getElementById('results-screen').classList.remove('hidden');
-            document.getElementById('results-screen').classList.add('flex');
-
-            const percent = Math.round((score / questionsBank.length) * 100);
-            const mins = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
-            const secs = String(elapsedSeconds % 60).padStart(2, '0');
-
-            document.getElementById('result-greeting').textContent = `Congratulations, ${studentName}!`;
-            document.getElementById('final-score').textContent = `${score}/${questionsBank.length}`;
-            document.getElementById('final-percent').textContent = `${percent}%`;
-            document.getElementById('final-time').textContent = `${mins}:${secs}`;
-
-            let msg = "";
-            if (percent >= 90) msg = "Outstanding Math Genius! You mastered the Grade 1 First Term syllabus!";
-            else if (percent >= 75) msg = "Great job! You have a strong understanding of Grade 1 Math!";
-            else msg = "Good effort! Review the explanations below and try again to boost your score!";
-            document.getElementById('result-message').textContent = msg;
-
-            // Populate Certificate Data
-            document.getElementById('cert-student-name').textContent = studentName;
-            document.getElementById('cert-score').textContent = `${score} / ${questionsBank.length} (${percent}%)`;
-            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            document.getElementById('cert-date').textContent = today;
-
-            renderReviewList('all');
-        }
-
-        function renderReviewList(filter) {
-            const list = document.getElementById('review-list');
-            list.innerHTML = '';
-
-            // Update filter button styles
-            const btnAll = document.getElementById('filter-all');
-            const btnWrong = document.getElementById('filter-wrong');
-            if (filter === 'all') {
-                btnAll.className = "px-3 py-1.5 rounded-lg bg-gold-400 text-navy-950 font-bold";
-                btnWrong.className = "px-3 py-1.5 rounded-lg bg-navy-900 text-rose-400 border border-rose-500/30 font-bold";
-            } else {
-                btnWrong.className = "px-3 py-1.5 rounded-lg bg-rose-500 text-white font-bold";
-                btnAll.className = "px-3 py-1.5 rounded-lg bg-navy-900 text-slate-300 border border-slate-700 font-bold";
-            }
-
-            const items = filter === 'wrong' ? userAnswers.filter(a => !a.isCorrect) : userAnswers;
-
-            if (items.length === 0) {
-                list.innerHTML = `<div class="text-center py-8 text-emerald-400 font-display text-lg">🎉 Zero mistakes! Perfect score!</div>`;
-                return;
-            }
-
-            items.forEach((item) => {
-                const q = item.questionObj;
-                const borderClass = item.isCorrect ? 'border-emerald-500/40 bg-emerald-950/20' : 'border-rose-500/40 bg-rose-950/20';
-                const badge = item.isCorrect 
-                    ? `<span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-400 text-xs font-bold">✓ Correct</span>`
-                    : `<span class="px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-400 text-xs font-bold">✕ Incorrect</span>`;
-
-                const div = document.createElement('div');
-                div.className = `p-4 sm:p-5 rounded-2xl border ${borderClass}`;
-                div.innerHTML = `
-                    <div class="flex items-center justify-between gap-2 mb-2">
-                        <span class="text-xs font-bold text-gold-400 uppercase">Question #${q.id} • ${q.topic}</span>
-                        ${badge}
-                    </div>
-                    <p class="font-display font-semibold text-white text-base sm:text-lg mb-3">${q.question}</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm mb-2">
-                        <div class="p-2.5 rounded-xl bg-navy-950/80 border border-slate-800">
-                            <span class="text-slate-400">Your Answer: </span>
-                            <strong class="${item.isCorrect ? 'text-emerald-400' : 'text-rose-400'}">${item.selected}</strong>
-                        </div>
-                        <div class="p-2.5 rounded-xl bg-navy-950/80 border border-slate-800">
-                            <span class="text-slate-400">Correct Answer: </span>
-                            <strong class="text-emerald-400">${q.answer}</strong>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-300 bg-navy-900/60 p-2.5 rounded-xl border border-slate-800">
-                        <strong class="text-gold-300">Explanation:</strong> ${q.explanation}
-                    </p>
-                `;
-                list.appendChild(div);
-            });
-        }
-
-        function filterReview(type) {
-            renderReviewList(type);
-        }
-
-        function restartQuiz() {
-            document.getElementById('results-screen').classList.add('hidden');
-            document.getElementById('results-screen').classList.remove('flex');
-            document.getElementById('welcome-screen').classList.remove('hidden');
-        }
-
-        /* -------------------- 6. CERTIFICATE MODAL & CANVAS PNG DOWNLOAD -------------------- */
-        function openCertificate() {
-            document.getElementById('certificate-modal').classList.remove('hidden');
-        }
-
-        function closeCertificate() {
-            document.getElementById('certificate-modal').classList.add('hidden');
-        }
-
-        function downloadCertificateCanvas() {
-            const canvas = document.getElementById('cert-canvas');
-            const ctx = canvas.getContext('2d');
-            const percent = Math.round((score / questionsBank.length) * 100);
-            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-            // Background
-            ctx.fillStyle = '#fffbeb';
-            ctx.fillRect(0, 0, 1200, 850);
-
-            // Outer Navy Border
-            ctx.strokeStyle = '#0b152b';
-            ctx.lineWidth = 24;
-            ctx.strokeRect(24, 24, 1152, 802);
-
-            // Inner Gold Border
-            ctx.strokeStyle = '#eab308';
-            ctx.lineWidth = 8;
-            ctx.strokeRect(48, 48, 1104, 754);
-
-            // Academy Emblem Circle
-            ctx.fillStyle = '#0b152b';
-            ctx.beginPath();
-            ctx.arc(600, 140, 48, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.fillStyle = '#facc15';
-            ctx.font = 'bold 48px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('∑', 600, 156);
-
-            // Academy Titles
-            ctx.fillStyle = '#0b152b';
-            ctx.font = 'bold 42px sans-serif';
-            ctx.fillText('EL-MOLT MATH ACADEMY', 600, 240);
-
-            ctx.fillStyle = '#b45309';
-            ctx.font = 'bold 30px sans-serif';
-            ctx.fillText('أكاديمية الملط رياضيات', 600, 285);
-
-            // Ribbon Badge
-            ctx.fillStyle = '#0b152b';
-            ctx.fillRect(410, 315, 380, 44);
-            ctx.fillStyle = '#facc15';
-            ctx.font = 'bold 20px sans-serif';
-            ctx.fillText('CERTIFICATE OF EXCELLENCE', 600, 344);
-
-            // Awarded To
-            ctx.fillStyle = '#475569';
-            ctx.font = '24px sans-serif';
-            ctx.fillText('This certificate is proudly presented to', 600, 415);
-
-            // Student Name
-            ctx.fillStyle = '#0b152b';
-            ctx.font = 'bold 54px sans-serif';
-            ctx.fillText(studentName, 600, 490);
-
-            // Underline
-            ctx.strokeStyle = '#eab308';
-            ctx.lineWidth = 4;
-            ctx.beginPath();
-            ctx.moveTo(300, 510);
-            ctx.lineTo(900, 510);
-            ctx.stroke();
-
-            // Description
-            ctx.fillStyle = '#334155';
-            ctx.font = '24px sans-serif';
-            ctx.fillText('For successfully completing the Grade 1 Mathematics First Term Final Revision', 600, 565);
-            ctx.font = 'bold 28px sans-serif';
-            ctx.fillStyle = '#0b152b';
-            ctx.fillText(`Final Score: ${score} / ${questionsBank.length} (${percent}%)`, 600, 615);
-
-            // Footer Info
-            ctx.font = '20px sans-serif';
-            ctx.fillStyle = '#475569';
-            ctx.textAlign = 'left';
-            ctx.fillText(`Date: ${today}`, 110, 730);
-
-            ctx.textAlign = 'right';
-            ctx.fillStyle = '#0b152b';
-            ctx.font = 'bold 22px sans-serif';
-            ctx.fillText('El-Molt Math Academy', 1090, 725);
-            ctx.fillStyle = '#b45309';
-            ctx.font = '18px sans-serif';
-            ctx.fillText('Grade 1 Mathematics Department', 1090, 752);
-
-            // Gold Seal
-            ctx.fillStyle = '#eab308';
-            ctx.beginPath();
-            ctx.arc(600, 725, 45, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.fillStyle = '#0b152b';
-            ctx.textAlign = 'center';
-            ctx.font = 'bold 16px sans-serif';
-            ctx.fillText('★ STAR ★', 600, 722);
-            ctx.fillText('GRADE 1', 600, 742);
-
-            // Trigger Download
-            const link = document.createElement('a');
-            link.download = `El-Molt_Math_Certificate_${studentName.replace(/\s+/g, '_')}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-    </script>
-</body>
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El-Molt Math Academy - Grade 1 Quiz</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b152b;--gold:#facc15;--ink:#0f172a;--muted:#64748b}
+body{font-family:Arial,Helvetica,sans-serif;background:#0b152b;color:#fff;min-height:100vh;padding:0 12px 30px}
+.math,.math *{direction:ltr!important;unicode-bidi:isolate;text-align:left}
+.wrap{max-width:760px;margin:0 auto}
+/* HEADER - compact */
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 2px 8px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:46px;height:46px;flex:0 0 46px;border-radius:14px;background:var(--gold);color:#0b152b;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900}
+.brand b{font-size:15px;line-height:1.25;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand span{font-family:Tahoma;color:var(--gold);font-size:12px;font-weight:700}
+.pill{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);padding:8px 12px;border-radius:999px;font-size:13px;white-space:nowrap}
+.pill button{background:none;border:0;color:#fff;font:inherit;cursor:pointer}
+/* CARDS */
+.card{background:#fff;color:var(--ink);border-radius:26px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.hero{text-align:center;background:linear-gradient(180deg,#fff,#fff7cc);padding:28px 20px}
+.hero h1{font-size:34px;line-height:1.15;color:#0b152b}
+.hero .sub{color:#b45309;font-weight:900;margin-top:6px}
+.hero p{color:var(--muted);line-height:1.65;font-size:14px;max-width:560px;margin:10px auto 0}
+.field{max-width:440px;margin:18px auto 0;text-align:left}
+.field label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;font-weight:700}
+.field input{width:100%;padding:14px;border-radius:14px;border:2px solid #e2e8f0;font-size:16px;outline:none}
+.field input:focus{border-color:var(--gold)}
+.btn{border:0;cursor:pointer;border-radius:14px;padding:14px 24px;font-weight:900;font-size:16px}
+.btn-gold{background:var(--gold);color:#0b152b;box-shadow:0 8px 20px rgba(250,204,21,.35)}
+.btn-ghost{background:#0b152b;color:#fff}
+.hidden{display:none!important}
+/* PROGRESS */
+.progress-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:#e2e8f0;margin:10px 2px 8px}
+.badge{background:var(--gold);color:#0b152b;font-weight:900;font-size:12px;padding:8px 13px;border-radius:999px}
+.bar{height:10px;background:rgba(255,255,255,.14);border-radius:999px;overflow:hidden;margin:0 2px 14px}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:999px}
+/* QUESTION */
+.q{font-size:24px;line-height:1.45;font-weight:900;color:#0b152b}
+/* COUNT BOX - stars easy to count */
+.count-box{background:#fefce8;border:2.5px solid #facc15;border-radius:20px;padding:16px 14px;margin:18px 0 4px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.count-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.count-item{font-size:38px;line-height:1;display:inline-block}
+.count-label{font-size:13px;font-weight:800;color:#92400e;background:#fde68a;padding:5px 12px;border-radius:999px}
+/* OPTIONS - big, separated, clear */
+.options{display:flex;flex-direction:column;gap:16px;margin-top:20px}
+.opt{display:flex!important;align-items:center;gap:18px;width:100%;min-height:88px;text-align:left;background:#f8fafc!important;border:2.5px solid #cbd5e1!important;color:#0b152b!important;padding:16px 18px;border-radius:20px;font-size:26px;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #cbd5e1;transition:.15s}
+.opt:hover{border-color:#0b152b!important;transform:translateY(-1px)}
+.opt:active{transform:translateY(2px);box-shadow:0 1px 0 #cbd5e1}
+.opt .letter{width:56px;height:56px;flex:0 0 56px;border-radius:50%;background:#0b152b;color:#facc15;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+.opt .opt-val{font-size:30px;line-height:1;letter-spacing:.5px}
+.opt.correct{border-color:#16a34a!important;background:#dcfce7!important;box-shadow:0 4px 0 #16a34a}
+.opt.correct .letter{background:#16a34a;color:#fff}
+.opt.wrong{border-color:#dc2626!important;background:#fee2e2!important;box-shadow:0 4px 0 #dc2626}
+.opt.wrong .letter{background:#dc2626;color:#fff}
+.opt.dim{opacity:.45}
+.feedback{margin-top:18px;padding:14px;border-radius:16px;display:none;font-size:14px;line-height:1.6}
+.feedback.show{display:block}
+.feedback.ok{background:#dcfce7;color:#14532d;border:2px solid #86efac}
+.feedback.bad{background:#fee2e2;color:#7f1d1d;border:2px solid #fca5a5}
+/* RESULTS */
+.results{text-align:center}
+.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0}
+.stat{background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;padding:12px 18px;min-width:110px}
+.stat small{display:block;color:var(--muted);font-size:11px;font-weight:800}
+.stat b{font-size:22px;color:#0b152b}
+.review-item{border:2px solid #e2e8f0;border-radius:16px;padding:14px;margin-bottom:12px;background:#f8fafc;text-align:left}
+.review-item .meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#b45309;font-weight:900;margin-bottom:8px;flex-wrap:wrap}
+.ans{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;font-size:14px}
+@media(max-width:560px){.ans{grid-template-columns:1fr}.q{font-size:21px}.count-item{font-size:34px}.count-row{gap:11px}.opt{min-height:80px}.opt .opt-val{font-size:27px}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;padding:14px;z-index:50}
+.modal.show{display:flex}
+.cert{background:#fffbeb;color:#0b152b;border-radius:22px;max-width:520px;width:100%;padding:22px;text-align:center;position:relative}
+.cert .close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.08);cursor:pointer;font-weight:900}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><div class="logo">∑</div><div><b>EL-MOLT MATH ACADEMY</b><span dir="rtl">أكاديمية الملط رياضيات</span></div></div>
+  <div style="display:flex;gap:8px">
+    <div class="pill" id="timer-pill" style="display:none">⏱ <b class="math" id="timer-display" dir="ltr">00:00</b></div>
+    <div class="pill"><button onclick="toggleSound()"><span id="sound-icon">🔊</span> <span id="sound-label">Sound ON</span></button></div>
+  </div>
+</header>
+
+<section id="welcome-screen" class="card hero">
+  <div style="font-size:52px">🏆</div>
+  <h1>Grade 1<br>Mathematics</h1>
+  <div class="sub">First Term Final Revision • 30 Questions</div>
+  <p>Counting, Comparing, Addition, Subtraction, Place Value, Shapes and Time. All numbers and math expressions are written left-to-right.</p>
+  <div class="field"><label>Student Name</label><input id="student-name" placeholder="Enter your name" dir="ltr"></div>
+  <button class="btn btn-gold" style="margin-top:16px" onclick="startQuiz()">Start Quiz ➔</button>
+</section>
+
+<section id="quiz-screen" class="hidden">
+  <div class="progress-row"><span class="badge" id="q-topic-badge">Topic</span><span>Question <b class="math" id="q-current">1</b> / <b class="math">30</b> • Score: <b class="math" id="live-score" style="color:var(--gold)">0</b></span></div>
+  <div class="bar"><i id="progress-bar" style="width:3%"></i></div>
+  <div class="card" id="question-card">
+    <div class="q math" id="question-text" dir="ltr"></div>
+    <div id="visual-container" style="display:flex;justify-content:center"></div>
+    <div class="options math" id="options-grid" dir="ltr"></div>
+    <div class="feedback" id="feedback-banner"><b><span id="feedback-icon"></span> <span id="feedback-title"></span></b><p id="feedback-explanation"></p><button class="btn btn-gold" id="next-btn" style="margin-top:12px" onclick="nextQuestion()">Next Question ➔</button></div>
+  </div>
+</section>
+
+<section id="results-screen" class="hidden">
+  <div class="card results"><div style="font-size:48px">🎉</div><h2 id="result-greeting" style="font-size:27px;margin:8px 0">Congratulations!</h2><p id="result-message" style="color:var(--muted);line-height:1.6"></p>
+    <div class="stats"><div class="stat"><small>SCORE</small><b class="math" id="final-score">0/30</b></div><div class="stat"><small>PERCENT</small><b class="math" id="final-percent">0%</b></div><div class="stat"><small>TIME</small><b class="math" id="final-time">00:00</b></div></div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-gold" onclick="openCertificate()">View Certificate 🏅</button><button class="btn btn-ghost" onclick="restartQuiz()">Try Again ↻</button></div>
+  </div>
+  <div class="card" style="margin-top:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px"><h3>Review Answers</h3><div style="display:flex;gap:8px"><button class="btn btn-gold" id="filter-all" style="padding:9px 14px;font-size:13px" onclick="filterReview('all')">All</button><button class="btn" id="filter-wrong" style="padding:9px 14px;font-size:13px;background:#fff;color:#dc2626;border:2px solid #fecaca" onclick="filterReview('wrong')">Wrong Only</button></div></div><div id="review-list"></div></div>
+</section>
+</div>
+
+<div class="modal" id="certificate-modal"><div class="cert"><button class="close" onclick="closeCertificate()">✕</button><div style="font-size:38px">🏅</div><h3>EL-MOLT MATH ACADEMY</h3><div style="font-family:Tahoma;color:#b45309;font-weight:800" dir="rtl">أكاديمية الملط رياضيات</div><div style="display:inline-block;background:#0b152b;color:#facc15;padding:7px 14px;border-radius:999px;font-size:11px;font-weight:900;margin:10px 0">CERTIFICATE OF EXCELLENCE</div><p style="color:#64748b;font-size:13px">This certificate is proudly presented to</p><div style="font-size:30px;font-weight:900;border-bottom:3px solid #facc15;display:inline-block;padding-bottom:6px;margin:6px 0" id="cert-student-name">Math Hero</div><p style="font-size:13px;color:#475569;line-height:1.6">For successfully completing the Grade 1 Mathematics First Term Final Revision</p><p style="font-weight:900;margin-top:8px">Final Score: <span class="math" id="cert-score" dir="ltr">0 / 30 (0%)</span></p><p style="font-size:13px;color:#64748b;margin-top:6px">Date: <span id="cert-date"></span></p><button class="btn" style="background:#0b152b;color:#fff;width:100%;margin-top:14px" onclick="downloadCertificateCanvas()">Download Certificate as PNG ⬇</button></div></div>
+<canvas id="cert-canvas" width="1200" height="850" style="display:none"></canvas>
+<script>
+
+
+/* ===== تم تعديل كل الأرقام والتعبيرات لتكون LTR ولاتينية ===== */
+let soundEnabled=true; let audioCtx=null;
+function initAudio(){ if(!audioCtx){ const AC=window.AudioContext||window.webkitAudioContext; audioCtx=new AC(); } if(audioCtx.state==='suspended') audioCtx.resume(); }
+function toggleSound(){ soundEnabled=!soundEnabled; document.getElementById('sound-icon').textContent=soundEnabled?'🔊':'🔇'; document.getElementById('sound-label').textContent=soundEnabled?'Sound ON':'Sound OFF'; if(soundEnabled){initAudio(); playTone(523.25,'sine',0,0.1,0.15);} }
+function playTone(freq,type,off,dur,vol=0.2){ if(!soundEnabled) return; try{ initAudio(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type=type; o.frequency.setValueAtTime(freq,audioCtx.currentTime+off); g.gain.setValueAtTime(vol,audioCtx.currentTime+off); g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+off+dur); o.connect(g); g.connect(audioCtx.destination); o.start(audioCtx.currentTime+off); o.stop(audioCtx.currentTime+off+dur);}catch(e){} }
+function playCorrectSound(){ playTone(523.25,'triangle',0,0.14,0.25); playTone(659.25,'triangle',0.1,0.14,0.25); playTone(783.99,'triangle',0.2,0.28,0.28); }
+function playWrongSound(){ playTone(240,'sawtooth',0,0.18,0.18); playTone(190,'sawtooth',0.15,0.28,0.18); }
+function playFanfareSound(){ [523.25,659.25,783.99,1046.50].forEach((n,i)=>playTone(n,'triangle',i*0.12,0.35,0.25)); }
+
+const SVGHelpers={
+ countItems:(count,emoji='🍎',label='')=>{ let rows=''; const per=7; for(let s=0;s<count;s+=per){ let row=''; for(let i=s;i<Math.min(s+per,count);i++) row+=`<span style="font-size:38px;line-height:1">${emoji}</span>`; rows+=`<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">${row}</div>`; } return `<div style="background:#fefce8;border:2.5px solid #facc15;border-radius:20px;padding:16px 14px;margin:18px 0 4px;display:flex;flex-direction:column;gap:12px;align-items:center" dir="ltr">${rows}${label?`<div style="font-size:13px;font-weight:800;color:#92400e;background:#fde68a;padding:5px 12px;border-radius:999px">${label}</div>`:''}</div>`; },
+ placeValue:(tens,ones)=>{ let th=''; for(let t=0;t<tens;t++){ let b=''; for(let x=0;x<10;x++) b+=`<div style="width:22px;height:11px;border-bottom:1px solid #0b152b;background:#facc15"></div>`; th+=`<div style="display:flex;flex-direction:column;border:2px solid #facc15;border-radius:4px;overflow:hidden">${b}</div>`; } let oh=''; for(let o=0;o<ones;o++) oh+=`<div style="width:22px;height:22px;background:#38bdf8;border:1px solid #bae6fd;border-radius:4px"></div>`; return `<div style="display:flex;align-items:flex-end;justify-content:center;gap:32px;background:#fefce8;border:2.5px solid #facc15;border-radius:20px;padding:16px;margin:18px 0 4px" dir="ltr"><div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="display:flex;gap:6px;align-items:flex-end;min-height:115px">${th}</div><span style="font-size:12px;font-weight:900;color:#b45309">TENS</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">${oh}</div><span style="font-size:12px;font-weight:900;color:#0369a1">ONES</span></div></div>`; },
+ clock:(hour,minute)=>{ const ha=((hour%12)+minute/60)*30, ma=minute*6; let ns=''; for(let n=1;n<=12;n++){ const a=(n*30-90)*(Math.PI/180), x=75+53*Math.cos(a), y=75+53*Math.sin(a)+4; ns+=`<text x="${x}" y="${y}" text-anchor="middle" fill="#0b152b" font-size="13" font-weight="bold">${n}</text>`; } return `<div style="background:#fefce8;border:2.5px solid #facc15;border-radius:20px;padding:14px;margin:18px 0 4px;display:flex;justify-content:center"><svg width="170" height="170" viewBox="0 0 150 150"><circle cx="75" cy="75" r="70" fill="#fff" stroke="#facc15" stroke-width="6"/><circle cx="75" cy="75" r="64" fill="none" stroke="#0b152b" stroke-width="1.5"/>${ns}<line x1="75" y1="75" x2="75" y2="42" stroke="#0b152b" stroke-width="5" stroke-linecap="round" transform="rotate(${ha} 75 75)"/><line x1="75" y1="75" x2="75" y2="26" stroke="#e11d48" stroke-width="3" stroke-linecap="round" transform="rotate(${ma} 75 75)"/><circle cx="75" cy="75" r="5" fill="#eab308" stroke="#0b152b" stroke-width="2"/></svg></div>`; },
+ shape:(type)=>{ const s={ triangle:`<svg width="140" height="125" viewBox="0 0 130 120"><polygon points="65,12 118,105 12,105" fill="#facc15" stroke="#0b152b" stroke-width="3"/></svg>`, rectangle:`<svg width="170" height="115" viewBox="0 0 160 110"><rect x="15" y="20" width="130" height="70" rx="4" fill="#38bdf8" stroke="#0b152b" stroke-width="3"/></svg>`, cube:`<svg width="140" height="140" viewBox="0 0 130 130"><polygon points="35,40 85,40 85,90 35,90" fill="#facc15" stroke="#0b152b" stroke-width="2.5"/><polygon points="35,40 55,20 105,20 85,40" fill="#fde047" stroke="#0b152b" stroke-width="2.5"/><polygon points="85,40 105,20 105,70 85,90" fill="#eab308" stroke="#0b152b" stroke-width="2.5"/></svg>`, cylinder:`<svg width="130" height="140" viewBox="0 0 120 130"><path d="M25,30 L25,100 A35,14 0 0,0 95,100 L95,30 Z" fill="#34d399" stroke="#0b152b" stroke-width="2.5"/><ellipse cx="60" cy="30" rx="35" ry="14" fill="#6ee7b7" stroke="#0b152b" stroke-width="2.5"/></svg>`, sphere:`<svg width="130" height="130" viewBox="0 0 120 120"><defs><radialGradient id="ballGrad" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fda4af"/><stop offset="60%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#881337"/></radialGradient></defs><circle cx="60" cy="60" r="48" fill="url(#ballGrad)" stroke="#0b152b" stroke-width="2"/></svg>`, cone:`<svg width="130" height="140" viewBox="0 0 120 130"><polygon points="60,15 22,102 98,102" fill="#c084fc" stroke="#0b152b" stroke-width="2.5"/><ellipse cx="60" cy="102" rx="38" ry="12" fill="#a855f7" stroke="#0b152b" stroke-width="2.5"/></svg>` }; return `<div style="background:#fefce8;border:2.5px solid #facc15;border-radius:20px;padding:14px;margin:18px 0 4px;display:flex;justify-content:center">${s[type]||''}</div>`; },
+ tenFrame:(c)=>{ let cells=''; for(let i=0;i<10;i++){ const d=i<c?`<div style="width:34px;height:34px;border-radius:50%;background:#facc15;box-shadow:0 2px 4px rgba(0,0,0,.25)"></div>`:''; cells+=`<div style="width:56px;height:56px;border:2px solid #94a3b8;display:flex;align-items:center;justify-content:center;background:#fff">${d}</div>`; } return `<div style="background:#fefce8;border:2.5px solid #facc15;border-radius:20px;padding:16px;margin:18px 0 4px;display:flex;flex-direction:column;align-items:center;gap:10px" dir="ltr"><div style="font-size:13px;font-weight:900;color:#92400e">TEN FRAME - Count the gold counters</div><div style="display:grid;grid-template-columns:repeat(5,56px);border:3px solid #facc15;border-radius:12px;overflow:hidden;background:#fff">${cells}</div><div style="font-size:12px;color:#64748b">Top row = 5 &nbsp;•&nbsp; Bottom row = 5 &nbsp;•&nbsp; Total = 10</div></div>`; }
+};
+
+const questionsBank=[
+{id:1,topic:"Counting to 100",question:"How many stars are shown in the box below?",visual:()=>SVGHelpers.countItems(14,'⭐'),options:["12","14","15","16"],answer:"14",explanation:"Count carefully: there are 14 yellow stars in total."},
+{id:2,topic:"Counting to 100",question:"What number comes right AFTER 39?",visual:null,options:["38","40","41","30"],answer:"40",explanation:"When counting forward, 40 comes immediately after 39."},
+{id:3,topic:"Counting to 100",question:"What number comes right BEFORE 70?",visual:null,options:["69","71","68","60"],answer:"69",explanation:"One less than 70 is 69."},
+{id:4,topic:"Ten Frame Counting",question:"Look at the Ten Frame. How many gold counters are there?",visual:()=>SVGHelpers.tenFrame(8),options:["6","7","8","9"],answer:"8",explanation:"5 counters on the top row + 3 counters on the bottom row = 8."},
+{id:5,topic:"Skip Counting",question:"Complete the counting by 10s pattern: 10, 20, 30, ___, 50",visual:null,options:["35","40","45","60"],answer:"40",explanation:"Counting by tens: 10, 20, 30, 40, 50."},
+{id:6,topic:"Number Words",question:"Which number matches the word 'Eighteen'?",visual:null,options:["8","18","80","16"],answer:"18",explanation:"Eighteen is written as 18 (1 ten and 8 ones)."},
+{id:7,topic:"Comparing Numbers",question:"Choose the correct sign to compare:   45  [ ? ]  54",visual:null,options:["<",">","=","+"],answer:"<",explanation:"45 has 4 tens while 54 has 5 tens, so 45 is less than (<) 54."},
+{id:8,topic:"Comparing Numbers",question:"Choose the correct sign to compare:   82  [ ? ]  28",visual:null,options:[">","<","=","-"],answer:">",explanation:"82 is greater than (>) 28 because 8 tens is larger than 2 tens."},
+{id:9,topic:"Comparing Numbers",question:"Choose the correct sign:   10 + 5  [ ? ]  15",visual:null,options:["=",">","<","≠"],answer:"=",explanation:"10 + 5 equals 15, so both sides are equal (=)."},
+{id:10,topic:"Comparing Numbers",question:"Which number is GREATER than 67?",visual:null,options:["59","66","71","48"],answer:"71",explanation:"71 is greater than 67."},
+{id:11,topic:"Addition within 20",question:"Add the apples together:  7 + 5 = ?",visual:()=>SVGHelpers.countItems(7,'🍎','7 Red Apples')+`<div class="mx-4 text-2xl font-bold text-[#facc15]" dir="ltr">+</div>`+SVGHelpers.countItems(5,'🍏','5 Green Apples'),options:["11","12","13","14"],answer:"12",explanation:"7 + 5 = 12. (Make 10: 7 + 3 = 10, plus 2 more = 12)."},
+{id:12,topic:"Addition within 20",question:"What is  9 + 6 ?",visual:null,options:["14","15","16","17"],answer:"15",explanation:"9 + 1 = 10, and 10 + 5 = 15."},
+{id:13,topic:"Subtraction within 20",question:"Subtract:  14 - 6 = ?",visual:null,options:["7","8","9","6"],answer:"8",explanation:"14 - 6 = 8 because 8 + 6 = 14."},
+{id:14,topic:"Subtraction within 20",question:"Sara had 16 balloons. 4 balloons flew away. How many balloons are left?",visual:null,options:["11","12","13","20"],answer:"12",explanation:"16 - 4 = 12 balloons left."},
+{id:15,topic:"Missing Addend",question:"Find the missing number:   8 + [ ? ] = 15",visual:null,options:["6","7","8","9"],answer:"7",explanation:"Count on from 8 to 15: 8 + 7 = 15."},
+{id:16,topic:"Doubles Facts",question:"What is the double of 7?   (7 + 7 = ?)",visual:null,options:["12","14","16","15"],answer:"14",explanation:"Double 7 is 7 + 7 = 14."},
+{id:17,topic:"Addition within 20",question:"Solve:   11 + 8 = ?",visual:null,options:["18","19","20","17"],answer:"19",explanation:"11 + 8 = 19."},
+{id:18,topic:"Subtraction within 20",question:"Solve:   20 - 10 = ?",visual:null,options:["0","5","10","15"],answer:"10",explanation:"2 tens minus 1 ten equals 1 ten (10)."},
+{id:19,topic:"Place Value (Tens & Ones)",question:"Look at the blocks. What number do they show?",visual:()=>SVGHelpers.placeValue(3,4),options:["43","34","30","7"],answer:"34",explanation:"3 Tens (30) + 4 Ones (4) = 34."},
+{id:20,topic:"Place Value (Tens & Ones)",question:"How many TENS are in the number 62?",visual:null,options:["2","6","60","8"],answer:"6",explanation:"In 62, the digit 6 is in the Tens place (6 tens)."},
+{id:21,topic:"Place Value (Tens & Ones)",question:"5 Tens and 9 Ones make which number?",visual:null,options:["95","59","509","14"],answer:"59",explanation:"5 Tens = 50, plus 9 Ones = 59."},
+{id:22,topic:"Place Value (Tens & Ones)",question:"What is the VALUE of the digit 7 in 73?",visual:null,options:["7","3","70","73"],answer:"70",explanation:"7 is in the tens place, so its value is 70."},
+{id:23,topic:"2D Shapes",question:"What is the name of this 2D shape with 3 sides and 3 vertices?",visual:()=>SVGHelpers.shape('triangle'),options:["Square","Circle","Triangle","Rectangle"],answer:"Triangle",explanation:"A Triangle has 3 straight sides and 3 corners (vertices)."},
+{id:24,topic:"3D Shapes",question:"Identify this 3D solid shape (shaped like a dice or box):",visual:()=>SVGHelpers.shape('cube'),options:["Sphere","Cube","Cylinder","Cone"],answer:"Cube",explanation:"A Cube is a 3D shape with 6 flat square faces."},
+{id:25,topic:"3D Shapes",question:"Which 3D shape looks like a soda can and can roll?",visual:()=>SVGHelpers.shape('cylinder'),options:["Cylinder","Cube","Pyramid","Triangle"],answer:"Cylinder",explanation:"A Cylinder has 2 flat circular faces and 1 curved surface."},
+{id:26,topic:"3D Shapes",question:"A basketball or globe is shaped like which 3D solid?",visual:()=>SVGHelpers.shape('sphere'),options:["Cone","Cube","Sphere","Rectangle"],answer:"Sphere",explanation:"A Sphere is completely round like a ball with 0 flat faces."},
+{id:27,topic:"Telling Time",question:"What time does the analog clock show?",visual:()=>SVGHelpers.clock(4,0),options:["12:04","4:00","4:30","3:00"],answer:"4:00",explanation:"The short hour hand points to 4 and the long minute hand points to 12, so it is 4:00 (4 o'clock)."},
+{id:28,topic:"Telling Time",question:"Look closely at the hands. What time is shown on the clock?",visual:()=>SVGHelpers.clock(9,30),options:["9:00","6:09","9:30","10:30"],answer:"9:30",explanation:"The hour hand is halfway between 9 and 10, and the minute hand is on 6 (30 minutes), so it is 9:30 (Half past 9)."},
+{id:29,topic:"Ordering Numbers",question:"Order these numbers from SMALLEST to GREATEST (Ascending):   34,  12,  29",visual:null,options:["34, 29, 12","12, 29, 34","29, 12, 34","12, 34, 29"],answer:"12, 29, 34",explanation:"From smallest to greatest: 12 is smallest, then 29, then 34."},
+{id:30,topic:"Ordering Numbers",question:"Order these numbers from GREATEST to SMALLEST (Descending):   51,  88,  19",visual:null,options:["19, 51, 88","88, 19, 51","88, 51, 19","51, 88, 19"],answer:"88, 51, 19",explanation:"From greatest to smallest: 88 is largest, followed by 51, and 19 is smallest."}
+];
+
+let currentIndex=0, score=0, userAnswers=[], studentName="Math Hero", timerInterval=null, elapsedSeconds=0, questionAnswered=false;
+function startQuiz(){ const n=document.getElementById('student-name').value.trim(); studentName=n||"Math Hero"; initAudio(); playTone(440,'sine',0,0.12,0.2); playTone(554.37,'sine',0.1,0.18,0.2); currentIndex=0; score=0; userAnswers=[]; elapsedSeconds=0; document.getElementById('welcome-screen').classList.add('hidden'); document.getElementById('results-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); document.getElementById('quiz-screen').classList.add('flex'); document.getElementById('timer-pill').classList.remove('hidden'); document.getElementById('timer-pill').classList.add('flex'); startTimer(); renderQuestion(); }
+function startTimer(){ clearInterval(timerInterval); updateTimerDisplay(); timerInterval=setInterval(()=>{elapsedSeconds++; updateTimerDisplay();},1000); }
+function updateTimerDisplay(){ const m=String(Math.floor(elapsedSeconds/60)).padStart(2,'0'), s=String(elapsedSeconds%60).padStart(2,'0'); document.getElementById('timer-display').textContent=`${m}:${s}`; }
+function renderQuestion(){ questionAnswered=false; const q=questionsBank[currentIndex]; document.getElementById('q-current').textContent=currentIndex+1; document.getElementById('q-topic-badge').textContent=q.topic; document.getElementById('live-score').textContent=score; document.getElementById('progress-bar').style.width=`${((currentIndex+1)/questionsBank.length)*100}%`; const card=document.getElementById('question-card'); card.classList.remove('animate-pop'); void card.offsetWidth; card.classList.add('animate-pop'); const qt=document.getElementById('question-text'); qt.textContent=q.question; qt.setAttribute('dir','ltr'); const vc=document.getElementById('visual-container'); if(q.visual){ vc.innerHTML=q.visual(); vc.style.display='flex'; } else { vc.innerHTML=''; vc.style.display='none'; } document.getElementById('feedback-banner').classList.remove('show'); const grid=document.getElementById('options-grid'); grid.innerHTML=''; const letters=['A','B','C','D']; q.options.forEach((opt,idx)=>{ const b=document.createElement('button'); b.className="opt"; b.setAttribute('dir','ltr'); b.innerHTML=`<span class="letter">${letters[idx]}</span><span class="opt-val math" dir="ltr">${opt}</span>`; b.onclick=()=>handleAnswer(opt,b); grid.appendChild(b); }); }
+function handleAnswer(sel,btn){ if(questionAnswered) return; questionAnswered=true; const q=questionsBank[currentIndex]; const ok=sel===q.answer; if(ok){ score++; document.getElementById('live-score').textContent=score; playCorrectSound(); } else playWrongSound(); userAnswers.push({questionObj:q, selected:sel, isCorrect:ok}); document.getElementById('options-grid').querySelectorAll('button').forEach(b=>{ b.disabled=true; const t=b.querySelector('span:last-child').textContent; if(t===q.answer){ b.classList.add('correct'); } else if(b===btn && !ok){ b.classList.add('wrong'); } else b.classList.add('dim'); }); const banner=document.getElementById('feedback-banner'); banner.classList.add('show'); if(ok){ banner.className='feedback show ok'; document.getElementById('feedback-icon').textContent='🌟'; document.getElementById('feedback-title').textContent='Brilliant! Correct Answer!'; } else { banner.className='feedback show bad'; document.getElementById('feedback-icon').textContent='💡'; document.getElementById('feedback-title').textContent=`Not quite! The correct answer is ${q.answer}`; } document.getElementById('feedback-explanation').textContent=q.explanation; document.getElementById('next-btn').textContent=currentIndex===questionsBank.length-1?'Finish & See Score 🏆':'Next Question ➔'; }
+function nextQuestion(){ if(currentIndex<questionsBank.length-1){ currentIndex++; renderQuestion(); } else finishQuiz(); }
+function finishQuiz(){ clearInterval(timerInterval); playFanfareSound(); document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('flex'); document.getElementById('timer-pill').classList.add('hidden'); document.getElementById('results-screen').classList.remove('hidden'); document.getElementById('results-screen').classList.add('flex'); const pct=Math.round((score/questionsBank.length)*100); const m=String(Math.floor(elapsedSeconds/60)).padStart(2,'0'), s=String(elapsedSeconds%60).padStart(2,'0'); document.getElementById('result-greeting').textContent=`Congratulations, ${studentName}!`; document.getElementById('final-score').textContent=`${score}/${questionsBank.length}`; document.getElementById('final-percent').textContent=`${pct}%`; document.getElementById('final-time').textContent=`${m}:${s}`; document.getElementById('result-message').textContent=pct>=90?"Outstanding Math Genius! You mastered the Grade 1 First Term syllabus!":pct>=75?"Great job! You have a strong understanding of Grade 1 Math!":"Good effort! Review the explanations below and try again to boost your score!"; document.getElementById('cert-student-name').textContent=studentName; document.getElementById('cert-score').textContent=`${score} / ${questionsBank.length} (${pct}%)`; document.getElementById('cert-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); renderReviewList('all'); }
+function renderReviewList(filter){ const list=document.getElementById('review-list'); list.innerHTML=''; const bA=document.getElementById('filter-all'), bW=document.getElementById('filter-wrong'); if(filter==='all'){ bA.className="px-3 py-1.5 rounded-lg bg-[#facc15] text-[#0b152b] font-bold"; bW.className="px-3 py-1.5 rounded-lg bg-[#0b152b] text-rose-400 border border-rose-500/30 font-bold"; } else { bW.className="px-3 py-1.5 rounded-lg bg-rose-500 text-white font-bold"; bA.className="px-3 py-1.5 rounded-lg bg-[#0b152b] text-slate-300 border  font-bold"; } const items=filter==='wrong'?userAnswers.filter(a=>!a.isCorrect):userAnswers; if(!items.length){ list.innerHTML=`<div class="text-center py-8 text-emerald-400 font-display text-lg">🎉 Zero mistakes! Perfect score!</div>`; return; } items.forEach(item=>{ const q=item.questionObj; const div=document.createElement('div'); div.className='review-item'; div.innerHTML=`<div class="flex items-center justify-between gap-2 mb-2"><span class="text-xs font-bold text-[#facc15] uppercase">Question #${q.id} • ${q.topic}</span><span class="px-2.5 py-1 rounded-md text-xs font-bold ${item.isCorrect?'bg-emerald-500/20 text-emerald-400':'bg-rose-500/20 text-rose-400'}">${item.isCorrect?'✓ Correct':'✕ Incorrect'}</span></div><p class="font-semibold text-white text-base sm:text-lg mb-3 math" dir="ltr">${q.question}</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm mb-2" dir="ltr"><div class="p-2.5 rounded-xl bg-[#0b152b]/80 border border-slate-800"><span class="text-slate-400">Your Answer: </span><strong class="${item.isCorrect?'text-emerald-400':'text-rose-400'} math">${item.selected}</strong></div><div class="p-2.5 rounded-xl bg-[#0b152b]/80 border border-slate-800"><span class="text-slate-400">Correct Answer: </span><strong class="text-emerald-400 math">${q.answer}</strong></div></div><p class="text-xs text-slate-300 bg-[#0b152b]/60 p-2.5 rounded-xl border border-slate-800"><strong class="text-[#fde68a]">Explanation:</strong> ${q.explanation}</p>`; list.appendChild(div); }); }
+function filterReview(t){ renderReviewList(t); }
+function restartQuiz(){ document.getElementById('results-screen').classList.add('hidden'); document.getElementById('results-screen').classList.remove('flex'); document.getElementById('welcome-screen').classList.remove('hidden'); }
+function openCertificate(){ document.getElementById('certificate-modal').classList.add('show'); }
+function closeCertificate(){ document.getElementById('certificate-modal').classList.remove('show'); }
+function downloadCertificateCanvas(){ const canvas=document.getElementById('cert-canvas'); const ctx=canvas.getContext('2d'); const pct=Math.round((score/questionsBank.length)*100); const today=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); ctx.fillStyle='#fffbeb'; ctx.fillRect(0,0,1200,850); ctx.strokeStyle='#0b152b'; ctx.lineWidth=24; ctx.strokeRect(24,24,1152,802); ctx.strokeStyle='#eab308'; ctx.lineWidth=8; ctx.strokeRect(48,48,1104,754); ctx.fillStyle='#0b152b'; ctx.beginPath(); ctx.arc(600,140,48,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#facc15'; ctx.font='bold 48px sans-serif'; ctx.textAlign='center'; ctx.fillText('∑',600,156); ctx.fillStyle='#0b152b'; ctx.font='bold 42px sans-serif'; ctx.fillText('EL-MOLT MATH ACADEMY',600,240); ctx.fillStyle='#b45309'; ctx.font='bold 30px sans-serif'; ctx.fillText('أكاديمية الملط رياضيات',600,285); ctx.fillStyle='#0b152b'; ctx.fillRect(410,315,380,44); ctx.fillStyle='#facc15'; ctx.font='bold 20px sans-serif'; ctx.fillText('CERTIFICATE OF EXCELLENCE',600,344); ctx.fillStyle='#475569'; ctx.font='24px sans-serif'; ctx.fillText('This certificate is proudly presented to',600,415); ctx.fillStyle='#0b152b'; ctx.font='bold 54px sans-serif'; ctx.fillText(studentName,600,490); ctx.strokeStyle='#eab308'; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(300,510); ctx.lineTo(900,510); ctx.stroke(); ctx.fillStyle='#334155'; ctx.font='24px sans-serif'; ctx.fillText('For successfully completing the Grade 1 Mathematics First Term Final Revision',600,565); ctx.font='bold 28px sans-serif'; ctx.fillStyle='#0b152b'; ctx.fillText(`Final Score: ${score} / ${questionsBank.length} (${pct}%)`,600,615); ctx.font='20px sans-serif'; ctx.fillStyle='#475569'; ctx.textAlign='left'; ctx.fillText(`Date: ${today}`,110,730); ctx.textAlign='right'; ctx.fillStyle='#0b152b'; ctx.font='bold 22px sans-serif'; ctx.fillText('El-Molt Math Academy',1090,725); ctx.fillStyle='#b45309'; ctx.font='18px sans-serif'; ctx.fillText('Grade 1 Mathematics Department',1090,752); ctx.fillStyle='#eab308'; ctx.beginPath(); ctx.arc(600,725,45,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#0b152b'; ctx.textAlign='center'; ctx.font='bold 16px sans-serif'; ctx.fillText('★ STAR ★',600,722); ctx.fillText('GRADE 1',600,742); const link=document.createElement('a'); link.download=`El-Molt_Math_Certificate_${studentName.replace(/\s+/g,'_')}.png`; link.href=canvas.toDataURL('image/png'); link.click(); }
+
+
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
   
 <footer>أكاديمية الملط © 2026 - أ. محمد عبدالمنعم الملط</footer>
 
